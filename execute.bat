@@ -1,0 +1,1 @@
+java -jar build/libs/bloodtorrent-execjar.jar server src/main/resources/configurations.yml
