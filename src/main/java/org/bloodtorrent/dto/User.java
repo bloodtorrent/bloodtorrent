@@ -1,6 +1,5 @@
 package org.bloodtorrent.dto;
 
-import org.h2.table.Column;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
