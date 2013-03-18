@@ -8,6 +8,6 @@ On main page:
 #Open link "register" 
 
 On register donor page:
-#fill out the valid information to mendatory fields with existing users email address
+#Fill out the valid information to mendatory fields with existing users email address
 #Register donor
-#Verify error message
+#Verify error message existing user

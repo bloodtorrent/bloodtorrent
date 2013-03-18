@@ -1,5 +1,3 @@
-// JUnit Assert framework can be used for verification
-
 import net.sf.sahi.client.Browser;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,5 +19,6 @@ public class OnBrowser {
 		browser.navigateTo(url);
 	
 	}
+
 
 }
