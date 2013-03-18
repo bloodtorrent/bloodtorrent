@@ -167,7 +167,13 @@
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <executable>${basedir}/execute.bat</executable>
+                            <executable>java</executable>
+                            <arguments>
+                                <argument>-jar</argument>
+                                <argument>target/bloodtorrent-1.0.0-SNAPSHOT.jar</argument>
+                                <argument>server</argument>
+                                <argument>${basedir}/src/main/resources/configurations.yml</argument>
+                            </arguments>
                         </configuration>
                     </execution>
                 </executions>
