@@ -2,9 +2,11 @@
 
 PIDFILE=/var/run/bloottorrent.pid
 
-PID=`cat $PIDFILE`
-if [ ! -z "$PID" ] ; then
-    kill -9 $PID
+if [ -f $PIDFILE ] ; then
+	PID=`cat $PIDFILE`
+	if [ ! -z "$PID" ] ; then
+	    kill -9 $PID
+	fi
+	rm $PIDFILE
 fi
 
-rm $PIDFILE
