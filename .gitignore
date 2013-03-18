@@ -5,3 +5,8 @@ build/
 out/
 target/
 dependency-reduced-pom.xml
+FunctionalTests/.classpath
+FunctionalTests/.project
+FunctionalTests/.settings
+FunctionalTests/bin
+FunctionalTests/logs

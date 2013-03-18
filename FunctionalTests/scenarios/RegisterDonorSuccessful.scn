@@ -1,0 +1,15 @@
+Tags:Story-1,Register Donor,in-progress
+Preconditions:
+Metadata:ScenarioType=Manual
+On Browser:
+#Navigate to "http://www.bloodtorrent.org"
+
+On main page:
+#Open link "register" 
+
+On register donor page:
+#Fill out the valid information to mendatory fields
+#Register donor
+
+On thank you page:
+#Verify thank you message

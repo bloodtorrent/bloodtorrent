@@ -1,0 +1,14 @@
+Tags:
+Preconditions:
+Metadata:ScenarioType=Manual
+On Browser:
+#Navigate to "http://www.bloodtorrent.org"
+
+On main page:
+#Open link "register" 
+
+On register donor page:
+#Cancel registration
+
+On main page:
+#Verify user is on main page
