@@ -1,5 +1,4 @@
 build/
-127.0.0.1/
 .idea/
 .gradle/
 out/
@@ -10,3 +9,5 @@ FunctionalTests/.project
 FunctionalTests/.settings
 FunctionalTests/bin
 FunctionalTests/logs
+db/bloodtorrent.h2.db
+db/bloodtorrent.lock.db
