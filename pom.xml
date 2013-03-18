@@ -160,8 +160,8 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <version>1.1.1</version>
                 <executions>
-                    <execution><!-- Run our version calculation script -->
-                        <id>Version Calculation</id>
+                    <execution>
+                        <id>Start Jetty</id>
                         <phase>package</phase>
                         <goals>
                             <goal>exec</goal>
