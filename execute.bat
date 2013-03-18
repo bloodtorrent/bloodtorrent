@@ -1,1 +1,1 @@
-java -jar build/libs/bloodtorrent-execjar.jar server src/main/resources/configurations.yml
+java -jar target/bloodtorrent-1.0.0-SNAPSHOT.jar server src/main/resources/configurations.yml
