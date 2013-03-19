@@ -1,0 +1,13 @@
+Tags:
+Preconditions:
+On Browser:
+#Navigate to "http://www.bloodtorrent.org"
+
+On main page:
+#Open link "request" 
+
+On request blood page:
+#Cancel Request
+
+On main page:
+#Verify user is on main page

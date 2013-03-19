@@ -1,0 +1,14 @@
+Tags:
+Preconditions:
+On Browser:
+#Navigate to "http://www.bloodtorrent.org"
+
+On main page:
+#Open link "request" 
+
+On request blood page:
+#Fill out the valid request information to mendatory fields
+#Request blood
+
+On thank for requesting page:
+#verify thank you message
