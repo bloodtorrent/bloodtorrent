@@ -6,5 +6,4 @@ target/
 dependency-reduced-pom.xml
 FunctionalTests/bin
 FunctionalTests/logs
-db/bloodtorrent.h2.db
-db/bloodtorrent.lock.db
+db/bloodtorrent.*.db
