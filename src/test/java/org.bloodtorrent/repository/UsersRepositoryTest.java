@@ -25,9 +25,4 @@ public class UsersRepositoryTest {
 
     }
 
-    @Test
-    public void shouldFail() {
-        fail();
-    }
-
 }
