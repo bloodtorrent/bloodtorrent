@@ -1,6 +1,6 @@
 Tags:Story-1,Register Donor,in-progress
 Preconditions:
-Metadata:ScenarioType=Manual
+Metadata:ScenarioType=Auto
 On Browser:
 #Navigate to "http://www.bloodtorrent.org"
 
