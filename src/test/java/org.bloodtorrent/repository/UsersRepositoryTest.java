@@ -7,6 +7,8 @@ import org.bloodtorrent.dto.Person;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static junit.framework.Assert.fail;
+
 /**
  * Created with IntelliJ IDEA.
  * User: sds
@@ -21,6 +23,11 @@ public class UsersRepositoryTest {
     @Test
     public void crateNewDonar(){
 
+    }
+
+    @Test
+    public void shouldFail() {
+        fail();
     }
 
 }
