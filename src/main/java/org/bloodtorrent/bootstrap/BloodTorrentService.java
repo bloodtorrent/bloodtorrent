@@ -8,6 +8,7 @@ import org.bloodtorrent.repository.BloodRequestRepository;
 import org.bloodtorrent.repository.PersonRepository;
 import org.bloodtorrent.repository.UsersRepository;
 import org.bloodtorrent.resources.BloodRequestResource;
+import org.bloodtorrent.resources.MainResource;
 import org.bloodtorrent.resources.PersonResource;
 import org.bloodtorrent.resources.UsersResource;
 import org.hibernate.SessionFactory;
@@ -37,6 +38,7 @@ public class BloodTorrentService extends Service<SimpleConfiguration> {
         final PersonRepository repository = new PersonRepository(sessionFactory);
         final UsersRepository userRepository = new UsersRepository(sessionFactory);
         final BloodRequestRepository bloodReqRepository = new BloodRequestRepository(sessionFactory);
+        environment.addResource(new MainResource());
         environment.addResource(new PersonResource(repository));
         environment.addResource(new UsersResource(userRepository));
         environment.addResource(new BloodRequestResource(bloodReqRepository));

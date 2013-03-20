@@ -9,7 +9,7 @@
             </#list>
         </div>
         <#if result == "success">
-            <input type="button" value="home">
+            <a href ="/"><input type="button" name="home" value="Home"/></a>
         <#else>
             <input type="button" value="back" onclick="history.back()">
         </#if>

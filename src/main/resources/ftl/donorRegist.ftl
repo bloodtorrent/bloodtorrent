@@ -156,7 +156,7 @@
         </div>
         <center>
         <input type="submit" name="register" value="Register"/>
-        <input type="submit" name="cancel" value="Cancel"/>
+        <a href ="/"><input type="button" name="cancel" value="Cancel"/></a>
         </center>
         </form>
     </body>

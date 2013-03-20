@@ -37,13 +37,6 @@ public class UsersResource {
         this.repository = repository;
     }
 
-    public void createNewUser(User user) {
-    }
-
-    public Object findByUserById(String id) {
-        return null;
-    }
-
     @GET
     @UnitOfWork
     public UserView forwardUserRegistForm() {
