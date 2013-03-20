@@ -3,62 +3,42 @@ package org.bloodtorrent.bootstrap;
 import com.yammer.dropwizard.Service;
 import com.yammer.dropwizard.config.Bootstrap;
 import com.yammer.dropwizard.config.Environment;
-import com.yammer.dropwizard.db.DatabaseConfiguration;
-import com.yammer.dropwizard.hibernate.HibernateBundle;
 import com.yammer.dropwizard.views.ViewBundle;
-import org.bloodtorrent.dto.BloodRequest;
-import org.bloodtorrent.dto.Person;
-import org.bloodtorrent.dto.User;
 import org.bloodtorrent.repository.BloodRequestRepository;
 import org.bloodtorrent.repository.PersonRepository;
 import org.bloodtorrent.repository.UsersRepository;
 import org.bloodtorrent.resources.BloodRequestResource;
 import org.bloodtorrent.resources.PersonResource;
 import org.bloodtorrent.resources.UsersResource;
+import org.hibernate.SessionFactory;
 
 public class BloodTorrentService extends Service<SimpleConfiguration> {
-    private HibernateBundle hibernate;
-    private HibernateBundle userhibernate;
-    private HibernateBundle bloodRequestHibernate;
+    private SimpleHibernateBundle hibernateBundle = new SimpleHibernateBundle("org.bloodtorrent");
+
     public static void main(String[] args) throws Exception {
         new BloodTorrentService().run(args);
+    }
+
+    public void setHibernateBundle(SimpleHibernateBundle hibernateBundle) {
+        this.hibernateBundle = hibernateBundle;
     }
 
     @Override
     public void initialize(Bootstrap<SimpleConfiguration> bootstrap) {
         bootstrap.setName("bloodtorrent");
         bootstrap.addBundle(new ViewBundle());
-        hibernate = new HibernateBundle<SimpleConfiguration>(Person.class) {
-            @Override
-            public DatabaseConfiguration getDatabaseConfiguration(SimpleConfiguration configuration) {
-                return configuration.getDatabaseConfiguration();
-            }
-        };
-        userhibernate = new HibernateBundle<SimpleConfiguration>(User.class) {
-            @Override
-            public DatabaseConfiguration getDatabaseConfiguration(SimpleConfiguration configuration) {
-                return configuration.getDatabaseConfiguration();
-            }
-        };
-        bloodRequestHibernate = new HibernateBundle<SimpleConfiguration>(BloodRequest.class) {
-            @Override
-            public DatabaseConfiguration getDatabaseConfiguration(SimpleConfiguration configuration) {
-                return configuration.getDatabaseConfiguration();
-            }
-        };
-        bootstrap.addBundle(hibernate);
-        bootstrap.addBundle(userhibernate);
-        bootstrap.addBundle(bloodRequestHibernate);
+        bootstrap.addBundle(hibernateBundle);
     }
 
     @Override
     public void run(SimpleConfiguration config,
                     Environment environment) throws ClassNotFoundException {
-        final PersonRepository repository = new PersonRepository(hibernate.getSessionFactory());
-        final UsersRepository userRepository = new UsersRepository(userhibernate.getSessionFactory());
-        final BloodRequestRepository bloodRequestRepository = new BloodRequestRepository(bloodRequestHibernate.getSessionFactory());
+        SessionFactory sessionFactory = hibernateBundle.getSessionFactory();
+        final PersonRepository repository = new PersonRepository(sessionFactory);
+        final UsersRepository userRepository = new UsersRepository(sessionFactory);
+        final BloodRequestRepository bloodReqRepository = new BloodRequestRepository(sessionFactory);
         environment.addResource(new PersonResource(repository));
         environment.addResource(new UsersResource(userRepository));
-        environment.addResource(new BloodRequestResource(bloodRequestRepository));
+        environment.addResource(new BloodRequestResource(bloodReqRepository));
     }
 }
