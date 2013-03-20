@@ -10,91 +10,106 @@ import org.junit.Test;
  * Time: 오전 3:23
  * To change this template use File | Settings | File Templates.
  */
-public class BloodReqTest {
+public class BloodRequestTest {
     @Test(expected = NullPointerException.class)
     public void shouldThrowNullPointerExceptionWhenNullOrEmptyFirstName() {
-        BloodReq req = new BloodReq();
+        BloodRequest req = new BloodRequest();
         req.setFirstName(null);
     }
     @Test(expected = NullPointerException.class)
     public void shouldThrowNullPointerExceptionWhenNullOrEmptyLastName() {
-        BloodReq req = new BloodReq();
+        BloodRequest req = new BloodRequest();
         req.setLastName(null);
     }
     @Test(expected = NullPointerException.class)
     public void shouldThrowNullPointerExceptionWhenNullOrEmptyPhone() {
-        BloodReq req = new BloodReq();
+        BloodRequest req = new BloodRequest();
         req.setPhone(null);
     }
     @Test(expected = NullPointerException.class)
     public void shouldThrowNullPointerExceptionWhenNullOrEmptyEmail() {
-        BloodReq req = new BloodReq();
+        BloodRequest req = new BloodRequest();
         req.setEmail(null);
     }
     @Test(expected = NullPointerException.class)
     public void shouldThrowNullPointerExceptionWhenNullOrEmptyBloodType() {
-        BloodReq req = new BloodReq();
+        BloodRequest req = new BloodRequest();
         req.setBloodType(null);
     }
     @Test(expected = NullPointerException.class)
-    public void shouldThrowNullPointerExceptionWhenNullOrEmptyBloodVolume() {
-        BloodReq req = new BloodReq();
-        req.setBloodVolume(null);
+    public void shouldThrowNullPointerExceptionWhenNullOrEmptyBloodVolumeString() {
+        BloodRequest req = new BloodRequest();
+        req.setBloodVolume((String) null);
+    }
+    @Test(expected = NullPointerException.class)
+    public void shouldThrowNullPointerExceptionWhenNullOrEmptyBloodVolumeInteger() {
+        BloodRequest req = new BloodRequest();
+        req.setBloodVolume((Integer) null);
     }
     @Test(expected = NullPointerException.class)
     public void shouldThrowNullPointerExceptionWhenNullOrEmptyRequesterType() {
-        BloodReq req = new BloodReq();
+        BloodRequest req = new BloodRequest();
         req.setRequesterType(null);
     }
     @Test(expected = NullPointerException.class)
     public void shouldThrowNullPointerExceptionWhenNullOrEmptyState() {
-        BloodReq req = new BloodReq();
+        BloodRequest req = new BloodRequest();
         req.setState(null);
     }
     @Test(expected = NullPointerException.class)
     public void shouldThrowNullPointerExceptionWhenNullOrEmptyCity() {
-        BloodReq req = new BloodReq();
+        BloodRequest req = new BloodRequest();
         req.setCity(null);
     }
     @Test(expected = NullPointerException.class)
     public void shouldThrowNullPointerExceptionWhenNullOrEmptyHospitalAddress() {
-        BloodReq req = new BloodReq();
+        BloodRequest req = new BloodRequest();
         req.setHospitalAddress(null);
     }
 
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowIllegalArgumentExceptionWhenWrongFormatOfPhone() {
-        BloodReq req = new BloodReq();
+        BloodRequest req = new BloodRequest();
         req.setPhone("not a number");
     }
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowIllegalArgumentExceptionWhenWrongFormatOfEmail() {
-        BloodReq req = new BloodReq();
+        BloodRequest req = new BloodRequest();
         req.setEmail("invalidEmail");
     }
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowIllegalArgumentExceptionWhenExceedDigitsOfFirstName() {
-        BloodReq req = new BloodReq();
+        BloodRequest req = new BloodRequest();
         req.setFirstName("123456789012345678901234567890123456");
     }
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowIllegalArgumentExceptionWhenExceedDigitsOfLastName() {
-        BloodReq req = new BloodReq();
+        BloodRequest req = new BloodRequest();
         req.setLastName("123456789012345678901234567890123456");
     }
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowIllegalArgumentExceptionWhenExceedDigitsOfCity() {
-        BloodReq req = new BloodReq();
+        BloodRequest req = new BloodRequest();
         String s = "";
         String bigS = StringUtil.leftPad(s, 256, 'a');
         req.setCity(bigS);
     }
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowIllegalArgumentExceptionWhenExceedDigitsOfHospitalAddress() {
-        BloodReq req = new BloodReq();
+        BloodRequest req = new BloodRequest();
         String s = "";
         String bigS = StringUtil.leftPad(s, 1001, 'a');
         req.setHospitalAddress(bigS);
+    }
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldThrowIllegalArgumentExceptionWhenWrongFormatOfBloodVolumeInteger() {
+        BloodRequest req = new BloodRequest();
+        req.setBloodVolume(0);
+    }
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldThrowIllegalArgumentExceptionWhenWrongFormatOfBloodVolumeString() {
+        BloodRequest req = new BloodRequest();
+        req.setBloodVolume("xx");
     }
 }

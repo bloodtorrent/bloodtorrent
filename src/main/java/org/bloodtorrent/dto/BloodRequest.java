@@ -12,7 +12,7 @@ import java.util.Date;
  * To change this template use File | Settings | File Templates.
  */
 @Entity(name = "TB_BLOOD_REQ")
-public class BloodReq {
+public class BloodRequest {
     @Id
     private String id;
     private Date date;
@@ -85,10 +85,25 @@ public class BloodReq {
     }
 
     public void setBloodVolume(Integer bloodVolume) {
-        if (bloodVolume == null || bloodVolume==0){
+        if (bloodVolume == null){
             throw new NullPointerException("Blood Volume");
+        } else if (bloodVolume > 99 || bloodVolume < 1) {
+            throw new IllegalArgumentException("Blood Volume");
         }
         this.bloodVolume = bloodVolume;
+    }
+    public void setBloodVolume(String bloodVolume) {
+        if (bloodVolume == null || bloodVolume.trim().length() == 0) {
+            throw new NullPointerException("Blood Volume");
+        }
+        if (bloodVolume.matches("[0-9]+")) {
+            this.bloodVolume = Integer.parseInt(bloodVolume);
+            if (this.bloodVolume > 99 || this.bloodVolume < 1) {
+                throw new IllegalArgumentException("Blood Volume");
+            }
+        } else {
+            throw new IllegalArgumentException("Blood Volume");
+        }
     }
 
     public void setRequesterType(String requesterType) {

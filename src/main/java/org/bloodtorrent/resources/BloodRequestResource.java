@@ -2,9 +2,9 @@ package org.bloodtorrent.resources;
 
 import com.yammer.dropwizard.hibernate.UnitOfWork;
 import com.yammer.dropwizard.views.View;
-import org.bloodtorrent.dto.BloodReq;
-import org.bloodtorrent.repository.BloodReqRepository;
-import org.bloodtorrent.view.BloodReqView;
+import org.bloodtorrent.dto.BloodRequest;
+import org.bloodtorrent.repository.BloodRequestRepository;
+import org.bloodtorrent.view.BloodRequestView;
 import org.bloodtorrent.view.CommonView;
 import org.bloodtorrent.view.ErrorView;
 
@@ -20,19 +20,19 @@ import java.util.Date;
  * Time: 오전 7:55
  * To change this template use File | Settings | File Templates.
  */
-@Path("/bloodreq")
+@Path("/requestForBlood")
 @Produces(MediaType.TEXT_HTML)
-public class BloodReqResource {
-    private final BloodReqRepository repository;
+public class BloodRequestResource {
+    private final BloodRequestRepository repository;
 
-    public BloodReqResource(BloodReqRepository repository) {
+    public BloodRequestResource(BloodRequestRepository repository) {
         this.repository = repository;
     }
 
     @GET
     @UnitOfWork
-    public BloodReqView forwardBloodRequestForm() {
-        return new BloodReqView();
+    public BloodRequestView forwardBloodRequestForm() {
+        return new BloodRequestView();
     }
 
     @POST
@@ -48,12 +48,21 @@ public class BloodReqResource {
             @FormParam("gender") String gender,
             @FormParam("birthday") String birthday,
             @FormParam("bloodType") String bloodType,
-            @FormParam("bloodVolume") int bloodVolume,
+            @FormParam("bloodVolume") String bloodVolume,
             @FormParam("requesterType") String requesterType)
     {
         try {
             Calendar cal = null;
-            BloodReq bloodReq = new BloodReq();
+            BloodRequest bloodRequest = new BloodRequest();
+            bloodRequest.setFirstName(firstName);
+            bloodRequest.setLastName(lastName);
+            bloodRequest.setHospitalAddress(hospitalAddress);
+            bloodRequest.setCity(city);
+            bloodRequest.setState(state);
+            bloodRequest.setPhone(phone);
+            bloodRequest.setEmail(email);
+            bloodRequest.setGender(gender);
+
             if (birthday != null && birthday.trim().length() > 0) {
                 if (!birthday.matches("[0-3][0-9]-[0-1][0-9]-[0-9]{4}")) {
                     throw new IllegalArgumentException("Date of Birth");
@@ -64,23 +73,16 @@ public class BloodReqResource {
                 cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(birth[0]));
                 cal.set(Calendar.MONTH, Integer.parseInt(birth[1]));
                 cal.set(Calendar.YEAR, Integer.parseInt(birth[2]));
-                bloodReq.setBirthday(cal.getTime());
+                bloodRequest.setBirthday(cal.getTime());
             }
-            bloodReq.setFirstName(firstName);
-            bloodReq.setLastName(lastName);
-            bloodReq.setHospitalAddress(hospitalAddress);
-            bloodReq.setCity(city);
-            bloodReq.setState(state);
-            bloodReq.setPhone(phone);
-            bloodReq.setEmail(email);
-            bloodReq.setGender(gender);
-            bloodReq.setBloodType(bloodType);
-            bloodReq.setBloodVolume(bloodVolume);
-            bloodReq.setRequesterType(requesterType);
-            bloodReq.setDate(new Date());
-            bloodReq.setValidated("N");
-            bloodReq.setId("" + System.currentTimeMillis());
-            createNewBloodRequest(bloodReq);
+
+            bloodRequest.setBloodType(bloodType);
+            bloodRequest.setBloodVolume(bloodVolume);
+            bloodRequest.setRequesterType(requesterType);
+            bloodRequest.setDate(new Date());
+            bloodRequest.setValidated("N");
+            bloodRequest.setId("" + System.currentTimeMillis());
+            createNewBloodRequest(bloodRequest);
             return new CommonView("/ftl/thankyou.ftl");
         } catch (IllegalArgumentException e) {
             return new ErrorView("/ftl/error.ftl", e.getMessage());
@@ -92,9 +94,7 @@ public class BloodReqResource {
         }
     }
 
-    public void createNewBloodRequest(BloodReq bloodReq) {
-        repository.insert(bloodReq);
-        //BloodReq savedInstance = repository.findByEmail(bloodReq.getEmail());
-        //AssertEquals(bloodReq, savedInstance);
+    public void createNewBloodRequest(BloodRequest bloodRequest) {
+        repository.insert(bloodRequest);
     }
 }

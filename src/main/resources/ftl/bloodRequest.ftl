@@ -9,7 +9,7 @@
     </script>
     </head>
     <body>
-        <form id="bloodreqFrm" method="post" action="/bloodreq" onsubmit="validate(this)">
+        <form id="bloodreqFrm" method="post" action="/requestForBlood" onsubmit="validate(this)">
         <div id="bloodreqInfo">
             <h1>Request for Blood</h1><hr noshade />
             <table cellspacing="3">

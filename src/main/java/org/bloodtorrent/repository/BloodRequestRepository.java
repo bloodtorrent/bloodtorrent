@@ -1,8 +1,7 @@
 package org.bloodtorrent.repository;
 
 import com.yammer.dropwizard.hibernate.AbstractDAO;
-import org.bloodtorrent.dto.BloodReq;
-import org.bloodtorrent.dto.User;
+import org.bloodtorrent.dto.BloodRequest;
 import org.hibernate.SessionFactory;
 
 /**
@@ -12,12 +11,12 @@ import org.hibernate.SessionFactory;
  * Time: 오전 8:18
  * To change this template use File | Settings | File Templates.
  */
-public class BloodReqRepository extends AbstractDAO<BloodReq>{
-    public BloodReqRepository(SessionFactory sessionFactory) {
+public class BloodRequestRepository extends AbstractDAO<BloodRequest>{
+    public BloodRequestRepository(SessionFactory sessionFactory) {
         super(sessionFactory);
     }
 
-    public void insert(BloodReq bloodReq){
-        super.persist(bloodReq);
+    public void insert(BloodRequest bloodRequest){
+        super.persist(bloodRequest);
     }
 }

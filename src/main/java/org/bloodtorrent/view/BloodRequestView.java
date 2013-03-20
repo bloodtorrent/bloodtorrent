@@ -9,10 +9,10 @@ import com.yammer.dropwizard.views.View;
  * Time: 오전 9:31
  * To change this template use File | Settings | File Templates.
  */
-public class BloodReqView extends View {
+public class BloodRequestView extends View {
 
-    public BloodReqView() {
-        super("/ftl/bloodReq.ftl");
+    public BloodRequestView() {
+        super("/ftl/bloodRequest.ftl");
     }
 
 }
