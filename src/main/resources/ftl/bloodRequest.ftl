@@ -4,7 +4,7 @@
     <script type="text/javascript">
 
     function goHome(){
-        alert("test");
+        location.href="/";
     }
     </script>
     </head>
