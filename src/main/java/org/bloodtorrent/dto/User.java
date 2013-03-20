@@ -20,7 +20,7 @@ import java.util.Date;
 @Entity(name = "user")
 public class User {
     @Id
-    @Pattern(regexp = "^([0-9a-zA-Z_-]+\\.[0-9a-zA-Z_-]+)@([0-9a-zA-Z_-]+)(\\.[0-9a-zA-Z_-]+){1,2}$", message="Please check email address")
+    @Pattern(regexp = "^([0-9a-zA-Z_-]([0-9a-zA-Z_-]|\\.)+[0-9a-zA-Z_-])@([0-9a-zA-Z_-]+)(\\.[0-9a-zA-Z_-]+){1,2}$", message="Please check email address")
     @Size(min = 5, max = 100, message="Please check email address")
     @NotBlank(message="Please fill out all the mandatory fields(email)")
     private String id;
@@ -59,7 +59,7 @@ public class User {
     @Size(min = 1, max = 1000 , message="Please check address size(1-1000)")
     private String address;
     @NotBlank(message="Please fill out all the mandatory fields(distance)")
-    @Pattern(regexp = "^5|10|15|20$" , message="Please check distance")
+    @Pattern(regexp = "^5|10|20|50$" , message="Please check distance")
     private String distance;
     @javax.persistence.Column(name = "birth_day")
     @Pattern(regexp ="^((0[1-9]|[1-2][0-9]|3[0-1])\\-(0[0-9]|1[0-2])\\-(19[0-9][0-9]|20\\d{2}))*$", message="Please check date of birth")

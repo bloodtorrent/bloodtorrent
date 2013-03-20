@@ -147,10 +147,10 @@
                     <td colspan="3">
                         <label>When did you last donate blood?</label>
                         <select name="lastDonate">
-                            <option value="1" selected>within 1 month<option>
-                            <option value="2">2 months ago<option>
-                            <option value="3">3 months ago<option>
-                            <option value="0">I can't remember<option>
+                            <option value="1" selected>within 1 month</option>
+                            <option value="2">2 months ago</option>
+                            <option value="3">3 months ago</option>
+                            <option value="0">I can't remember</option>
                         </select>
                     </td>
                 </tr>

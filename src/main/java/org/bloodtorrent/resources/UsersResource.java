@@ -102,7 +102,7 @@ public class UsersResource {
             return new RegistrationResultView("fail", messages);
         }else{
             this.repository.insert(user);
-            return new RegistrationResultView("success", "You did successfully signed up");
+            return new RegistrationResultView("success", "Thank you for signing up as a donor. Please go ahead and log in");
         }
     }
 
