@@ -71,7 +71,7 @@ public class UserResourceTest {
 
         Set<ConstraintViolation<User>> constraintViolations = validator.validateProperty(user, "id");
 
-        assertThat(1, is(constraintViolations.size()));
+        assertThat(2, is(constraintViolations.size()));
     }
 
     @Test
@@ -93,7 +93,7 @@ public class UserResourceTest {
 
         Set<ConstraintViolation<User>> constraintViolations = validator.validateProperty(user, "firstName");
 
-        assertThat(1, is(constraintViolations.size()));
+        assertThat(2, is(constraintViolations.size()));
     }
 
     @Test
@@ -115,7 +115,7 @@ public class UserResourceTest {
 
         Set<ConstraintViolation<User>> constraintViolations = validator.validateProperty(user, "lastName");
 
-        assertThat(1, is(constraintViolations.size()));
+        assertThat(2, is(constraintViolations.size()));
     }
 
     @Test
@@ -137,7 +137,7 @@ public class UserResourceTest {
 
         Set<ConstraintViolation<User>> constraintViolations = validator.validateProperty(user, "password");
 
-        assertThat(1, is(constraintViolations.size()));
+        assertThat(2, is(constraintViolations.size()));
     }
 
     @Test
@@ -176,7 +176,7 @@ public class UserResourceTest {
 
         Set<ConstraintViolation<User>> constraintViolations = validator.validateProperty(user, "address");
 
-        assertThat(1, is(constraintViolations.size()));
+        assertThat(2, is(constraintViolations.size()));
     }
 
     @Test
@@ -198,7 +198,7 @@ public class UserResourceTest {
 
         Set<ConstraintViolation<User>> constraintViolations = validator.validateProperty(user, "city");
 
-        assertThat(1, is(constraintViolations.size()));
+        assertThat(2, is(constraintViolations.size()));
     }
 
     @Test
@@ -249,7 +249,7 @@ public class UserResourceTest {
 
         Set<ConstraintViolation<User>> constraintViolations = validator.validateProperty(user, "bloodGroup");
 
-        assertThat(1, is(constraintViolations.size()));
+        assertThat(2, is(constraintViolations.size()));
     }
 
     @Test
@@ -271,7 +271,7 @@ public class UserResourceTest {
 
         Set<ConstraintViolation<User>> constraintViolations = validator.validateProperty(user, "distance");
 
-        assertThat(1, is(constraintViolations.size()));
+        assertThat(2, is(constraintViolations.size()));
     }
 
     @Test
@@ -333,7 +333,7 @@ public class UserResourceTest {
 
         user.setState("");
         Set<ConstraintViolation<User>> constraintViolations = validator.validateProperty(user, "state");
-        assertThat(2, is(constraintViolations.size()));
+        assertThat(3, is(constraintViolations.size()));
 
         user.setState(null);
         constraintViolations = validator.validateProperty(user, "state");

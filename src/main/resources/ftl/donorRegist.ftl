@@ -4,6 +4,7 @@
           <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
           <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
         <script>
+/*
           $(function() {
             $( "#birthDay" ).datepicker({
               showOtherMonths: true,
@@ -11,6 +12,7 @@
               dateFormat: "dd-mm-yy"
             });
           });
+*/
           </script>
     </head>
     <body>
@@ -136,7 +138,7 @@
                 </tr>
                 <tr>
                     <td><label>Date of Birth : </label> </td>
-                    <td><input type="text" id="birthDay" readonly/> (optional)</td>
+                    <td><input type="text" id="birthDay" name="birthDay"/> (optional)</td>
                 </tr>
                 <tr>
                     <td colspan="3"><label>Do you want to remain anonymous ?</label><input type="radio" name="anonymous" value="Y"/>Y <input type="radio" name="anonymous" value="N" checked/>N</td>

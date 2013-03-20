@@ -20,48 +20,49 @@ import java.util.Date;
 @Entity(name = "user")
 public class User {
     @Id
-    @Pattern(regexp = "^([0-9a-zA-Z_-]+)@([0-9a-zA-Z_-]+)(\\.[0-9a-zA-Z_-]+){1,2}$", message="Please check email address")
+    @Pattern(regexp = "^([0-9a-zA-Z_-]+\\.[0-9a-zA-Z_-]+)@([0-9a-zA-Z_-]+)(\\.[0-9a-zA-Z_-]+){1,2}$", message="Please check email address")
     @Size(min = 5, max = 100, message="Please check email address")
+    @NotBlank(message="Please fill out all the mandatory fields(email)")
     private String id;
-    @NotNull(message="Please check password")
     @Size(min = 8, max = 25, message="Please check password")
     @Pattern(regexp ="\\D*\\d+\\D*", message="Please check password")
+    @NotBlank(message="Please fill out all the mandatory fields(password)")
     private String password;
     private String role;
     @javax.persistence.Column(name = "first_name")
-    @NotNull
+    @NotBlank(message="Please fill out all the mandatory fields(first name)")
     @Size(min = 1, max = 35, message= "Please check first name")
     private String firstName;
     @javax.persistence.Column(name = "last_name")
-    @NotNull
+    @NotBlank(message="Please fill out all the mandatory fields(last name)")
     @Size(min = 1, max = 35, message= "Please check last name")
     private String lastName;
     @NotNull
     @Size(min = 10, max = 10, message= "Please check phone number")
-    @Pattern(regexp = "\\d*")
+    @Pattern(regexp = "\\d*", message= "Please check phone number")
     @javax.persistence.Column(name = "cell_phone")
     private String cellPhone;
     private String gender;
     @javax.persistence.Column(name = "blood_group")
-    @NotNull
+    @NotBlank(message="Please fill out all the mandatory fields(blood group)")
     @Pattern(regexp = "^(A\\+)|(A-)|(B\\+)|(B-)|(AB\\+)|(AB-)|(O\\+)|(O-)|(Unknown)$", message="Please check blood group")
     private String bloodGroup;
     private boolean anonymous;
-    @NotNull
+    @NotBlank(message="Please fill out all the mandatory fields(city)")
     @Size(min = 1, max = 255, message="Please check city size(1-255)")
     private String city;
-    @NotNull
+    @NotBlank(message="Please fill out all the mandatory fields(state)")
     @Size(min = 1, max = 255, message="Please check state size(1-255)")
     @Pattern(regexp = "^(Andhra Pradesh)|(Arunachal Pradesh)|(Asom \\(Assam\\))|(Bihar)|(Karnataka)|(Kerala)|(Chhattisgarh)|(Goa)|(Gujarat)|(Haryana)|(Himachal Pradesh)|(Jammu And Kashmir)|(Jharkhand)|(West Bengal)|(Madhya Pradesh)|(Maharashtra)|(Manipur)|(Meghalaya)|(Mizoram)|(Nagaland)|(Orissa)|(Punjab)|(Rajasthan)|(Sikkim)|(Tamilnadu)|(Tripura)|(Uttarakhand \\(Uttaranchal\\))|(Uttar Pradesh)$")
     private String state;
-    @NotNull
+    @NotBlank(message="Please fill out all the mandatory fields(address)")
     @Size(min = 1, max = 1000 , message="Please check address size(1-1000)")
     private String address;
-    @NotNull
+    @NotBlank(message="Please fill out all the mandatory fields(distance)")
     @Pattern(regexp = "^5|10|15|20$" , message="Please check distance")
     private String distance;
     @javax.persistence.Column(name = "birth_day")
-    @Pattern(regexp ="^((0[1-9]|[1-2][0-9]|3[0-1])-(0[0-9]|1[0-2])-(19[0-9][0-9]|20\\d{2}))*$", message="Please check date of birth")
+    @Pattern(regexp ="^((0[1-9]|[1-2][0-9]|3[0-1])\\-(0[0-9]|1[0-2])\\-(19[0-9][0-9]|20\\d{2}))*$", message="Please check date of birth")
     private String birthDay;
     @javax.persistence.Column(name = "last_donate_date")
     private Date lastDonateDate;

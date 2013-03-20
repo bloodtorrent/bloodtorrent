@@ -7,6 +7,7 @@ import org.bloodtorrent.repository.UsersRepository;
 import org.bloodtorrent.view.CommonView;
 import org.bloodtorrent.view.RegistrationResultView;
 import org.bloodtorrent.view.UserView;
+import org.h2.util.StringUtils;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -78,9 +79,8 @@ public class UsersResource {
         user.setRole("donor");
         user.setBirthDay(birthDay);
 
-        Date today = new Date ();
-        today = DateUtils.addMonths(today, -Integer.parseInt(lastDonate));
-        user.setLastDonateDate(today);
+        Date lastDonateDate = DateUtils.addMonths(new Date (), -Integer.parseInt(lastDonate));
+        user.setLastDonateDate(lastDonateDate);
 
         if(!checkPassword(password, confirmPassword)){
             return new RegistrationResultView("fail", "password and confirm password are not same.");
