@@ -136,7 +136,7 @@
                 </tr>
                 <tr>
                     <td><label>Date of Birth : </label> </td>
-                    <td><input type="text" id="birthDay" /></td>
+                    <td><input type="text" id="birthDay" readonly/> (optional)</td>
                 </tr>
                 <tr>
                     <td colspan="3"><label>Do you want to remain anonymous ?</label><input type="radio" name="anonymous" value="Y"/>Y <input type="radio" name="anonymous" value="N" checked/>N</td>

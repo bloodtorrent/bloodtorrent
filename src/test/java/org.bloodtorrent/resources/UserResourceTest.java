@@ -302,6 +302,14 @@ public class UserResourceTest {
         constraintViolations = validator.validateProperty(user, "birthDay");
         assertThat(1, is(constraintViolations.size()));
 
+        user.setBirthDay("13/12/1999");
+        constraintViolations = validator.validateProperty(user, "birthDay");
+        assertThat(1, is(constraintViolations.size()));
+
+        user.setBirthDay("11121981");
+        constraintViolations = validator.validateProperty(user, "birthDay");
+        assertThat(1, is(constraintViolations.size()));
+
         user.setBirthDay("");
         constraintViolations = validator.validateProperty(user, "birthDay");
         assertThat(0, is(constraintViolations.size()));
