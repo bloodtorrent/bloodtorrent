@@ -7,10 +7,7 @@ import com.yammer.dropwizard.views.ViewBundle;
 import org.bloodtorrent.repository.BloodRequestRepository;
 import org.bloodtorrent.repository.PersonRepository;
 import org.bloodtorrent.repository.UsersRepository;
-import org.bloodtorrent.resources.BloodRequestResource;
-import org.bloodtorrent.resources.MainResource;
-import org.bloodtorrent.resources.PersonResource;
-import org.bloodtorrent.resources.UsersResource;
+import org.bloodtorrent.resources.*;
 import org.hibernate.SessionFactory;
 
 public class BloodTorrentService extends Service<SimpleConfiguration> {
@@ -42,5 +39,7 @@ public class BloodTorrentService extends Service<SimpleConfiguration> {
         environment.addResource(new PersonResource(repository));
         environment.addResource(new UsersResource(userRepository));
         environment.addResource(new BloodRequestResource(bloodReqRepository));
+
+        environment.addResource(new CommonResource());
     }
 }

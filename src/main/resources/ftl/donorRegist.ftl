@@ -1,19 +1,29 @@
 <html>
     <head>
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
-          <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-          <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
-        <script>
-/*
-          $(function() {
-            $( "#birthDay" ).datepicker({
-              showOtherMonths: true,
-              selectOtherMonths: true,
-              dateFormat: "dd-mm-yy"
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+        <script type="text/javascript" language="javascript">
+        //<![CDATA[
+        $(function() {
+            $("#birthDay").datepicker({
+                showOtherMonths: true,
+                selectOtherMonths: true,
+                dateFormat: "dd-mm-yy"
             });
-          });
-*/
-          </script>
+
+            $("#popupMap").click(function(e){
+                var address = $("textarea[name='address']").val();
+                var city = $("input[type='text'][name='city']").val();
+                var state = $("select[name='state']").val();
+
+                //address, state, city
+                var allAddress = address ? address : "" +
+                window.open("html/googlemap?address=", "Map");
+            });
+        });
+        //]]>
+        </script>
     </head>
     <body>
         <form id="userFrm" method="post" action="/user">
@@ -92,7 +102,7 @@
                         </select>
                     </td>
                     <td>
-                        <input type="button" value="map">
+                        <input type="button" id="popupMap" value="map"/>
                         <label>Use a map to specify exact location</label>
                     </td>
                 </tr>

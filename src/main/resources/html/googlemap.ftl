@@ -11,7 +11,7 @@
         var searchAddress = function() {
             var addressField = document.getElementById('search_address');
             geocoder.geocode(
-                {'address': addressField.value},
+                {'address': addressField.value, language: 'en'},
                 function(results, status) {
                     if (status == google.maps.GeocoderStatus.OK) {
                         var loc = results[0].geometry.location;
@@ -30,6 +30,7 @@
         function geocodePosition(pos) {
             geocoder.geocode({
                 latLng: pos
+                , language: 'en'
             }, function(responses) {
                 if (responses && responses.length > 0) {
                     updateMarkerAddress(responses[0].formatted_address);
@@ -58,7 +59,7 @@
         function init(currentLat, currentLng) {
             var latLng = new google.maps.LatLng(currentLat, currentLng);
             var map = new google.maps.Map(document.getElementById('mapCanvas'), {
-                zoom: 10,
+                zoom: 5,
                 center: latLng,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             });
@@ -86,7 +87,6 @@
                 <!--updateMarkerStatus('Drag ended');-->
                 geocodePosition(marker.getPosition());
             });
-            map.fitBounds(bounds);
         }
 
         window.onbeforeunload = function() {
