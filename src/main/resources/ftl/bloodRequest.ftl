@@ -1,7 +1,19 @@
 <html>
     <head>
     <title>Request for Blood</title>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
     <script type="text/javascript">
+    $(function() {
+        $( "#birthday" ).datepicker({
+          showOn: "button",
+          buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif",
+          buttonImageOnly: true,
+          dateFormat: "dd-mm-yy"
+
+        });
+      });
 
     function goHome(){
         location.href="/";
@@ -90,7 +102,7 @@
                 <tr>
                     <td><label>Date of Birth:</label></td>
                     <td>
-                        <input type="text" name="birthday" width="30" value=""/>
+                        <input type="text" name="birthday" id="birthday" width="30" value="" readonly/>
                         (optional)
                     </td>
                 </tr>
