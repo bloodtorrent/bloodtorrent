@@ -67,7 +67,7 @@ public class BloodRequest {
     public void setEmail(String email) {
         if (email == null || email.trim().length() ==0){
             throw new NullPointerException("E-mail");
-        }else if(!email.matches("^([0-9a-zA-Z_-]+)@([0-9a-zA-Z_-]+)(\\.[0-9a-zA-Z_-]+){1,2}$")){
+        }else if(!email.matches("^([.0-9a-zA-Z_-]+)@([0-9a-zA-Z_-]+)(\\.[0-9a-zA-Z_-]+){1,2}$")){
             throw new IllegalArgumentException("E-mail");
         }
         this.email = email;
