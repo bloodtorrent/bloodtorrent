@@ -21,6 +21,11 @@
         <div id="userInfo">
             <table>
                 <tr>
+                    <td></td>
+                    <td><label>First name</label></td>
+                    <td><label>Last name</label></td>
+                </tr>
+                <tr>
                     <td><label>Name : </label></td>
                     <td><input type="text" name="firstName" width="30" maxLength="35"/></td>
                     <td><input type="text" name="lastName" width="30" maxLength="35"/></td>
