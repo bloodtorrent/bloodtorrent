@@ -1,11 +1,12 @@
-Tags:Story-1,Register Donor,in-progress
+Tags:Story-1,Register Donor,in-progress,TODO
 Preconditions:
 Metadata:ScenarioType=Auto
-On Browser:
-#Navigate to "http://www.bloodtorrent.org"
+NOTE 
+To do main page
 
-On main page:
-#Open link "register" 
+
+On Browser:
+#Navigate to "http://192.168.0.40:8080/user"
 
 On register donor page:
 #Fill out the valid information to mendatory fields

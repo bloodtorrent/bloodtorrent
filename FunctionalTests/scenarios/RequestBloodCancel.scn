@@ -1,13 +1,12 @@
 Tags:
 Preconditions:
 On Browser:
-#Navigate to "http://www.bloodtorrent.org"
-
-On main page:
-#Open link "request" 
+#Navigate to "http://192.168.0.100:8080/requestForBlood"
 
 On request blood page:
+#Fill out the valid request information to mendatory fields
 #Cancel Request
 
-On main page:
-#Verify user is on main page
+
+On thank you page :
+#

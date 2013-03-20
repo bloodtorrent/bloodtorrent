@@ -15,8 +15,4 @@ public class OnMainPage {
 		this.browser = browser;
 	}
 
-	public void openLink(String linkName) throws Exception {
-		browser.link(linkName).click();
-	}
-
 }
