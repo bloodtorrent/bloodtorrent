@@ -20,11 +20,10 @@ import java.util.Date;
 @Entity(name = "user")
 public class User {
     @Id
-    @NotNull
+    @Pattern(regexp = "^([0-9a-zA-Z_-]+)@([0-9a-zA-Z_-]+)(\\.[0-9a-zA-Z_-]+){1,2}$", message="Please check email address")
     @Size(min = 5, max = 100, message="Please check email address")
     private String id;
     @NotNull(message="Please check password")
-    @NotBlank
     @Size(min = 8, max = 25, message="Please check password")
     @Pattern(regexp ="\\D*\\d+\\D*", message="Please check password")
     private String password;
@@ -45,18 +44,18 @@ public class User {
     private String gender;
     @javax.persistence.Column(name = "blood_group")
     @NotNull
-    @Pattern(regexp = "^(A+)|(A-)|(B+)|(B-)|(AB+)|(AB-)|(O+)|(O-)|(Unknown)$")
+    @Pattern(regexp = "^(A\\+)|(A-)|(B\\+)|(B-)|(AB\\+)|(AB-)|(O\\+)|(O-)|(Unknown)$", message="Please check blood group")
     private String bloodGroup;
     private boolean anonymous;
     @NotNull
-    @Size(min = 1, max = 255)
+    @Size(min = 1, max = 255, message="Please check city size(1-255)")
     private String city;
     @NotNull
-    @Size(min = 1, max = 255)
+    @Size(min = 1, max = 255, message="Please check state size(1-255)")
     @Pattern(regexp = "^(Andhra Pradesh)|(Arunachal Pradesh)|(Asom \\(Assam\\))|(Bihar)|(Karnataka)|(Kerala)|(Chhattisgarh)|(Goa)|(Gujarat)|(Haryana)|(Himachal Pradesh)|(Jammu And Kashmir)|(Jharkhand)|(West Bengal)|(Madhya Pradesh)|(Maharashtra)|(Manipur)|(Meghalaya)|(Mizoram)|(Nagaland)|(Orissa)|(Punjab)|(Rajasthan)|(Sikkim)|(Tamilnadu)|(Tripura)|(Uttarakhand \\(Uttaranchal\\))|(Uttar Pradesh)$")
     private String state;
     @NotNull
-    @Size(min = 1, max = 1000)
+    @Size(min = 1, max = 1000 , message="Please check address size(1-1000)")
     private String address;
     @NotNull
     @Pattern(regexp = "^5|10|15|20$" , message="Please check distance")

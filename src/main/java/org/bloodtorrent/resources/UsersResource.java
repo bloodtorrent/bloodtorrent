@@ -16,7 +16,9 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 
@@ -91,19 +93,23 @@ public class UsersResource {
             return new RegistrationResultView("fail", "password and confirm password are not same.");
         }
 
+        if(isEmailDuplicated(user)){
+            return new RegistrationResultView("fail", "This email address is already taken.");
+        }
+
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
         Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
 
         if(constraintViolations.size() > 0){
-            StringBuilder messageBuilder = new StringBuilder();
+            List<String > messages = new ArrayList<String>();
             for(ConstraintViolation constraintViolation :constraintViolations){
-                messageBuilder.append(constraintViolation.getMessage() + "</br>");
+                messages.add(constraintViolation.getMessage()) ;
             }
-            return new RegistrationResultView("fail", messageBuilder.toString());
+            return new RegistrationResultView("fail", messages);
         }else{
             this.repository.insert(user);
-            return new RegistrationResultView("success");
+            return new RegistrationResultView("success", "You did successfully signed up");
         }
     }
 
@@ -112,6 +118,14 @@ public class UsersResource {
             return true;
         }else{
             return false;
+        }
+    }
+
+    public boolean isEmailDuplicated(User user) {
+        if (this.repository.get(user.getId()) == null) {
+            return false;
+        } else {
+            return true;
         }
     }
 }

@@ -1,7 +1,12 @@
 package org.bloodtorrent.view;
 
 import com.yammer.dropwizard.views.View;
+import org.apache.commons.lang3.ArrayUtils;
 import org.bloodtorrent.dto.User;
+
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,23 +17,30 @@ import org.bloodtorrent.dto.User;
  */
 public class RegistrationResultView extends View {
     private final String result;
-    private final String detail;
+    private final List<String> messages;
 
     public RegistrationResultView(String result) {
-        this(result, "");
+        this(result, new ArrayList<String>());
     }
 
-    public RegistrationResultView(String result, String detail) {
+    public RegistrationResultView(String result, List<String> messages) {
         super("/ftl/registrationResult.ftl");
         this.result = result;
-        this.detail = detail;
+        this.messages = messages;
+    }
+
+    public RegistrationResultView(String result, String message) {
+        super("/ftl/registrationResult.ftl");
+        this.result = result;
+        messages = new ArrayList<String>();
+        messages.add(message);
     }
 
     public String getResult() {
         return result;
     }
 
-    public String getDetail() {
-        return detail;
+    public List<String> getMessages() {
+        return messages;
     }
 }

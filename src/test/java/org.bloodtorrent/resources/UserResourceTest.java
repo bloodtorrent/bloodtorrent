@@ -1,6 +1,7 @@
 package org.bloodtorrent.resources;
 
 import org.bloodtorrent.dto.User;
+import org.bloodtorrent.repository.UsersRepository;
 import org.junit.Test;
 
 import javax.validation.ConstraintViolation;
@@ -13,6 +14,8 @@ import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,7 +24,9 @@ import static org.junit.Assert.assertThat;
  * Time: 오후 1:56
  * To change this template use File | Settings | File Templates.
  */
-public class UsersResourceTest {
+public class UserResourceTest {
+
+
     private final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
     private final Validator validator = factory.getValidator();
 
@@ -43,6 +48,20 @@ public class UsersResourceTest {
         user.setBirthDay("18031980");
 
         return user;
+    }
+
+    @Test
+    public void shouldCheckEmailDuplication(){
+        UsersRepository usersRepository = mock(UsersRepository.class);
+        when(usersRepository.get("bloodtorrent@naver.com")).thenReturn(createNewUser());
+
+        User user = createNewUser();
+        UsersResource usersResource = new UsersResource(usersRepository);
+
+        assertThat(usersResource.isEmailDuplicated(user), is(true));
+
+        user.setId("test@naver.com");
+        assertThat(usersResource.isEmailDuplicated(user), is(false));
     }
 
     @Test
@@ -118,7 +137,7 @@ public class UsersResourceTest {
 
         Set<ConstraintViolation<User>> constraintViolations = validator.validateProperty(user, "password");
 
-        assertThat(2, is(constraintViolations.size()));
+        assertThat(1, is(constraintViolations.size()));
     }
 
     @Test
