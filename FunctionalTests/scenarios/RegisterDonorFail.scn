@@ -1,6 +1,6 @@
 Tags:
 Preconditions:
-Metadata:ScenarioType=Auto
+Metadata:ScenarioType=Manual
 On Browser:
 #Navigate to "http://www.bloodtorrent.org"
 

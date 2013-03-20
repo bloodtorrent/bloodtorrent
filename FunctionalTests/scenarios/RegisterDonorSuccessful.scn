@@ -1,16 +1,15 @@
 Tags:Story-1,Register Donor,in-progress,TODO
 Preconditions:
-Metadata:ScenarioType=Auto
+Metadata:ScenarioType=Manual
 NOTE 
-To do main page
-
+TODO: insert main page workflow
 
 On Browser:
 #Navigate to "http://192.168.0.40:8080/user"
 
 On register donor page:
-#Fill out the valid information to mendatory fields
-#Register donor
+#Fill out the valid information to mandatory fields
+#Register donor using "\"
 
 On thank you page:
 #Verify thank you message

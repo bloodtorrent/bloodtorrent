@@ -1,5 +1,6 @@
 Tags:
 Preconditions:
+Metadata:ScenarioType=Manual
 On Browser:
 #Navigate to "http://192.168.0.100:8080/requestForBlood"
 
@@ -9,4 +10,4 @@ On request blood page:
 
 
 On thank you page :
-#
+#ghjg
