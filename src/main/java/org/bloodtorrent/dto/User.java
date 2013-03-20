@@ -1,8 +1,14 @@
 package org.bloodtorrent.dto;
 
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.Size;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.NotNull;
+import java.util.Date;
+
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,118 +20,170 @@ import javax.persistence.Id;
 @Entity(name = "user")
 public class User {
     @Id
+    @NotNull
+    @Size(min = 5, max = 100, message="Please check email address")
     private String id;
+    @NotNull(message="Please check password")
+    @NotBlank
+    @Size(min = 8, max = 25, message="Please check password")
+    @Pattern(regexp ="\\D*\\d+\\D*", message="Please check password")
     private String password;
     private String role;
     @javax.persistence.Column(name = "first_name")
+    @NotNull
+    @Size(min = 1, max = 35, message= "Please check first name")
     private String firstName;
     @javax.persistence.Column(name = "last_name")
+    @NotNull
+    @Size(min = 1, max = 35, message= "Please check last name")
     private String lastName;
-    @javax.persistence.Column(name = "phone_number")
-    private String phoneNumber;
+    @NotNull
+    @Size(min = 10, max = 10, message= "Please check phone number")
+    @Pattern(regexp = "\\d*")
+    @javax.persistence.Column(name = "cell_phone")
+    private String cellPhone;
     private String gender;
-    private int age;
-
-    @javax.persistence.Column(name = "blood_type")
-    private String bloodType;
-    private String anonymous;
+    @javax.persistence.Column(name = "blood_group")
+    @NotNull
+    @Pattern(regexp = "^(A+)|(A-)|(B+)|(B-)|(AB+)|(AB-)|(O+)|(O-)|(Unknown)$")
+    private String bloodGroup;
+    private boolean anonymous;
+    @NotNull
+    @Size(min = 1, max = 255)
+    private String city;
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Pattern(regexp = "^(Andhra Pradesh)|(Arunachal Pradesh)|(Asom \\(Assam\\))|(Bihar)|(Karnataka)|(Kerala)|(Chhattisgarh)|(Goa)|(Gujarat)|(Haryana)|(Himachal Pradesh)|(Jammu And Kashmir)|(Jharkhand)|(West Bengal)|(Madhya Pradesh)|(Maharashtra)|(Manipur)|(Meghalaya)|(Mizoram)|(Nagaland)|(Orissa)|(Punjab)|(Rajasthan)|(Sikkim)|(Tamilnadu)|(Tripura)|(Uttarakhand \\(Uttaranchal\\))|(Uttar Pradesh)$")
+    private String state;
+    @NotNull
+    @Size(min = 1, max = 1000)
     private String address;
-    private double distance;
+    @NotNull
+    @Pattern(regexp = "^5|10|15|20$" , message="Please check distance")
+    private String distance;
+    @javax.persistence.Column(name = "birth_day")
+    @Pattern(regexp ="^((0[1-9]|[1-2][0-9]|3[0-1])-(0[0-9]|1[0-2])-(19[0-9][0-9]|20\\d{2}))*$", message="Please check date of birth")
+    private String birthDay;
+    @javax.persistence.Column(name = "last_donate_date")
+    private Date lastDonateDate;
 
-
-    public void setId(String id) {
-        this.id = id;
+    public Date getLastDonateDate() {
+        return lastDonateDate;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setLastDonateDate(Date lastDonateDate) {
+        this.lastDonateDate = lastDonateDate;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public String getCity() {
+        return city;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setCity(String city) {
+        this.city = city;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public String getState() {
+        return state;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setState(String state) {
+        this.state = state;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public String getBirthDay() {
+        return birthDay;
     }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public void setBloodType(String bloodType) {
-        this.bloodType = bloodType;
-    }
-
-    public void setAnonymous(String anonymous) {
-        this.anonymous = anonymous;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public void setDistance(double distance) {
-        this.distance = distance;
+    public void setBirthDay(String birthDay) {
+        this.birthDay = birthDay;
     }
 
     public String getId() {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getPassword() {
         return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getRole() {
         return role;
     }
 
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public String getFirstName() {
         return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getCellPhone() {
+        return cellPhone;
+    }
+
+    public void setCellPhone(String cellPhone) {
+        this.cellPhone = cellPhone;
     }
 
     public String getGender() {
         return gender;
     }
 
-    public int getAge() {
-        return age;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
-    public String getBloodType() {
-        return bloodType;
+    public String getBloodGroup() {
+        return bloodGroup;
     }
 
-    public String getAnonymous() {
+    public void setBloodGroup(String bloodGroup) {
+        this.bloodGroup = bloodGroup;
+    }
+
+    public boolean getAnonymous() {
         return anonymous;
+    }
+
+    public void setAnonymous(boolean anonymous) {
+        this.anonymous = anonymous;
     }
 
     public String getAddress() {
         return address;
     }
 
-    public double getDistance() {
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getDistance() {
         return distance;
+    }
+
+    public void setDistance(String distance) {
+        this.distance = distance;
     }
 }

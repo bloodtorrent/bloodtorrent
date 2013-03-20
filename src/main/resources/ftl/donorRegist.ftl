@@ -1,50 +1,104 @@
 <html>
+    <head>
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+          <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+          <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+        <script>
+          $(function() {
+            $( "#birthDay" ).datepicker({
+              showOtherMonths: true,
+              selectOtherMonths: true,
+              dateFormat: "dd-mm-yy"
+            });
+          });
+          </script>
+    </head>
     <body>
         <form id="userFrm" method="post" action="/user">
+        <div id="title">
+            <center><label><h2><u>New Account Registration as Donor</u></h2><label></center>
+        </div>
         <div id="userInfo">
             <table>
                 <tr>
-                    <td><label>*first name</label></td>
-                    <td><input type="text" name="firstName" width="30" value="firstname" maxLength="35"/></td>
+                    <td><label>Name : </label></td>
+                    <td><input type="text" name="firstName" width="30" maxLength="35"/></td>
+                    <td><input type="text" name="lastName" width="30" maxLength="35"/></td>
                 </tr>
                 <tr>
-                    <td><label>*last name</label></td>
-                    <td><input type="text" name="lastName" width="30" value="lastname" maxLength="35"/></td>
+                    <td><label>E-Mail : </label></td>
+                    <td><input type="text" name="email" width="30"/></td>
+                    <td><label>Your email will also act as login id</label></td>
                 </tr>
                 <tr>
-                    <td><label>*address</label></td>
-                    <td><input type="text" name="address" width="30" value="address"/></td>
+                    <td><label>Password : </label></td>
+                    <td><input type="password" name="password" width="30" minLength="8" maxLength="25"/></td>
+                    <td><label>(8~25 characters at least 1 digit)</label></td>
                 </tr>
                 <tr>
-                    <td><label>*phonenumber</label></td>
-                    <td><input type="text" name="phoneNumber" width="30" value="0123456789" maxLength="10"/></td>
+                    <td><label>Confirm Password : </label></td>
+                    <td colspan="2"><input type="password" name="confirmPassword" width="30" minLength="8" maxLength="25"/></td>
                 </tr>
                 <tr>
-                    <td><label>*email</label></td>
-                    <td><input type="text" name="email" width="30" value="email"/></td>
+                    <td colspan="3"><label>Please provide correct address so that we can suggest donation locations closer to this address.</label></td>
                 </tr>
                 <tr>
-                    <td><label>*password</label></td>
-                    <td><input type="password" name="password" width="30" value="password" maxLength="25"/></td>
+                    <td><label>Address : </label></td>
+                    <td colspan="2"><textarea name="address" rows="3" cols="50"></textarea></td>
                 </tr>
                 <tr>
-                    <td><label>gender</label></td>
+                    <td><label>City : </label></td>
+                    <td><input type="text" name="city" width="30" maxLength="255"/></td>
+                </tr>
+                <tr>
+                    <td><label>State : </label></td>
                     <td>
-                        <select name="gender">
-                            <option value="male">male</option>
-                            <option value="female">female</option>
+                        <select name="state">
+                            <option value="Andhra Pradesh" selected="true">Andhra Pradesh</option>
+                            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                            <option value="Asom (Assam)">Asom (Assam)</option>
+                            <option value="Bihar">Bihar</option>
+                            <option value="Karnataka">Karnataka</option>
+                            <option value="Kerala">Kerala</option>
+                            <option value="Chhattisgarh">Chhattisgarh</option>
+                            <option value="Goa">Goa</option>
+                            <option value="Gujarat">Gujarat</option>
+                            <option value="Haryana">Haryana</option>
+                            <option value="Himachal Pradesh">Himachal Pradesh</option>
+                            <option value="Jammu And Kashmir">Jammu And Kashmir</option>
+                            <option value="Jharkhand">Jharkhand</option>
+                            <option value="West Bengal">West Bengal</option>
+                            <option value="Madhya Pradesh">Madhya Pradesh</option>
+                            <option value="Maharashtra">Maharashtra</option>
+                            <option value="Manipur">Manipur</option>
+                            <option value="Meghalaya">Meghalaya</option>
+                            <option value="Mizoram">Mizoram</option>
+                            <option value="Nagaland">Nagaland</option>
+                            <option value="Orissa">Orissa</option>
+                            <option value="Punjab">Punjab</option>
+                            <option value="Rajasthan">Rajasthan</option>
+                            <option value="Sikkim">Sikkim</option>
+                            <option value="Tamilnadu">Tamilnadu</option>
+                            <option value="Tripura">Tripura</option>
+                            <option value="Uttarakhand (Uttaranchal)">Uttarakhand (Uttaranchal)</option>
+                            <option value="Uttar Pradesh">Uttar Pradesh</option>
                         </select>
+                    </td>
+                    <td>
+                        <input type="button" value="map">
+                        <label>Use a map to specify exact location</label>
                     </td>
                 </tr>
                 <tr>
-                    <td><label>age</label></td>
-                    <td><input type="text" name="age" width="30" value="30"/></td>
+                    <td><label>Cell Phone</label></td>
+                    <td><input type="text" name="cellPhone" width="30" maxlength="10"/></td>
+                    <td><label>(10 digits)</label></td>
                 </tr>
                 <tr>
-                    <td><label>*bloodtype</label></td>
+                    <td><label>Blood Group:</label></td>
                     <td>
-                        <select name="bloodType">
-                            <option value="A+">A+</option>
+                        <select name="bloodGroup">
+                            <option value="A+" selected="true">A+</option>
                             <option value="A-">A-</option>
                             <option value="B+">B+</option>
                             <option value="B-">B-</option>
@@ -57,19 +111,48 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><label>*distance</label></td>
-                    <td><input type="text" name="distance" width="30" value="1"/> Km</td>
+                    <td colspan="3"><label>How far are you willing to travel to donate blood?</label>
+                    <select name="distance">
+                        <option value="5" selected>5</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                    </select> Km
+                    </td>
                 </tr>
                 <tr>
-                    <td colspan="2">Do you want to remain anonymous?</td>
+                    <td ><label>Gender : </label> </td>
+                    <td colspan="2">
+                        <select name="gender">
+                            <option value="male" selected>Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </td>
                 </tr>
                 <tr>
-                    <td colspan="2"><input type="radio" name="anonymous" value="Y"/>Y <input type="radio" name="anonymous" value="N" checked/>N</td>
+                    <td><label>Date of Birth : </label> </td>
+                    <td><input type="text" id="birthDay" /></td>
+                </tr>
+                <tr>
+                    <td colspan="3"><label>Do you want to remain anonymous ?</label><input type="radio" name="anonymous" value="Y"/>Y <input type="radio" name="anonymous" value="N" checked/>N</td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <label>When did you last donate blood?</label>
+                        <select name="lastDonate">
+                            <option value="1" selected>within 1 month<option>
+                            <option value="2">2 months ago<option>
+                            <option value="3">3 months ago<option>
+                            <option value="0">I can't remember<option>
+                        </select>
+                    </td>
                 </tr>
             </table>
         </div>
+        <center>
         <input type="submit" name="register" value="Register"/>
         <input type="submit" name="cancel" value="Cancel"/>
+        </center>
         </form>
     </body>
 </html>

@@ -1,13 +1,24 @@
 package org.bloodtorrent.resources;
 
 import com.yammer.dropwizard.hibernate.UnitOfWork;
+import org.apache.commons.lang3.time.DateUtils;
 import org.bloodtorrent.dto.User;
 import org.bloodtorrent.repository.UsersRepository;
 import org.bloodtorrent.view.CommonView;
+import org.bloodtorrent.view.RegistrationResultView;
 import org.bloodtorrent.view.UserView;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import java.util.Date;
+import java.util.Set;
+
 
 /**
  * Created with IntelliJ IDEA.
@@ -40,23 +51,67 @@ public class UsersResource {
 
     @POST
     @UnitOfWork
-    public CommonView registDonor(@FormParam("email") String id,
-                                  @FormParam("password") String password, @FormParam("firstName") String firstName, @FormParam("lastName") String lastName, @FormParam("phoneNumber") String phoneNumber, @FormParam("gender") String gender, @FormParam("age") int age, @FormParam("bloodType") String bloodType, @FormParam("anonymous") String anonymous, @FormParam("address") String address, @FormParam("distance") double distance) {
-        System.out.println("data from request : "+id);
+    public RegistrationResultView registDonor(@FormParam("firstName") String firstName,
+                                  @FormParam("lastName") String lastName,
+                                  @FormParam("email") String id,
+                                  @FormParam("password") String password,
+                                  @FormParam("confirmPassword") String confirmPassword,
+                                  @FormParam("address") String address,
+                                  @FormParam("city") String city,
+                                  @FormParam("state") String state,
+                                  @FormParam("cellPhone") String cellPhone,
+                                  @FormParam("bloodGroup") String bloodGroup,
+                                  @FormParam("distance") String distance,
+                                  @FormParam("gender") String gender,
+                                  @FormParam("birthDay") String birthDay,
+                                  @FormParam("anonymous") boolean anonymous,
+                                  @FormParam("lastDonate") String lastDonate) {
+
         User user = new User();
         user.setId(id);
         user.setPassword(password);
         user.setFirstName(firstName);
         user.setLastName(lastName);
-        user.setPhoneNumber(phoneNumber);
+        user.setCellPhone(cellPhone);
         user.setGender(gender);
-        user.setAge(age);
-        user.setBloodType(bloodType);
+        user.setBloodGroup(bloodGroup);
         user.setAnonymous(anonymous);
         user.setAddress(address);
+        user.setState(state);
+        user.setCity(city);
         user.setDistance(distance);
         user.setRole("donor");
-        this.repository.insert(user);
-        return new CommonView("/ftl/registSuccess.ftl");
+        user.setBirthDay(birthDay);
+
+        Date today = new Date ();
+        today = DateUtils.addMonths(today, -Integer.parseInt(lastDonate));
+        user.setLastDonateDate(today);
+
+        if(!checkPassword(password, confirmPassword)){
+            return new RegistrationResultView("fail", "password and confirm password are not same.");
+        }
+
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
+
+        if(constraintViolations.size() > 0){
+            StringBuilder messageBuilder = new StringBuilder();
+            for(ConstraintViolation constraintViolation :constraintViolations){
+                messageBuilder.append(constraintViolation.getMessage() + "</br>");
+            }
+            return new RegistrationResultView("fail", messageBuilder.toString());
+        }else{
+            this.repository.insert(user);
+            return new RegistrationResultView("success");
+        }
+    }
+
+    private boolean checkPassword(String password, String confirmPassword) {
+        if(password.equals(confirmPassword)){
+            return true;
+        }else{
+            return false;
+        }
     }
 }

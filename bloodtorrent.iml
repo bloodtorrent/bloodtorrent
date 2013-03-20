@@ -11,6 +11,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.0" level="project" />
     <orderEntry type="library" name="Maven: com.yammer.dropwizard:dropwizard-core:0.6.1" level="project" />
     <orderEntry type="library" name="Maven: com.sun.jersey:jersey-core:1.15" level="project" />
     <orderEntry type="library" name="Maven: com.sun.jersey:jersey-server:1.15" level="project" />
