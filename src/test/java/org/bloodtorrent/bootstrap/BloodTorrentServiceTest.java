@@ -2,15 +2,13 @@ package org.bloodtorrent.bootstrap;
 
 import com.yammer.dropwizard.config.Bootstrap;
 import com.yammer.dropwizard.config.Environment;
-import com.yammer.dropwizard.db.DatabaseConfiguration;
 import org.hibernate.SessionFactory;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import java.io.IOException;
 
-import static com.yammer.dropwizard.testing.JsonHelpers.*;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 /**
@@ -29,9 +27,9 @@ public class BloodTorrentServiceTest {
     @Before
     public void before() throws IOException {
         service = new BloodTorrentService();
-        bootstrap = Mockito.mock(Bootstrap.class);
-        config = Mockito.mock(SimpleConfiguration.class);
-        environment = Mockito.mock(Environment.class);
+        bootstrap = mock(Bootstrap.class);
+        config = mock(SimpleConfiguration.class);
+        environment = mock(Environment.class);
     }
 
     @Test
@@ -41,8 +39,8 @@ public class BloodTorrentServiceTest {
 
     @Test
     public void testRun() throws Exception {
-        SimpleHibernateBundle mock = Mockito.mock(SimpleHibernateBundle.class);
-        SessionFactory sessionFactory = Mockito.mock(SessionFactory.class);
+        SimpleHibernateBundle mock = mock(SimpleHibernateBundle.class);
+        SessionFactory sessionFactory = mock(SessionFactory.class);
         when(mock.getSessionFactory()).thenReturn(sessionFactory);
         service.setHibernateBundle(mock);
         service.run(config, environment);
