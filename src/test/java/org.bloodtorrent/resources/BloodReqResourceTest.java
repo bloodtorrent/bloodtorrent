@@ -30,17 +30,20 @@ public class BloodReqResourceTest {
 
         bloodReq.setFirstName("BOWON");
         bloodReq.setLastName("KIM");
-        bloodReq.setLocation("Seoul");
         bloodReq.setPhone("0118427020");
         bloodReq.setEmail("bb@samsung.com");
         bloodReq.setGender("M");
-        bloodReq.setAge(30);
         bloodReq.setBloodType("O+");
         bloodReq.setBloodVolume(11);
         bloodReq.setRequesterType("C");
         bloodReq.setValidated("N");
         bloodReq.setDate(new Date());
-
-        resource.createNewBloodRequest(bloodReq);
+        bloodReq.setState("texas");
+        bloodReq.setCity("seoul");
+        bloodReq.setHospitalAddress("gangnamgu 320-11");
+        resource.requestForBlood(bloodReq.getFirstName(), bloodReq.getLastName(), bloodReq.getHospitalAddress(),
+                bloodReq.getCity(), bloodReq.getState(), bloodReq.getPhone(),
+                bloodReq.getEmail(), bloodReq.getGender(), "03-11-2012",
+                bloodReq.getBloodType(), bloodReq.getBloodVolume(), bloodReq.getRequesterType());
     }
 }

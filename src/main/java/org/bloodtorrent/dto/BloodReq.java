@@ -21,51 +21,54 @@ public class BloodReq {
     private String firstName;
     @javax.persistence.Column(name = "last_name")
     private String lastName;
-    private String location;
     private String phone;
     private String email;
     private String gender;
-    private Integer age;
     @javax.persistence.Column(name = "blood_type")
     private String bloodType;
     @javax.persistence.Column(name = "blood_volume")
     private Integer bloodVolume;
     @javax.persistence.Column(name = "requester_type")
     private String requesterType;
+    private Date birthday;
+    private String city;
+    private String state;
+    @javax.persistence.Column(name = "hospital_address")
+    private String hospitalAddress;
 
 
     public void setFirstName(String firstName) {
         if (firstName == null || firstName.trim().length() == 0) {
-            throw new IllegalArgumentException("firstName is null or empty!");
+            throw new NullPointerException("First Name");
         }else if(firstName.trim().length() > 35) {
-            throw new IllegalArgumentException("firstName is too long! (Maximum 35)");
+            throw new IllegalArgumentException("First Name");
         }
         this.firstName = firstName;
     }
 
     public void setLastName(String lastName) {
         if (lastName == null || lastName.trim().length() ==0){
-            throw new IllegalArgumentException("lastName is null or empty!");
+            throw new NullPointerException("Last Name");
         }else if(lastName.trim().length() > 35) {
-            throw new IllegalArgumentException("lastName is too long! (Maximum 35)");
+            throw new IllegalArgumentException("Last Name");
         }
         this.lastName = lastName;
     }
 
     public void setPhone(String phone) {
         if (phone == null || phone.trim().length() ==0){
-            throw new IllegalArgumentException("phone is null or empty!");
+            throw new NullPointerException("Cell Phone");
         }else if(!phone.matches("[0-9]{10}")){
-            throw new IllegalArgumentException("phone is not digit or not 10 digits");
+            throw new IllegalArgumentException("Cell Phone");
         }
         this.phone = phone;
     }
 
     public void setEmail(String email) {
         if (email == null || email.trim().length() ==0){
-            throw new IllegalArgumentException("email is null or empty!");
+            throw new NullPointerException("E-mail");
         }else if(!email.matches("^([0-9a-zA-Z_-]+)@([0-9a-zA-Z_-]+)(\\.[0-9a-zA-Z_-]+){1,2}$")){
-            throw new IllegalArgumentException("email is wrong formatted");
+            throw new IllegalArgumentException("E-mail");
         }
         this.email = email;
     }
@@ -74,27 +77,23 @@ public class BloodReq {
         this.gender = gender;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
     public void setBloodType(String bloodType) {
         if (bloodType == null || bloodType.trim().length() ==0){
-                throw new IllegalArgumentException("bloodType is null or empty!");
+                throw new NullPointerException("Blood Type");
         }
         this.bloodType = bloodType;
     }
 
     public void setBloodVolume(Integer bloodVolume) {
         if (bloodVolume == null || bloodVolume==0){
-            throw new IllegalArgumentException("bloodVolume is null or zero!");
+            throw new NullPointerException("Blood Volume");
         }
         this.bloodVolume = bloodVolume;
     }
 
     public void setRequesterType(String requesterType) {
         if (requesterType == null || requesterType.trim().length() ==0){
-            throw new IllegalArgumentException("requesterType is null or empty!");
+            throw new NullPointerException("Requester");
         }
         this.requesterType = requesterType;
     }
@@ -135,10 +134,6 @@ public class BloodReq {
         return gender;
     }
 
-    public Integer getAge() {
-        return age;
-    }
-
     public String getBloodType() {
         return bloodType;
     }
@@ -159,14 +154,50 @@ public class BloodReq {
         this.id = id;
     }
 
-    public String getLocation() {
-        return location;
+    public Date getBirthday() {
+        return birthday;
     }
 
-    public void setLocation(String location) {
-        if (location == null || location.trim().length() ==0){
-            throw new IllegalArgumentException("location is null or empty!");
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        if (city == null || city.trim().length() == 0) {
+            throw new NullPointerException("City");
+        } else if (city.length() > 255) {
+            throw new IllegalArgumentException("City");
         }
-        this.location = location;
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        if (state == null || state.trim().length() == 0) {
+            throw new NullPointerException("State");
+        } else if (state.length() > 255) {
+            throw new IllegalArgumentException("State");
+        }
+        this.state = state;
+    }
+
+    public String getHospitalAddress() {
+        return hospitalAddress;
+    }
+
+    public void setHospitalAddress(String hospitalAddress) {
+        if (hospitalAddress == null || hospitalAddress.trim().length() == 0) {
+            throw new NullPointerException("Hospital or Blood bank address");
+        } else if (hospitalAddress.length() > 1000) {
+            throw new IllegalArgumentException("Hospital or Blood bank address");
+        }
+        this.hospitalAddress = hospitalAddress;
     }
 }
