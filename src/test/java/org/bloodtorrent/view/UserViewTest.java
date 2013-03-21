@@ -1,4 +1,4 @@
-package view;
+package org.bloodtorrent.view;
 
 import org.bloodtorrent.view.UserView;
 import org.junit.Test;
