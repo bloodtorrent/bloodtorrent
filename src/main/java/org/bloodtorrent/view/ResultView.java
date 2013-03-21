@@ -1,10 +1,7 @@
 package org.bloodtorrent.view;
 
 import com.yammer.dropwizard.views.View;
-import org.apache.commons.lang3.ArrayUtils;
-import org.bloodtorrent.dto.User;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,21 +12,21 @@ import java.util.List;
  * Time: 오후 2:57
  * To change this template use File | Settings | File Templates.
  */
-public class RegistrationResultView extends View {
+public class ResultView extends View {
     private final String result;
     private final List<String> messages;
 
-    public RegistrationResultView(String result) {
+    public ResultView(String result) {
         this(result, new ArrayList<String>());
     }
 
-    public RegistrationResultView(String result, List<String> messages) {
+    public ResultView(String result, List<String> messages) {
         super("/ftl/registrationResult.ftl");
         this.result = result;
         this.messages = messages;
     }
 
-    public RegistrationResultView(String result, String message) {
+    public ResultView(String result, String message) {
         super("/ftl/registrationResult.ftl");
         this.result = result;
         messages = new ArrayList<String>();

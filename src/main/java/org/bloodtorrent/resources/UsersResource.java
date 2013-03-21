@@ -4,10 +4,8 @@ import com.yammer.dropwizard.hibernate.UnitOfWork;
 import org.apache.commons.lang3.time.DateUtils;
 import org.bloodtorrent.dto.User;
 import org.bloodtorrent.repository.UsersRepository;
-import org.bloodtorrent.view.CommonView;
-import org.bloodtorrent.view.RegistrationResultView;
+import org.bloodtorrent.view.ResultView;
 import org.bloodtorrent.view.UserView;
-import org.h2.util.StringUtils;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -47,7 +45,7 @@ public class UsersResource {
 
     @POST
     @UnitOfWork
-    public RegistrationResultView registDonor(@FormParam("firstName") String firstName,
+    public ResultView registDonor(@FormParam("firstName") String firstName,
                                   @FormParam("lastName") String lastName,
                                   @FormParam("email") String id,
                                   @FormParam("password") String password,
@@ -83,11 +81,11 @@ public class UsersResource {
         user.setLastDonateDate(lastDonateDate);
 
         if(!checkPassword(password, confirmPassword)){
-            return new RegistrationResultView("fail", "password and confirm password are not same.");
+            return new ResultView("fail", "password and confirm password are not same.");
         }
 
         if(isEmailDuplicated(user)){
-            return new RegistrationResultView("fail", "This email address is already taken.");
+            return new ResultView("fail", "This email address is already taken.");
         }
 
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
@@ -99,10 +97,10 @@ public class UsersResource {
             for(ConstraintViolation constraintViolation :constraintViolations){
                 messages.add(constraintViolation.getMessage()) ;
             }
-            return new RegistrationResultView("fail", messages);
+            return new ResultView("fail", messages);
         }else{
             this.repository.insert(user);
-            return new RegistrationResultView("success", "Thank you for signing up as a donor. Please go ahead and log in");
+            return new ResultView("success", "Thank you for signing up as a donor. Please go ahead and log in");
         }
     }
 
