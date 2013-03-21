@@ -1,6 +1,6 @@
-Tags:in-progress
+Tags:in-progress,Story-3
 Preconditions:
-Metadata:ScenarioType=Manual
+Metadata:ScenarioType=Auto
 On Browser:
 #Navigate to "http://192.168.0.100:8080/requestForBlood"
 
@@ -8,6 +8,6 @@ On request blood page:
 #Fill out the valid request information to mendatory fields
 #Cancel Request
 
-
-On thank you page :
-#ghjg
+On Main Page :
+#pause
+#Verify main title
