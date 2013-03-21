@@ -61,6 +61,49 @@ public class UsersResource {
                                   @FormParam("anonymous") boolean anonymous,
                                   @FormParam("lastDonate") String lastDonate) {
 
+        User user = setUserFormParam(firstName, lastName, id, password, address, city, state, cellPhone, bloodGroup, distance, gender, birthDay, anonymous);
+
+        calculateLastDonateDate(lastDonate, user);
+
+        if(!checkPassword(password, confirmPassword)){
+            return new ResultView("fail", "password and confirm password are not same.");
+        }
+
+        if(isEmailDuplicated(user)){
+            return new ResultView("fail", "This email address is already taken.");
+        }
+
+        Set<ConstraintViolation<User>> constraintViolations = validateUserInfo(user);
+
+        if(constraintViolations.size() > 0){
+            List<String> messages = createViolationMessage(constraintViolations);
+            return new ResultView("fail", messages);
+        }else{
+            this.repository.insert(user);
+            return new ResultView("success", "Thank you for signing up as a donor. Please go ahead and log in");
+        }
+    }
+
+    private List<String> createViolationMessage(Set<ConstraintViolation<User>> constraintViolations) {
+        List<String > messages = new ArrayList<String>();
+        for(ConstraintViolation constraintViolation :constraintViolations){
+            messages.add(constraintViolation.getMessage()) ;
+        }
+        return messages;
+    }
+
+    private Set<ConstraintViolation<User>> validateUserInfo(User user) {
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        return validator.validate(user);
+    }
+
+    private void calculateLastDonateDate(String lastDonate, User user) {
+        Date lastDonateDate = DateUtils.addMonths(new Date(), -Integer.parseInt(lastDonate));
+        user.setLastDonateDate(lastDonateDate);
+    }
+
+    private User setUserFormParam(String firstName, String lastName, String id, String password, String address, String city, String state, String cellPhone, String bloodGroup, String distance, String gender, String birthDay, boolean anonymous) {
         User user = new User();
         user.setId(id);
         user.setPassword(password);
@@ -76,32 +119,7 @@ public class UsersResource {
         user.setDistance(distance);
         user.setRole("donor");
         user.setBirthDay(birthDay);
-
-        Date lastDonateDate = DateUtils.addMonths(new Date (), -Integer.parseInt(lastDonate));
-        user.setLastDonateDate(lastDonateDate);
-
-        if(!checkPassword(password, confirmPassword)){
-            return new ResultView("fail", "password and confirm password are not same.");
-        }
-
-        if(isEmailDuplicated(user)){
-            return new ResultView("fail", "This email address is already taken.");
-        }
-
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        Validator validator = factory.getValidator();
-        Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
-
-        if(constraintViolations.size() > 0){
-            List<String > messages = new ArrayList<String>();
-            for(ConstraintViolation constraintViolation :constraintViolations){
-                messages.add(constraintViolation.getMessage()) ;
-            }
-            return new ResultView("fail", messages);
-        }else{
-            this.repository.insert(user);
-            return new ResultView("success", "Thank you for signing up as a donor. Please go ahead and log in");
-        }
+        return user;
     }
 
     private boolean checkPassword(String password, String confirmPassword) {
