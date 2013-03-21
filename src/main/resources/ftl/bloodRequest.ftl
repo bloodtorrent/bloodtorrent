@@ -23,7 +23,7 @@
     <body>
         <form id="bloodreqFrm" method="post" action="/requestForBlood" onsubmit="validate(this)">
         <div id="bloodreqInfo">
-            <h1>Request for Blood</h1><hr noshade />
+            <h2><u>Request for Blood</u></h2>
             <table cellspacing="3">
                 <tr>
                     <td><label>Name:</label></td>
@@ -94,8 +94,8 @@
                     <td><label>Gender:</label></td>
                     <td>
                         <select name="gender">
-                            <option value="M" selected>Male</option>
                             <option value="F">Female</option>
+                            <option value="M" selected>Male</option>
                         </select>
                     </td>
                 </tr>
@@ -107,9 +107,9 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><label>Blood Type:</label></td>
+                    <td><label>Blood Group:</label></td>
                     <td>
-                        <select name="bloodType">
+                        <select name="bloodGroup">
                             <option value="A+">A+</option>
                             <option value="A-">A-</option>
                             <option value="B+">B+</option>

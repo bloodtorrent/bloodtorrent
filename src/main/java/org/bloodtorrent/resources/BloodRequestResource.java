@@ -3,15 +3,20 @@ package org.bloodtorrent.resources;
 import com.yammer.dropwizard.hibernate.UnitOfWork;
 import com.yammer.dropwizard.views.View;
 import org.bloodtorrent.dto.BloodRequest;
+import org.bloodtorrent.dto.User;
 import org.bloodtorrent.repository.BloodRequestRepository;
 import org.bloodtorrent.view.BloodRequestView;
 import org.bloodtorrent.view.CommonView;
 import org.bloodtorrent.view.ErrorView;
+import org.bloodtorrent.view.ResultView;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -47,50 +52,56 @@ public class BloodRequestResource {
             @FormParam("email") String email,
             @FormParam("gender") String gender,
             @FormParam("birthday") String birthday,
-            @FormParam("bloodType") String bloodType,
+            @FormParam("bloodGroup") String bloodGroup,
             @FormParam("bloodVolume") String bloodVolume,
             @FormParam("requesterType") String requesterType)
     {
-        try {
-            Calendar cal = null;
-            BloodRequest bloodRequest = new BloodRequest();
-            bloodRequest.setFirstName(firstName);
-            bloodRequest.setLastName(lastName);
-            bloodRequest.setHospitalAddress(hospitalAddress);
-            bloodRequest.setCity(city);
-            bloodRequest.setState(state);
-            bloodRequest.setPhone(phone);
-            bloodRequest.setEmail(email);
-            bloodRequest.setGender(gender);
+        Calendar cal = null;
+        BloodRequest bloodRequest = new BloodRequest();
+        bloodRequest.setFirstName(firstName);
+        bloodRequest.setLastName(lastName);
+        bloodRequest.setHospitalAddress(hospitalAddress);
+        bloodRequest.setCity(city);
+        bloodRequest.setState(state);
+        bloodRequest.setPhone(phone);
+        bloodRequest.setEmail(email);
+        bloodRequest.setGender(gender);
 
-            if (birthday != null && birthday.trim().length() > 0) {
-                if (!birthday.matches("[0-3][0-9]-[0-1][0-9]-[0-9]{4}")) {
-                    throw new IllegalArgumentException("Date of Birth");
-                }
+        setBirthday(birthday, bloodRequest);
 
-                String[] birth = birthday.split("-");
-                cal = Calendar.getInstance();
-                cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(birth[0]));
-                cal.set(Calendar.MONTH, Integer.parseInt(birth[1]));
-                cal.set(Calendar.YEAR, Integer.parseInt(birth[2]));
-                bloodRequest.setBirthday(cal.getTime());
+        bloodRequest.setBloodGroup(bloodGroup);
+        bloodRequest.setBloodVolume(bloodVolume);
+        bloodRequest.setRequesterType(requesterType);
+        bloodRequest.setDate(new Date());
+        bloodRequest.setValidated("N");
+        bloodRequest.setId("" + System.currentTimeMillis());
+
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<BloodRequest>> constraintViolations = validator.validate(bloodRequest);
+
+        if(constraintViolations.size() > 0){
+            List<String > messages = new ArrayList<String>();
+            for(ConstraintViolation constraintViolation :constraintViolations){
+                messages.add(constraintViolation.getMessage()) ;
             }
-
-            bloodRequest.setBloodType(bloodType);
-            bloodRequest.setBloodVolume(bloodVolume);
-            bloodRequest.setRequesterType(requesterType);
-            bloodRequest.setDate(new Date());
-            bloodRequest.setValidated("N");
-            bloodRequest.setId("" + System.currentTimeMillis());
+            return new ResultView("fail", messages);
+        }else{
             createNewBloodRequest(bloodRequest);
             return new CommonView("/ftl/thankyou.ftl");
-        } catch (IllegalArgumentException e) {
-            return new ErrorView("/ftl/error.ftl", e.getMessage());
-        } catch (NullPointerException e){
-            ErrorView errorView = new ErrorView("/ftl/error.ftl", e.getMessage());
-            errorView.setIsNullPointerException(true);
-            return errorView;
+        }
 
+    }
+
+    private void setBirthday(String birthday, BloodRequest bloodRequest) {
+        Calendar cal;
+        if (birthday != null && birthday.trim().length() > 0) {
+            String[] birth = birthday.split("-");
+            cal = Calendar.getInstance();
+            cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(birth[0]));
+            cal.set(Calendar.MONTH, Integer.parseInt(birth[1]));
+            cal.set(Calendar.YEAR, Integer.parseInt(birth[2]));
+            bloodRequest.setBirthday(cal.getTime());
         }
     }
 

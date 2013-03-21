@@ -33,7 +33,7 @@ public class BloodRequestResourceTest {
         bloodRequest.setPhone("0118427020");
         bloodRequest.setEmail("bb@samsung.com");
         bloodRequest.setGender("M");
-        bloodRequest.setBloodType("O+");
+        bloodRequest.setBloodGroup("O+");
         bloodRequest.setBloodVolume("11");
         bloodRequest.setRequesterType("C");
         bloodRequest.setValidated("N");
@@ -44,6 +44,6 @@ public class BloodRequestResourceTest {
         resource.requestForBlood(bloodRequest.getFirstName(), bloodRequest.getLastName(), bloodRequest.getHospitalAddress(),
                 bloodRequest.getCity(), bloodRequest.getState(), bloodRequest.getPhone(),
                 bloodRequest.getEmail(), bloodRequest.getGender(), "03-11-2012",
-                bloodRequest.getBloodType(), String.valueOf(bloodRequest.getBloodVolume()), bloodRequest.getRequesterType());
+                bloodRequest.getBloodGroup(), String.valueOf(bloodRequest.getBloodVolume()), bloodRequest.getRequesterType());
     }
 }

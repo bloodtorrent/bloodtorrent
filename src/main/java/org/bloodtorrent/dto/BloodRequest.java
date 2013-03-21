@@ -1,7 +1,11 @@
 package org.bloodtorrent.dto;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 /**
@@ -13,63 +17,74 @@ import java.util.Date;
  */
 @Entity(name = "TB_BLOOD_REQ")
 public class BloodRequest {
+
+    private static final String PLEASE_FILL_OUT_ALL_THE_MANDATORY_FIELDS = "Please fill out all the mandatory fields";
+    private static final String PLEASE_CHECK = "Please check";
+
     @Id
     private String id;
     private Date date;
     private String validated;
+
+    @NotBlank(message=PLEASE_FILL_OUT_ALL_THE_MANDATORY_FIELDS+"(first name)")
+    @Size(min = 1, max = 35, message= PLEASE_CHECK + " first name")
     @javax.persistence.Column(name = "first_name")
     private String firstName;
+
+    @NotBlank(message=PLEASE_FILL_OUT_ALL_THE_MANDATORY_FIELDS+"(last name)")
+    @Size(min = 1, max = 35, message= PLEASE_CHECK + " last name")
     @javax.persistence.Column(name = "last_name")
     private String lastName;
+    @NotBlank(message=PLEASE_FILL_OUT_ALL_THE_MANDATORY_FIELDS+"(Cell Phone)")
+    @Pattern(regexp = "^[0-9]{10}$", message= PLEASE_CHECK + " Cell Phone")
+    @Size(min = 10, max = 10, message= PLEASE_CHECK + " Cell Phone")
     private String phone;
+    @NotBlank(message=PLEASE_FILL_OUT_ALL_THE_MANDATORY_FIELDS+"(E-mail)")
+    @Pattern(regexp = "^([0-9a-zA-Z_-]([0-9a-zA-Z_-]|\\.)+[0-9a-zA-Z_-])@([0-9a-zA-Z_-]+)(\\.[0-9a-zA-Z_-]+){1,2}$", message= PLEASE_CHECK + " email address")
+    @Size(min = 5, max = 100, message= PLEASE_CHECK + " E-mail")
     private String email;
+    @NotBlank(message=PLEASE_FILL_OUT_ALL_THE_MANDATORY_FIELDS+"(gender)")
+    @Size(min = 1, max = 1, message= PLEASE_CHECK + " gender")
     private String gender;
-    @javax.persistence.Column(name = "blood_type")
-    private String bloodType;
+    @javax.persistence.Column(name = "blood_group")
+    @NotBlank(message=PLEASE_FILL_OUT_ALL_THE_MANDATORY_FIELDS+"(blood group)")
+    @Pattern(regexp = "^(A\\+)|(A-)|(B\\+)|(B-)|(AB\\+)|(AB-)|(O\\+)|(O-)|(Unknown)$", message= PLEASE_CHECK + " blood group")
+    private String bloodGroup;
     @javax.persistence.Column(name = "blood_volume")
-    private Integer bloodVolume;
+    @NotBlank(message=PLEASE_FILL_OUT_ALL_THE_MANDATORY_FIELDS+"(blood volume)")
+    @Pattern(regexp = "^([1-9])|([1-9][0-9])$", message= PLEASE_CHECK + " blood volume")
+    private String bloodVolume;
     @javax.persistence.Column(name = "requester_type")
+    @NotBlank(message=PLEASE_FILL_OUT_ALL_THE_MANDATORY_FIELDS+"(requester type)")
+    @Pattern(regexp = "^C|P$", message= PLEASE_CHECK + " requester type")
     private String requesterType;
     private Date birthday;
+    @NotBlank(message=PLEASE_FILL_OUT_ALL_THE_MANDATORY_FIELDS+"(city)")
+    @Size(min = 1, max = 255, message= PLEASE_CHECK + " city size(1-255)")
     private String city;
+    @NotBlank(message=PLEASE_FILL_OUT_ALL_THE_MANDATORY_FIELDS+"(state)")
+    @Size(min = 1, max = 255, message= PLEASE_CHECK + " state size(1-255)")
+    @Pattern(regexp = "^(Andhra Pradesh)|(Arunachal Pradesh)|(Asom \\(Assam\\))|(Bihar)|(Karnataka)|(Kerala)|(Chhattisgarh)|(Goa)|(Gujarat)|(Haryana)|(Himachal Pradesh)|(Jammu And Kashmir)|(Jharkhand)|(West Bengal)|(Madhya Pradesh)|(Maharashtra)|(Manipur)|(Meghalaya)|(Mizoram)|(Nagaland)|(Orissa)|(Punjab)|(Rajasthan)|(Sikkim)|(Tamilnadu)|(Tripura)|(Uttarakhand \\(Uttaranchal\\))|(Uttar Pradesh)$")
     private String state;
+    @NotBlank(message= PLEASE_FILL_OUT_ALL_THE_MANDATORY_FIELDS + "(address)")
+    @Size(min = 1, max = 1000 , message= PLEASE_CHECK + " address size(1-1000)")
     @javax.persistence.Column(name = "hospital_address")
     private String hospitalAddress;
 
 
     public void setFirstName(String firstName) {
-        if (firstName == null || firstName.trim().length() == 0) {
-            throw new NullPointerException("First Name");
-        }else if(firstName.trim().length() > 35) {
-            throw new IllegalArgumentException("First Name");
-        }
         this.firstName = firstName;
     }
 
     public void setLastName(String lastName) {
-        if (lastName == null || lastName.trim().length() ==0){
-            throw new NullPointerException("Last Name");
-        }else if(lastName.trim().length() > 35) {
-            throw new IllegalArgumentException("Last Name");
-        }
         this.lastName = lastName;
     }
 
     public void setPhone(String phone) {
-        if (phone == null || phone.trim().length() ==0){
-            throw new NullPointerException("Cell Phone");
-        }else if(!phone.matches("[0-9]{10}")){
-            throw new IllegalArgumentException("Cell Phone");
-        }
         this.phone = phone;
     }
 
     public void setEmail(String email) {
-        if (email == null || email.trim().length() ==0){
-            throw new NullPointerException("E-mail");
-        }else if(!email.matches("^([.0-9a-zA-Z_-]+)@([0-9a-zA-Z_-]+)(\\.[0-9a-zA-Z_-]+){1,2}$")){
-            throw new IllegalArgumentException("E-mail");
-        }
         this.email = email;
     }
 
@@ -77,39 +92,15 @@ public class BloodRequest {
         this.gender = gender;
     }
 
-    public void setBloodType(String bloodType) {
-        if (bloodType == null || bloodType.trim().length() ==0){
-                throw new NullPointerException("Blood Type");
-        }
-        this.bloodType = bloodType;
+    public void setBloodGroup(String bloodGroup) {
+        this.bloodGroup = bloodGroup;
     }
 
-    public void setBloodVolume(Integer bloodVolume) {
-        if (bloodVolume == null){
-            throw new NullPointerException("Blood Volume");
-        } else if (bloodVolume > 99 || bloodVolume < 1) {
-            throw new IllegalArgumentException("Blood Volume");
-        }
-        this.bloodVolume = bloodVolume;
-    }
     public void setBloodVolume(String bloodVolume) {
-        if (bloodVolume == null || bloodVolume.trim().length() == 0) {
-            throw new NullPointerException("Blood Volume");
-        }
-        if (bloodVolume.matches("[0-9]+")) {
-            this.bloodVolume = Integer.parseInt(bloodVolume);
-            if (this.bloodVolume > 99 || this.bloodVolume < 1) {
-                throw new IllegalArgumentException("Blood Volume");
-            }
-        } else {
-            throw new IllegalArgumentException("Blood Volume");
-        }
+        this.bloodVolume = bloodVolume;
     }
 
     public void setRequesterType(String requesterType) {
-        if (requesterType == null || requesterType.trim().length() ==0){
-            throw new NullPointerException("Requester");
-        }
         this.requesterType = requesterType;
     }
 
@@ -149,11 +140,11 @@ public class BloodRequest {
         return gender;
     }
 
-    public String getBloodType() {
-        return bloodType;
+    public String getBloodGroup() {
+        return bloodGroup;
     }
 
-    public Integer getBloodVolume() {
+    public String getBloodVolume() {
         return bloodVolume;
     }
 
@@ -182,11 +173,7 @@ public class BloodRequest {
     }
 
     public void setCity(String city) {
-        if (city == null || city.trim().length() == 0) {
-            throw new NullPointerException("City");
-        } else if (city.length() > 255) {
-            throw new IllegalArgumentException("City");
-        }
+
         this.city = city;
     }
 
@@ -195,11 +182,7 @@ public class BloodRequest {
     }
 
     public void setState(String state) {
-        if (state == null || state.trim().length() == 0) {
-            throw new NullPointerException("State");
-        } else if (state.length() > 255) {
-            throw new IllegalArgumentException("State");
-        }
+
         this.state = state;
     }
 
@@ -208,11 +191,7 @@ public class BloodRequest {
     }
 
     public void setHospitalAddress(String hospitalAddress) {
-        if (hospitalAddress == null || hospitalAddress.trim().length() == 0) {
-            throw new NullPointerException("Hospital or Blood bank address");
-        } else if (hospitalAddress.length() > 1000) {
-            throw new IllegalArgumentException("Hospital or Blood bank address");
-        }
+
         this.hospitalAddress = hospitalAddress;
     }
 }
