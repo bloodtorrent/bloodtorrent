@@ -2,9 +2,7 @@ package org.bloodtorrent.resources;
 
 import org.bloodtorrent.IllegalDataException;
 import org.bloodtorrent.dto.SuccessStory;
-import org.bloodtorrent.dto.User;
 import org.bloodtorrent.repository.SuccessStoryRepository;
-import org.bloodtorrent.repository.UsersRepository;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,9 +20,7 @@ import java.util.Set;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.IsCollectionContaining.hasItem;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -65,19 +61,14 @@ public class SuccessStoryResourceTest {
     }
 
     @Test
-    public void shouldBeShownWhenThereIsTwoStory(){
+    public void shouldBeShownWhenThereAreTwoStories(){
         SuccessStory story1 = createNewSuccessStory();
         SuccessStory story2 = createNewSuccessStory();
-        List<SuccessStory> list = new ArrayList<SuccessStory>();
-        list.add(story1);
-        list.add(story2);
-        when(repository.list()).thenReturn(list);
+        when(repository.list()).thenReturn(Arrays.asList(story1, story2));
 
         List<SuccessStory> stories = repository.list();
         assertThat(stories, hasItem(story1));
         assertThat(stories, hasItem(story2));
-
-        verify(repository).list();
     }
 
     @Test

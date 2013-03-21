@@ -1,8 +1,7 @@
 package org.bloodtorrent.view;
 
-import org.bloodtorrent.view.UserView;
-import org.junit.Test;
 import org.bloodtorrent.dto.User;
+import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
