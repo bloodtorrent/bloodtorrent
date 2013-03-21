@@ -1,13 +1,15 @@
-Tags:
+Tags:Story-1,in-progress,TODO
 Preconditions:
-Metadata:ScenarioType=Manual
-On Browser:
-#Navigate to "http://www.bloodtorrent.org"
+Metadata:ScenarioType=Auto
+NOTE 
+TODO: insert main page workflow
 
-On main page:
-#Open link "register" 
+On Browser:
+#Navigate to "http://192.168.0.100:8080/user"
 
 On register donor page:
-#Fill out the valid information to mendatory fields with existing users email address
+#Fill out the valid information to mendatory fields with existing users email address "admin@samsung.com"
 #Register donor
+
+On Error page:
 #Verify error message existing user

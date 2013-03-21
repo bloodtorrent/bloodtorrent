@@ -1,5 +1,7 @@
 // JUnit Assert framework can be used for verification
 
+import java.util.Random;
+
 import net.sf.sahi.client.Browser;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +19,9 @@ public class OnRegisterDonorPage {
 		this.browser = browser;
 	}
 
-	public void fillOutTheValidInformationToMandatoryFields() throws Exception {
+	private void setMendatoryFieldsWithoutEmail() {
 		browser.textbox("firstName").setValue("Jane");
 		browser.textbox("lastName").setValue("Jung");
-		browser.textbox("email").setValue("Jane@samsung.com");
 		browser.password("password").setValue("12341234");
 		browser.password("confirmPassword").setValue("12341234");
 		browser.textarea("address").setValue("Seoul");
@@ -30,9 +31,32 @@ public class OnRegisterDonorPage {
 		browser.select("bloodGroup").choose("B+");
 		browser.select("distance").choose("10");
 	}
+	
+	public void fillOutTheValidInformationToMandatoryFields() throws Exception {
+		
+		Random rd= new Random();
+		
+		int rdEmailcount = rd.nextInt(1000)*2;
+		
+		String rdEmail = rdEmailcount + "id@samsung.com";
+		browser.textbox("email").setValue(rdEmail);
+		
+		setMendatoryFieldsWithoutEmail();
+	}
+
 
 	public void registerDonor() throws Exception {
 		browser.submit("Register").click();
+	}
+
+	public void cancelRegistration() throws Exception {
+		browser.button("cancel").click();			
+	}
+
+	public void fillOutTheValidInformationToMendatoryFieldsWithExistingUsersEmailAddress(
+			String email) throws Exception {
+		browser.textbox("email").setValue(email);
+		setMendatoryFieldsWithoutEmail();
 	}
 
 

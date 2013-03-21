@@ -1,14 +1,17 @@
-Tags:
+Tags:Story-1,in-progress,TODO
 Preconditions:
 Metadata:ScenarioType=Manual
-On Browser:
-#Navigate to "http://www.bloodtorrent.org"
+NOTE 
+TODO: insert main page workflow
 
-On main page:
-#Open link "register" 
+On Browser:
+#Navigate to "http://192.168.0.100:8080/user"
+
+On Main Page:
+#Open link "Register Do"
 
 On register donor page:
 #Cancel registration
 
-On main page:
-#Verify user is on main page
+On Main Page:
+#Verify main title
