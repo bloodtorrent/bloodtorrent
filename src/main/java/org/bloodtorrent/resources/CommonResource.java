@@ -15,11 +15,11 @@ import javax.ws.rs.core.MediaType;
  * Time: 1:10 PM
  * To change this template use File | Settings | File Templates.
  */
-@Path("/html/{pageName}")
+@Path("/map")
 @Produces(MediaType.TEXT_HTML)
 public class CommonResource {
     @GET
-    public CommonView showPage(@PathParam("pageName") String pageName) {
+    public CommonView showPage(@PathParam("address") String address, @PathParam("city") String city, @PathParam("state") String state) {
         return new CommonView("/html/" + pageName + ".ftl");
     }
 }

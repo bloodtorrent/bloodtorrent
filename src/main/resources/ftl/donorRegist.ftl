@@ -18,8 +18,15 @@
                 var state = $("select[name='state']").val();
 
                 //address, state, city
-                var allAddress = address ? address : "" +
-                window.open("html/googlemap?address=", "Map");
+                if ( address == null) address = "";
+                if ( city == null) city = "";
+                if ( state == null) state = "";
+
+                var allAddress = address
+                        + "," + city
+                        + "," + state
+                        + "," + 'India';
+                window.open("/html/googlemap?address=" + allAddress, "Map");
             });
         });
         //]]>

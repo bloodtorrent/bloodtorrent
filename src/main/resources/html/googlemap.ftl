@@ -8,8 +8,13 @@
         var currentLat=21.8;
         var currentLng=79.2;
         //Search bar
-        var searchAddress = function() {
-            var inputAddress = document.getElementById('search_address').value;
+        var searchAddress = function(input) {
+            var searchAddrObj = document.getElementById('search_address');
+            if ( input != null ) {
+               searchAddrObj.value = input;
+            }
+
+            var inputAddress = searchAddrObj.value;
             geocoder.geocode(
                 {'address': inputAddress},
                 function(results, status) {
@@ -99,7 +104,7 @@
         }
     </script>
 </head>
-<body onload="searchAddress()">
+<body onload="searchAddress('')">
 <style>
     #mapCanvas {
     width: 500px;
