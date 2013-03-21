@@ -12,7 +12,7 @@
 </head>
 <body>
     <center>
-    <h1>Welcome to Blood Torrent</h1> <br/>
+    <h1><label id="title">Welcome to Blood Torrent</label></h1> <br/>
     <a href="/user"><input type="button" value="Register donor"/></a> &nbsp;
     <a href="/requestForBlood"><input type="button" value="Request blood"/></a>  <br/>
     </center>
