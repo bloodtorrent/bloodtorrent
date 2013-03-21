@@ -1,5 +1,5 @@
-import net.sf.sahi.client.Browser;
 import static com.thoughtworks.twist.core.execution.TwistVerification.verifyEquals;
+import net.sf.sahi.client.Browser;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,7 +17,9 @@ public class OnMainPage {
 	}
 
 	public void verifyMainTitle() throws Exception {
-		verifyEquals("Blood Torrent", browser.title());
+		System.out.println( browser.byId("title").text());
+		verifyEquals("Welcome to Blood Torrent", browser.byId("title").text());
+		// is it better than verify message of page title to make a verification to compare page url?
 	}
 
 }
