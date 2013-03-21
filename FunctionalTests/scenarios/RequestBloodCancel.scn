@@ -1,6 +1,6 @@
 Tags:in-progress,Story-3
 Preconditions:
-Metadata:ScenarioType=Manual
+Metadata:ScenarioType=Auto
 On Browser:
 #Navigate to "http://192.168.0.100:8080/requestForBlood"
 
