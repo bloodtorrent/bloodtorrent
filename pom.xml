@@ -315,6 +315,7 @@
                 <sonar.jdbc.password>taco12345</sonar.jdbc.password>
                 <sonar.host.url>http://192.168.0.100:9000</sonar.host.url>
                 <sonar.dynamicAnalysis>true</sonar.dynamicAnalysis>
+                <sonar.forceAnalysis>true</sonar.forceAnalysis>
             </properties>
         </profile>
     </profiles>
