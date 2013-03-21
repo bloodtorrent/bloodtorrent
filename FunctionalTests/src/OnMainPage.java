@@ -17,8 +17,8 @@ public class OnMainPage {
 	}
 
 	public void verifyMainTitle() throws Exception {
-		System.out.println(browser.heading1("Welcome to Blood Torrent"));
-		verifyEquals("Welcome to Blood Torrent", browser.heading1("Welcome to Blood Torrent"));
+		System.out.println(browser.title());
+		verifyEquals("Blood Torrent", browser.title());
 	}
 
 }
