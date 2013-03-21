@@ -111,6 +111,6 @@ public class UsersResource {
     }
 
     public boolean isEmailDuplicated(User user) {
-        return (this.repository.get(user.getId()) == null);
+        return !(this.repository.get(user.getId()) == null);
     }
 }

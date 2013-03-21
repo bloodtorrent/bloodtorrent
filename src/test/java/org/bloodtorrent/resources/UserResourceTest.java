@@ -58,7 +58,7 @@ public class UserResourceTest {
         User user = createNewUser();
         UsersResource usersResource = new UsersResource(usersRepository);
 
-        assertThat(usersResource.isEmailDuplicated(user), is(true));
+        assertThat(usersResource.isEmailDuplicated(user),is(true)) ;
 
         user.setId("test@naver.com");
         assertThat(usersResource.isEmailDuplicated(user), is(false));
