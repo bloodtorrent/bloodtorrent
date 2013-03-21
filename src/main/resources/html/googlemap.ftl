@@ -9,9 +9,9 @@
         var currentLng=79.2;
         //Search bar
         var searchAddress = function() {
-            var addressField = document.getElementById('search_address');
+            var inputAddress = document.getElementById('search_address').value;
             geocoder.geocode(
-                {'address': addressField.value, language: 'en'},
+                {'address': inputAddress},
                 function(results, status) {
                     if (status == google.maps.GeocoderStatus.OK) {
                         var loc = results[0].geometry.location;
@@ -61,7 +61,7 @@
             var map = new google.maps.Map(document.getElementById('mapCanvas'), {
                 zoom: 5,
                 center: latLng,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
+                mapTypeId: google.maps.MapTypeId.HYBRID
             });
 
             marker = new google.maps.Marker({
