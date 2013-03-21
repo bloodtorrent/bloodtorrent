@@ -21,6 +21,10 @@ public class UsersRepository extends AbstractDAO<User> {
         super(sessionFactory);
     }
 
+    public boolean isExistentId(String id){
+        return get(id) != null;
+    }
+
     public void insert(User user){
         super.persist(user);
     }
