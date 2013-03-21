@@ -73,7 +73,7 @@ public class UsersResource {
 
         Set<ConstraintViolation<User>> constraintViolations = validateUserInfo(user);
 
-        if(constraintViolations.size() > 0){
+        if(constraintViolations.size() > 0 || messages.size() > 0) {
             messages = createViolationMessage(messages, constraintViolations);
         }else{
             this.repository.insert(user);
