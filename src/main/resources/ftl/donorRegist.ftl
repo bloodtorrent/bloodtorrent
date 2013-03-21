@@ -22,11 +22,12 @@
                 if ( city == null) city = "";
                 if ( state == null) state = "";
 
-                var allAddress = address
-                        + "," + city
-                        + "," + state
-                        + "," + 'India';
-                window.open("/html/googlemap?address=" + allAddress, "Map");
+                if ( address == "" || city == "" || state == "" ) {
+                    alert("Please provide the address, city and state before using map.");
+                }
+
+                window.open("/location?address=" + address
+                        + "&city=" + city + "&state=" + state, "Map");
             });
         });
         //]]>

@@ -8,15 +8,26 @@
         var currentLat=21.8;
         var currentLng=79.2;
         //Search bar
-        var searchAddress = function(input) {
+        var fnInit = function(address, city, state, nation){
+            if ( address == null ) address = "";
+            if ( city == null ) city = "";
+            if ( state == null ) state = "";
+            if ( nation == null ) nation = "";
+
+            var searchAddress = address + ", " + city + ", " + state + ", " + nation;
+            searchAddress(searchAddress);
+        }
+
+        var searchAddress = function(fullAddress) {
             var searchAddrObj = document.getElementById('search_address');
-            if ( input != null ) {
-               searchAddrObj.value = input;
+            if ( fullAddress == null ){
+                fullAddress = searchAddrObj.value;
+            }else{
+                searchAddrObj.value = fullAddress;
             }
 
-            var inputAddress = searchAddrObj.value;
             geocoder.geocode(
-                {'address': inputAddress},
+                {'address': fullAddress},
                 function(results, status) {
                     if (status == google.maps.GeocoderStatus.OK) {
                         var loc = results[0].geometry.location;
@@ -104,7 +115,7 @@
         }
     </script>
 </head>
-<body onload="searchAddress('')">
+<body onload="fnInit('${location.address}', '${location.city}', '${location.state}', 'India')">
 <style>
     #mapCanvas {
     width: 500px;
