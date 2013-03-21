@@ -6,13 +6,13 @@ database:
   driverClass: org.h2.Driver
 
   # the username
-  user: bloodtorrent
+  user: sa
 
   # the password
-  password: password
+  password: taco12345
 
   # the JDBC URL
-  url: jdbc:h2:db/bloodtorrent
+  url: jdbc:h2:~/test
 
   # any properties specific to your JDBC driver:
   properties:
