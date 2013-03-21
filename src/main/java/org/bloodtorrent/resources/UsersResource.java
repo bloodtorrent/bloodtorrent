@@ -65,27 +65,26 @@ public class UsersResource {
 
         calculateLastDonateDate(lastDonate, user);
 
-        if(!checkPassword(password, confirmPassword)){
-            return new ResultView("fail", "password and confirm password are not same.");
-        }
+        String result = "fail";
+        List<String> messages = new ArrayList<String>();
 
-        if(isEmailDuplicated(user)){
-            return new ResultView("fail", "This email address is already taken.");
-        }
+        checkPassword(messages, password, confirmPassword);
+        checkEmailDuplicated(messages, user);
 
         Set<ConstraintViolation<User>> constraintViolations = validateUserInfo(user);
 
         if(constraintViolations.size() > 0){
-            List<String> messages = createViolationMessage(constraintViolations);
-            return new ResultView("fail", messages);
+            messages = createViolationMessage(messages, constraintViolations);
         }else{
             this.repository.insert(user);
-            return new ResultView("success", "Thank you for signing up as a donor. Please go ahead and log in");
+            result = "success";
+            messages.add("Thank you for signing up as a donor. Please go ahead and log in");
         }
+
+        return new ResultView(result, messages);
     }
 
-    private List<String> createViolationMessage(Set<ConstraintViolation<User>> constraintViolations) {
-        List<String > messages = new ArrayList<String>();
+    private List<String> createViolationMessage(List<String> messages, Set<ConstraintViolation<User>> constraintViolations) {
         for(ConstraintViolation constraintViolation :constraintViolations){
             messages.add(constraintViolation.getMessage()) ;
         }
@@ -122,11 +121,17 @@ public class UsersResource {
         return user;
     }
 
-    private boolean checkPassword(String password, String confirmPassword) {
-        return password.equals(confirmPassword);
+    private List<String> checkPassword(List<String> messages, String password, String confirmPassword) {
+        if(!password.equals(confirmPassword)){
+            messages.add("password and confirm password are not same.");
+        }
+        return messages;
     }
 
-    public boolean isEmailDuplicated(User user) {
-        return !(this.repository.get(user.getId()) == null);
+    public List<String> checkEmailDuplicated(List<String> messages, User user) {
+        if(!(this.repository.get(user.getId()) == null)){
+            messages.add("This email address is already taken.")  ;
+        }
+        return messages;
     }
 }

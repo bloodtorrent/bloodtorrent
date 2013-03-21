@@ -10,6 +10,7 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -58,10 +59,7 @@ public class UserResourceTest {
         User user = createNewUser();
         UsersResource usersResource = new UsersResource(usersRepository);
 
-        assertThat(usersResource.isEmailDuplicated(user),is(true)) ;
-
-        user.setId("test@naver.com");
-        assertThat(usersResource.isEmailDuplicated(user), is(false));
+        assertThat(usersResource.checkEmailDuplicated(new ArrayList<String>(), user).get(0) ,is("This email address is already taken."));
     }
 
     @Test
