@@ -107,18 +107,10 @@ public class UsersResource {
     }
 
     private boolean checkPassword(String password, String confirmPassword) {
-        if(password.equals(confirmPassword)){
-            return true;
-        }else{
-            return false;
-        }
+        return password.equals(confirmPassword);
     }
 
     public boolean isEmailDuplicated(User user) {
-        if (this.repository.get(user.getId()) == null) {
-            return false;
-        } else {
-            return true;
-        }
+        return (this.repository.get(user.getId()) == null);
     }
 }

@@ -25,7 +25,6 @@ public class UsersRepository extends AbstractDAO<User> {
         super.persist(user);
     }
 
-
     public User get(String id) {
         return super.get(id);
     }
