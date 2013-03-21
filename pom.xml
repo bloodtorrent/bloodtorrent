@@ -13,9 +13,9 @@
         <db.artifactId>h2</db.artifactId>
         <db.version>1.3.170</db.version>
         <db.driver>org.h2.Driver</db.driver>
-        <db.url>jdbc:h2:~/test</db.url>
-        <db.username>sa</db.username>
-        <db.password>taco12345</db.password>
+        <db.url>jdbc:h2:db/bloodtorrent</db.url>
+        <db.username>bloodtorrent</db.username>
+        <db.password>password</db.password>
     </properties>
 
     <dependencies>
