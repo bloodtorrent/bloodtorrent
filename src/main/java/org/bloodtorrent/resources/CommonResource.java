@@ -20,6 +20,6 @@ import javax.ws.rs.core.MediaType;
 public class CommonResource {
     @GET
     public CommonView showPage(@PathParam("address") String address, @PathParam("city") String city, @PathParam("state") String state) {
-        return new CommonView("/html/" + pageName + ".ftl");
+        return new CommonView("");
     }
 }
