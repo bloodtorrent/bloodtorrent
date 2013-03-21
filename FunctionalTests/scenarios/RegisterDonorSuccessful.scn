@@ -1,6 +1,6 @@
 Tags:Story-1,Register Donor,in-progress,TODO
 Preconditions:
-Metadata:ScenarioType=Manual
+Metadata:ScenarioType=Auto
 NOTE 
 TODO: insert main page workflow
 
@@ -9,7 +9,7 @@ On Browser:
 
 On register donor page:
 #Fill out the valid information to mandatory fields
-#Register donor using "\"
+#Register donor 
 
 On thank you page:
 #Verify thank you message

@@ -31,8 +31,9 @@ public class OnRegisterDonorPage {
 		browser.select("distance").choose("10");
 	}
 
-	public void registerDonor(String name) throws Exception {
-		browser.button(name).click();
+	public void registerDonor() throws Exception {
+		browser.submit("Register").click();
 	}
+
 
 }

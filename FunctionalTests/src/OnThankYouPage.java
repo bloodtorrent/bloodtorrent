@@ -20,11 +20,11 @@ public class OnThankYouPage {
 
 	public void verifyThankYouMessage() throws Exception {
 		
-		verifyEquals("Thank you for posting your request. We will get in touch soon to validate the details."
-				,browser.heading1("Thank you for posting your request. We will get in touch soon to validate the details.").getText()); 
-
-		System.out.println(browser.heading1("Thank you for posting your request. We will get in touch soon to validate the details.").getText());
-		browser.link("Home").click();
+//		verifyEquals("Thank you for posting your request. We will get in touch soon to validate the details."
+//				,browser.heading1("Thank you for posting your request. We will get in touch soon to validate the details.").getText()); 
+//
+//		System.out.println(browser.heading1("Thank you for posting your request. We will get in touch soon to validate the details.").getText());
+//		browser.link("Home").click();
 	
 	}
 
