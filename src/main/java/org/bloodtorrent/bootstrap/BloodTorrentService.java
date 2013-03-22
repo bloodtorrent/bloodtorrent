@@ -8,6 +8,9 @@ import org.bloodtorrent.repository.BloodRequestRepository;
 import org.bloodtorrent.repository.PersonRepository;
 import org.bloodtorrent.repository.UsersRepository;
 import org.bloodtorrent.resources.*;
+import org.bloodtorrent.servlet.LoginServlet;
+import org.eclipse.jetty.server.SessionManager;
+import org.eclipse.jetty.server.session.SessionHandler;
 import org.hibernate.SessionFactory;
 
 public class BloodTorrentService extends Service<SimpleConfiguration> {
@@ -37,11 +40,18 @@ public class BloodTorrentService extends Service<SimpleConfiguration> {
     @Override
     public void run(SimpleConfiguration config,
                     Environment environment) throws ClassNotFoundException {
+
+        SessionHandler httpSessionHandler = new SessionHandler();
+        SessionManager httpsSessionManager = httpSessionHandler.getSessionManager();
+        environment.setSessionHandler(httpSessionHandler);
+        environment.addServlet(new LoginServlet(), "/login");
+
         SessionFactory sessionFactory = hibernateBundle.getSessionFactory();
         final PersonRepository repository = new PersonRepository(sessionFactory);
         final UsersRepository userRepository = new UsersRepository(sessionFactory);
         final BloodRequestRepository bloodReqRepository = new BloodRequestRepository(sessionFactory);
-        environment.addResource(new MainResource());
+        environment.addResource(new MainResource(httpsSessionManager));
+        environment.addResource(new LogOffResource(httpsSessionManager));
         environment.addResource(new PersonResource(repository));
         environment.addResource(new UsersResource(userRepository));
         environment.addResource(new BloodRequestResource(bloodReqRepository));

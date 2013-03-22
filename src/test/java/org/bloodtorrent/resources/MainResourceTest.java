@@ -21,8 +21,8 @@ public class MainResourceTest {
     public void shouldReturnMainView() {
         MainResource mainResource = mock(MainResource.class);
         CommonView commonView = mock(CommonView.class);
-        when(mainResource.forwardMainPage()).thenReturn(commonView);
+        when(mainResource.forwardMainPage("")).thenReturn(commonView);
 
-        assertThat(mainResource.forwardMainPage(), is(commonView));
+        assertThat(mainResource.forwardMainPage(""), is(commonView));
     }
 }

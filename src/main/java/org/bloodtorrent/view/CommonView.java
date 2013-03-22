@@ -1,6 +1,7 @@
 package org.bloodtorrent.view;
 
 import com.yammer.dropwizard.views.View;
+import org.bloodtorrent.dto.User;
 
 /**
  * Created with IntelliJ IDEA.
@@ -11,7 +12,18 @@ import com.yammer.dropwizard.views.View;
  */
 public class CommonView extends View {
 
+    private User user;
+
     public CommonView(String viewPath) {
         super(viewPath);
+    }
+
+    public CommonView(String viewPath, User user){
+        super(viewPath);
+        this.user = user;
+    }
+
+    public User getUser() {
+        return user;
     }
 }
