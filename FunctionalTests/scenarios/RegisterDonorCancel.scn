@@ -1,14 +1,14 @@
 Tags:Story-1,in-progress,TODO
 Preconditions:
-Metadata:ScenarioType=Manual
+Metadata:ScenarioType=Auto
 NOTE 
 TODO: insert main page workflow
 
 On Browser:
-#Navigate to "http://192.168.0.100:8080/user"
+#Navigate to "http://192.168.0.100:8080/"
 
 On Main Page:
-#Open link "Register Do"
+#Open link "Register Donor"
 
 On register donor page:
 #Cancel registration

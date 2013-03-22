@@ -5,7 +5,10 @@ NOTE
 TODO: insert main page workflow
 
 On Browser:
-#Navigate to "http://192.168.0.100:8080/user"
+#Navigate to "http://192.168.0.100:8080/"
+
+On Main Page:
+#Open link "Register Donor"
 
 On register donor page:
 #Fill out the valid information to mandatory fields
