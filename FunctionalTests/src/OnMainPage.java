@@ -21,4 +21,9 @@ public class OnMainPage {
 		// is it better than verify message of page title to make a verification to compare page url?
 	}
 
+	public void openLink(String string1) throws Exception {
+		browser.button("Register donor").click();
+	
+	}
+
 }
