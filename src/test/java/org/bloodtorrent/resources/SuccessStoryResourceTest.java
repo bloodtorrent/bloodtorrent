@@ -21,8 +21,8 @@ import java.util.List;
 import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.core.IsCollectionContaining.hasItem;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -52,42 +52,20 @@ public class SuccessStoryResourceTest {
     private SuccessStory createNewSuccessStory() {
         SuccessStory story = new SuccessStory();
         story.setTitle("Sample Story");
-        story.setStory("Hello, world!");
+        story.setDescription("Hello, world!");
         return story;
     }
 
     @Test
-    public void shouldBeShownWhenThereIsOneStory(){
-        SuccessStory story = createNewSuccessStory();
-        when(repository.list()).thenReturn(Arrays.asList(story));
-
-        List<SuccessStory> stories = repository.list();
-        assertThat(stories, hasItem(story));
-
-        verify(repository).list();
-    }
-
-    @Test
-    public void shouldBeShownWhenThereAreTwoStories(){
-        SuccessStory story1 = createNewSuccessStory();
-        SuccessStory story2 = createNewSuccessStory();
-        when(repository.list()).thenReturn(Arrays.asList(story1, story2));
-
-        List<SuccessStory> stories = repository.list();
-        assertThat(stories, hasItem(story1));
-        assertThat(stories, hasItem(story2));
-    }
-
-    @Test
     public void shouldBeZeroSizeWhenThereIsNoStory() throws IllegalDataException {
-        assertThat(resource.numberOfStories(), is(0));
+        assertThat(resource.getSuccessStoriesBriefly().isEmpty(), is(true));
     }
 
     @Test
     public void shouldBeOneSizeWhenThereIsOneStory() throws IllegalDataException {
         SuccessStory story = createNewSuccessStory();
         when(repository.list()).thenReturn(Arrays.asList(story));
-        assertThat(resource.numberOfStories(), is(1));
+        assertThat(resource.getSuccessStoriesBriefly().size(), is(1));
     }
 
     @Test
@@ -99,14 +77,14 @@ public class SuccessStoryResourceTest {
         list.add(story2);
         when(repository.list()).thenReturn(list);
 
-        assertThat(resource.numberOfStories(), is(2));
+        assertThat(resource.getSuccessStoriesBriefly().size(), is(2));
     }
 
     @Test(expected = IllegalDataException.class)
     public void shouldThrowExceptionWhenThereAreFourStories() throws IllegalDataException {
         when(repository.list()).thenReturn(Arrays.asList(createNewSuccessStory(), createNewSuccessStory(), createNewSuccessStory(), createNewSuccessStory()));
 
-        resource.numberOfStories();
+        resource.getSuccessStoriesBriefly().size();
     }
 
     @Test
@@ -120,10 +98,83 @@ public class SuccessStoryResourceTest {
     @Test
     public void descriptionShouldNotBeEmpty() {
         SuccessStory story = createNewSuccessStory();
-        setDummyString(story, "story", 0);
-        Set<ConstraintViolation<SuccessStory>> constraintViolations = validator.validateProperty(story, "story");
+        setDummyString(story, "description", 0);
+        Set<ConstraintViolation<SuccessStory>> constraintViolations = validator.validateProperty(story, "description");
         assertThat(constraintViolations.size(), is(1));
     }
+
+    @Test
+    public void descriptionForMainShouldUnder100Characters() {
+        SuccessStory story = createNewSuccessStory();
+        setDummyString(story, "description", 200);
+        when(repository.list()).thenReturn(Arrays.asList(story));
+
+        List<SuccessStory> successStories = null;
+        try {
+            successStories = resource.getSuccessStoriesBriefly();
+        } catch (IllegalDataException e) {
+            e.printStackTrace();
+            fail();
+        }
+        assertThat(successStories.size(), is(1));
+        assertThat(successStories.get(0).getDescription().length(), is(104));
+        // TODO [Scott/James] ask BA/QA about length of suffix before READ MORE when longer than 100 chars.
+
+        verify(repository).list();
+    }
+
+    @Test
+    public void descriptionForMainShouldBeEqualToSourceDescriptionGivenUnder100Characters() {
+        SuccessStory story = createNewSuccessStory();
+        setDummyString(story, "description", 50);
+        when(repository.list()).thenReturn(Arrays.asList(story));
+
+        List<SuccessStory> successStories = null;
+        try {
+            successStories = resource.getSuccessStoriesBriefly();
+        } catch (IllegalDataException e) {
+            e.printStackTrace();
+            fail();
+        }
+        assertThat(successStories.size(), is(1));
+        assertThat(successStories.get(0).getDescription(), is(story.getDescription()));
+    }
+
+	@Test
+	public void thumbnailPathShouldBeFilled() {
+		SuccessStory story = createNewSuccessStory();
+		setDummyString(story, "thumbnailPath", 0);
+
+		Set<ConstraintViolation<SuccessStory>> constraintViolations = validator.validateProperty(story, "thumbnailPath");
+		assertThat(constraintViolations.size(), is(1));
+
+		setDummyString(story, "thumbnailPath", 10);
+		constraintViolations = validator.validateProperty(story, "thumbnailPath");
+		assertThat(constraintViolations.size(), is(0));
+	}
+
+	@Test
+	public void visualResourcePathShouldBeFilled() {
+		SuccessStory story = createNewSuccessStory();
+		setDummyString(story, "visualResourcePath", 0);
+
+		Set<ConstraintViolation<SuccessStory>> constraintViolations = validator.validateProperty(story, "visualResourcePath");
+		assertThat(constraintViolations.size(), is(1));
+
+		setDummyString(story, "visualResourcePath", 10);
+		constraintViolations = validator.validateProperty(story, "visualResourcePath");
+		assertThat(constraintViolations.size(), is(0));
+	}
+
+
+
+
+
+
+
+
+
+
 
     private <T> void setDummyString(T t, String property, int num) {
         String dummyText = makeDummyString(num);
