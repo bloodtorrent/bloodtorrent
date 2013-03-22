@@ -1,15 +1,70 @@
 <html>
     <head>
+        <style>
+            #mapCanvas {
+                width: 100%;
+                height: 400px;
+                float: left;
+            }
+            #infoPanel {
+                display:none;
+            }
+        </style>
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+        <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&language=en"></script>
         <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
         <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
         <script type="text/javascript" language="javascript">
+
         //<![CDATA[
+        //default Latitude and longitude : India
+
+        var currentLatLng;
+
         $(function() {
             $("#birthDay").datepicker({
                 showOtherMonths: true,
                 selectOtherMonths: true,
                 dateFormat: "dd-mm-yy"
+            });
+
+            $( "#dialog_confirm" ).dialog({
+                autoOpen: false,
+                 buttons: {
+                    "Yes": function() {
+                        $( this ).dialog( "close" );
+                        $( "#map_dialog"  ).dialog( "close" );
+                    },
+                    "No": function() {
+                        $( this ).dialog( "close" );
+                     }
+                 }
+            });
+
+            $( "#searchButton" )
+                .button()
+                .width(100)
+                .height(15)
+                .click(function( event ) {
+                    searchAddress(document.getElementById('search_address').value);
+            });
+
+           $( "#map_dialog" ).dialog({
+                autoOpen: false,
+                minHeight: 600,
+                minWidth: 600,
+                modal: true,
+                buttons: {
+                    "Save": function() {
+                        $("#lat").val(currentLatLng.lat());
+                        $("#lng").val(currentLatLng.lng());
+                        $("#messageLabel").text("Your map location is saved");
+                        $( this ).dialog( "close" );
+                    },
+                    Cancel: function() {
+                        $( "#dialog_confirm" ).dialog( "open");
+                    }
+                }
             });
 
             $("#popupMap").click(function(e){
@@ -26,14 +81,134 @@
                     alert("Please provide the address, city and state before using map.");
                     return;
                 }
-                window.open("/location?address=" + address + "&city=" + city + "&state=" + state, "Map");
+
+                if($("#lat").val() == null || $("#lng").val() == null
+                    || $("#lat").val() == "" || $("#lng").val() == ""){
+                    searchLocation();
+                } else{
+                    searchAddress("", currentLatLng);
+                }
+
+                $( "#map_dialog" ).dialog( "open" );
+            });
+
+            $( "#dialog-confirm" ).dialog({
+                  resizable: false,
+                  height:140,
+                  modal: true,
+                  buttons: {
+                    "Yes" : function() {
+                        $( this ).dialog( "close" );
+                    },
+                    "No" : function() {
+                        return;
+                    }
+                  }
             });
         });
+
+        //Search bar
+        searchLocation = function(){
+            addressToSearch = $("#orginalAddress").val() +"," + $("#city").val() +"," + $("#state").val() +"," +"India";
+            document.getElementById('search_address').value = addressToSearch;
+            searchAddress(addressToSearch);
+        }
+
+        var geocoder = new google.maps.Geocoder();
+
+        var searchAddress = function(fullAddress, location) {
+            geocoder.geocode(
+                {
+                    'address': fullAddress,
+                    'location': location,
+
+                },
+                function(results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        var loc = results[0].geometry.location;
+                        if(typeof location == 'undefined') {
+                            currentLatLng = loc;
+                        }else{
+                            currentLatLng = location;
+                        }
+                    }else {
+                        //alert("Not found: " + status);
+                    }
+
+                    init(currentLatLng);
+                }
+            );
+        };
+
+        function geocodePosition(pos) {
+            geocoder.geocode({
+                latLng: pos,
+                language: 'en'
+            }, function(responses) {
+                if (responses && responses.length > 0) {
+                    updateMarkerAddress(responses[0].formatted_address);
+                } else {
+                    updateMarkerAddress('Cannot determine address at this location.');
+                }
+            });
+        }
+
+        function updateMarkerStatus(str) {
+            document.getElementById('markerStatus').innerHTML = str;
+        }
+
+        function updateMarkerPosition(latLng) {
+            document.getElementById('info').innerHTML = [
+                latLng.lat(),
+                latLng.lng()
+            ].join(', ');
+
+            currentLatLng = latLng;
+        }
+
+        function updateMarkerAddress(str) {
+            document.getElementById('address').innerHTML = str;
+        }
+
+        function init(latLng) {
+            var map = new google.maps.Map(document.getElementById('mapCanvas'), {
+                zoom: 14,
+                center: latLng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+
+            var marker = new google.maps.Marker({
+                position: latLng,
+                title: 'Your Location',
+                map: map,
+                draggable: true
+            });
+
+            updateMarkerPosition(latLng);
+            geocodePosition(latLng);
+
+            google.maps.event.addListener(marker, 'dragstart', function() {
+                updateMarkerAddress('Dragging...');
+            });
+
+            google.maps.event.addListener(marker, 'drag', function() {
+                <!--updateMarkerStatus('Dragging...');-->
+                updateMarkerPosition(marker.getPosition());
+            });
+
+            google.maps.event.addListener(marker, 'dragend', function() {
+                <!--updateMarkerStatus('Drag ended');-->
+                geocodePosition(marker.getPosition());
+            });
+        }
+
+
         //]]>
         </script>
     </head>
     <body>
-        <form id="userFrm" method="post" action="/user">
+
+        <form id="user" method="post" action="/user">
         <div id="title">
             <center><label><h2><u>New Account Registration as Donor</u></h2><label></center>
         </div>
@@ -68,16 +243,16 @@
                 </tr>
                 <tr>
                     <td><label>Address : </label></td>
-                    <td colspan="2"><textarea name="address" rows="3" cols="50"></textarea></td>
+                    <td colspan="2"><textarea name="address" id="orginalAddress" rows="3" cols="50"></textarea></td>
                 </tr>
                 <tr>
                     <td><label>City : </label></td>
-                    <td><input type="text" name="city" width="30" maxLength="255"/></td>
+                    <td><input type="text" name="city" id="city" width="30" maxLength="255"/></td>
                 </tr>
                 <tr>
                     <td><label>State : </label></td>
                     <td>
-                        <select name="state">
+                        <select name="state" id="state">
                             <option value="Andhra Pradesh" selected="true">Andhra Pradesh</option>
                             <option value="Arunachal Pradesh">Arunachal Pradesh</option>
                             <option value="Asom (Assam)">Asom (Assam)</option>
@@ -174,9 +349,29 @@
             </table>
         </div>
         <center>
+
+        <input type="text" id="lat" value=""/>
+        <input type="text" id="lng" value=""/>
+
         <input type="submit" name="register" value="Register"/>
         <a href ="/"><input type="button" name="cancel" value="Cancel"/></a>
         </center>
         </form>
+        <div id="map_dialog" title="Map">
+            <div id="searchAddress">
+                <input type="text" id="search_address" size="40%" value="India" onkeydown="if(event.keyCode == 13) document.getElementById('searchButton').click()" />
+                <input type="text" id="searchButton" value="search"/>
+            </div>
+            <div id="mapCanvas" ></div>
+            <div id="infoPanel">
+                <b>Current position:</b>
+                <div id="info"></div>
+                <b>Closest matching address:</b>
+                <div id="address"></div>
+            </div>
+            <div id="dialog_confirm" title="Do you wish to proceed without specifying exact location?">
+
+            </div>
+        </div>
     </body>
 </html>

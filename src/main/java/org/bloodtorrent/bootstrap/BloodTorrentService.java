@@ -56,7 +56,5 @@ public class BloodTorrentService extends Service<SimpleConfiguration> {
         environment.addResource(new PersonResource(repository));
         environment.addResource(new UsersResource(userRepository));
         environment.addResource(new BloodRequestResource(bloodReqRepository));
-
-        environment.addResource(new CommonResource());
     }
 }
