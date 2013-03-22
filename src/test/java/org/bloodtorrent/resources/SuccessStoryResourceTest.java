@@ -4,8 +4,10 @@ import org.bloodtorrent.IllegalDataException;
 import org.bloodtorrent.dto.SuccessStory;
 import org.bloodtorrent.repository.SuccessStoryRepository;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -21,7 +23,8 @@ import java.util.Set;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.IsCollectionContaining.hasItem;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * Created with IntelliJ IDEA.
@@ -30,16 +33,19 @@ import static org.mockito.Mockito.*;
  * Time: 오전 11:19
  * To change this template use File | Settings | File Templates.
  */
+@RunWith(MockitoJUnitRunner.class)
 public class SuccessStoryResourceTest {
 
-    private SuccessStoryResource resource;
+    @Mock
     private SuccessStoryRepository repository;
+
+    private SuccessStoryResource resource;
+
     private final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
     private final Validator validator = factory.getValidator();
 
     @Before
     public void setUpResource() {
-        repository = mock(SuccessStoryRepository.class);
         resource = new SuccessStoryResource(repository);
     }
 
@@ -62,7 +68,6 @@ public class SuccessStoryResourceTest {
     }
 
     @Test
-    @Ignore
     public void shouldBeShownWhenThereAreTwoStories(){
         SuccessStory story1 = createNewSuccessStory();
         SuccessStory story2 = createNewSuccessStory();
