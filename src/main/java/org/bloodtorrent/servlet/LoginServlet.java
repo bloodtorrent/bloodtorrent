@@ -1,5 +1,7 @@
 package org.bloodtorrent.servlet;
 
+import org.bloodtorrent.dto.User;
+
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -26,9 +28,13 @@ public class LoginServlet extends HttpServlet {
         HttpSession session = servletRequest.getSession();
         String email = servletRequest.getParameter("email");
         String password = servletRequest.getParameter("password");
+        User user = new User();
 
         if(ADMIN_ID.equals(email) && ADMIN_PWD.equals(password)){
+            user.setId(ADMIN_ID);
+            session.setAttribute("user", user);
             session.setAttribute("adminCheck", email);
+            servletResponse.sendRedirect("/admin");
         }
         servletResponse.sendRedirect("/");
     }

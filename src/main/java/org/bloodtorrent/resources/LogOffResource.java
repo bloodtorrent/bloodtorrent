@@ -33,6 +33,7 @@ public class LogOffResource {
     public CommonView forwardMainPage(@CookieParam("JSESSIONID") String sessionID) {
         HttpSession session = getSession(sessionID);
         session.removeAttribute("adminCheck");
+        session.removeAttribute("user");
         return new CommonView("/ftl/main.ftl");
     }
 

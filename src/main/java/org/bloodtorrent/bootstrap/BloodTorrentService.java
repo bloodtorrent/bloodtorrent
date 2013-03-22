@@ -51,6 +51,7 @@ public class BloodTorrentService extends Service<SimpleConfiguration> {
         final UsersRepository userRepository = new UsersRepository(sessionFactory);
         final BloodRequestRepository bloodReqRepository = new BloodRequestRepository(sessionFactory);
         environment.addResource(new MainResource(httpsSessionManager));
+        environment.addResource(new AdminResource(httpsSessionManager));
         environment.addResource(new LogOffResource(httpsSessionManager));
         environment.addResource(new PersonResource(repository));
         environment.addResource(new UsersResource(userRepository));

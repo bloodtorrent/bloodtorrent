@@ -25,6 +25,7 @@ public class MainResource {
 
     private static final String ADMIN_ID = "Administrator";
     private final SessionManager sessionManager;
+    private User user;
 
     public MainResource(SessionManager httpSessionManager) {
         sessionManager = httpSessionManager;
@@ -34,9 +35,8 @@ public class MainResource {
     @UnitOfWork
     public CommonView forwardMainPage(@CookieParam("JSESSIONID") String sessionID) {
         HttpSession session = getSession(sessionID);
-        if(session != null && session.getAttribute("adminCheck") != null && ADMIN_ID.equals(session.getAttribute("adminCheck"))){
-            User user = new User();
-            user.setId(ADMIN_ID);
+        if(session != null && session.getAttribute("user") !=  null){
+            user = (User) session.getAttribute("user");
             return new CommonView("/ftl/main.ftl", user);
         }
         return new CommonView("/ftl/main.ftl");
