@@ -1,10 +1,15 @@
 package org.bloodtorrent.dto;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.io.Serializable;
 
 @Entity(name = "person")
+@Getter @Setter @NoArgsConstructor
 public class Person implements Serializable {
     @Id
     private String name;
@@ -12,25 +17,6 @@ public class Person implements Serializable {
 
     public Person(String name, String blood) {
         this.name = name;
-        this.blood = blood;
-    }
-
-    public Person() {
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getBlood() {
-        return blood;
-    }
-
-    public void setBlood(String blood) {
         this.blood = blood;
     }
 }
