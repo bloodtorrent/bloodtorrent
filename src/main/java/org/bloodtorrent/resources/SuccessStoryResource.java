@@ -19,8 +19,9 @@ public class SuccessStoryResource {
 
     public Integer numberOfStories() throws IllegalDataException {
         int size = repository.list().size();
-        if(size > 3)
+        if(size > 3) {
             throw new IllegalDataException("At most 3 Success Stories should be shown.");
+		}
         return size;
     }
 }
