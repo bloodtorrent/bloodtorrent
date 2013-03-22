@@ -12,7 +12,6 @@ import javax.validation.constraints.NotNull;
  * Time: 오전 11:26
  * To change this template use File | Settings | File Templates.
  */
-@Entity(name = "SUCCESS_STORY")
 public class SuccessStory {
     @NotBlank
     private String title;
