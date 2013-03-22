@@ -2,30 +2,22 @@
 <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&language=en"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
     <script type="text/javascript">
         var alreadySaved = false;
         //default Latitude and longitude : India
         var currentLat=21.8;
         var currentLng=79.2;
         //Search bar
-        var fnInit = function(address, city, state, nation){
-            if ( address == null ) address = "";
-            if ( city == null ) city = "";
-            if ( state == null ) state = "";
-            if ( nation == null ) nation = "";
-
-            var searchAddress = address + ", " + city + ", " + state + ", " + nation;
-            searchAddress(searchAddress);
+        window.onload = function(){
+            addressToSearch = '${location.address},${location.city},${location.state},India';
+            document.getElementById('search_address').value = addressToSearch;
+            searchAddress(addressToSearch);
         }
 
         var searchAddress = function(fullAddress) {
-            var searchAddrObj = document.getElementById('search_address');
-            if ( fullAddress == null ){
-                fullAddress = searchAddrObj.value;
-            }else{
-                searchAddrObj.value = fullAddress;
-            }
-
             geocoder.geocode(
                 {'address': fullAddress},
                 function(results, status) {
@@ -106,16 +98,24 @@
         }
 
         window.onbeforeunload = function() {
-            var confirmMessage = "Do you wish to proceed without location setting?";
-            return confirmMessage;
+            cancel();
         }
 
         function cancel(){
-            //should call the function in the parent window
+            var confirmMessage = "Do you wish to proceed without location setting?";
+            if(!confirm(confirmMessage)){
+                window.close();
+            }
+        }
+
+        var applyLocationToOpener = function(){
+        $("#var_id")
+            var label = window.opener.jQuery("#messageLabel");
+            label.value = "Your map location is saved";
         }
     </script>
 </head>
-<body onload="fnInit('${location.address}', '${location.city}', '${location.state}', 'India')">
+<body>
 <style>
     #mapCanvas {
     width: 500px;
@@ -133,7 +133,7 @@
 
 <div id="searchAddress">
     <input type="text" id="search_address" size="60%" value="India" onkeydown="if(event.keyCode == 13) document.getElementById('searchButton').click()" />
-    <button id="searchButton" onclick="searchAddress();">Search</button>
+    <button id="searchButton" onclick="searchAddress(document.getElementById('search_address').value);">Search</button>
 </div>
 <div id="mapCanvas"></div>
 <div id="infoPanel">
@@ -143,7 +143,7 @@
     <div id="address"></div>
 </div>
 <div id="submit">
-    <button id="submitLocation" onclick="alreadySaved=true; alert('address : '+document.getElementById('address').innerHTML+'\nlatitude:'+currentLat+'\nlongitude:'+currentLng);">save</button>
+    <button id="submitLocation" onclick="alreadySaved=true; alert('address : '+document.getElementById('address').innerHTML+'\nlatitude:'+currentLat+'\nlongitude:'+currentLng);applyLocationToOpener()">save</button>
     <button id="cancel" onclick="cancel();">cancel</button>
 </div>
 </body>

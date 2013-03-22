@@ -24,10 +24,9 @@
 
                 if ( address == "" || city == "" || state == "" ) {
                     alert("Please provide the address, city and state before using map.");
+                    return;
                 }
-
-                window.open("/location?address=" + address
-                        + "&city=" + city + "&state=" + state, "Map");
+                window.open("/location?address=" + address + "&city=" + city + "&state=" + state, "Map");
             });
         });
         //]]>
@@ -111,7 +110,7 @@
                     </td>
                     <td>
                         <input type="button" id="popupMap" value="map"/>
-                        <label>Use a map to specify exact location</label>
+                        <label id="messageLabel">Use a map to specify exact location</label>
                     </td>
                 </tr>
                 <tr>
