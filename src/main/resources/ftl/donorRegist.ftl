@@ -148,8 +148,8 @@
                     <td ><label>Gender : </label> </td>
                     <td colspan="2">
                         <select name="gender">
-                            <option value="male" selected>Male</option>
-                            <option value="female">Female</option>
+                            <option value="female" selected>Female</option>
+                            <option value="male">Male</option>
                         </select>
                     </td>
                 </tr>

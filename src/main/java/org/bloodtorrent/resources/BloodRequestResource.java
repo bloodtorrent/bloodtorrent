@@ -3,11 +3,9 @@ package org.bloodtorrent.resources;
 import com.yammer.dropwizard.hibernate.UnitOfWork;
 import com.yammer.dropwizard.views.View;
 import org.bloodtorrent.dto.BloodRequest;
-import org.bloodtorrent.dto.User;
 import org.bloodtorrent.repository.BloodRequestRepository;
 import org.bloodtorrent.view.BloodRequestView;
 import org.bloodtorrent.view.CommonView;
-import org.bloodtorrent.view.ErrorView;
 import org.bloodtorrent.view.ResultView;
 
 import javax.validation.ConstraintViolation;
