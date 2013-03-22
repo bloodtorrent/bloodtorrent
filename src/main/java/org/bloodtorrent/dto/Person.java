@@ -10,6 +10,7 @@ import java.io.Serializable;
 
 @Entity(name = "person")
 @Getter @Setter @NoArgsConstructor
+@SuppressWarnings("PMD.UnusedPrivateField")
 public class Person implements Serializable {
     @Id
     private String name;

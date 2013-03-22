@@ -13,6 +13,7 @@ import java.util.Date;
 
 @Entity(name = "TB_BLOOD_REQ")
 @Setter @Getter
+@SuppressWarnings("PMD.UnusedPrivateField")
 public class BloodRequest {
 
     private static final String PLEASE_FILL_OUT_ALL_THE_MANDATORY_FIELDS = "Please fill out all the mandatory fields";

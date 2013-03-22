@@ -8,6 +8,7 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @RequiredArgsConstructor
+@SuppressWarnings("PMD.UnusedPrivateField")
 public class Location implements Serializable {
     @NonNull
     private String address;

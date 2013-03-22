@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Getter @Setter
+@SuppressWarnings("PMD.UnusedPrivateField")
 public class SuccessStory {
     @NotBlank
     private String title;
