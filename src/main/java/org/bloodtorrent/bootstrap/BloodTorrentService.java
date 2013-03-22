@@ -13,8 +13,14 @@ import org.hibernate.SessionFactory;
 public class BloodTorrentService extends Service<SimpleConfiguration> {
     private SimpleHibernateBundle hibernateBundle = new SimpleHibernateBundle("org.bloodtorrent");
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
+	  try {
         new BloodTorrentService().run(args);
+	  }
+	  catch(Exception ex) {
+	    System.out.println("Running BloodTorrent Service failed with exception.");
+	    ex.printStackTrace();
+	  }
     }
 
     public void setHibernateBundle(SimpleHibernateBundle hibernateBundle) {
