@@ -1,6 +1,8 @@
 package org.bloodtorrent.resources;
 
+import org.bloodtorrent.ResourceManager;
 import org.bloodtorrent.dto.User;
+import org.bloodtorrent.repository.SuccessStoryRepository;
 import org.bloodtorrent.view.CommonView;
 import org.eclipse.jetty.server.SessionManager;
 import org.junit.Before;
@@ -28,10 +30,21 @@ public class LogOffResourceTest {
     private String SESSION_ID = "SESSION_ID";
     private SessionManager sessionManager = mock(SessionManager.class);
     private HttpSession httpSession = mock(HttpSession.class);
+    private SuccessStoryRepository successStoryRepository = mock(SuccessStoryRepository.class);
 
     @Before
     public void init() {
         when(sessionManager.getHttpSession(SESSION_ID)).thenReturn(httpSession);
+        MainResource mainResource = new MainResource(sessionManager);
+        mainResource.setSuccessStoryResource(new SuccessStoryResource(successStoryRepository));
+        ResourceManager.getInstance().add(mainResource);
+    }
+
+    @Test
+    public void shouldHaveNoSession() {
+        LogOffResource logoffResource = new LogOffResource(sessionManager);
+        logoffResource.forwardMainPage(SESSION_ID);
+        verify(httpSession).removeAttribute("user");
     }
 
     @Test
@@ -39,6 +52,5 @@ public class LogOffResourceTest {
         LogOffResource logoffResource = new LogOffResource(sessionManager);
         CommonView adminView = logoffResource.forwardMainPage(SESSION_ID);
         assertThat(adminView.getTemplateName(), is("/ftl/main.ftl"));
-        verify(httpSession).removeAttribute("user");
     }
 }
