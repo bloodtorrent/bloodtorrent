@@ -70,6 +70,7 @@ public class UsersResource {
         String result = "fail";
         List<String> messages = new ArrayList<String>();
 
+
         checkPassword(messages, password, confirmPassword);
         checkEmailDuplicated(messages, user);
 
