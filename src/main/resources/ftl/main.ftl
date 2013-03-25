@@ -41,6 +41,10 @@ Hello ${user.id}
 <h1>status : login</h1>
 <#else>
 <form name="login">
+<#if message?exists>
+<span style="color:red">${message}</span>
+<br/>
+</#if>
 ID : <input type="text" name="email" id="email" value="" />&nbsp;&nbsp;&nbsp;&nbsp;
 PWD : <input type="password" id="password" name="password" /> &nbsp;&nbsp;
 <input type="button" value="Log in" name="login" onclick="goLogin();">&nbsp;&nbsp;

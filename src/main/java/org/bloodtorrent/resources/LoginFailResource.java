@@ -2,7 +2,6 @@ package org.bloodtorrent.resources;
 
 import com.yammer.dropwizard.hibernate.UnitOfWork;
 import org.bloodtorrent.ResourceManager;
-import org.bloodtorrent.dto.User;
 import org.bloodtorrent.view.CommonView;
 import org.eclipse.jetty.server.SessionManager;
 
@@ -20,32 +19,19 @@ import javax.ws.rs.core.MediaType;
  * Time: 오후 12:06
  * To change this template use File | Settings | File Templates.
  */
-@Path("/admin")
+@Path("/loginfail")
 @Produces(MediaType.TEXT_HTML)
-public class AdminResource {
+public class LoginFailResource {
 
-    private final SessionManager sessionManager;
-
-    public AdminResource(SessionManager httpSessionManager) {
-        sessionManager = httpSessionManager;
-    }
+    private static final String LOG_IN_FAIL_MESSAGE = "The E-mail or password you entered is incorrect.";
 
     @GET
     @UnitOfWork
-    public CommonView forwardAdminPage(@CookieParam("JSESSIONID") String sessionID) {
-        HttpSession session = getSession(sessionID);
-        User user = (User) session.getAttribute("user");
+    public CommonView forwardMainPage(@CookieParam("JSESSIONID") String sessionID) {
+
         MainResource mainResource = ResourceManager.getInstance().find(MainResource.class).get();
         CommonView commonView = mainResource.forwardMainPage(sessionID);
-        if(session != null && user != null) {
-            user = (User) session.getAttribute("user");
-            commonView.setUser(user);
-            return (user.getIsAdmin()=='Y' ? new CommonView("/ftl/admin.ftl", user) : commonView);
-        }
+        commonView.setMessage(LOG_IN_FAIL_MESSAGE);
         return commonView;
-    }
-
-    public HttpSession getSession(String sessionID) {
-        return sessionManager.getHttpSession(sessionID);
     }
 }

@@ -1,6 +1,7 @@
 package org.bloodtorrent.resources;
 
 import com.yammer.dropwizard.hibernate.UnitOfWork;
+import org.bloodtorrent.ResourceManager;
 import org.bloodtorrent.dto.User;
 import org.bloodtorrent.view.CommonView;
 import org.eclipse.jetty.server.SessionManager;
@@ -32,9 +33,10 @@ public class LogOffResource {
     @UnitOfWork
     public CommonView forwardMainPage(@CookieParam("JSESSIONID") String sessionID) {
         HttpSession session = getSession(sessionID);
-        session.removeAttribute("adminCheck");
         session.removeAttribute("user");
-        return new CommonView("/ftl/main.ftl");
+        MainResource mainResource = ResourceManager.getInstance().find(MainResource.class).get();
+        CommonView commonView = mainResource.forwardMainPage(sessionID);
+        return commonView;
     }
 
     public HttpSession getSession(String sessionID) {

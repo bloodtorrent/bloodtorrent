@@ -89,4 +89,7 @@ public class User {
     @Column(name = "longitude")
     private double longitude;
 
+    @Column(name = "is_admin")
+    private char isAdmin;
+
 }

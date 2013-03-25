@@ -63,6 +63,8 @@ public class BloodTorrentService extends Service<SimpleConfiguration> {
         addResource(environment, new UsersResource(userRepository));
         addResource(environment, new BloodRequestResource(bloodReqRepository));
         addResource(environment, new SuccessStoryResource(successStoryRepository));
+        addResource(environment, new LoginResource(httpsSessionManager, userRepository));
+        addResource(environment, new LoginFailResource());
     }
 
     private void addResource(Environment environment, Object resource) {

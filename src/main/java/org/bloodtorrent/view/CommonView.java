@@ -1,6 +1,8 @@
 package org.bloodtorrent.view;
 
 import com.yammer.dropwizard.views.View;
+import lombok.Getter;
+import lombok.Setter;
 import org.bloodtorrent.dto.User;
 
 /**
@@ -12,7 +14,10 @@ import org.bloodtorrent.dto.User;
  */
 public class CommonView extends View {
 
+    @Getter @Setter
     private User user;
+    @Getter @Setter
+    private String message;
 
     public CommonView(String viewPath) {
         super(viewPath);
@@ -23,7 +28,9 @@ public class CommonView extends View {
         this.user = user;
     }
 
-    public User getUser() {
-        return user;
+    public CommonView(String viewPath, String message) {
+        super(viewPath);
+        this.message = message;
     }
+
 }
