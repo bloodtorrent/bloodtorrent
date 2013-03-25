@@ -6,57 +6,75 @@ import net.sf.sahi.client.Browser;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import pageClasses.RegisterDonor;
+
 import com.thoughtworks.twist.core.execution.TwistScenarioDataStore;
 
 public class OnRegisterDonorPage {
 
 	private Browser browser;
-
+	private RegisterDonor registerDonor;
+	
+	private String email = "administrator@bloodtorrent.org";
+	private String firstName = "Jane";
+	private String lastName = "Jung";
+	private String passWord = "12341234";
+	private String confirmPassWord = "12341234";
+	private String address = "Seoul";
+	private String city = "Seoul";
+	private String state = "Orissa";
+	private String cellPhone = "0102003000";
+	private String bloodGroup = "B+";
+	private String distance = "10";
+	
+	
 	@Autowired
 	private TwistScenarioDataStore scenarioStore;
 
 	public OnRegisterDonorPage(Browser browser) {
 		this.browser = browser;
+		registerDonor = new RegisterDonor(browser);
 	}
 
 	private void setMendatoryFieldsWithoutEmail() {
-		browser.textbox("firstName").setValue("Jane");
-		browser.textbox("lastName").setValue("Jung");
-		browser.password("password").setValue("12341234");
-		browser.password("confirmPassword").setValue("12341234");
-		browser.textarea("address").setValue("Seoul");
-		browser.textbox("city").setValue("Seoul");
-		browser.select("state").choose("Orissa");
-		browser.textbox("cellPhone").setValue("0102003000");
-		browser.select("bloodGroup").choose("B+");
-		browser.select("distance").choose("10");
+		registerDonor.setFirstName(firstName);
+		registerDonor.setLastName(lastName);
+		registerDonor.setPassWord(passWord);
+		registerDonor.setConfirmPassWord(confirmPassWord);
+		registerDonor.setAddress(address);
+		registerDonor.setCity(city);
+		registerDonor.setState(state);
+		registerDonor.setCellPhone(cellPhone);
+		registerDonor.setBloodGroup(bloodGroup);
+		registerDonor.setDistance(distance);
 	}
 	
 	public void fillOutTheValidInformationToMandatoryFields() throws Exception {
 		
 		Random rd= new Random();
-		
 		int rdEmailcount = rd.nextInt(1000)*2;
+		email = rdEmailcount + "id@samsung.com";
 		
-		String rdEmail = rdEmailcount + "id@samsung.com";
-		browser.textbox("email").setValue(rdEmail);
-		
+		registerDonor.setEmail(email);
 		setMendatoryFieldsWithoutEmail();
 	}
 
 
 	public void registerDonor() throws Exception {
-		browser.submit("Register").click();
+		
+		registerDonor.register();
 	}
 
 	public void cancelRegistration() throws Exception {
-		browser.button("cancel").click();			
+		registerDonor.cancel();
 	}
 
 	public void fillOutTheValidInformationToMendatoryFieldsWithExistingUsersEmailAddress(
 			String email) throws Exception {
-		browser.textbox("email").setValue(email);
+		
+		registerDonor.setEmail(email);
 		setMendatoryFieldsWithoutEmail();
+		
 	}
 
 	public void fillOutTheAddressInformation() throws Exception {
@@ -70,6 +88,5 @@ public class OnRegisterDonorPage {
 		browser.button("map").click();
 	
 	}
-
 
 }
