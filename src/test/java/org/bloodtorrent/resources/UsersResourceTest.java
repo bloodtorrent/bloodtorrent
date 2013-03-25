@@ -25,7 +25,7 @@ import static org.mockito.Mockito.when;
  * Time: 오후 1:56
  * To change this template use File | Settings | File Templates.
  */
-public class UserResourceTest {
+public class UsersResourceTest {
 
 
     private final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
