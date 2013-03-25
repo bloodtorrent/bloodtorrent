@@ -39,7 +39,6 @@ public class LogOffResourceTest {
         LogOffResource logoffResource = new LogOffResource(sessionManager);
         CommonView adminView = logoffResource.forwardMainPage(SESSION_ID);
         assertThat(adminView.getTemplateName(), is("/ftl/main.ftl"));
-        verify(httpSession).removeAttribute("adminCheck");
         verify(httpSession).removeAttribute("user");
     }
 }

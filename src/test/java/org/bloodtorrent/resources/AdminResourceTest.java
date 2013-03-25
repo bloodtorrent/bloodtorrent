@@ -1,6 +1,8 @@
 package org.bloodtorrent.resources;
 
+import org.bloodtorrent.ResourceManager;
 import org.bloodtorrent.dto.User;
+import org.bloodtorrent.repository.SuccessStoryRepository;
 import org.bloodtorrent.view.CommonView;
 import org.eclipse.jetty.server.SessionManager;
 import org.junit.Before;
@@ -23,8 +25,10 @@ import static org.mockito.Mockito.when;
  */
 public class AdminResourceTest {
 
-    private String ADMIN_ID = "Administrator";
-    private String NON_ADMIN_ID = "someone@bloodtorrent.org";
+    private String ADMIN_ID = "Administrator@bloodtorrent.org";
+    private String ADMIN_PASSWORD = "password";
+    private String NON_ADMIN_ID = "inchul.hur@bloodtorrent.org";
+    private String NON_ADMIN_PASSWORD = "1234";
     private String ADMIN_SESSION_ID = "ADMIN_SESSION_ID";
     private String NON_ADMIN_SESSION_ID = "NON_ADMIN_SESSION_ID";
     private String NULL_SESSION_ID = "NULL_SESSION_ID";
@@ -32,22 +36,28 @@ public class AdminResourceTest {
     private HttpSession adminHttpSession = mock(HttpSession.class);
     private HttpSession nonAdminHttpSession = mock(HttpSession.class);
     private HttpSession nullHttpSession = mock(HttpSession.class);
+    private SuccessStoryRepository successStoryRepository = mock(SuccessStoryRepository.class);
 
     @Before
     public void init() {
         User adminUser = new User();
         adminUser.setId(ADMIN_ID);
+        adminUser.setPassword(ADMIN_PASSWORD);
+        adminUser.setIsAdmin('Y');
         User nonAdminUser = new User();
         nonAdminUser.setId(NON_ADMIN_ID);
+        nonAdminUser.setPassword(NON_ADMIN_PASSWORD);
+        nonAdminUser.setIsAdmin('N');
         when(sessionManager.getHttpSession(ADMIN_SESSION_ID)).thenReturn(adminHttpSession);
         when(sessionManager.getHttpSession(NON_ADMIN_SESSION_ID)).thenReturn(nonAdminHttpSession);
         when(sessionManager.getHttpSession(NULL_SESSION_ID)).thenReturn(nullHttpSession);
-        when(adminHttpSession.getAttribute("adminCheck")).thenReturn(ADMIN_ID);
         when(adminHttpSession.getAttribute("user")).thenReturn(adminUser);
-        when(nonAdminHttpSession.getAttribute("adminCheck")).thenReturn(null);
         when(nonAdminHttpSession.getAttribute("user")).thenReturn(nonAdminUser);
-        when(nullHttpSession.getAttribute("adminCheck")).thenReturn(null);
         when(nullHttpSession.getAttribute("user")).thenReturn(null);
+
+        MainResource mainResource = new MainResource(sessionManager);
+        mainResource.setSuccessStoryResource(new SuccessStoryResource(successStoryRepository));
+        ResourceManager.getInstance().add(mainResource);
     }
 
     @Test

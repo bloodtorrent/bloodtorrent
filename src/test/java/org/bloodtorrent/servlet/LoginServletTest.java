@@ -36,7 +36,7 @@ public class LoginServletTest {
 
         try {
             servlet.service(request, response);
-            verify(response).sendRedirect("/");
+            verify(response).sendRedirect("/logindb");
         } catch (ServletException e) {
             fail();
         } catch (IOException e) {
@@ -54,8 +54,7 @@ public class LoginServletTest {
 
         try {
             servlet.service(request, response);
-            verify(response).sendRedirect("/admin");
-            verify(session).setAttribute("adminCheck", emailID);
+            verify(response).sendRedirect("/logindb");
         } catch (ServletException e) {
             fail();
         } catch (IOException e) {
