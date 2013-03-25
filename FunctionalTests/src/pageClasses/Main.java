@@ -1,6 +1,8 @@
 package pageClasses;
 
 import net.sf.sahi.client.Browser;
+import net.sf.sahi.client.BrowserElements;
+import net.sf.sahi.client.ElementStub;
 
 public class Main extends BasePage {
 	public Main(Browser browser) {
@@ -18,4 +20,19 @@ public class Main extends BasePage {
 	public void requestForBlood() {
 		browser.button("Request blood").click();
 	}
+
+	public void enterLoginCredentials(String email, String password) {
+		browser.textbox("email").setValue(email);
+		browser.password("password").setValue(password);
+	}
+
+	public void login() {
+		browser.button("Log in").click();
+	}
+
+	public ElementStub loginButton() {
+		return browser.button("Log in");
+	}
+
+
 }
