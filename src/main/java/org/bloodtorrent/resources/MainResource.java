@@ -23,7 +23,6 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.TEXT_HTML)
 public class MainResource {
 
-    private static final String ADMIN_ID = "Administrator";
     private final SessionManager sessionManager;
     private User user;
 
@@ -43,6 +42,10 @@ public class MainResource {
     }
 
     public HttpSession getSession(String sessionID) {
-        return sessionManager.getHttpSession(sessionID);
+        try{
+            return sessionManager.getHttpSession(sessionID);
+        }catch(Exception e){
+            return null;
+        }
     }
 }
