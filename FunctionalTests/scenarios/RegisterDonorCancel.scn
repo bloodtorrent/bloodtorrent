@@ -1,8 +1,8 @@
 Tags:Story-1
-Preconditions:On Blood Torrent
+Preconditions:Blood Torrent
 Metadata:ScenarioType=Auto
 On Main Page:
-#Open link "Register donor"
+#Select register donor
 
 On register donor page:
 #Cancel registration

@@ -59,5 +59,17 @@ public class OnRegisterDonorPage {
 		setMendatoryFieldsWithoutEmail();
 	}
 
+	public void fillOutTheAddressInformation() throws Exception {
+		browser.textarea("address").setValue("Pune");
+		browser.textbox("city").setValue("Pune");
+		browser.select("state").choose("Maharashtra");
+	
+	}
+
+	public void openMapsToSelectAccurateLocation() throws Exception {
+		browser.button("map").click();
+	
+	}
+
 
 }

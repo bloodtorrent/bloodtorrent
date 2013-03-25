@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.thoughtworks.twist.core.execution.TwistScenarioDataStore;
 
-public class OnBloodTorrent {
+public class BloodTorrent {
 
 	private Browser browser;
 	private String url = "http://localhost:8080";
@@ -14,7 +14,7 @@ public class OnBloodTorrent {
 	@Autowired
 	private TwistScenarioDataStore scenarioStore;
 
-	public OnBloodTorrent(Browser browser) {
+	public BloodTorrent(Browser browser) {
 		this.browser = browser;
 	}
 

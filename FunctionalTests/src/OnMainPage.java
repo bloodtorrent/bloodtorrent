@@ -11,6 +11,8 @@ public class OnMainPage {
 
 	@Autowired
 	private TwistScenarioDataStore scenarioStore;
+	private String btnRegisterDonor="Register donor";
+	private String btnRequestBlood="Request blood";
 
 	public OnMainPage(Browser browser) {
 		this.browser = browser;
@@ -20,8 +22,12 @@ public class OnMainPage {
 		verifyEquals("Welcome to Blood Torrent", browser.byId("title").text());
 	}
 
-	public void openLink(String string1) throws Exception {
-		browser.button(string1).click();
+	public void selectRegisterDonor() throws Exception {
+		browser.button(btnRegisterDonor).click();
+	}
+
+	public void requestForBlood() throws Exception {
+		browser.button(btnRequestBlood).click();
 	}
 
 }
