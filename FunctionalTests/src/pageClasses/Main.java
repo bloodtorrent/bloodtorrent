@@ -18,5 +18,4 @@ public class Main extends BasePage {
 	public void requestForBlood() {
 		browser.button("Request blood").click();
 	}
-
 }
