@@ -9,8 +9,6 @@ import com.thoughtworks.twist.core.execution.TwistScenarioDataStore;
 
 public class OnRequestBloodPage {
 
-	private Browser browser;
-	
 	String patientFirstName = "jaemin";
 	String patientLastName = "kim";
 	String hospitalAddress ="B hospital";
@@ -27,7 +25,6 @@ public class OnRequestBloodPage {
 	private RequestBlood requestBlood;
 
 	public OnRequestBloodPage(Browser browser) {
-		this.browser = browser;
 		requestBlood = new RequestBlood(browser);
 	}
 	
@@ -47,12 +44,11 @@ public class OnRequestBloodPage {
 	}
 	
 	public void requestBlood() throws Exception {
-		browser.submit("Register").click();
+		requestBlood.register();
 	}
 
 	public void cancelRequest () throws Exception {
-		browser.button("Cancel").click();
-	
+		requestBlood.cancel();
 	}
 
 }

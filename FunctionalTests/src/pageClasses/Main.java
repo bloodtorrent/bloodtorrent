@@ -2,11 +2,9 @@ package pageClasses;
 
 import net.sf.sahi.client.Browser;
 
-public class MainPage {
-	private Browser browser;
-
-	public MainPage(Browser browser) {
-		this.browser = browser;
+public class Main extends BasePage {
+	public Main(Browser browser) {
+		super(browser);
 	}
 
 	public String getTitle() {

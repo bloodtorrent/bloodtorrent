@@ -3,7 +3,7 @@ import net.sf.sahi.client.Browser;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import pageClasses.MainPage;
+import pageClasses.Main;
 
 import com.thoughtworks.twist.core.execution.TwistScenarioDataStore;
 
@@ -12,10 +12,10 @@ public class OnMainPage {
 	@Autowired
 	private TwistScenarioDataStore scenarioStore;
 
-	private MainPage mainPage;
+	private Main mainPage;
 
 	public OnMainPage(Browser browser) {
-		mainPage = new MainPage(browser);
+		mainPage = new Main(browser);
 	}
 
 	public void verifyMainTitle() throws Exception {

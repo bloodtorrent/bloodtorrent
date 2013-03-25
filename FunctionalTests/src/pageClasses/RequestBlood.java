@@ -2,12 +2,10 @@ package pageClasses;
 
 import net.sf.sahi.client.Browser;
 
-public class RequestBlood {
-
-	private Browser browser;
+public class RequestBlood extends BasePage {
 
 	public RequestBlood(Browser browser){
-		this.browser = browser;
+		super(browser);
 	}
 
 	public void setFirstName(String patientFirstName) {
@@ -49,4 +47,12 @@ public class RequestBlood {
 	public void setRequesterTypeToPatient() {		
 		browser.radio("requesterType[1]").click();
 	}	
+	
+	public void register(){
+		browser.submit("Register").click();
+	}
+
+	public void cancel() {
+		browser.button("Cancel").click();
+	}
 }
