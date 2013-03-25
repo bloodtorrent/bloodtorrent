@@ -45,8 +45,8 @@ Hello ${user.id}
 <span style="color:red">${message}</span>
 <br/>
 </#if>
-ID : <input type="text" name="email" id="email" value="" />&nbsp;&nbsp;&nbsp;&nbsp;
-PWD : <input type="password" id="password" name="password" /> &nbsp;&nbsp;
+E-mail : <input type="text" name="email" id="email" value="" />&nbsp;&nbsp;&nbsp;&nbsp;
+Password : <input type="password" id="password" name="password" /> &nbsp;&nbsp;
 <input type="button" value="Log in" name="login" onclick="goLogin();">&nbsp;&nbsp;
 </form>
 <a href="/user"><input type="button" value="Register donor"/></a> &nbsp;
