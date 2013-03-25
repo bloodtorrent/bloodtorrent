@@ -96,48 +96,27 @@ public class SuccessStoryResourceTest {
     }
 
     @Test
+    public void summaryShouldNotBeEmpty() {
+        SuccessStory story = createNewSuccessStory();
+        setDummyString(story, "summary", 0);
+        Set<ConstraintViolation<SuccessStory>> constraintViolations = validator.validateProperty(story, "summary");
+        assertThat(constraintViolations.size(), is(1));
+    }
+
+    @Test
+    public void summaryShouldNotBeMoreThan100Characters() {
+        SuccessStory story = createNewSuccessStory();
+        setDummyString(story, "summary", 101);
+        Set<ConstraintViolation<SuccessStory>> constraintViolations = validator.validateProperty(story, "summary");
+        assertThat(constraintViolations.size(), is(1));
+    }
+
+    @Test
     public void descriptionShouldNotBeEmpty() {
         SuccessStory story = createNewSuccessStory();
         setDummyString(story, "description", 0);
         Set<ConstraintViolation<SuccessStory>> constraintViolations = validator.validateProperty(story, "description");
         assertThat(constraintViolations.size(), is(1));
-    }
-
-    @Test
-    public void descriptionForMainShouldUnder100Characters() {
-        SuccessStory story = createNewSuccessStory();
-        setDummyString(story, "description", 200);
-        when(repository.list()).thenReturn(Arrays.asList(story));
-
-        List<SuccessStory> successStories = null;
-        try {
-            successStories = resource.getSuccessStoriesBriefly();
-        } catch (IllegalDataException e) {
-            e.printStackTrace();
-            fail();
-        }
-        assertThat(successStories.size(), is(1));
-        assertThat(successStories.get(0).getDescription().length(), is(104));
-        // TODO [Scott/James] ask BA/QA about length of suffix before READ MORE when longer than 100 chars.
-
-        verify(repository).list();
-    }
-
-    @Test
-    public void descriptionForMainShouldBeEqualToSourceDescriptionGivenUnder100Characters() {
-        SuccessStory story = createNewSuccessStory();
-        setDummyString(story, "description", 50);
-        when(repository.list()).thenReturn(Arrays.asList(story));
-
-        List<SuccessStory> successStories = null;
-        try {
-            successStories = resource.getSuccessStoriesBriefly();
-        } catch (IllegalDataException e) {
-            e.printStackTrace();
-            fail();
-        }
-        assertThat(successStories.size(), is(1));
-        assertThat(successStories.get(0).getDescription(), is(story.getDescription()));
     }
 
 	@Test

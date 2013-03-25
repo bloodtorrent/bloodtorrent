@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 // TODO [James/Scott] @Entity should be added after creating table within physical db.
@@ -33,6 +34,7 @@ public class SuccessStory {
 	private String visualResourcePath;
 
     @NotBlank(message = "Summary should be filled.")
+    @Size(max = 100, message = "Summary is too long.")
     private String summary;
 
 	@NotBlank(message = "Description should be filled.")
