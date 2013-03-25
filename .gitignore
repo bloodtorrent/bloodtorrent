@@ -9,3 +9,4 @@ FunctionalTests/logs
 db/bloodtorrent.*.db
 FunctionalTests/reports/*
 FunctionalTests/sahi/userdata/browser/ff/profiles
+FunctionalTests/sahi/userdata/certs
