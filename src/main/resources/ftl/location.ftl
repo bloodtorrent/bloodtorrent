@@ -192,7 +192,7 @@ function init(latLng) {
 </script>
 <div id="map_dialog" title="Map">
     <div id="searchAddress">
-        <H4>Please Set exact location in this map. It will help us to provide you more accurate notification to donate</H4>
+        <H4>Please set exact location in this map. It will help us to provide you more accurate notification to donate</H4>
         <input type="text" id="search_address" size="40%" value="India" onkeydown="if(event.keyCode == 13) document.getElementById('searchButton').click()" />
         <input type="text" id="searchButton" value="search"/>
     </div>
@@ -203,6 +203,6 @@ function init(latLng) {
         <b>Closest matching address:</b>
         <div id="address"></div>
     </div>
-    <div id="dialog_confirm">
+    <div id="dialog_confirm" title="Set Location">
     </div>
 </div>
