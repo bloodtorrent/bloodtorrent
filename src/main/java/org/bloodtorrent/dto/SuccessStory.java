@@ -32,6 +32,9 @@ public class SuccessStory {
 	@Column(name = "VISUAL_RESOURCE_PATH")
 	private String visualResourcePath;
 
+    @NotBlank(message = "Summary should be filled.")
+    private String summary;
+
 	@NotBlank(message = "Description should be filled.")
 	private String description;
 
