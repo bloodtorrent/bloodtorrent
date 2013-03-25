@@ -2,6 +2,8 @@ import net.sf.sahi.client.Browser;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import pageClasses.RequestBlood;
+
 import com.thoughtworks.twist.core.execution.TwistScenarioDataStore;
 
 
@@ -22,23 +24,26 @@ public class OnRequestBloodPage {
 	@Autowired
 	private TwistScenarioDataStore scenarioStore;
 
+	private RequestBlood requestBlood;
+
 	public OnRequestBloodPage(Browser browser) {
 		this.browser = browser;
+		requestBlood = new RequestBlood(browser);
 	}
 	
 	public void fillOutTheValidRequestInformationToMendatoryFields()
 			throws Exception {
 		
-		browser.textbox("firstName").setValue(patientFirstName);
-		browser.textbox("lastName").setValue(patientLastName);
-		browser.textarea("hospitalAddress").setValue(hospitalAddress);
-		browser.textbox("city").setValue(patientCity);
-		browser.select("state").choose(patientState);
-		browser.textbox("phone").setValue(patientPhoneNumber);
-		browser.textbox("email").setValue(patientEmailAddress);
-		browser.textbox("birthday").setValue(patientBirthday);
-		browser.textbox("bloodVolume").setValue(bloodVolume);
-		browser.radio("requesterType[1]").click();
+		requestBlood.setFirstName(patientFirstName);
+		requestBlood.setLastName(patientLastName);
+		requestBlood.setHospitaAddress(hospitalAddress);
+		requestBlood.setPatientCity(patientCity);
+		requestBlood.setPatientState(patientState);
+		requestBlood.setPhone(patientPhoneNumber);
+		requestBlood.setEmail(patientEmailAddress);
+		requestBlood.setBirthday(patientBirthday);
+		requestBlood.setBloodVolume(bloodVolume);
+		requestBlood.setRequesterTypeToPatient();
 	}
 	
 	public void requestBlood() throws Exception {
