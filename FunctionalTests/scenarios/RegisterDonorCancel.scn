@@ -1,11 +1,8 @@
 Tags:Story-1
-Preconditions:
+Preconditions:On Blood Torrent
 Metadata:ScenarioType=Auto
-On Browser:
-#Navigate to "http://localhost:8080/"
-
 On Main Page:
-#Open link "Register Donor"
+#Open link "Register donor"
 
 On register donor page:
 #Cancel registration

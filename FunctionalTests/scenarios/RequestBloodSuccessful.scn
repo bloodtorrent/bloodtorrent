@@ -1,9 +1,6 @@
 Tags:Story-3
-Preconditions:
+Preconditions:On Blood Torrent
 Metadata:ScenarioType=Auto
-On Browser:
-#Navigate to "http://localhost:8080"
-
 On Main Page:
 #Open link "Request blood"
 
