@@ -82,4 +82,11 @@ public class User {
 
     @Column(name = "last_donate_date")
     private Date lastDonateDate;
+
+    @Column(name = "latitude")
+    private double latitude;
+
+    @Column(name = "longitude")
+    private double longitude;
+
 }

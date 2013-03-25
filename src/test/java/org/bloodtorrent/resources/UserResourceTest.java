@@ -47,7 +47,8 @@ public class UserResourceTest {
         user.setState("Delhi");
         user.setDistance("10");
         user.setBirthDay("18031980");
-
+        user.setLatitude(17.458418734757736);
+        user.setLongitude(78.33536359287109);
         return user;
     }
 

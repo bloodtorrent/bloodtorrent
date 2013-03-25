@@ -9,6 +9,9 @@
             #infoPanel {
                 display:none;
             }
+            .ui-dialog-title{
+                font-size: 62.5%;
+            }
         </style>
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
         <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&language=en"></script>
@@ -26,19 +29,6 @@
                 showOtherMonths: true,
                 selectOtherMonths: true,
                 dateFormat: "dd-mm-yy"
-            });
-
-            $( "#dialog_confirm" ).dialog({
-                autoOpen: false,
-                 buttons: {
-                    "Yes": function() {
-                        $( this ).dialog( "close" );
-                        $( "#map_dialog"  ).dialog( "close" );
-                    },
-                    "No": function() {
-                        $( this ).dialog( "close" );
-                     }
-                 }
             });
 
             $( "#searchButton" )
@@ -59,6 +49,7 @@
                         $("#lat").val(currentLatLng.lat());
                         $("#lng").val(currentLatLng.lng());
                         $("#messageLabel").text("Your map location is saved");
+                        $("#messageLabel").css("color","blue");
                         $( this ).dialog( "close" );
                     },
                     Cancel: function() {
@@ -92,20 +83,26 @@
                 $( "#map_dialog" ).dialog( "open" );
             });
 
-            $( "#dialog-confirm" ).dialog({
-                  resizable: false,
-                  height:140,
-                  modal: true,
-                  buttons: {
-                    "Yes" : function() {
+
+
+            $( "#dialog_confirm" ).dialog({
+                autoOpen: false,
+                 buttons: {
+                    "Yes": function() {
                         $( this ).dialog( "close" );
+                        $( "#map_dialog"  ).dialog( "close" );
                     },
-                    "No" : function() {
-                        return;
-                    }
-                  }
+                    "No": function() {
+                        $( this ).dialog( "close" );
+                     }
+                 }
             });
+            $("#dialog_confirm").html('Do you wish to proceed without specifying exact location?');
+            $("#dialog_confirm").css('font-size','62.5%');
+            $("#dialog_confirm").dialog();
         });
+
+
 
         //Search bar
         searchLocation = function(){
@@ -369,7 +366,7 @@
                 <b>Closest matching address:</b>
                 <div id="address"></div>
             </div>
-            <div id="dialog_confirm" title="Do you wish to proceed without specifying exact location?">
+            <div id="dialog_confirm">
 
             </div>
         </div>

@@ -7,3 +7,4 @@ dependency-reduced-pom.xml
 FunctionalTests/bin
 FunctionalTests/logs
 db/bloodtorrent.*.db
+FunctionalTests/reports/*

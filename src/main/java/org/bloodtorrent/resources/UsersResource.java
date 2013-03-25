@@ -59,9 +59,11 @@ public class UsersResource {
                                   @FormParam("gender") String gender,
                                   @FormParam("birthDay") String birthDay,
                                   @FormParam("anonymous") boolean anonymous,
+                                  @FormParam("lat") double latitude,
+                                  @FormParam("lng") double longitude,
                                   @FormParam("lastDonate") String lastDonate) {
 
-        User user = setUserFormParam(firstName, lastName, id, password, address, city, state, cellPhone, bloodGroup, distance, gender, birthDay, anonymous);
+        User user = setUserFormParam(firstName, lastName, id, password, address, city, state, cellPhone, bloodGroup, distance, gender, birthDay, anonymous, latitude, longitude);
 
         calculateLastDonateDate(lastDonate, user);
 
@@ -102,7 +104,7 @@ public class UsersResource {
         user.setLastDonateDate(lastDonateDate);
     }
 
-    private User setUserFormParam(String firstName, String lastName, String id, String password, String address, String city, String state, String cellPhone, String bloodGroup, String distance, String gender, String birthDay, boolean anonymous) {
+    private User setUserFormParam(String firstName, String lastName, String id, String password, String address, String city, String state, String cellPhone, String bloodGroup, String distance, String gender, String birthDay, boolean anonymous, double latitude, double longitude) {
         User user = new User();
         user.setId(id);
         user.setPassword(password);
@@ -118,6 +120,8 @@ public class UsersResource {
         user.setDistance(distance);
         user.setRole("donor");
         user.setBirthDay(birthDay);
+        user.setLatitude(latitude);
+        user.setLongitude(longitude);
         return user;
     }
 
