@@ -1,11 +1,8 @@
-Tags:Story-1,Register Donor,in-progress,TODO
+Tags:Story-1,Register Donor
 Preconditions:
 Metadata:ScenarioType=Auto
-NOTE 
-TODO: insert main page workflow
-
 On Browser:
-#Navigate to "http://192.168.0.100:8080/"
+#Navigate to "http://localhost:8080/"
 
 On Main Page:
 #Open link "Register Donor"

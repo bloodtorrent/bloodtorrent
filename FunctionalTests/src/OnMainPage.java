@@ -22,7 +22,7 @@ public class OnMainPage {
 	}
 
 	public void openLink(String string1) throws Exception {
-		browser.button("Register donor").click();
+		browser.button(string1).click();
 	
 	}
 

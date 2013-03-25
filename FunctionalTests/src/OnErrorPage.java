@@ -19,6 +19,7 @@ public class OnErrorPage {
 	}
 
 	public void verifyErrorMessageExistingUser() throws Exception {
+		System.out.println(browser.listItem(0).text());
 		verifyEquals("This email address is already taken.", browser.listItem(0).text());
 	}
 

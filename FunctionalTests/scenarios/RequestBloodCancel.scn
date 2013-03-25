@@ -2,7 +2,10 @@ Tags:Story-3
 Preconditions:
 Metadata:ScenarioType=Auto
 On Browser:
-#Navigate to "http://192.168.0.100:8080/requestForBlood"
+#Navigate to "http://localhost:8080"
+
+On Main page:
+#Open link "Request blood"
 
 On request blood page:
 #Fill out the valid request information to mendatory fields
