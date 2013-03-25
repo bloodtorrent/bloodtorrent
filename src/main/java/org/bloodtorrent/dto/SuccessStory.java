@@ -1,19 +1,18 @@
 package org.bloodtorrent.dto;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
-// TODO [James/Scott] @Entity should be added after creating table within physical db.
-@Entity(name = "SUCCESS_STORY")
-@Getter @Setter
+@Entity
+@Table(name = "SUCCESS_STORY")
+@Getter @Setter @NoArgsConstructor
 @SuppressWarnings("PMD.UnusedPrivateField")
 public class SuccessStory {
 	public static final int MAXIMUM_SHOWN_STORY_ON_MAIN_PAGE = 3;
@@ -41,8 +40,8 @@ public class SuccessStory {
 	private String description;
 
 	@Pattern(regexp = REGEXP_YN)
-	@Column(name = "SHOWN_MAIN_PAGE")
-	private String shownMainPage;
+	@Column(name = "SHOW_MAIN_PAGE")
+	private String showMainPage;
 
 	@Column(name = "CREATE_DATE")
 	private Date createDate;

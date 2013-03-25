@@ -1,6 +1,7 @@
 package org.bloodtorrent.resources;
 
 import org.bloodtorrent.dto.User;
+import org.bloodtorrent.repository.SuccessStoryRepository;
 import org.bloodtorrent.view.CommonView;
 import org.eclipse.jetty.server.SessionManager;
 import org.junit.Before;
@@ -29,6 +30,7 @@ public class MainResourceTest {
     private SessionManager sessionManager = mock(SessionManager.class);
     private HttpSession userHttpSession = mock(HttpSession.class);
     private HttpSession nullHttpSession = mock(HttpSession.class);
+    private SuccessStoryRepository successStoryRepository = mock(SuccessStoryRepository.class);
     private User user = new User();
 
     @Before
@@ -42,29 +44,35 @@ public class MainResourceTest {
         when(nullHttpSession.getAttribute("user")).thenReturn(null);
     }
 
+    private MainResource createMockMainResource() {
+        MainResource mainResource = new MainResource(sessionManager);
+        mainResource.setSuccessStoryResource(new SuccessStoryResource(successStoryRepository));
+        return mainResource;
+    }
+
     @Test
     public void shouldReturnMainView() {
-        MainResource mainResource = new MainResource(sessionManager);
+        MainResource mainResource = createMockMainResource();
         assertThat(mainResource.forwardMainPage(USER_SESSION_ID).getTemplateName(), is("/ftl/main.ftl"));
         assertThat(mainResource.forwardMainPage(USER_SESSION_ID).getUser().getId(), is(user.getId()));
     }
 
     @Test
     public void shouldReturnHttpSession() {
-        MainResource mainResource = new MainResource(sessionManager);
+        MainResource mainResource = createMockMainResource();
         assertThat(mainResource.getSession(USER_SESSION_ID), is(userHttpSession));
     }
 
     @Test
     public void shouldReturnMainViewWithUser() {
-        MainResource mainResource = new MainResource(sessionManager);
+        MainResource mainResource = createMockMainResource();
         CommonView commonViewWithUser = mainResource.forwardMainPage(USER_SESSION_ID);
         assertThat(commonViewWithUser.getUser().getId(), is(user.getId()));
     }
 
     @Test
     public void shouldReturnMainViewWithNoUser() {
-        MainResource mainResource = new MainResource(sessionManager);
+        MainResource mainResource = createMockMainResource();
         CommonView commonViewWithUser = mainResource.forwardMainPage(NULL_SESSION_ID);
         assertNull(commonViewWithUser.getUser());
     }

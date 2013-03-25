@@ -1,0 +1,30 @@
+
+
+#successStory {
+    border: 3px solid gray;
+    padding: 3px;
+    width: 33%;
+    margin-right: 5px;
+}
+
+#successStory header h1 {
+    text-align: center;
+}
+
+article {
+    clear: both;
+    padding-top: 5px;
+    min-height: 130px;
+}
+
+article h1 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+img.thumbnail {
+    float: left;
+    margin-right: 5px;
+    height: 100px;
+    width: auto;
+}

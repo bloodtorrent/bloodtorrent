@@ -1,18 +1,25 @@
 package org.bloodtorrent.repository;
 
+import com.yammer.dropwizard.hibernate.AbstractDAO;
 import org.bloodtorrent.dto.SuccessStory;
+import org.hibernate.Query;
+import org.hibernate.SQLQuery;
+import org.hibernate.SessionFactory;
 
 import java.util.List;
 
-/**
- * Created with IntelliJ IDEA.
- * User: sds
- * Date: 13. 3. 22
- * Time: 오전 11:29
- * To change this template use File | Settings | File Templates.
- */
-public class SuccessStoryRepository {
+public class SuccessStoryRepository extends AbstractDAO<SuccessStory> {
+
+    public SuccessStoryRepository(SessionFactory sessionFactory) {
+        super(sessionFactory);
+    }
+
+    /**
+     * List up at most 3 success stories for showing on main page.
+     * @return
+     */
     public List<SuccessStory> list() {
-        return null;  //To change body of created methods use File | Settings | File Templates.
+        Query query = currentSession().createQuery("from SuccessStory s where s.showMainPage like 'Y' order by s.createDate");
+        return list(query);
     }
 }
