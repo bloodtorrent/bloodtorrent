@@ -1,4 +1,6 @@
-
+section, article {
+    display: block;
+}
 
 #successStory {
     border: 3px solid gray;

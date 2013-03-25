@@ -1,3 +1,5 @@
+<!doctype html>
+<html>
 <head>
     <title>Blood Torrent</title>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
@@ -50,6 +52,9 @@ PWD : <input type="password" id="password" name="password" /> &nbsp;&nbsp;
 <!-- Success Story -->
 <section id="successStory">
     <header><h1>Success Story</h1></header>
+<#if successStories?size = 0>
+    <h2>Save the people.</h2>
+<#else>
 <#list successStories as story>
     <article>
         <h1>${story.getTitle()}</h1>
@@ -58,6 +63,8 @@ PWD : <input type="password" id="password" name="password" /> &nbsp;&nbsp;
         <a href="#" onclick="alert('See you next iteration :)'); return false;">READ MORE</a>
     </article>
 </#list>
+</#if>
 <!-- //Success Story -->
 </section>
 </body>
+</html>
