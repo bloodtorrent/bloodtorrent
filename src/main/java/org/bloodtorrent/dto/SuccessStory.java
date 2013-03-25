@@ -5,11 +5,13 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 // TODO [James/Scott] @Entity should be added after creating table within physical db.
+@Entity(name = "SUCCESS_STORY")
 @Getter @Setter
 @SuppressWarnings("PMD.UnusedPrivateField")
 public class SuccessStory {
