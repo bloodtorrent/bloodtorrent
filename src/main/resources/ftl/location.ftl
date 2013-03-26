@@ -33,6 +33,7 @@ $(function() {
         minHeight: 600,
         minWidth: 600,
         modal: true,
+        open: function(event, ui) { $(".ui-dialog-titlebar-close").hide(); },
         buttons: {
             "Save": function() {
                 originalLatLng = currentLatLng;
@@ -43,7 +44,6 @@ $(function() {
                 $( this ).dialog( "close" );
             },
             Cancel: function() {
-                currentLatLng = originalLatLng;
                 $( "#dialog_confirm" ).dialog( "open");
             }
         }
@@ -55,10 +55,6 @@ $(function() {
         var state = $("select[name='state']").val();
 
         //address, state, city
-        if ( address == null) address = "";
-        if ( city == null) city = "";
-        if ( state == null) state = "";
-
         if ( address == "" || city == "" || state == "" ) {
             alert("Please provide the address, city and state before using map.");
             return;
@@ -69,15 +65,18 @@ $(function() {
     });
 
 
-
+    var canCloseMapDialog = false;
     $( "#dialog_confirm" ).dialog({
         autoOpen: false,
          buttons: {
             "Yes": function() {
                 $( this ).dialog( "close" );
+                currentLatLng = originalLatLng;
+                canCloseMapDialog = true;
                 $( "#map_dialog"  ).dialog( "close" );
             },
             "No": function() {
+                canCloseMapDialog = false;
                 $( this ).dialog( "close" );
              }
          }
@@ -93,6 +92,11 @@ $(function() {
 searchLocation = function(){
     addressToSearch = $("#orginalAddress").val() +"," + $("#city").val() +"," + $("#state").val() +"," +"India";
     document.getElementById('search_address').value = addressToSearch;
+    currentLat = $("#lat").val();
+    currentLng = $("#lng").val();
+    if(currentLat != "" && currentLng != ""){
+        originalLatLng = new google.maps.LatLng(currentLat, currentLng);
+    }
     searchAddress(addressToSearch);
 }
 
