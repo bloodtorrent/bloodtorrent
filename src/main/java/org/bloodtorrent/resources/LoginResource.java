@@ -42,7 +42,7 @@ public class LoginResource {
         if(session != null){
             String email = (String) session.getAttribute("email");
             String password = (String) session.getAttribute("password");
-            email = email.toLowerCase();
+            email = email != null ? email.toLowerCase() : null;
             session.removeAttribute("email");
             session.removeAttribute("password");
 

@@ -23,7 +23,7 @@ import static org.mockito.Mockito.*;
  */
 public class LoginResourceTest {
 
-    private final String ADMIN_EMAIL = "Administrator@bloodtorrent.org";
+    private final String ADMIN_EMAIL = "administrator@bloodtorrent.org";
     private final String ADMIN_PASSWORD = "p@ssw0rd";
     private final String NONADMIN_EMAIL = "nobody@bloodtorrent.org";
     private final String NONADMIN_PASSWORD = "1234";
