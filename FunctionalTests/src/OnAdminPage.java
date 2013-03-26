@@ -6,6 +6,8 @@ import net.sf.sahi.client.Browser;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import pageClasses.Admin;
+
 import com.thoughtworks.twist.core.execution.TwistScenarioDataStore;
 
 public class OnAdminPage {
@@ -14,22 +16,19 @@ public class OnAdminPage {
 
 	@Autowired
 	private TwistScenarioDataStore scenarioStore;
-
+	private Admin admin;
+	
 	public OnAdminPage(Browser browser) {
 		this.browser = browser;
+		admin = new Admin(browser);
 	}
 
 	public void verifyAdminPage() throws Exception {
-		verifyEquals("Welcome to Blood Torrent", browser.byId("title").text());
-	}
-
-	public void verifyLoginStatusOf(String string1) throws Exception {
-		verifyTrue(browser.link("Sign off").exists());
+		verifyEquals("http://localhost:8080/admin", admin.getUrl());
 	}
 
 	public void logout() throws Exception {
-		browser.link("Sign off").click();
-	
+		admin.signOff();
 	}
 
 }

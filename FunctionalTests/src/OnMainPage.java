@@ -12,6 +12,8 @@ public class OnMainPage {
 
 	@Autowired
 	private TwistScenarioDataStore scenarioStore;
+	private String adminEmail = "Administrator@bloodtorrent.org";
+	private String adminPassWord = "p@ssw0rd";
 
 	private Main mainPage;
 
@@ -35,9 +37,8 @@ public class OnMainPage {
 		verifyTrue(mainPage.loginButton().exists());
 	}
 
-	public void fillOutTheValidInformationForLogin(String email, String password)
-			throws Exception {
-		mainPage.enterLoginCredentials(email, password);
+	public void fillOutTheValidInformationForLoginAsAdmin() throws Exception {
+		mainPage.enterLoginCredentials(adminEmail, adminPassWord);
 	}
 
 	public void login() throws Exception {

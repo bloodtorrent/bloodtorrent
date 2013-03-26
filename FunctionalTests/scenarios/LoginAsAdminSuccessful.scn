@@ -2,16 +2,15 @@ Tags:Story-57,in-progress,Login
 Preconditions:Blood Torrent
 Metadata:ScenarioType=Auto
 Note
-Email (Administrator) must be changed "administrator@bloodtorrent.org"
+Email (Administrator) must be changed "Administrator@bloodtorrent.org"
 Request Hello message's ID for devs.
 
 On Main Page:
-#Fill out the valid information for login "Administrator" "p@ssw0rd"
+#Fill out the valid information for login as Admin
 #Login
 
 On Admin Page:
 #Verify admin page
-#Verify login status of "Administrator"
 #logout
 
 On Main Page:
