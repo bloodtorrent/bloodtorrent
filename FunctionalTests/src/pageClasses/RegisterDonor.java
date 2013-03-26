@@ -1,6 +1,7 @@
 package pageClasses;
 
 import net.sf.sahi.client.Browser;
+import net.sf.sahi.client.ElementStub;
 
 public class RegisterDonor extends BasePage {
 	
@@ -68,6 +69,14 @@ public class RegisterDonor extends BasePage {
 
 	public String returnAlertText() {
 		return browser.lastAlert();
+	}
+
+	public String getLng() {
+		return browser.byId("lng").getValue().trim();
+	}
+	
+	public String getLat() {
+		return browser.byId("lat").getValue().trim();
 	}
 
 }

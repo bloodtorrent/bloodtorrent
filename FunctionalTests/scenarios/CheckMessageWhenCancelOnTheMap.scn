@@ -1,13 +1,13 @@
-Tags:Story-4,in-progress
+Tags:Story-4
 Preconditions:Blood Torrent
+Metadata:ScenarioType=Auto
 On Main Page:
 #Select register donor
-
-On register donor page:
+On register donor page:
 #Fill out the address information 
 #Open maps to select accurate location
 
-On Map page:
+On Map page, On register donor page:
 #Cancel map
 #verify message for cancel
 

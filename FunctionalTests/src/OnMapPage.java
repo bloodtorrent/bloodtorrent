@@ -35,4 +35,8 @@ public class OnMapPage {
 	public void verifyMessageForCancel() throws Exception {
 		verifyEquals(map.returnAlertText(), "Do you wish to proceed without specifying exact location?");
 	}
+
+	public void saveLocation() throws Exception {
+		browser.button("Save").click();
+	}
 }

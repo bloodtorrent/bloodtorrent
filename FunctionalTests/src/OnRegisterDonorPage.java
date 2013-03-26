@@ -8,6 +8,7 @@ import pageClasses.RegisterDonor;
 
 import com.thoughtworks.twist.core.execution.TwistScenarioDataStore;
 
+import static com.thoughtworks.twist.core.execution.TwistVerification.verify;
 import static com.thoughtworks.twist.core.execution.TwistVerification.verifyEquals;
 
 public class OnRegisterDonorPage {
@@ -97,6 +98,11 @@ public class OnRegisterDonorPage {
 
 	public void verifyTheMessageForMandatoryFieldsAboutAddressInformation() throws Exception {
 		verifyEquals(registerDonor.returnAlertText(), "Please provide the address, city and state before using map.");
+	}
+
+	public void verifyLocationValue() throws Exception {
+		verifyEquals("73.85674369999992", registerDonor.getLng());
+		verifyEquals("18.5204303", registerDonor.getLat());
 	}
 
 
