@@ -7,6 +7,8 @@ section, article {
     padding: 3px;
     width: 33%;
     margin-right: 5px;
+    height: 470px; /* fixed 3 articles */
+    min-width: 300px;
 }
 
 #successStory header h1 {
