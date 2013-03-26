@@ -15,6 +15,10 @@ section, article {
     text-align: center;
 }
 
+#catchPhrase {
+    text-align: center;
+}
+
 article {
     clear: both;
     padding-top: 5px;

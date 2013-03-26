@@ -20,17 +20,18 @@
 <!-- Success Story -->
 <section id="successStory">
     <header><h1>Success Story</h1></header>
-<#if successStories?size = 0>
-    <h2>Save the people.</h2>
-<#else>
-<#list successStories as story>
-    <article>
-        <h1>${story.getTitle()}</h1>
-        <img class="thumbnail" src="${story.getThumbnailPath()}"/>
-        <p>${story.getSummary()}</p>
-        <a class="successStoryDetailLink" href="#" onclick="alert('See you next iteration :)'); return false;">READ MORE</a>
-    </article>
-</#list>
+<#if catchPhrase??>
+    <img class="catchPhrase" src="${catchPhrase.imagePath}"/>
+</#if>
+<#if successStories??>
+    <#list successStories as story>
+        <article>
+            <h1>${story.getTitle()}</h1>
+            <img class="thumbnail" src="${story.getThumbnailPath()}"/>
+            <p>${story.getSummary()}</p>
+            <a class="successStoryDetailLink" href="#" onclick="alert('See you next iteration :)'); return false;">READ MORE</a>
+        </article>
+    </#list>
 </#if>
 <!-- //Success Story -->
 </section>

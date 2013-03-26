@@ -19,7 +19,7 @@ public class SuccessStoryRepository extends AbstractDAO<SuccessStory> {
      * @return
      */
     public List<SuccessStory> list() {
-        Query query = currentSession().createQuery("from SuccessStory s where s.showMainPage like 'Y' order by s.createDate");
+        Query query = currentSession().createQuery("from SuccessStory s where s.showMainPage like 'Y' order by s.createDate desc");
         return list(query);
     }
 }
