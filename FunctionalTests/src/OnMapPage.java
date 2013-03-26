@@ -1,6 +1,6 @@
-// JUnit Assert framework can be used for verification
-
 import net.sf.sahi.client.Browser;
+import net.sf.sahi.client.BrowserCondition;
+import net.sf.sahi.client.ExecutionException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,13 +14,17 @@ public class OnMapPage {
 
 	@Autowired
 	private TwistScenarioDataStore scenarioStore;
+	private String locationPin = "Your Location";
 
 	public OnMapPage(Browser browser) {
 		this.browser = browser;
 	}
 
 	public void verifyDisplayedMap() throws Exception {
-		assertTrue(browser.area("Your Location").isVisible());			
+		assertTrue(isLocationPinVisible());
 	}
-
+	
+	public boolean isLocationPinVisible(){
+		return browser.area(locationPin).exists();
+	}
 }
