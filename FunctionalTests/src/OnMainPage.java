@@ -4,7 +4,7 @@ import net.sf.sahi.client.Browser;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import pageClasses.Main;
+import pageClasses.MainPage;
 
 import com.thoughtworks.twist.core.execution.TwistScenarioDataStore;
 
@@ -15,10 +15,10 @@ public class OnMainPage {
 	private String adminEmail = "Administrator@bloodtorrent.org";
 	private String adminPassWord = "p@ssw0rd";
 
-	private Main mainPage;
+	private MainPage mainPage;
 
 	public OnMainPage(Browser browser) {
-		mainPage = new Main(browser);
+		mainPage = new MainPage(browser);
 	}
 
 	public void verifyMainTitle() throws Exception {

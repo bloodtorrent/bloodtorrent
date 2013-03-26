@@ -3,8 +3,8 @@ package pageClasses;
 import net.sf.sahi.client.Browser;
 import net.sf.sahi.client.ElementStub;
 
-public class Main extends BasePage {
-	public Main(Browser browser) {
+public class MainPage extends BasePage {
+	public MainPage(Browser browser) {
 		super(browser);
 	}
 
