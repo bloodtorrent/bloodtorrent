@@ -17,12 +17,12 @@
             var email = document.getElementById("email");
             var password = document.getElementById("password");
             if(email.value == ""){
-                alert('Please input ID');
+                alert('Please input E-mail');
                 email.focus();
                 return;
             }
             if(password.value == ""){
-                alert('Please input PASSWORD');
+                alert('Please input Password');
                 password.focus();
                 return;
             }
@@ -35,7 +35,8 @@
 <body>
 <h1><label id="title">Welcome to Blood Torrent</label></h1> <br/>
 <#if user?exists>
-Hello ${user.id}
+<#assign userId = user.id>
+Hello ${userId?substring(0, userId?index_of("@")) }
 <a href="/logoff">Sign off</a>
 <br/>
 <h1>status : login</h1>

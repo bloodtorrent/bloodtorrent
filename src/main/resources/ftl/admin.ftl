@@ -11,7 +11,8 @@
 </head>
 <body>
 <h1><label id="title">Welcome to Blood Torrent</label></h1> <br/>
-Hello ${user.id}
+<#assign userId=user.id>
+Hello ${userId?substring(0, userId?index_of("@")) }
 <a href="/logoff">Sign off</a>
 <h1>Request Approval</h1>
 </body>
