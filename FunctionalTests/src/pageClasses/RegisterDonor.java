@@ -61,5 +61,9 @@ public class RegisterDonor extends BasePage {
 		 browser.button("Cancel").click();
 		
 	}
+	
+	public void openMap() {
+		browser.button("map").click();
+	}
 
 }

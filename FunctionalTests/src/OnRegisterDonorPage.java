@@ -78,14 +78,17 @@ public class OnRegisterDonorPage {
 	}
 
 	public void fillOutTheAddressInformation() throws Exception {
-		browser.textarea("address").setValue("Pune");
-		browser.textbox("city").setValue("Pune");
-		browser.select("state").choose("Maharashtra");
-	
+		registerDonor.setAddress("Pune");
+		registerDonor.setCity("Pune");
+		registerDonor.setState("Maharashtra");
+//		browser.textarea("address").setValue("Pune");
+//		browser.textbox("city").setValue("Pune");
+//		browser.select("state").choose("Maharashtra");
+//	
 	}
 
 	public void openMapsToSelectAccurateLocation() throws Exception {
-		browser.button("map").click();
+		registerDonor.openMap();
 	
 	}
 
