@@ -24,6 +24,5 @@ public class SimpleHibernateBundleTest {
         bundle = new SimpleHibernateBundle("org.bloodtorrent");
         assertTrue(Arrays.asList(bundle.getEntityClasses()).contains(User.class));
         assertTrue(Arrays.asList(bundle.getEntityClasses()).contains(BloodRequest.class));
-        assertTrue(Arrays.asList(bundle.getEntityClasses()).contains(Person.class));
     }
 }
