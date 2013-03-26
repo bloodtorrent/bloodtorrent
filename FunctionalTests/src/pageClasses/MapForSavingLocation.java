@@ -27,4 +27,12 @@ public class MapForSavingLocation extends BasePage {
 	public String returnAlertText() {
 		return  browser.div("dialog_confirm").text();
 	}
+
+	public void cancelSavingLocation() {
+		browser.button("Cancel").near(browser.button("Save")).click();
+	}
+
+	public void saveLocation() {
+		browser.button("Save").click();
+	}
 }

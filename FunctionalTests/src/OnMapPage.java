@@ -29,7 +29,7 @@ public class OnMapPage {
 	}
 	
 	public void cancelMap() throws Exception {
-		browser.button("Cancel").near(browser.button("Save")).click();
+		map.cancelSavingLocation();
 	}
 
 	public void verifyMessageForCancel() throws Exception {
@@ -37,6 +37,6 @@ public class OnMapPage {
 	}
 
 	public void saveLocation() throws Exception {
-		browser.button("Save").click();
+		map.saveLocation();
 	}
 }
