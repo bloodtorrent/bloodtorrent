@@ -38,7 +38,7 @@ public class MainPage extends BasePage {
 	}
 
 	public ElementStub getReadMoreLink() {
-		return browser.link("");
+		return browser.link("successStoryDetailLink");
 	}
 
 
