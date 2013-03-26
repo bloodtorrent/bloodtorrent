@@ -16,6 +16,7 @@
 
 //<![CDATA[
 var currentLatLng;
+var originalLatLng;
 
 $(function() {
 
@@ -34,13 +35,15 @@ $(function() {
         modal: true,
         buttons: {
             "Save": function() {
-                $("#lat").val(currentLatLng.lat());
-                $("#lng").val(currentLatLng.lng());
+                originalLatLng = currentLatLng;
+                $("#lat").val(originalLatLng.lat());
+                $("#lng").val(originalLatLng.lng());
                 $("#messageLabel").text("Your map location is saved");
                 $("#messageLabel").css("color","blue");
                 $( this ).dialog( "close" );
             },
             Cancel: function() {
+                currentLatLng = originalLatLng;
                 $( "#dialog_confirm" ).dialog( "open");
             }
         }
@@ -60,13 +63,7 @@ $(function() {
             alert("Please provide the address, city and state before using map.");
             return;
         }
-
-        if($("#lat").val() == null || $("#lng").val() == null
-            || $("#lat").val() == "" || $("#lng").val() == ""){
-            searchLocation();
-        } else{
-            searchAddress("", currentLatLng);
-        }
+        searchLocation();
 
         $( "#map_dialog" ).dialog( "open" );
     });
@@ -101,20 +98,20 @@ searchLocation = function(){
 
 var geocoder = new google.maps.Geocoder();
 
-var searchAddress = function(fullAddress, location) {
+var searchAddress = function(fullAddress) {
     geocoder.geocode(
         {
             'address': fullAddress,
-            'location': location,
+            'location': originalLatLng,
 
         },
         function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
                 var loc = results[0].geometry.location;
-                if(typeof location == 'undefined') {
+                if(typeof originalLatLng == 'undefined') {
                     currentLatLng = loc;
                 }else{
-                    currentLatLng = location;
+                    currentLatLng = originalLatLng;
                 }
             }else {
                 //alert("Not found: " + status);
