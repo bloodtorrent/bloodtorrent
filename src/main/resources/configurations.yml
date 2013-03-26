@@ -38,3 +38,12 @@ database:
 
   # the maximum lifetime of an idle connection
   closeConnectionIfIdleFor: 1 minute
+
+#Mail
+
+mail:
+ #mail admin id
+ adminMailId: administrator@bloodtorrent.mygbiz.com
+
+  #mail admin password
+ adminMailPassword: p@ssw0rd
