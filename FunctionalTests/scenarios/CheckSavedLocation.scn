@@ -1,0 +1,15 @@
+Tags:Story-4,in-progress
+Preconditions:Blood Torrent
+On Main Page:
+#Select register donor
+
+On register donor page:
+#Fill out the address information 
+#Open maps to select accurate location
+
+On Map page:
+#Save location
+
+On register donor page:
+#verify location value
+
