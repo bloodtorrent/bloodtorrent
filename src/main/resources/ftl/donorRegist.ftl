@@ -11,12 +11,14 @@
                 selectOtherMonths: true,
                 dateFormat: "dd-mm-yy"
             });
-            $("#user").submit(function() {
-                alert("submit...");
-                latLng = searchLocation();
-                $("#lat").val(latLng.lat());
-                $("#lng").val(latLng.lng());
-                alert(latLng);
+            $("#register").click(function(){
+                if($("#lat").val() == "" && $("#lng").val() == ""){
+                   alert("Please specify your location with map before register.");
+                   return false;
+                }
+                else {
+                   $("#user").submit();
+                }
             });
         });
         //]]>
@@ -169,7 +171,7 @@
         <input type="hidden" name="lat" id="lat" value=""/>
         <input type="hidden" name="lng" id="lng" value=""/>
 
-        <input type="submit" name="register" value="Register"/>
+        <input type="button" id="register" name="register" value="Register"/>
         <a href ="/"><input type="button" name="cancel" value="Cancel"/></a>
         </center>
         </form>
