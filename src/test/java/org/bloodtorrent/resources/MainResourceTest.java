@@ -1,6 +1,7 @@
 package org.bloodtorrent.resources;
 
 import org.bloodtorrent.dto.User;
+import org.bloodtorrent.repository.CatchPhraseRepository;
 import org.bloodtorrent.repository.SuccessStoryRepository;
 import org.bloodtorrent.view.CommonView;
 import org.eclipse.jetty.server.SessionManager;
@@ -31,6 +32,7 @@ public class MainResourceTest {
     private HttpSession userHttpSession = mock(HttpSession.class);
     private HttpSession nullHttpSession = mock(HttpSession.class);
     private SuccessStoryRepository successStoryRepository = mock(SuccessStoryRepository.class);
+    private CatchPhraseRepository catchPhraseRepository = mock(CatchPhraseRepository.class);
     private User user = new User();
 
     @Before
@@ -47,6 +49,7 @@ public class MainResourceTest {
     private MainResource createMockMainResource() {
         MainResource mainResource = new MainResource(sessionManager);
         mainResource.setSuccessStoryResource(new SuccessStoryResource(successStoryRepository));
+        mainResource.setCatchPhraseResource(new CatchPhraseResource(catchPhraseRepository));
         return mainResource;
     }
 

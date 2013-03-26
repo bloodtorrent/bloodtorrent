@@ -7,6 +7,7 @@ import com.yammer.dropwizard.config.Environment;
 import com.yammer.dropwizard.views.ViewBundle;
 import org.bloodtorrent.ResourceManager;
 import org.bloodtorrent.repository.BloodRequestRepository;
+import org.bloodtorrent.repository.CatchPhraseRepository;
 import org.bloodtorrent.repository.SuccessStoryRepository;
 import org.bloodtorrent.repository.UsersRepository;
 import org.bloodtorrent.resources.*;
@@ -54,12 +55,15 @@ public class BloodTorrentService extends Service<SimpleConfiguration> {
         final UsersRepository userRepository = new UsersRepository(sessionFactory);
         final BloodRequestRepository bloodReqRepository = new BloodRequestRepository(sessionFactory);
         final SuccessStoryRepository successStoryRepository = new SuccessStoryRepository(sessionFactory);
+        final CatchPhraseRepository catchPhraseRepository = new CatchPhraseRepository(sessionFactory);
+
         addResource(environment, new MainResource(httpsSessionManager));
         addResource(environment, new AdminResource(httpsSessionManager));
         addResource(environment, new LogOffResource(httpsSessionManager));
         addResource(environment, new UsersResource(userRepository));
         addResource(environment, new BloodRequestResource(bloodReqRepository));
         addResource(environment, new SuccessStoryResource(successStoryRepository));
+        addResource(environment, new CatchPhraseResource(catchPhraseRepository));
         addResource(environment, new LoginResource(httpsSessionManager, userRepository));
         addResource(environment, new LoginFailResource());
     }

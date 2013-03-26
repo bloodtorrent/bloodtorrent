@@ -1,6 +1,7 @@
 package org.bloodtorrent.resources;
 
 import org.bloodtorrent.ResourceManager;
+import org.bloodtorrent.repository.CatchPhraseRepository;
 import org.bloodtorrent.repository.SuccessStoryRepository;
 import org.bloodtorrent.view.CommonView;
 import org.eclipse.jetty.server.SessionManager;
@@ -25,6 +26,7 @@ import static org.mockito.Mockito.when;
 public class LoginFailResourceTest {
 
     private SuccessStoryRepository successStoryRepository = mock(SuccessStoryRepository.class);
+    private CatchPhraseRepository catchPhraseRepository = mock(CatchPhraseRepository.class);
     private SessionManager sessionManager = mock(SessionManager.class);
     private String MESSAGE = "The E-mail or password you entered is incorrect.";
 
@@ -32,6 +34,7 @@ public class LoginFailResourceTest {
     public void init() {
         MainResource mainResource = new MainResource(sessionManager);
         mainResource.setSuccessStoryResource(new SuccessStoryResource(successStoryRepository));
+        mainResource.setCatchPhraseResource(new CatchPhraseResource(catchPhraseRepository));
         ResourceManager.getInstance().add(mainResource);
     }
 

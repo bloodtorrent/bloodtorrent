@@ -2,6 +2,7 @@ package org.bloodtorrent.repository;
 
 import com.yammer.dropwizard.hibernate.AbstractDAO;
 import org.bloodtorrent.dto.CatchPhrase;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 
 import java.util.List;
@@ -20,10 +21,7 @@ public class CatchPhraseRepository extends AbstractDAO<CatchPhrase> {
     }
 
     public CatchPhrase get() {
-        return null;  //To change body of created methods use File | Settings | File Templates.
-    }
-
-    public List<CatchPhrase> getAllCatchPhrases() {
-        return null;
+        Query query = currentSession().createQuery("from CatchPhrase c");
+        return uniqueResult(query);
     }
 }

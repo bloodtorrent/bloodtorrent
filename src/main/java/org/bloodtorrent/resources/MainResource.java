@@ -4,6 +4,7 @@ import com.yammer.dropwizard.hibernate.UnitOfWork;
 import lombok.Setter;
 import org.bloodtorrent.IllegalDataException;
 import org.bloodtorrent.ResourceManager;
+import org.bloodtorrent.dto.CatchPhrase;
 import org.bloodtorrent.dto.SuccessStory;
 import org.bloodtorrent.dto.User;
 import org.bloodtorrent.view.CommonView;
@@ -35,6 +36,9 @@ public class MainResource {
     @Setter
     private SuccessStoryResource successStoryResource;
 
+    @Setter
+    private CatchPhraseResource catchPhraseResource;
+
     private User user;
 
     public MainResource(SessionManager httpSessionManager) {
@@ -46,11 +50,29 @@ public class MainResource {
     public CommonView forwardMainPage(@CookieParam("JSESSIONID") String sessionID) {
         HttpSession session = getSession(sessionID);
         List<SuccessStory> successStories = getSuccessStories();
+        CatchPhrase catchPhrase = getCatchPhrase();
         if(session != null && session.getAttribute("user") !=  null){
             user = (User) session.getAttribute("user");
-            return new MainView(user, successStories);
+            if(successStories.isEmpty())
+                return new MainView(user, catchPhrase);
+            else
+                return new MainView(user, successStories);
         }
-        return new MainView(successStories);
+
+        if(successStories.isEmpty())
+            return new MainView(catchPhrase);
+        else
+            return new MainView(successStories);
+    }
+
+    private CatchPhrase getCatchPhrase() {
+        if(catchPhraseResource == null)
+            gatherCatchPhraseResource();
+        return catchPhraseResource.get();
+    }
+
+    private void gatherCatchPhraseResource() {
+        catchPhraseResource = ResourceManager.getInstance().find(CatchPhraseResource.class).get();
     }
 
     private List<SuccessStory> getSuccessStories() {

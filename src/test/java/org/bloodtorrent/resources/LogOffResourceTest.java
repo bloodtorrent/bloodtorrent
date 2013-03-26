@@ -2,6 +2,7 @@ package org.bloodtorrent.resources;
 
 import org.bloodtorrent.ResourceManager;
 import org.bloodtorrent.dto.User;
+import org.bloodtorrent.repository.CatchPhraseRepository;
 import org.bloodtorrent.repository.SuccessStoryRepository;
 import org.bloodtorrent.view.CommonView;
 import org.eclipse.jetty.server.SessionManager;
@@ -31,12 +32,14 @@ public class LogOffResourceTest {
     private SessionManager sessionManager = mock(SessionManager.class);
     private HttpSession httpSession = mock(HttpSession.class);
     private SuccessStoryRepository successStoryRepository = mock(SuccessStoryRepository.class);
+    private CatchPhraseRepository catchPhraseRepository = mock(CatchPhraseRepository.class);
 
     @Before
     public void init() {
         when(sessionManager.getHttpSession(SESSION_ID)).thenReturn(httpSession);
         MainResource mainResource = new MainResource(sessionManager);
         mainResource.setSuccessStoryResource(new SuccessStoryResource(successStoryRepository));
+        mainResource.setCatchPhraseResource(new CatchPhraseResource(catchPhraseRepository));
         ResourceManager.getInstance().add(mainResource);
     }
 

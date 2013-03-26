@@ -2,6 +2,7 @@ package org.bloodtorrent.resources;
 
 import org.bloodtorrent.ResourceManager;
 import org.bloodtorrent.dto.User;
+import org.bloodtorrent.repository.CatchPhraseRepository;
 import org.bloodtorrent.repository.SuccessStoryRepository;
 import org.bloodtorrent.view.CommonView;
 import org.eclipse.jetty.server.SessionManager;
@@ -37,6 +38,7 @@ public class AdminResourceTest {
     private HttpSession nonAdminHttpSession = mock(HttpSession.class);
     private HttpSession nullHttpSession = mock(HttpSession.class);
     private SuccessStoryRepository successStoryRepository = mock(SuccessStoryRepository.class);
+    private CatchPhraseRepository catchPhraseRepository = mock(CatchPhraseRepository.class);
 
     @Before
     public void init() {
@@ -57,6 +59,7 @@ public class AdminResourceTest {
 
         MainResource mainResource = new MainResource(sessionManager);
         mainResource.setSuccessStoryResource(new SuccessStoryResource(successStoryRepository));
+        mainResource.setCatchPhraseResource(new CatchPhraseResource(catchPhraseRepository));
         ResourceManager.getInstance().add(mainResource);
     }
 

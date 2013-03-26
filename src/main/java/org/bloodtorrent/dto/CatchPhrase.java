@@ -4,7 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.NotBlank;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 
 /**
@@ -14,6 +17,8 @@ import javax.validation.constraints.Pattern;
  * Time: 1:45 PM
  * To change this template use File | Settings | File Templates.
  */
+@Entity
+@Table(name = "CATCH_PHRASE")
 @Getter @Setter
 @SuppressWarnings("PMD.UnusedPrivateField")
 public class CatchPhrase {
@@ -23,5 +28,6 @@ public class CatchPhrase {
 
     @NotBlank
     @Pattern(regexp = "^(\\/\\w+)+\\.(png|gif|jpg|jpeg)$")
+    @Column(name = "IMAGE_PATH")
     private String imagePath;
 }
