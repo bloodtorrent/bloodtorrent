@@ -22,7 +22,7 @@ public class OnMainPage {
 	}
 
 	public void verifyMainTitle() throws Exception {
-		verifyEquals("Welcome to Blood Torrent", mainPage.getTitle());
+		verifyEquals("Blood Torrent", mainPage.getTitle());
 	}
 
 	public void selectRegisterDonor() throws Exception {
