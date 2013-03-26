@@ -19,4 +19,8 @@ public class BloodRequestRepository extends AbstractDAO<BloodRequest>{
     public void insert(BloodRequest bloodRequest){
         super.persist(bloodRequest);
     }
+
+    public BloodRequest get(String id){
+        return super.get(id);
+    }
 }

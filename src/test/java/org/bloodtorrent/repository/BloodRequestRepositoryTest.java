@@ -9,6 +9,8 @@ import org.junit.Test;
 
 import java.sql.Date;
 
+import static junit.framework.Assert.assertNotNull;
+
 /**
  * Created with IntelliJ IDEA.
  * User: sds
@@ -30,10 +32,12 @@ public class BloodRequestRepositoryTest extends ConfigurableIntegrationTest {
     @Test
     public void testInsert() throws Exception {
         BloodRequest bloodRequest = new BloodRequest();
-        bloodRequest.setId("gildong@gmail.com");
+        String id = "gildong@gmail.com";
+        bloodRequest.setId(id);
         bloodRequest.setBirthday(Date.valueOf("2013-03-26"));
         bloodRequest.setCity("Seoul");
         bloodRequest.setBloodGroup("group");
         repository.insert(bloodRequest);
+        assertNotNull(repository.get(id));
     }
 }
