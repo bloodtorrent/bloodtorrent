@@ -6,25 +6,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.thoughtworks.twist.core.execution.TwistScenarioDataStore;
 
+import pageClasses.MapForSavingLocation;
+
+import static com.thoughtworks.twist.core.execution.TwistVerification.verifyEquals;
 import static junit.framework.Assert.assertTrue;
 
 public class OnMapPage {
 
 	private Browser browser;
 
-	@Autowired
-	private TwistScenarioDataStore scenarioStore;
-	private String locationPin = "Your Location";
+//	@Autowired
+//	private TwistScenarioDataStore scenarioStore;
+	private MapForSavingLocation map;
 
 	public OnMapPage(Browser browser) {
 		this.browser = browser;
+		map = new MapForSavingLocation(browser);  
 	}
 
 	public void verifyDisplayedMap() throws Exception {
-		assertTrue(isLocationPinVisible());
+		assertTrue(map.isLocationPinVisible());
 	}
 	
-	public boolean isLocationPinVisible(){
-		return browser.area(locationPin).exists();
+	public void cancelMap() throws Exception {
+		browser.button("Cancel").near(browser.button("Save")).click();
+	}
+
+	public void verifyMessageForCancel() throws Exception {
+		verifyEquals(map.returnAlertText(), "Do you wish to proceed without specifying exact location?");
 	}
 }

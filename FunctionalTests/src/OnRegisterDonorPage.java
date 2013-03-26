@@ -93,7 +93,6 @@ public class OnRegisterDonorPage {
 
 	public void openMapsToSelectAccurateLocation() throws Exception {
 		registerDonor.openMap();
-	
 	}
 
 	public void verifyTheMessageForMandatoryFieldsAboutAddressInformation() throws Exception {
