@@ -27,10 +27,10 @@ public class MailUtilTest {
         ResourceManager.getInstance().add(mailConfiguration);
     }
 
-    @Test
+    //@Test
     public void mailTest() {
         boolean hasSucceeded = true;
-        String to = "ksy2000c@gmail.com";
+        String to = "administrator@bloodtorrent.mygbiz.com";
         String title = "[BloodTorrent] Mailing Test";
         String content = "<html><body>Hello World: " + System.currentTimeMillis() + "</body></html>";
         MailUtil mailUtil = new MailUtil();
