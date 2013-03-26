@@ -44,4 +44,12 @@ public class OnMainPage {
 	public void login() throws Exception {
 		mainPage.login();
 	}
+
+	public void verifySuccessStoriesSectionIsVisible() throws Exception {
+		verifyTrue(mainPage.getSectionOfSuccessStory().exists());
+	}
+
+	public void verifyReadMoreLinkIsPresentForSuccessStories() throws Exception {
+		verifyTrue(mainPage.getReadMoreLink().exists());
+	}
 }

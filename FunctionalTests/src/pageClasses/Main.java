@@ -1,7 +1,6 @@
 package pageClasses;
 
 import net.sf.sahi.client.Browser;
-import net.sf.sahi.client.BrowserElements;
 import net.sf.sahi.client.ElementStub;
 
 public class Main extends BasePage {
@@ -32,6 +31,14 @@ public class Main extends BasePage {
 
 	public ElementStub loginButton() {
 		return browser.button("Log in");
+	}
+
+	public ElementStub getSectionOfSuccessStory() {
+		return browser.byId("successStory");
+	}
+
+	public ElementStub getReadMoreLink() {
+		return browser.link("");
 	}
 
 
