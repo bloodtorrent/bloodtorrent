@@ -30,12 +30,6 @@ public class UsersRepositoryTest {
     }
 
     @Test
-    public void testIsExistentId() throws Exception {
-        boolean existAdminId = repository.isExistentId("Administrator@bloodtorrent.org");
-        assertTrue(existAdminId);
-    }
-
-    @Test
     public void testInsert() throws Exception {
         User user = new User();
         user.setId("123");
