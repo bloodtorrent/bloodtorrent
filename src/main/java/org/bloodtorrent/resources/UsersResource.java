@@ -63,6 +63,7 @@ public class UsersResource {
                                   @FormParam("lng") double longitude,
                                   @FormParam("lastDonate") String lastDonate) {
 
+        id = id.toLowerCase();
         User user = setUserFormParam(firstName, lastName, id, password, address, city, state, cellPhone, bloodGroup, distance, gender, birthDay, anonymous, latitude, longitude);
 
         calculateLastDonateDate(lastDonate, user);
