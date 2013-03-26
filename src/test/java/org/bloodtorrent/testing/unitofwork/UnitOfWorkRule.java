@@ -1,4 +1,6 @@
 package org.bloodtorrent.testing.unitofwork;
+import com.yammer.dropwizard.db.DatabaseConfiguration;
+import org.bloodtorrent.dto.BloodRequest;
 import org.hibernate.SessionFactory;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
@@ -23,7 +25,7 @@ public class UnitOfWorkRule extends TestWatcher {
     UnitOfWorkHelper unitOfWorkHelper = new UnitOfWorkHelper();
     boolean commitDefault = false;
 
-    public UnitOfWorkRule(String config, Class<?>... entities){
+    public UnitOfWorkRule(DatabaseConfiguration config, Class<?>... entities){
         try {
             unitOfWorkHelper.initDB(config, entities);
         } catch (Exception e) {

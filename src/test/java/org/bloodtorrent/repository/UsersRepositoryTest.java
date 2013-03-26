@@ -1,6 +1,7 @@
 package org.bloodtorrent.repository;
 
 import org.bloodtorrent.dto.BloodRequest;
+import org.bloodtorrent.testing.unitofwork.ConfigurableIntegrationTest;
 import org.bloodtorrent.testing.unitofwork.UnitOfWorkRule;
 import org.junit.Before;
 import org.junit.Rule;
@@ -9,6 +10,7 @@ import org.junit.Test;
 
 import java.sql.Date;
 
+import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
 
 /**
@@ -18,9 +20,9 @@ import static junit.framework.Assert.assertTrue;
  * Time: 오전 11:54
  * To change this template use File | Settings | File Templates.
  */
-public class UsersRepositoryTest {
+public class UsersRepositoryTest extends ConfigurableIntegrationTest {
     @Rule
-    public UnitOfWorkRule unitOfWorkRule = new UnitOfWorkRule("integration-test-configuration.json", User.class);
+    public UnitOfWorkRule unitOfWorkRule = new UnitOfWorkRule(configuration.getDatabaseConfiguration(), User.class);
 
     private UsersRepository repository;
 
@@ -30,18 +32,14 @@ public class UsersRepositoryTest {
     }
 
     @Test
-    public void testInsert() throws Exception {
+    public void shouldBeExistAfterInsertUser() throws Exception {
         User user = new User();
-        user.setId("123");
+        String id = "123";
+        user.setId(id);
         user.setBirthDay("2013-03-30");
         user.setAddress("address, city, state, India");
         user.setAnonymous(false);
         repository.insert(user);
-    }
-
-    @Test
-    public void testGet() throws Exception {
-        String id = "Administrator@bloodtorrent.org";
-        repository.get(id);
+        assertNotNull(repository.get("123"));
     }
 }

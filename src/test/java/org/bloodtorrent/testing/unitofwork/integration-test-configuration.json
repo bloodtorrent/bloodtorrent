@@ -1,7 +1,0 @@
-
-database:
-  {driverClass: org.h2.Driver}
-  ,{user: bloodtorrent}
-  ,{password: password}
-  ,{url: 'jdbc:h2:db/bloodtorrent'}
-}

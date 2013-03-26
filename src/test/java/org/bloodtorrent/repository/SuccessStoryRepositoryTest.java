@@ -2,6 +2,7 @@ package org.bloodtorrent.repository;
 
 import org.bloodtorrent.dto.BloodRequest;
 import org.bloodtorrent.dto.SuccessStory;
+import org.bloodtorrent.testing.unitofwork.ConfigurableIntegrationTest;
 import org.bloodtorrent.testing.unitofwork.UnitOfWorkRule;
 import org.junit.Before;
 import org.junit.Rule;
@@ -16,9 +17,9 @@ import static junit.framework.Assert.assertNotNull;
  * Time: 오전 11:40
  * To change this template use File | Settings | File Templates.
  */
-public class SuccessStoryRepositoryTest {
+public class SuccessStoryRepositoryTest extends ConfigurableIntegrationTest {
     @Rule
-    public UnitOfWorkRule unitOfWorkRule = new UnitOfWorkRule("integration-test-configuration.json", SuccessStory.class);
+    public UnitOfWorkRule unitOfWorkRule = new UnitOfWorkRule(configuration.getDatabaseConfiguration(), SuccessStory.class);
     private SuccessStoryRepository  repository ;
 
     @Before

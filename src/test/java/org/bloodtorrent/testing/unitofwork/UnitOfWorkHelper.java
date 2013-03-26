@@ -33,9 +33,7 @@ public class UnitOfWorkHelper {
         return hibernateSessionFactory;
     }
 
-    protected void initDB(String configFile, Class<?>[] entities)throws IOException, ClassNotFoundException {
-        JsonNode jsonNode = MAPPER.readTree(jsonFixture(configFile)).get(DATABASE);
-        DatabaseConfiguration config = fromJson(jsonNode.toString(), DatabaseConfiguration.class);
+    protected void initDB(DatabaseConfiguration config, Class<?>[] entities)throws IOException, ClassNotFoundException {
         hibernateSessionFactory = createHibernateSessionFactory(config, entities);
     }
 
