@@ -69,8 +69,7 @@ public class OnRegisterDonorPage {
 		registerDonor.cancel();
 	}
 
-	public void fillOutTheValidInformationToMendatoryFieldsWithExistingUsersEmailAddress(
-			String email) throws Exception {
+	public void fillOutTheValidInformationToMendatoryFieldsWithExistingUsersEmailAddress() throws Exception {
 		
 		registerDonor.setEmail(email);
 		setMendatoryFieldsWithoutEmail();
