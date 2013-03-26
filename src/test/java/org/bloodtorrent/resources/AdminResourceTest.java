@@ -71,9 +71,9 @@ public class AdminResourceTest {
     @Test
     public void shouldReturnMainViewWhenAdminIsNotLoggedIn() {
         AdminResource adminResource = new AdminResource(sessionManager);
-        CommonView adminView = adminResource.forwardAdminPage(NON_ADMIN_SESSION_ID);
-        assertThat(adminView.getTemplateName(), is("/ftl/main.ftl"));
-        assertNotEquals(ADMIN_ID, adminView.getUser().getId());
+        CommonView mainView = adminResource.forwardAdminPage(NON_ADMIN_SESSION_ID);
+        assertThat(mainView.getTemplateName(), is("/ftl/main.ftl"));
+        assertNotEquals(ADMIN_ID, mainView.getUser().getId());
     }
 
     @Test
