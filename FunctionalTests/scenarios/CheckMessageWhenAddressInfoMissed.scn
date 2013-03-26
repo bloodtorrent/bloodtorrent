@@ -1,3 +1,11 @@
 Tags:Story-4,in-progress
 Preconditions:Blood Torrent
-Metadata:ScenarioType=Manual
+Metadata:ScenarioType=Auto
+On Main Page:
+#Select register donor
+
+On register donor page:
+#Fill out missing address information 
+#Open maps to select accurate location
+#Verify the message for mandatory fields about address information
+

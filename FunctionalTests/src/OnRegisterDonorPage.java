@@ -1,5 +1,3 @@
-// JUnit Assert framework can be used for verification
-
 import java.util.Random;
 
 import net.sf.sahi.client.Browser;
@@ -9,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import pageClasses.RegisterDonor;
 
 import com.thoughtworks.twist.core.execution.TwistScenarioDataStore;
+
+import static com.thoughtworks.twist.core.execution.TwistVerification.verifyEquals;
 
 public class OnRegisterDonorPage {
 
@@ -78,18 +78,29 @@ public class OnRegisterDonorPage {
 	}
 
 	public void fillOutTheAddressInformation() throws Exception {
-		registerDonor.setAddress("Pune");
-		registerDonor.setCity("Pune");
-		registerDonor.setState("Maharashtra");
-//		browser.textarea("address").setValue("Pune");
-//		browser.textbox("city").setValue("Pune");
-//		browser.select("state").choose("Maharashtra");
-//	
+		fillOutTheAddressInformation("Pune", "Pune", "Maharashtra");
+	
+	}
+	
+	public void fillOutMissingAddressInformation() throws Exception {
+		fillOutTheAddressInformation("", "Pune", "Maharashtra");
+	}
+	
+	public void fillOutTheAddressInformation(String address, String city, String state) throws Exception {
+		registerDonor.setAddress(address);
+		registerDonor.setCity(city);
+		registerDonor.setState(state);
 	}
 
 	public void openMapsToSelectAccurateLocation() throws Exception {
 		registerDonor.openMap();
 	
 	}
+
+	public void verifyTheMessageForMandatoryFieldsAboutAddressInformation() throws Exception {
+		verifyEquals(registerDonor.returnAlertText(), "Please provide the address, city and state before using map.");
+	}
+
+
 
 }

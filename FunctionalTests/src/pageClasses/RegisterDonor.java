@@ -66,4 +66,8 @@ public class RegisterDonor extends BasePage {
 		browser.button("map").click();
 	}
 
+	public String returnAlertText() {
+		return browser.lastAlert();
+	}
+
 }
