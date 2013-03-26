@@ -1,7 +1,6 @@
 package org.bloodtorrent.bootstrap;
 
 import org.bloodtorrent.dto.BloodRequest;
-import org.bloodtorrent.dto.Person;
 import org.bloodtorrent.dto.User;
 import org.junit.Test;
 

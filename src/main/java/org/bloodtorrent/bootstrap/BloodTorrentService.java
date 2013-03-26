@@ -7,7 +7,6 @@ import com.yammer.dropwizard.config.Environment;
 import com.yammer.dropwizard.views.ViewBundle;
 import org.bloodtorrent.ResourceManager;
 import org.bloodtorrent.repository.BloodRequestRepository;
-import org.bloodtorrent.repository.PersonRepository;
 import org.bloodtorrent.repository.SuccessStoryRepository;
 import org.bloodtorrent.repository.UsersRepository;
 import org.bloodtorrent.resources.*;
