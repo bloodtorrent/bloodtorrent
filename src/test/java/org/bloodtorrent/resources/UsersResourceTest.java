@@ -65,20 +65,53 @@ public class UsersResourceTest {
     }
 
     @Test
-    public void shouldRegistDonorThenReturnResultView() {
+    public void shouldRegisterDonorThenReturnResultView() {
         UsersRepository usersRepository = mock(UsersRepository.class);
         UsersResource usersResource = new UsersResource(usersRepository);
         User user = createNewUser();
+        user.setPassword("passw0rd");
+        user.setBirthDay("18-03-1980");
+        user.setState("Bihar");
         ResultView resultView = usersResource.registDonor(user.getFirstName(),user.getLastName(),user.getId(),user.getPassword()
                                     ,user.getPassword(),user.getAddress(),user.getCity(),user.getState(),user.getCellPhone(),user.getBloodGroup()
                                     ,user.getDistance(),user.getGender(),user.getBirthDay(),user.isAnonymous(),user.getLatitude(),user.getLongitude(),"1");
 
         assertThat(resultView.getTemplateName(), is("/ftl/registrationResult.ftl"));
+        assertThat(resultView.getResult(), is("success"));
     }
 
+    @Test
+    public void shouldRegisterDonorGivenNotEqualPasswordThenReturnValidationView() {
+        String password = "passw0rd";
+        String confirmPassword = "password";
 
+        UsersRepository usersRepository = mock(UsersRepository.class);
+        UsersResource usersResource = new UsersResource(usersRepository);
+        User user = createNewUser();
+        user.setPassword(password);
 
+        ResultView resultView = usersResource.registDonor(user.getFirstName(),user.getLastName(),user.getId(),user.getPassword()
+                ,confirmPassword,user.getAddress(),user.getCity(),user.getState(),user.getCellPhone(),user.getBloodGroup()
+                ,user.getDistance(),user.getGender(),user.getBirthDay(),user.isAnonymous(),user.getLatitude(),user.getLongitude(),"1");
 
+        assertThat(resultView.getTemplateName(), is("/ftl/registrationResult.ftl"));
+        assertThat(resultView.getResult(), is("fail"));
+        assertThat(resultView.getMessages().isEmpty(), is(false));
+    }
+
+    @Test
+    public void shouldRegisterDonorGivenWrongInformationThenReturnValidationView() {
+        UsersRepository usersRepository = mock(UsersRepository.class);
+        UsersResource usersResource = new UsersResource(usersRepository);
+        User user = createNewUser();
+        ResultView resultView = usersResource.registDonor(user.getFirstName(),user.getLastName(),user.getId(),user.getPassword()
+                ,user.getPassword(),user.getAddress(),user.getCity(),user.getState(),user.getCellPhone(),user.getBloodGroup()
+                ,user.getDistance(),user.getGender(),user.getBirthDay(),user.isAnonymous(),user.getLatitude(),user.getLongitude(),"1");
+
+        assertThat(resultView.getTemplateName(), is("/ftl/registrationResult.ftl"));
+        assertThat(resultView.getResult(), is("fail"));
+        assertThat(resultView.getMessages().isEmpty(), is(false));
+    }
 
 
 
