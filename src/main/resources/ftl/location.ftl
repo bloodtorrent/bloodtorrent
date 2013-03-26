@@ -35,16 +35,24 @@ $(function() {
         modal: true,
         open: function(event, ui) { $(".ui-dialog-titlebar-close").hide(); },
         buttons: {
-            "Save": function() {
-                originalLatLng = currentLatLng;
-                $("#lat").val(originalLatLng.lat());
-                $("#lng").val(originalLatLng.lng());
-                $("#messageLabel").text("Your map location is saved");
-                $("#messageLabel").css("color","blue");
-                $( this ).dialog( "close" );
+            "Save" : {
+              id: "saveLocation",
+              text : "Save",
+              click: function(){
+                  originalLatLng = currentLatLng;
+                  $("#lat").val(originalLatLng.lat());
+                  $("#lng").val(originalLatLng.lng());
+                  $("#messageLabel").text("Your map location is saved");
+                  $("#messageLabel").css("color","blue");
+                  $( this ).dialog( "close" );
+              }
             },
-            Cancel: function() {
-                $( "#dialog_confirm" ).dialog( "open");
+            "Cancel" : {
+                id : "cancelSaveLocation",
+                text : "Cancel",
+                click : function() {
+                    $( "#dialog_confirm" ).dialog( "open");
+                }
             }
         }
     });
@@ -64,20 +72,24 @@ $(function() {
         $( "#map_dialog" ).dialog( "open" );
     });
 
-
-    var canCloseMapDialog = false;
     $( "#dialog_confirm" ).dialog({
         autoOpen: false,
          buttons: {
-            "Yes": function() {
-                $( this ).dialog( "close" );
-                currentLatLng = originalLatLng;
-                canCloseMapDialog = true;
-                $( "#map_dialog"  ).dialog( "close" );
+            "Yes": {
+                id : "closeMap",
+                text : "Yes",
+                click : function() {
+                    $( this ).dialog( "close" );
+                    currentLatLng = originalLatLng;
+                    $( "#map_dialog"  ).dialog( "close" );
+                }
             },
-            "No": function() {
-                canCloseMapDialog = false;
-                $( this ).dialog( "close" );
+             "No" : {
+                 id : "cancelCloseMap",
+                 text : "No",
+                 click : function() {
+                    $( this ).dialog( "close" );
+                 }
              }
          }
     });
@@ -89,7 +101,7 @@ $(function() {
 
 
 //Search bar
-searchLocation = function(){
+var searchLocation = function(){
     addressToSearch = $("#orginalAddress").val() +"," + $("#city").val() +"," + $("#state").val() +"," +"India";
     document.getElementById('search_address').value = addressToSearch;
     currentLat = $("#lat").val();
@@ -98,6 +110,7 @@ searchLocation = function(){
         originalLatLng = new google.maps.LatLng(currentLat, currentLng);
     }
     searchAddress(addressToSearch);
+    return currentLatLng;
 }
 
 var geocoder = new google.maps.Geocoder();

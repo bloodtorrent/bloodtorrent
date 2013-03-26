@@ -11,7 +11,13 @@
                 selectOtherMonths: true,
                 dateFormat: "dd-mm-yy"
             });
-
+            $("#user").submit(function() {
+                alert("submit...");
+                latLng = searchLocation();
+                $("#lat").val(latLng.lat());
+                $("#lng").val(latLng.lng());
+                alert(latLng);
+            });
         });
         //]]>
         </script>
