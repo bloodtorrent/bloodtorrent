@@ -1,0 +1,10 @@
+Tags:Story-67,in-progress
+Preconditions:Blood Torrent
+Metadata:ScenarioType=Manual
+On Main Page:
+#Fill out the valid information for login as Admin
+#Login
+
+On Admin Page:
+#Approval for request blood
+#Verify request blood approval success message 
