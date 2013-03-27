@@ -1,0 +1,12 @@
+Tags:Story-78,in-progress
+Preconditions:
+Metadata:ScenarioType=Manual
+On Success Story List Page:
+#Create Success Story
+
+On Register Success Story Page:
+#Display Register Success Story Page
+#Cancel Register Success Story
+
+On Success Story List Page:
+#Verify Success Story Title
