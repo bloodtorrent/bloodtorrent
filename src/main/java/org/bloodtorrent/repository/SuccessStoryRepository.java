@@ -3,7 +3,6 @@ package org.bloodtorrent.repository;
 import com.yammer.dropwizard.hibernate.AbstractDAO;
 import org.bloodtorrent.dto.SuccessStory;
 import org.hibernate.Query;
-import org.hibernate.SQLQuery;
 import org.hibernate.SessionFactory;
 
 import java.util.List;
@@ -22,4 +21,12 @@ public class SuccessStoryRepository extends AbstractDAO<SuccessStory> {
         Query query = currentSession().createQuery("from SuccessStory s where s.showMainPage like 'Y' order by s.createDate desc");
         return list(query);
     }
+
+	public void insert(SuccessStory story) {
+		super.persist(story);
+	}
+
+	public SuccessStory get(String id){
+		return super.get(id);
+	}
 }
