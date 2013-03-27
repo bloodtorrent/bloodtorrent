@@ -1,17 +1,23 @@
 package org.bloodtorrent.resources;
 
+import org.bloodtorrent.dto.SuccessStory;
 import org.bloodtorrent.dto.User;
 import org.bloodtorrent.repository.CatchPhraseRepository;
 import org.bloodtorrent.repository.SuccessStoryRepository;
 import org.bloodtorrent.view.CommonView;
+import org.bloodtorrent.view.MainView;
 import org.eclipse.jetty.server.SessionManager;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import javax.servlet.http.HttpSession;
 
+import java.util.Arrays;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -78,5 +84,25 @@ public class MainResourceTest {
         MainResource mainResource = createMockMainResource();
         CommonView commonViewWithUser = mainResource.forwardMainPage(NULL_SESSION_ID);
         assertNull(commonViewWithUser.getUser());
+    }
+
+    @Test
+    public void shouldIncludeSuccessStoriesIfExist() {
+        when(successStoryRepository.list()).thenReturn(Arrays.asList(createSuccessStory()));
+        MainResource mainResource = createMockMainResource();
+        MainView mainView = mainResource.forwardMainPage(USER_SESSION_ID);
+        assertNotNull(mainView.getSuccessStories());
+        assertThat(mainView.getSuccessStories().isEmpty(), is(false));
+
+        mainView = mainResource.forwardMainPage(NULL_SESSION_ID);
+        assertNotNull(mainView.getSuccessStories());
+        assertThat(mainView.getSuccessStories().isEmpty(), is(false));
+    }
+
+    private SuccessStory createSuccessStory() {
+        SuccessStory story = new SuccessStory();
+        story.setTitle("Sample Story");
+        story.setDescription("Hello, world!");
+        return story;
     }
 }

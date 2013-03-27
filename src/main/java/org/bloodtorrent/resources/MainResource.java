@@ -47,7 +47,7 @@ public class MainResource {
 
     @GET
     @UnitOfWork
-    public CommonView forwardMainPage(@CookieParam("JSESSIONID") String sessionID) {
+    public MainView forwardMainPage(@CookieParam("JSESSIONID") String sessionID) {
         HttpSession session = getSession(sessionID);
         List<SuccessStory> successStories = getSuccessStories();
         CatchPhrase catchPhrase = getCatchPhrase();
