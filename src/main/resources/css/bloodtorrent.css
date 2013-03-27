@@ -1,6 +1,9 @@
 section, article {
     display: block;
 }
+#successStoryEditor {
+
+}
 
 #successStory {
     border: 3px solid gray;

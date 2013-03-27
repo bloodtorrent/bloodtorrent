@@ -21,7 +21,7 @@ public class SuccessStory {
 	@Id
 	private String id;
 
-	@NotBlank(message = "Title should not be blank.")
+	@NotBlank(message = "Please fill out title.")
 	private String title;
 
 	@NotBlank
@@ -44,6 +44,6 @@ public class SuccessStory {
 	private String showMainPage;
 
 	@Column(name = "CREATE_DATE")
-	private Date createDate;
+	private Date createDate = new Date();
 
 }
