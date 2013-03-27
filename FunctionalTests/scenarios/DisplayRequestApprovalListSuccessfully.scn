@@ -1,0 +1,18 @@
+Tags:Story-67,in-progress
+Preconditions:Blood Torrent
+Metadata:ScenarioType=Manual
+NOTE 
+1. We need to rename OnAdminPage.java ==> OnRequestApprovalListPage.java
+											   Admin.java ==> RequestApprovalList.java
+2. "Verify Oldest Request Approval is top of List" is Twist ? or Junit 
+     We need to discuss with assigned devloper(still not assign)
+
+On Main Page:
+#Fill out the valid information for login as Admin
+#Login
+
+On Admin Page:
+#Verify navigation menu
+#Verify Request Approval List
+#Verify Oldest Request Approval is top of List
+
