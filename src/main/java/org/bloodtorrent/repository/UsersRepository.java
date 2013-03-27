@@ -4,6 +4,8 @@ import com.yammer.dropwizard.hibernate.AbstractDAO;
 import org.bloodtorrent.dto.User;
 import org.hibernate.SessionFactory;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: sds
@@ -27,5 +29,16 @@ public class UsersRepository extends AbstractDAO<User> {
 
     public User get(String id) {
         return super.get(id);
+    }
+
+    /**
+     * With given parameter as <code>bloodGroup</code>, return all users which blood type is either equal or unknown.
+     * And also the users should be able to donor, which means that his/her last donate date is before 90 days than today.
+     * @param bloodGroup A blood group string of A/B/AB/O with Rh+- or just "Unknown". For example it may be "A+".
+     * @author James, Scott
+     */
+    public List<User> listByBloodGroupAndAfter90DaysFromLastDonateDate(String bloodGroup) {
+        // FIXME [James/Scott] Should be implemented using query.
+        return null;  //To change body of created methods use File | Settings | File Templates.
     }
 }
