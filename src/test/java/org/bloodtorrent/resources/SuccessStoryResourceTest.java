@@ -4,7 +4,6 @@ import org.bloodtorrent.IllegalDataException;
 import org.bloodtorrent.dto.SuccessStory;
 import org.bloodtorrent.repository.SuccessStoryRepository;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -138,6 +137,14 @@ public class SuccessStoryResourceTest {
 	}
 
 	@Test
+	public void shouldReturnSuccessStoryWithGivenId() {
+		String id = "One";
+		SuccessStory story = createNewSuccessStory(id);
+		when(repository.get(id)).thenReturn(story);
+		assertThat(resource.get(id), is(story));
+	}
+
+	@Test
 	public void visualResourcePathShouldBeFilled() {
 		SuccessStory story = createNewSuccessStory();
 		setDummyString(story, "visualResourcePath", 0);
@@ -150,13 +157,6 @@ public class SuccessStoryResourceTest {
 		assertThat(constraintViolations.size(), is(0));
 	}
 
-
-	@Test
-	@Ignore("Finish this test after TDDing the SuccessStoryRepository")
-	public void shouldReturnSuccessStoryWithGivenId() {
-		SuccessStory story = createNewSuccessStory("One");
-
-	}
 
     private <T> void setDummyString(T t, String property, int num) {
         String dummyText = makeDummyString(num);

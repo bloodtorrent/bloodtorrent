@@ -29,4 +29,8 @@ public class SuccessStoryResource {
 
         return list;
     }
+
+	public SuccessStory get(String id) {
+		return repository.get(id);
+	}
 }
