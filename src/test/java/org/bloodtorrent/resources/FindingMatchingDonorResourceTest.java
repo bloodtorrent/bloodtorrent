@@ -93,7 +93,7 @@ public class FindingMatchingDonorResourceTest {
         User user2 = new User();
         user2.setLatitude(8.29);
         user2.setLongitude(77.84);
-        user2.setDistance("20");
+        user2.setDistance("50");
         user2.setId("dornor2@email.com");
 
         User user3 = new User();
@@ -111,7 +111,7 @@ public class FindingMatchingDonorResourceTest {
 
         FindingMatchingDonorResource resource = new FindingMatchingDonorResource();
 
-        assertThat(resource.getMatchingDonors(users, hospitalLatitude, hospitalLongitude).size(), is(2));
+        assertThat(resource.getMatchingDonors(users, hospitalLatitude, hospitalLongitude).size(), is(3));
     }
 
     private boolean isInMarginOfError(double calcDistance, double realDistance) {

@@ -7,6 +7,7 @@ import org.bloodtorrent.repository.SuccessStoryRepository;
 import javax.ws.rs.Path;
 import java.util.List;
 
+@Path("/successStory")
 public class SuccessStoryResource {
     private final SuccessStoryRepository repository;
 

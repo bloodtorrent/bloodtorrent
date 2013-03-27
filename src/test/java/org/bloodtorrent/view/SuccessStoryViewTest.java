@@ -1,0 +1,23 @@
+package org.bloodtorrent.view;
+
+import org.bloodtorrent.dto.SuccessStory;
+import org.junit.Test;
+
+import static junit.framework.Assert.assertSame;
+import static org.mockito.Mockito.mock;
+
+/**
+ * Created with IntelliJ IDEA.
+ * User: sds
+ * Date: 3/27/13
+ * Time: 10:56 AM
+ * To change this template use File | Settings | File Templates.
+ */
+public class SuccessStoryViewTest {
+	@Test
+	public void shouldReturnSameSuccessStoryGivenToConstructor() {
+		SuccessStory successStory = mock(SuccessStory.class);
+		SuccessStoryView view = new SuccessStoryView(successStory);
+		assertSame(view.getSuccessStory(), successStory);
+	}
+}

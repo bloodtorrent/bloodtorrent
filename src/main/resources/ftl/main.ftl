@@ -29,7 +29,7 @@
             <h1>${story.getTitle()}</h1>
             <img class="thumbnail" src="${story.getThumbnailPath()}"/>
             <p>${story.getSummary()}</p>
-            <a class="successStoryDetailLink" href="#" onclick="alert('See you next iteration :)'); return false;">READ MORE</a>
+            <a class="successStoryDetailLink" href="/successStory">READ MORE</a>
         </article>
     </#list>
 </#if>

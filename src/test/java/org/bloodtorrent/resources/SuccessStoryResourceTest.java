@@ -4,6 +4,7 @@ import org.bloodtorrent.IllegalDataException;
 import org.bloodtorrent.dto.SuccessStory;
 import org.bloodtorrent.repository.SuccessStoryRepository;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -22,8 +23,6 @@ import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
@@ -48,6 +47,12 @@ public class SuccessStoryResourceTest {
     public void setUpResource() {
         resource = new SuccessStoryResource(repository);
     }
+
+	private SuccessStory createNewSuccessStory(String id) {
+		SuccessStory story = createNewSuccessStory();
+		story.setId(id);
+		return story;
+	}
 
     private SuccessStory createNewSuccessStory() {
         SuccessStory story = new SuccessStory();
@@ -146,14 +151,12 @@ public class SuccessStoryResourceTest {
 	}
 
 
+	@Test
+	@Ignore("Finish this test after TDDing the SuccessStoryRepository")
+	public void shouldReturnSuccessStoryWithGivenId() {
+		SuccessStory story = createNewSuccessStory("One");
 
-
-
-
-
-
-
-
+	}
 
     private <T> void setDummyString(T t, String property, int num) {
         String dummyText = makeDummyString(num);
