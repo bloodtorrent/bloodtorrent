@@ -43,6 +43,8 @@
 	</path>
 
 	<target name="build-source" description="Build twist test sources">
+		<delete dir="${scenarios.output.classes}" description="delete old classes dir" />
+		<mkdir dir="${scenarios.output.classes}" description="create output classes dir" />
 		<javac debug="true" destdir="${scenarios.output.classes}">
 			<src path="${scenarios.source.dir}" />
 			<classpath refid="twist.libs" />
