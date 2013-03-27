@@ -1,4 +1,4 @@
-package pageClasses;
+package org.bloodtorrent.functionaltests.pages;
 
 import static junit.framework.Assert.assertTrue;
 import net.sf.sahi.client.Browser;

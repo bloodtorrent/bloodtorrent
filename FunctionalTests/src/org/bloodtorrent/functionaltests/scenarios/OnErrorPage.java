@@ -1,3 +1,4 @@
+package org.bloodtorrent.functionaltests.scenarios;
 // JUnit Assert framework can be used for verification
 
 import static com.thoughtworks.twist.core.execution.TwistVerification.verifyEquals;

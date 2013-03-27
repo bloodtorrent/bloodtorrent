@@ -1,8 +1,9 @@
+package org.bloodtorrent.functionaltests.scenarios;
 import net.sf.sahi.client.Browser;
 
+import org.bloodtorrent.functionaltests.pages.RequestBlood;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import pageClasses.RequestBlood;
 
 import com.thoughtworks.twist.core.execution.TwistScenarioDataStore;
 

@@ -1,3 +1,4 @@
+package org.bloodtorrent.functionaltests.scenarios;
 import net.sf.sahi.client.Browser;
 
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,10 +1,11 @@
+package org.bloodtorrent.functionaltests.scenarios;
 import java.util.Random;
 
 import net.sf.sahi.client.Browser;
 
+import org.bloodtorrent.functionaltests.pages.RegisterDonor;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import pageClasses.RegisterDonor;
 
 import com.thoughtworks.twist.core.execution.TwistScenarioDataStore;
 

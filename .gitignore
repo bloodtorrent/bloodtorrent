@@ -4,7 +4,7 @@ build/
 out/
 target/
 dependency-reduced-pom.xml
-FunctionalTests/bin
+FunctionalTests/bin/**/*.class
 FunctionalTests/logs
 db/bloodtorrent.*.db
 FunctionalTests/reports/*

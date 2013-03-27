@@ -1,4 +1,4 @@
-package context;
+package org.bloodtorrent.functionaltests.contexts;
 
 import net.sf.sahi.client.Browser;
 
