@@ -1,9 +1,12 @@
 package org.bloodtorrent.resources;
 
+import com.yammer.dropwizard.hibernate.UnitOfWork;
 import org.bloodtorrent.IllegalDataException;
 import org.bloodtorrent.dto.SuccessStory;
 import org.bloodtorrent.repository.SuccessStoryRepository;
+import org.bloodtorrent.view.SuccessStoryView;
 
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import java.util.List;
 
@@ -16,7 +19,7 @@ public class SuccessStoryResource {
     }
 
     /**
-     *  Get at most 3 Success Stories. This will be used for being shown on main page.
+     * Get at most 3 Success Stories. This will be used for being shown on main page.
      * @return
      * @throws IllegalDataException Thrown unless the number of shown success stories is between 0 and MAXIMUM_SHOWN_STORY_ON_MAIN_PAGE.
      */
@@ -32,5 +35,12 @@ public class SuccessStoryResource {
 
 	public SuccessStory get(String id) {
 		return repository.get(id);
+	}
+
+	@GET
+	@UnitOfWork
+	public SuccessStoryView getSuccessStory(String id) {
+		SuccessStory successStory = repository.get(id);
+		return new SuccessStoryView(successStory);
 	}
 }

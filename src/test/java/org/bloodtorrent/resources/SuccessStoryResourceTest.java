@@ -3,6 +3,7 @@ package org.bloodtorrent.resources;
 import org.bloodtorrent.IllegalDataException;
 import org.bloodtorrent.dto.SuccessStory;
 import org.bloodtorrent.repository.SuccessStoryRepository;
+import org.bloodtorrent.view.SuccessStoryView;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -136,6 +137,7 @@ public class SuccessStoryResourceTest {
 		assertThat(constraintViolations.size(), is(0));
 	}
 
+
 	@Test
 	public void shouldReturnSuccessStoryWithGivenId() {
 		String id = "One";
@@ -157,8 +159,17 @@ public class SuccessStoryResourceTest {
 		assertThat(constraintViolations.size(), is(0));
 	}
 
+	@Test
+	public void shouldReturnSuccessStoryViewWithGivenSuccessStory(){
+		String id = "One";
+		SuccessStory story = createNewSuccessStory(id);
+		when(repository.get(id)).thenReturn(story);
+		SuccessStoryView view = resource.getSuccessStory(id);
+		assertThat(view.getSuccessStory(), is(story));
+	}
 
-    private <T> void setDummyString(T t, String property, int num) {
+
+	private <T> void setDummyString(T t, String property, int num) {
         String dummyText = makeDummyString(num);
         invokeMethod(t, property, dummyText);
     }
