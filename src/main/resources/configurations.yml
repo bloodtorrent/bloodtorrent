@@ -45,5 +45,22 @@ mail:
  #mail admin id
  adminMailId: administrator@bloodtorrent.mygbiz.com
 
-  #mail admin password
+ #mail admin password
  adminMailPassword: p@ssw0rd
+
+ #mail title for donor
+ donorTitle: We need your blood donation
+
+ #mail content for donor
+ donorContent: <html><body>Hello <DONOR_NAME>,<br>
+               There are patients who need your blood donation.<br>
+               Please, donate your blood at hospitals or blood banks described below <B>within next 24-48 hours.</B><br>
+               <br>
+               Patient's name%:% <PATIENT_NAME><br>
+               Blood Type%:% <BLOOD_TYPE><br>
+               Hospital or blood bank address%:% <HOSPITAL_ADDRESS><br>
+               Patient’s Phone number%:% <CELL_PHONE><br>
+               <br>
+               Best Regards,<br>
+               <br>
+               Blood Torrent<br></body></html>

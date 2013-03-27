@@ -18,4 +18,8 @@ public class MailConfiguration extends Configuration {
     private String adminMailId;
     @JsonProperty
     private String adminMailPassword;
+    @JsonProperty
+    private String donorTitle;
+    @JsonProperty
+    private String donorContent;
 }
