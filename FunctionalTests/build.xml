@@ -42,7 +42,33 @@
                 description="include all class folders, etc" />
 	</path>
 
-	<target name="build-source" description="Build twist test sources">
+	<target name="checkos">
+		<condition property="isWindows">
+			<os family="windows" />
+		</condition>
+
+		<condition property="isLinux">
+			<os family="unix" />
+		</condition>
+	</target>
+
+	<target name="prepare-bin" description="Prepare /bin directory">
+		<delete dir="${scenarios.output.classes}" description="delete bin directory" />
+		<mkdir dir="${scenarios.output.classes}" description="create bin dir" />
+		<copy todir="${scenarios.output.classes}">
+			<fileset dir="${scenarios.source.dir}" excludes="**/*.java" />
+		</copy>
+	</target>
+
+	<target name="copy-properties-for-windows" depends="checkos" description="copy properties file for windows" if="isWindows" >
+		<copy file="${scenarios.source.dir}/twist.properties.windows" tofile="${scenarios.output.classes}/twist.properties" overwrite="true" />
+	</target>
+	
+	<target name="copy-properties-for-linux" depends="checkos" description="copy properties file for linux" if="isLinux">
+		<copy file="${scenarios.source.dir}/twist.properties.linux" tofile="${scenarios.output.classes}/twist.properties" overwrite="true" />
+	</target>
+
+	<target name="build-source" depends="prepare-bin, copy-properties-for-windows, copy-properties-for-linux" description="Build twist test sources">
 		<javac debug="true" destdir="${scenarios.output.classes}">
 			<src path="${scenarios.source.dir}" />
 			<classpath refid="twist.libs" />
