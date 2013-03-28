@@ -8,7 +8,12 @@ import org.bloodtorrent.util.MailUtil;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
+import javax.mail.Transport;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +31,8 @@ import static org.mockito.Mockito.when;
  * Time: 10:41 AM
  * To change this template use File | Settings | File Templates.
  */
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(Transport.class)
 public class NotifyDonorSendEmailResourceTest {
 
     private String content;
@@ -59,6 +66,9 @@ public class NotifyDonorSendEmailResourceTest {
         mailConfiguration.setDonorTitle(EMAIL_TITLE);
         mailConfiguration.setDonorContent(content);
         ResourceManager.getInstance().add(mailConfiguration);
+
+        PowerMockito.spy(Transport.class);
+        PowerMockito.doNothing().when(Transport.class);
     }
 
     @Test
@@ -68,7 +78,7 @@ public class NotifyDonorSendEmailResourceTest {
                 is("Inchul Hur Priyank CUSTOMER B : India Hospital 00000000000"));
     }
 
-    //@Test
+    @Test
     public void shouldSendEmailToDonors() {
         NotifyDonorSendEmailResource notifyDonorSendEmailResource = new NotifyDonorSendEmailResource();
 
