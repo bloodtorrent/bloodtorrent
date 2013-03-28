@@ -34,7 +34,7 @@ Hello ${userId?substring(0, userId?index_of("@")) }
     Password : <input type="password" id="password" name="password" /> &nbsp;&nbsp;
     <input type="button" value="Log in" name="login" onclick="goLogin();">&nbsp;&nbsp;
 </form>
-<a href="/user"><input type="button" value="Register donor"/></a> &nbsp;
-<a href="/requestForBlood"><input type="button" value="Request blood"/></a>
+<a href="/user">Register donor</a> &nbsp;
+<a href="/requestForBlood">Request blood</a>
 <h1>status : logoff</h1>
 </#if>

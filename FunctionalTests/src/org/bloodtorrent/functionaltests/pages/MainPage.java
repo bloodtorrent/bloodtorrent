@@ -13,11 +13,13 @@ public class MainPage extends BasePage {
 	}
 	
 	public void registerDonor() {
-		browser.button("Register donor").click();
+//		browser.button("Register donor").click();
+		browser.link("Register donor").click();
 	}
 	
 	public void requestForBlood() {
-		browser.button("Request blood").click();
+//		browser.button("Request blood").click();
+		browser.link("Request blood").click();
 	}
 
 	public void enterLoginCredentials(String email, String password) {
