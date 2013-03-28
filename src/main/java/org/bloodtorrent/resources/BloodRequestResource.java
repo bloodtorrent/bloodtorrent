@@ -2,7 +2,10 @@ package org.bloodtorrent.resources;
 
 import com.yammer.dropwizard.hibernate.UnitOfWork;
 import com.yammer.dropwizard.views.View;
+import org.bloodtorrent.IllegalDataException;
+import org.bloodtorrent.ResourceManager;
 import org.bloodtorrent.dto.BloodRequest;
+import org.bloodtorrent.dto.User;
 import org.bloodtorrent.repository.BloodRequestRepository;
 import org.bloodtorrent.view.BloodRequestView;
 import org.bloodtorrent.view.CommonView;
@@ -52,8 +55,7 @@ public class BloodRequestResource {
             @FormParam("birthday") String birthday,
             @FormParam("bloodGroup") String bloodGroup,
             @FormParam("bloodVolume") String bloodVolume,
-            @FormParam("requesterType") String requesterType)
-    {
+            @FormParam("requesterType") String requesterType) throws IllegalDataException {
         Calendar cal = null;
         BloodRequest bloodRequest = new BloodRequest();
         bloodRequest.setFirstName(firstName);
@@ -86,6 +88,9 @@ public class BloodRequestResource {
             return new ResultView("fail", messages);
         }else{
             createNewBloodRequest(bloodRequest);
+            FindingMatchingDonorResource resource = ResourceManager.getInstance().find(FindingMatchingDonorResource.class).get();
+            resource.findMatchingDonors(bloodRequest);
+
             return new CommonView("/ftl/thankyou.ftl");
         }
 

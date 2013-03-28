@@ -68,6 +68,7 @@ public class BloodTorrentService extends Service<SimpleConfiguration> {
         addResource(environment, new CatchPhraseResource(catchPhraseRepository));
         addResource(environment, new LoginResource(httpsSessionManager, userRepository));
         addResource(environment, new LoginFailResource());
+        addResource(environment, new FindingMatchingDonorResource(userRepository));
 
         ResourceManager.getInstance().add(config.getMailConfiguration());
     }

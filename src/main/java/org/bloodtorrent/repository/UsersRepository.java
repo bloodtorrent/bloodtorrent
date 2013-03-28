@@ -2,6 +2,7 @@ package org.bloodtorrent.repository;
 
 import com.yammer.dropwizard.hibernate.AbstractDAO;
 import org.bloodtorrent.dto.User;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 
 import java.util.List;
@@ -38,7 +39,9 @@ public class UsersRepository extends AbstractDAO<User> {
      * @author James, Scott
      */
     public List<User> listByBloodGroupAndAfter90DaysFromLastDonateDate(String bloodGroup) {
-        // FIXME [James/Scott] Should be implemented using query.
-        return null;  //To change body of created methods use File | Settings | File Templates.
+        Query query = currentSession().createQuery("from User u where u.bloodGroup = :bloodGroup and (current_date() - u.lastDonateDate) > 90 ");
+        query.setParameter("bloodGroup", bloodGroup);
+
+        return list(query);
     }
 }

@@ -7,13 +7,15 @@ import org.hibernate.validator.constraints.NotBlank;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
 
-@Entity(name = "user")
+@Entity
+@Table(name = "USER")
 @Getter @Setter
 @SuppressWarnings("PMD.UnusedPrivateField")
 public class User {
@@ -91,5 +93,4 @@ public class User {
 
     @Column(name = "is_admin")
     private char isAdmin;
-
 }
