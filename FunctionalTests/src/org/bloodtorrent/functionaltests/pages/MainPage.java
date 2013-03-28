@@ -13,12 +13,10 @@ public class MainPage extends BasePage {
 	}
 	
 	public void registerDonor() {
-//		browser.button("Register donor").click();
 		browser.link("Register donor").click();
 	}
 	
 	public void requestForBlood() {
-//		browser.button("Request blood").click();
 		browser.link("Request blood").click();
 	}
 

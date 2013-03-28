@@ -1,10 +1,10 @@
 Tags:Story-78,in-progress
-Preconditions:
+Preconditions:Blood Torrent
 Metadata:ScenarioType=Manual
 On Success Story List Page:
 #Create Success Story
 
-On Register Success Story Page:
+On Create Success Story Page:
 #Display Register Success Story Page
 #Cancel Register Success Story
 

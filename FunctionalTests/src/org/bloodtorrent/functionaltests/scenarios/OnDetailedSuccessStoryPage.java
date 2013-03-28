@@ -18,13 +18,4 @@ public class OnDetailedSuccessStoryPage {
 	public OnDetailedSuccessStoryPage(Browser browser) {
 		this.browser = browser;
 	}
-
-	public void verifyDetailedSuccessStoryTitle() throws Exception {
-	
-	}
-
-	public void goBackHome() throws Exception {
-	
-	}
-
 }

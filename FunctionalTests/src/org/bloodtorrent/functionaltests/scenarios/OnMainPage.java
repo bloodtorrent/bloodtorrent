@@ -53,8 +53,4 @@ public class OnMainPage {
 	public void verifyReadMoreLinkIsPresentForSuccessStories() throws Exception {
 		verifyTrue(mainPage.getReadMoreLink().exists());
 	}
-
-	public void displayDetailedSuccessStory() throws Exception {
-	
-	}
 }

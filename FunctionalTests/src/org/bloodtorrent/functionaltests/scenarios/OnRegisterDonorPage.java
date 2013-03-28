@@ -63,7 +63,6 @@ public class OnRegisterDonorPage {
 
 
 	public void registerDonor() throws Exception {
-		
 		registerDonor.register();
 	}
 
