@@ -14,15 +14,16 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
 /**
@@ -85,7 +86,7 @@ public class SuccessStoryResourceTest {
         assertThat(resource.getSuccessStoriesBriefly().size(), is(2));
     }
 
-    @Test(expected = IllegalDataException.class)
+    @Test
     public void shouldThrowExceptionWhenThereAreFourStories() throws IllegalDataException {
         when(repository.list()).thenReturn(Arrays.asList(createNewSuccessStory(), createNewSuccessStory(), createNewSuccessStory(), createNewSuccessStory()));
 
@@ -206,5 +207,16 @@ public class SuccessStoryResourceTest {
 
     private String makeDummyNumericString(int num) {
         return makeDummyString(num, "1");
+    }
+
+    @Test
+    public void shouldSaveUploadedFile() throws IOException {
+        String outputPath = File.separator + "upload"+File.separator+"uploaded.sample";
+        FileInputStream inputStream = new FileInputStream(new File(".gitignore"));
+        String root = getClass().getResource("/").getPath();
+        resource.saveFile(root, outputPath, inputStream);
+        File output = new File(root + outputPath);
+        assertTrue(output.exists());
+        output.delete();
     }
 }

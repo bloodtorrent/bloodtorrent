@@ -1,16 +1,17 @@
 <html>
     <body>
-       <h1 id="title">How we helped</h1>
+    <#include "/ftl/header.ftl" >
+       <h1 id="title" align="center">How we helped</h1>
 
-       <#list successStories as story>
+       <#list successStoryList as story>
            <article>
-               <h1>${story.getTitle()}</h1>
-               <img class="thumbnail" src="${story.getThumbnailPath()}"/>
-               <p>${story.getSummary()}</p>
-               <a class="successStoryDetailLink" href="#" onclick="alert('See you next iteration :)'); return false;">READ MORE</a>
+               <h1>${story.title}</h1>
+               <img class="thumbnail" src="/uploaded?url=${story.thumbnailPath}"/>
+               <p>${story.summary}</p>
+               <p>${story.createDate?string("dd-MM-yyyy")}</p>
            </article>
        </#list>
 
-       <input type="button" value="Create" onclick="location.href='/createStory';"/>
+       <input type="button" value="Create" onclick="location.href='/successStory/createView';"/>
     </body>
 </html>

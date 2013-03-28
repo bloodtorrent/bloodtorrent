@@ -36,5 +36,6 @@ Hello ${userId?substring(0, userId?index_of("@")) }
 </form>
 <a href="/user">Register donor</a> &nbsp;
 <a href="/requestForBlood">Request blood</a>
+<a href="/successStory/list">Success Story</a>
 <h1>status : logoff</h1>
 </#if>

@@ -8,7 +8,7 @@
         $(function() {
             $("#upload").click(function(){
                 $("#visualResourcePath").click();
-                $("#fileName").text($("#visualResourcePath").val());
+                $("#fileName").val($("#visualResourcePath").val().split('\\').pop());
             });
             $("#save").click(function(){
                 $("#createSuccessStory").submit();
@@ -17,9 +17,10 @@
         </script>
         </head>
     <body>
-    <section id = "successStoryEditor">
-       <h1 align = "center">Success Stories</h1><br>
-        <form id = "createSuccessStory" enctype="multipart/form-data" action="/createStory" method="post">
+    <#include "/ftl/header.ftl" >
+        <section id = "successStoryEditor">
+        <h1 align = "center">Success Stories</h1><br>
+        <form id = "createSuccessStory" enctype="multipart/form-data" action="/successStory/create" method="post">
            Title :
            <input type="text" name="title" /> <p/>
            <input type="button" id="upload" value="Select Image or video" /><input type="text" id="fileName" />

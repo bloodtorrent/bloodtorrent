@@ -4,6 +4,7 @@ import com.yammer.dropwizard.hibernate.AbstractDAO;
 import org.bloodtorrent.dto.SuccessStory;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 
 import java.util.List;
 
@@ -30,4 +31,8 @@ public class SuccessStoryRepository extends AbstractDAO<SuccessStory> {
 
 		return super.get(id);
 	}
+
+    public List<SuccessStory> getListForSuccessStoriesView() {
+        return currentSession().createCriteria(SuccessStory.class).addOrder(Order.desc("createDate")).list();
+    }
 }
