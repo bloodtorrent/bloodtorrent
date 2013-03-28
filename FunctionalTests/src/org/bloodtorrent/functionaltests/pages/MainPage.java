@@ -41,5 +41,9 @@ public class MainPage extends BasePage {
 		return browser.link("successStoryDetailLink");
 	}
 
+	public void getDetailSuccessStory() {
+		getReadMoreLink().click();		
+	}
+
 
 }
