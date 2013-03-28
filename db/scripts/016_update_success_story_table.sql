@@ -1,0 +1,4 @@
+
+UPDATE SUCCESS_STORY SET DESCRIPTION='Blah1 blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah' WHERE id='TEST01';
+UPDATE SUCCESS_STORY SET DESCRIPTION='Blah2 blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah' WHERE id='TEST02';
+UPDATE SUCCESS_STORY SET DESCRIPTION='Blah3 blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah Blah blah' WHERE id='TEST03';
