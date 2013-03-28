@@ -43,8 +43,6 @@ public class SuccessStoryResource {
 	@UnitOfWork
 	public SuccessStoryView getSuccessStory(@PathParam("id") String id) {
 		SuccessStory successStory = repository.get(id);
-		System.out.println("parameter : " + id);
-		System.out.println("successStory : " + successStory + ",id :" +successStory.getId());
 		return new SuccessStoryView(successStory);
 	}
 }
