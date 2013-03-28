@@ -23,7 +23,7 @@ public class User {
     private static final String PLEASE_CHECK = "Please check";
 
     @Id
-    @Pattern(regexp = "^([0-9a-zA-Z_-]([0-9a-zA-Z_-]|\\.)+[0-9a-zA-Z_-])@([0-9a-zA-Z_-]+)(\\.[0-9a-zA-Z_-]+){1,2}$", message= PLEASE_CHECK + " email address")
+    @Pattern(regexp = "^([0-9a-zA-Z_-]|(([0-9a-zA-Z_-]+[\\\\.]?)+[0-9a-zA-Z_-]))@([0-9a-zA-Z_-]+)(\\.[0-9a-zA-Z_-]+){1,2}$", message= PLEASE_CHECK + " email address")
     @Size(min = 5, max = 100, message= PLEASE_CHECK + " email address")
     @NotBlank(message=PLEASE_FILL_OUT_ALL_THE_MANDATORY_FIELDS+"(email)")
     //TODO: why are we validating a field named "id" as an email address? --Kris

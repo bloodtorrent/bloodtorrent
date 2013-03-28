@@ -112,6 +112,38 @@ public class UserTest {
     }
 
     @Test
+    public void shouldVaildEmailForId() {
+        User user = createNewUser();
+        user.setId("a@a.com");
+        Set<ConstraintViolation<User>> constraintViolations = validator.validateProperty(user, "id");
+        assertThat(0, is(constraintViolations.size()));
+
+        user.setId("a.a@a.com");
+        constraintViolations = validator.validateProperty(user, "id");
+        assertThat(0, is(constraintViolations.size()));
+
+        user.setId("a.a.a@a.com");
+        constraintViolations = validator.validateProperty(user, "id");
+        assertThat(0, is(constraintViolations.size()));
+
+        user.setId(".@a.com");
+        constraintViolations = validator.validateProperty(user, "id");
+        assertThat(1, is(constraintViolations.size()));
+
+        user.setId("a.@a.com");
+        constraintViolations = validator.validateProperty(user, "id");
+        assertThat(1, is(constraintViolations.size()));
+
+        user.setId(".a@a.com");
+        constraintViolations = validator.validateProperty(user, "id");
+        assertThat(1, is(constraintViolations.size()));
+
+        user.setId("a..a@a.com");
+        constraintViolations = validator.validateProperty(user, "id");
+        assertThat(1, is(constraintViolations.size()));
+    }
+
+    @Test
     public void shouldExistFirstName() {
         User user = createNewUser();
         setDummyString(user, "firstName", 0);

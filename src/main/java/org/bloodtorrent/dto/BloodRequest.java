@@ -41,7 +41,7 @@ public class BloodRequest {
     private String phone;
 
     @NotBlank(message=PLEASE_FILL_OUT_ALL_THE_MANDATORY_FIELDS+"(E-mail)")
-    @Pattern(regexp = "^([0-9a-zA-Z_-]([0-9a-zA-Z_-]|\\.)+[0-9a-zA-Z_-])@([0-9a-zA-Z_-]+)(\\.[0-9a-zA-Z_-]+){1,2}$", message= PLEASE_CHECK + " email address")
+    @Pattern(regexp = "^([0-9a-zA-Z_-]|(([0-9a-zA-Z_-]+[\\\\.]?)+[0-9a-zA-Z_-]))@([0-9a-zA-Z_-]+)(\\.[0-9a-zA-Z_-]+){1,2}$", message= PLEASE_CHECK + " email address")
     @Size(min = 5, max = 100, message= PLEASE_CHECK + " E-mail")
     private String email;
 
