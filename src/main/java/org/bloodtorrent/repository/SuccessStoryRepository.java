@@ -27,6 +27,7 @@ public class SuccessStoryRepository extends AbstractDAO<SuccessStory> {
 	}
 
 	public SuccessStory get(String id){
+
 		return super.get(id);
 	}
 }

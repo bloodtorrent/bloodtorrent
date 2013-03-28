@@ -8,9 +8,11 @@ import org.bloodtorrent.view.SuccessStoryView;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import java.util.List;
 
-@Path("/successStory")
+//@Path("/successStory")
+@Path("/successStory/{id}")
 public class SuccessStoryResource {
     private final SuccessStoryRepository repository;
 
@@ -39,8 +41,10 @@ public class SuccessStoryResource {
 
 	@GET
 	@UnitOfWork
-	public SuccessStoryView getSuccessStory(String id) {
+	public SuccessStoryView getSuccessStory(@PathParam("id") String id) {
 		SuccessStory successStory = repository.get(id);
+		System.out.println("parameter : " + id);
+		System.out.println("successStory : " + successStory + ",id :" +successStory.getId());
 		return new SuccessStoryView(successStory);
 	}
 }

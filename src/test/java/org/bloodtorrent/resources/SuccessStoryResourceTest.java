@@ -137,15 +137,6 @@ public class SuccessStoryResourceTest {
 		assertThat(constraintViolations.size(), is(0));
 	}
 
-
-	@Test
-	public void shouldReturnSuccessStoryWithGivenId() {
-		String id = "One";
-		SuccessStory story = createNewSuccessStory(id);
-		when(repository.get(id)).thenReturn(story);
-		assertThat(resource.get(id), is(story));
-	}
-
 	@Test
 	public void visualResourcePathShouldBeFilled() {
 		SuccessStory story = createNewSuccessStory();
@@ -168,6 +159,13 @@ public class SuccessStoryResourceTest {
 		assertThat(view.getSuccessStory(), is(story));
 	}
 
+	@Test
+	public void shouldReturnSuccessStoryWithGivenId() {
+		String id = "One";
+		SuccessStory story = createNewSuccessStory(id);
+		when(repository.get(id)).thenReturn(story);
+		assertThat(resource.get(id), is(story));
+	}
 
 	private <T> void setDummyString(T t, String property, int num) {
         String dummyText = makeDummyString(num);
