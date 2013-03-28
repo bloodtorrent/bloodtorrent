@@ -1,5 +1,6 @@
 package org.bloodtorrent.resources;
 
+import org.bloodtorrent.IllegalDataException;
 import org.bloodtorrent.dto.BloodRequest;
 import org.bloodtorrent.repository.BloodRequestRepository;
 import org.junit.Assert;
@@ -25,7 +26,7 @@ public class BloodRequestResourceTest {
     }
 
     @Test
-    public void createNewBloodReq(){
+    public void createNewBloodReq() throws IllegalDataException {
         BloodRequest bloodRequest = new BloodRequest();
 
         bloodRequest.setFirstName("BOWON");
