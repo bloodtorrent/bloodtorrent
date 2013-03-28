@@ -81,7 +81,6 @@ public class FindingMatchingDonorResource implements BloodTorrentConstants {
 
     public List<User> findMatchingDonors(BloodRequest bloodRequest) throws IllegalDataException {
         List<User> donors = usersRepository.listByBloodGroupAndAfter90DaysFromLastDonateDate(bloodRequest.getBloodGroup());
-        System.out.println("Donors size : " + donors.size());
 
         validateMatchingDonors(bloodRequest, donors);
         List<User> filteredDonors = filterWithState(bloodRequest, donors);

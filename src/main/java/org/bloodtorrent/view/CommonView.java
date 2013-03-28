@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bloodtorrent.dto.User;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: sds
@@ -18,6 +20,8 @@ public class CommonView extends View {
     private User user;
     @Getter @Setter
     private String message;
+    @Getter @Setter
+    private List<User> users;
 
     public CommonView(String viewPath) {
         super(viewPath);
@@ -33,4 +37,8 @@ public class CommonView extends View {
         this.message = message;
     }
 
+    public CommonView(String viewPath, List<User> users) {
+        super(viewPath);
+        this.users = users;
+    }
 }

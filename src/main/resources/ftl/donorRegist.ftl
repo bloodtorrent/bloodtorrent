@@ -160,7 +160,7 @@
                             <option value="1" selected>within 1 month</option>
                             <option value="2">2 months ago</option>
                             <option value="3">3 months ago</option>
-                            <option value="0">I can't remember</option>
+                            <option value="4">I can't remember</option>
                         </select>
                     </td>
                 </tr>

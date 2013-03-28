@@ -39,7 +39,7 @@ public class UsersRepository extends AbstractDAO<User> {
      * @author James, Scott
      */
     public List<User> listByBloodGroupAndAfter90DaysFromLastDonateDate(String bloodGroup) {
-        Query query = currentSession().createQuery("from User u where u.bloodGroup = :bloodGroup and (current_date() - u.lastDonateDate) > 90 ");
+        Query query = currentSession().createQuery("from User u where (u.bloodGroup = :bloodGroup or u.bloodGroup = 'Unknown') and (current_date() - u.lastDonateDate) > 90 ");
         query.setParameter("bloodGroup", bloodGroup);
 
         return list(query);

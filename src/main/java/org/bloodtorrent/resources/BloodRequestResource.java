@@ -89,14 +89,15 @@ public class BloodRequestResource {
         }else{
             createNewBloodRequest(bloodRequest);
             FindingMatchingDonorResource resource = ResourceManager.getInstance().find(FindingMatchingDonorResource.class).get();
+            List<User> donors = null;
             try {
-                resource.findMatchingDonors(bloodRequest);
+                donors = resource.findMatchingDonors(bloodRequest);
             } catch (IllegalDataException e) {
                 e.printStackTrace();
                 throw new IllegalDataException("Finding matching donor failed.");
             }
 
-            return new CommonView("/ftl/thankyou.ftl");
+            return new CommonView("/ftl/thankyou.ftl", donors);
         }
 
     }
