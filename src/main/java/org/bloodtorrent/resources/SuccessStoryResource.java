@@ -19,16 +19,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.*;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.UUID;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Path("/successStory")
 @Produces(MediaType.TEXT_HTML)
 public class SuccessStoryResource {
+    public static String UPLOAD_DIR = "upload";
     private final SuccessStoryRepository repository;
-    private String UPLOAD_DIR = "upload";
 
     public SuccessStoryResource(SuccessStoryRepository repository) {
         this.repository = repository;
@@ -112,18 +110,22 @@ public class SuccessStoryResource {
     public SuccessStoryView createSuccessStory(@FormDataParam("title") String title,
                                                @FormDataParam("summary") String summary,
                                                @FormDataParam("description") String description,
-                                               @FormDataParam("visualResourcePath") final InputStream resource,
+                                               @FormDataParam("visualResourcePath") final InputStream stream,
                                                @FormDataParam("visualResourcePath") final FormDataContentDisposition content) throws IOException {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+        Date timestamp = new Date();
+
         SuccessStory story = new SuccessStory();
-        String id = UUID.randomUUID().toString();
+        String id = sdf.format(timestamp);
         story.setId(id);
         story.setTitle(title);
         story.setSummary(summary);
         story.setDescription(description);
         story.setShowMainPage("Y");
-        if(resource != null){
+        if(stream != null){
             final String fileName = id + "-" + content.getFileName();
-            saveFile(UPLOAD_DIR, fileName, resource);
+            saveFile(UPLOAD_DIR, fileName, stream);
             story.setThumbnailPath(fileName);
             story.setVisualResourcePath(fileName);
         }
@@ -132,7 +134,7 @@ public class SuccessStoryResource {
         return new SuccessStoryView(repository.getListForSuccessStoriesView());
     }
 
-    public void saveFile(String outputPath, String fileName, final InputStream resource) throws IOException {
+    public void saveFile(String outputPath, String fileName, final InputStream stream) throws IOException {
         File uploadDir = new File(outputPath);
         if(!uploadDir.exists()){
             uploadDir.mkdir();
@@ -142,7 +144,7 @@ public class SuccessStoryResource {
         System.out.println("file = " + filePath);
         Files.copy(new InputSupplier<InputStream>() {
             public InputStream getInput() throws IOException {
-                return resource;
+                return stream;
             }
         }, new File(filePath));
     }
