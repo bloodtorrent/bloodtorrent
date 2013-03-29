@@ -40,6 +40,8 @@ public class OnRegisterDonorPage {
 	
 	public void fillOutTheValidInformationToMandatoryFields() throws Exception {
 		
+		//TODO: Refactor this to use a more robust mechanism to generate unique email address.
+		
 		Random rd= new Random();
 		int rdEmailcount = rd.nextInt(1000)*2;
 		email = rdEmailcount + "id@samsung.com";
@@ -58,15 +60,12 @@ public class OnRegisterDonorPage {
 	}
 
 	public void fillOutTheValidInformationToMendatoryFieldsWithExistingUsersEmailAddress() throws Exception {
-		
 		registerDonor.setEmail(email);
 		setMendatoryFieldsWithoutEmail();
-		
 	}
 
 	public void fillOutTheAddressInformation() throws Exception {
 		fillOutTheAddressInformation("Pune", "Pune", "Maharashtra");
-	
 	}
 	
 	public void fillOutMissingAddressInformation() throws Exception {
