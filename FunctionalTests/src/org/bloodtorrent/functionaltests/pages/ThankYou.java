@@ -13,6 +13,7 @@ public class ThankYou extends BasePage {
 	}
 
 	public String getMessageForRegistering() {
+		//TODO: Refactor this to remove index to identify the html element.
 		return browser.listItem(0).text();
 	}
 }

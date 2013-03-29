@@ -1,20 +1,12 @@
 package org.bloodtorrent.functionaltests.scenarios;
+
 import java.util.Random;
-
 import net.sf.sahi.client.Browser;
-
 import org.bloodtorrent.functionaltests.pages.RegisterDonor;
-import org.springframework.beans.factory.annotation.Autowired;
-
-
-import com.thoughtworks.twist.core.execution.TwistScenarioDataStore;
-
-import static com.thoughtworks.twist.core.execution.TwistVerification.verify;
 import static com.thoughtworks.twist.core.execution.TwistVerification.verifyEquals;
 
 public class OnRegisterDonorPage {
 
-	private Browser browser;
 	private RegisterDonor registerDonor;
 	
 	private String email = "administrator@bloodtorrent.org";
@@ -29,12 +21,7 @@ public class OnRegisterDonorPage {
 	private String bloodGroup = "B+";
 	private String distance = "10";
 	
-	
-	@Autowired
-	private TwistScenarioDataStore scenarioStore;
-
 	public OnRegisterDonorPage(Browser browser) {
-		this.browser = browser;
 		registerDonor = new RegisterDonor(browser);
 	}
 
@@ -104,7 +91,4 @@ public class OnRegisterDonorPage {
 		verifyEquals("73.85674369999992", registerDonor.getLng());
 		verifyEquals("18.5204303", registerDonor.getLat());
 	}
-
-
-
 }

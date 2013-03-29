@@ -2,17 +2,10 @@ package org.bloodtorrent.functionaltests.contexts;
 
 import net.sf.sahi.client.Browser;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.thoughtworks.twist.core.execution.TwistScenarioDataStore;
-
 public class BloodTorrent {
 
 	private Browser browser;
 	private String url = "http://localhost:8080";
-
-	@Autowired
-	private TwistScenarioDataStore scenarioStore;
 
 	public BloodTorrent(Browser browser) {
 		this.browser = browser;

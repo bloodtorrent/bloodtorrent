@@ -1,17 +1,10 @@
 package org.bloodtorrent.functionaltests.scenarios;
+
 import static com.thoughtworks.twist.core.execution.TwistVerification.verifyEquals;
 import net.sf.sahi.client.Browser;
-
 import org.bloodtorrent.functionaltests.pages.ThankYou;
-import org.springframework.beans.factory.annotation.Autowired;
-
-
-import com.thoughtworks.twist.core.execution.TwistScenarioDataStore;
 
 public class OnThankYouPage {
-
-	@Autowired
-	private TwistScenarioDataStore scenarioStore;
 
 	private ThankYou thankyou;
 

@@ -1,12 +1,7 @@
 package org.bloodtorrent.functionaltests.scenarios;
+
 import net.sf.sahi.client.Browser;
-
 import org.bloodtorrent.functionaltests.pages.RequestBlood;
-import org.springframework.beans.factory.annotation.Autowired;
-
-
-import com.thoughtworks.twist.core.execution.TwistScenarioDataStore;
-
 
 public class OnRequestBloodPage {
 
@@ -20,9 +15,6 @@ public class OnRequestBloodPage {
 	String patientBirthday = "15-11-1980";
 	String bloodVolume = "33";
 	
-	@Autowired
-	private TwistScenarioDataStore scenarioStore;
-
 	private RequestBlood requestBlood;
 
 	public OnRequestBloodPage(Browser browser) {

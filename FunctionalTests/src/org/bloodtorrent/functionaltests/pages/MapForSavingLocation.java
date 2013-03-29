@@ -1,6 +1,5 @@
 package org.bloodtorrent.functionaltests.pages;
 
-import static junit.framework.Assert.assertTrue;
 import net.sf.sahi.client.Browser;
 import net.sf.sahi.client.BrowserCondition;
 import net.sf.sahi.client.ExecutionException;
