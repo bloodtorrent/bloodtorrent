@@ -14,21 +14,14 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 
-import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.StringBufferInputStream;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.io.*;
 import java.util.*;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -99,65 +92,7 @@ public class SuccessStoryResourceTest {
 
         resource.getSuccessStoriesBriefly().size();
     }
-    /*
-    @Test
-    public void titleShouldNotBeEmpty() {
-        SuccessStory story = createNewSuccessStory();
-        setDummyString(story, "title", 0);
-        Set<ConstraintViolation<SuccessStory>> constraintViolations = validator.validateProperty(story, "title");
-        assertThat(constraintViolations.size(), is(1));
-    }
 
-    @Test
-    public void summaryShouldNotBeEmpty() {
-        SuccessStory story = createNewSuccessStory();
-        setDummyString(story, "summary", 0);
-        Set<ConstraintViolation<SuccessStory>> constraintViolations = validator.validateProperty(story, "summary");
-        assertThat(constraintViolations.size(), is(1));
-    }
-
-    @Test
-    public void summaryShouldNotBeMoreThan100Characters() {
-        SuccessStory story = createNewSuccessStory();
-        setDummyString(story, "summary", 101);
-        Set<ConstraintViolation<SuccessStory>> constraintViolations = validator.validateProperty(story, "summary");
-        assertThat(constraintViolations.size(), is(1));
-    }
-
-    @Test
-    public void descriptionShouldNotBeEmpty() {
-        SuccessStory story = createNewSuccessStory();
-        setDummyString(story, "description", 0);
-        Set<ConstraintViolation<SuccessStory>> constraintViolations = validator.validateProperty(story, "description");
-        assertThat(constraintViolations.size(), is(1));
-    }
-
-	@Test
-	public void thumbnailPathShouldBeFilled() {
-		SuccessStory story = createNewSuccessStory();
-		setDummyString(story, "thumbnailPath", 0);
-
-		Set<ConstraintViolation<SuccessStory>> constraintViolations = validator.validateProperty(story, "thumbnailPath");
-		assertThat(constraintViolations.size(), is(1));
-
-		setDummyString(story, "thumbnailPath", 10);
-		constraintViolations = validator.validateProperty(story, "thumbnailPath");
-		assertThat(constraintViolations.size(), is(0));
-	}
-
-	@Test
-	public void visualResourcePathShouldBeFilled() {
-		SuccessStory story = createNewSuccessStory();
-		setDummyString(story, "visualResourcePath", 0);
-
-		Set<ConstraintViolation<SuccessStory>> constraintViolations = validator.validateProperty(story, "visualResourcePath");
-		assertThat(constraintViolations.size(), is(1));
-
-		setDummyString(story, "visualResourcePath", 10);
-		constraintViolations = validator.validateProperty(story, "visualResourcePath");
-		assertThat(constraintViolations.size(), is(0));
-	}
-    */
 	@Test
 	public void shouldReturnSuccessStoryViewWithGivenSuccessStory(){
 		String id = "One";
@@ -175,20 +110,10 @@ public class SuccessStoryResourceTest {
 		assertThat(resource.get(id), is(story));
 	}
 
-    @Test
-    public void shouldSaveUploadedFile() throws IOException {
-        String outputPath = File.separator + "upload"+File.separator+"uploaded.sample";
-        FileInputStream inputStream = new FileInputStream(new File(".gitignore"));
-        String root = getClass().getResource("/").getPath();
-        resource.saveFile(root, outputPath, inputStream);
-        File output = new File(root + outputPath);
-        assertTrue(output.exists());
-        output.delete();
-    }
-
     public void shouldCreateNewSuccessStoryWithAttachedImageFile() throws IOException {
         final ArrayList<SuccessStory> storyContainer = new ArrayList<SuccessStory>();
-        StringBufferInputStream inputStream = new StringBufferInputStream("Test string for input string");
+        final String FILE_CONTENT = "Test string for input string";
+        StringBufferInputStream inputStream = new StringBufferInputStream(FILE_CONTENT);
         FormDataContentDisposition contentDisposition = mock(FormDataContentDisposition.class);
         String fileName = "testfile.jpg";
         when(contentDisposition.getFileName()).thenReturn(fileName);
@@ -205,48 +130,15 @@ public class SuccessStoryResourceTest {
         assertThat(storyContainer.size(), is(1));
 
         SuccessStory story = storyContainer.get(0);
-        assertThat(new File(SuccessStoryResource.UPLOAD_DIR + File.separator + story.getThumbnailPath()).exists(), is(true));
-    }
-    /*
-	private <T> void setDummyString(T t, String property, int num) {
-        String dummyText = makeDummyString(num);
-        invokeMethod(t, property, dummyText);
-    }
+        assertThat(story.getTitle(), is("title"));
+        assertThat(story.getSummary(), is("summary"));
+        assertThat(story.getDescription(), is("description"));
 
-    private <T> void setDummyNumericString(T t, String property, int num) {
-        String dummyNumericText = makeDummyNumericString(num);
-        invokeMethod(t, property, dummyNumericText);
-    }
+        File attachFile = new File(SuccessStoryResource.UPLOAD_DIR + File.separator + story.getThumbnailPath());
+        assertThat(attachFile.exists(), is(true));
 
-    private <T> void invokeMethod(T t, String property, String dummyText) {
-        for (Method method : t.getClass().getMethods()) {
-            String methodName = method.getName();
-            if(methodName.startsWith("set") && methodName.toLowerCase().endsWith(property.toLowerCase())) {
-                try {
-                    method.invoke(t, dummyText);
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                } catch (InvocationTargetException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(attachFile)));
+        String fileContent = br.readLine();
+        assertThat(fileContent, is(FILE_CONTENT));
     }
-
-    private String makeDummyString(int num, String dummyChar) {
-        StringBuilder stringBuilder = new StringBuilder();
-        for(int i = 0 ; i < num ; i++){
-            stringBuilder.append(dummyChar);
-        }
-        return stringBuilder.toString();
-    }
-
-    private String makeDummyString(int num) {
-        return makeDummyString(num, "*");
-    }
-
-    private String makeDummyNumericString(int num) {
-        return makeDummyString(num, "1");
-    }
-    */
 }
