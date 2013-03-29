@@ -1,9 +1,7 @@
 #!/bin/sh
 
-DROPWIZARD_HTTP_PORT=8080
-PID=`netstat -nap | grep :$DROPWIZARD_HTTP_PORT | tr '/' ' ' | awk '{print $7}' | sort | uniq`
+PID=`jps -v | grep bloodtorrent-.*-SNAPSHOT.jar | awk '{print $1}'`
 
 if [ ! -z "$PID" ] ; then
     kill -9 $PID
 fi
-
