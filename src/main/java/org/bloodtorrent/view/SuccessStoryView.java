@@ -20,12 +20,20 @@ public class SuccessStoryView extends View {
     public static final String PATH_SUCCESS_STORY_LIST = "/ftl/successStoryList.ftl";
     private static final String PATH_SUCCESS_STORY_VIEW = "/ftl/successStoryEditor.ftl";
 
+    private boolean savedSuccessFlag;
     @Getter
 	private SuccessStory successStory;
 
     @Getter @Setter
     public List<SuccessStory> successStoryList;
 
+    public void setSavedSuccessFlag(Boolean flag) {
+        savedSuccessFlag = flag.booleanValue();
+    }
+
+    public boolean getSavedSuccessFlag() {
+        return savedSuccessFlag;
+    }
 
     public SuccessStoryView(SuccessStory successStory) {
 		super(PATH);

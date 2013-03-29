@@ -27,7 +27,9 @@
     <#list successStories as story>
         <article>
             <h1>${story.title}</h1>
+            <#if story.thumbnailPath?has_content>
             <img class="thumbnail" src="/successStory/image/${story.thumbnailPath}"/>
+            </#if>
             <p>${story.summary}</p>
             <a class="successStoryDetailLink" href="/successStory/${story.id}">READ MORE</a>
         </article>

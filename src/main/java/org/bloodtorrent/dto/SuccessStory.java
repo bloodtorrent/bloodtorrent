@@ -22,21 +22,18 @@ public class SuccessStory {
 	private String id;
 
 	@NotBlank(message = "Please fill out title.")
+    @Size(max = 150, message = "Title is too long.")
 	private String title;
 
-	@NotBlank
 	@Column(name = "THUMBNAIL_PATH")
 	private String thumbnailPath;
 
-	@NotBlank
 	@Column(name = "VISUAL_RESOURCE_PATH")
 	private String visualResourcePath;
 
-    @NotBlank(message = "Summary should be filled.")
-    @Size(max = 100, message = "Summary is too long.")
+    @Size(max = 150, message = "Summary is too long.")
     private String summary;
 
-	@NotBlank(message = "Description should be filled.")
 	private String description;
 
 	@Pattern(regexp = REGEXP_YN)

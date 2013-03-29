@@ -1,10 +1,14 @@
 package org.bloodtorrent.resources;
 
 import com.sun.jersey.core.header.FormDataContentDisposition;
+import com.yammer.dropwizard.views.View;
 import org.bloodtorrent.IllegalDataException;
 import org.bloodtorrent.dto.SuccessStory;
+import org.bloodtorrent.dto.User;
 import org.bloodtorrent.repository.SuccessStoryRepository;
+import org.bloodtorrent.view.ResultView;
 import org.bloodtorrent.view.SuccessStoryView;
+import org.eclipse.jetty.server.SessionManager;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,13 +18,16 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.io.*;
 import java.util.*;
 
+import static org.bloodtorrent.util.TestUtil.makeDummyString;
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
@@ -36,17 +43,45 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class SuccessStoryResourceTest {
 
+    private final String ADMIN_SESSION = "ADMIN_SESSION";
+    private final String NONADMIN_SESSION = "NON_ADMIN_SESSION";
+    private final static String ATTACH_FILE_NAME = "testfile.jpg";
+
     @Mock
     private SuccessStoryRepository repository;
+    @Mock
+    private SessionManager sessionManager;
+    @Mock
+    private HttpSession adminSession;
+    @Mock
+    private HttpSession nonAdminSession;
+    @Mock
+    private FormDataContentDisposition contentDisposition;
 
     private SuccessStoryResource resource;
+    private User adminUser;
+    private User nonAdminUser;
+    private final String FILE_CONTENT = "Test string for input string";
+    private final StringBufferInputStream inputStream = new StringBufferInputStream(FILE_CONTENT);
 
     private final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
     private final Validator validator = factory.getValidator();
 
     @Before
     public void setUpResource() {
-        resource = new SuccessStoryResource(repository);
+        resource = new SuccessStoryResource(sessionManager, repository);
+        adminUser = new User();
+        adminUser.setId("id");
+        adminUser.setIsAdmin('Y');
+        nonAdminUser = new User();
+        nonAdminUser.setId("id");
+        nonAdminUser.setIsAdmin('N');
+
+        when(sessionManager.getHttpSession(ADMIN_SESSION)).thenReturn(adminSession);
+        when(adminSession.getAttribute("user")).thenReturn(adminUser);
+        when(sessionManager.getHttpSession(NONADMIN_SESSION)).thenReturn(nonAdminSession);
+        when(nonAdminSession.getAttribute("user")).thenReturn(nonAdminUser);
+        when(contentDisposition.getFileName()).thenReturn(ATTACH_FILE_NAME);
     }
 
 	private SuccessStory createNewSuccessStory(String id) {
@@ -110,13 +145,9 @@ public class SuccessStoryResourceTest {
 		assertThat(resource.get(id), is(story));
 	}
 
+    @Test
     public void shouldCreateNewSuccessStoryWithAttachedImageFile() throws IOException {
         final ArrayList<SuccessStory> storyContainer = new ArrayList<SuccessStory>();
-        final String FILE_CONTENT = "Test string for input string";
-        StringBufferInputStream inputStream = new StringBufferInputStream(FILE_CONTENT);
-        FormDataContentDisposition contentDisposition = mock(FormDataContentDisposition.class);
-        String fileName = "testfile.jpg";
-        when(contentDisposition.getFileName()).thenReturn(fileName);
         doAnswer(new Answer<Void>() {
             @Override
             public Void answer(InvocationOnMock invocation) throws Throwable {
@@ -125,13 +156,14 @@ public class SuccessStoryResourceTest {
             }
         }).when(repository).insert(Mockito.any(SuccessStory.class));
 
-        resource.createSuccessStory("title", "summary", "description", inputStream, contentDisposition);
+        View view = resource.createSuccessStory(makeDummyString(150), makeDummyString(150), "description", inputStream, contentDisposition);
 
+        assertThat(view instanceof SuccessStoryView, is(true));
         assertThat(storyContainer.size(), is(1));
 
         SuccessStory story = storyContainer.get(0);
-        assertThat(story.getTitle(), is("title"));
-        assertThat(story.getSummary(), is("summary"));
+        assertThat(story.getTitle(), is(makeDummyString(150)));
+        assertThat(story.getSummary(), is(makeDummyString(150)));
         assertThat(story.getDescription(), is("description"));
 
         File attachFile = new File(SuccessStoryResource.UPLOAD_DIR + File.separator + story.getThumbnailPath());
@@ -141,4 +173,35 @@ public class SuccessStoryResourceTest {
         String fileContent = br.readLine();
         assertThat(fileContent, is(FILE_CONTENT));
     }
+
+    @Test
+    public void shouldReturnResultViewWithErrorMessagesWhenTitleValidationFailed() throws IOException {
+        View view = resource.createSuccessStory("", "summary", "description", inputStream, contentDisposition);
+        assertThat(view instanceof ResultView, is(true));
+    }
+
+    @Test
+    public void shouldReturnResultViewWithErrorMessagesWhenTitleLengthValidationFailed() throws IOException {
+        View view = resource.createSuccessStory(makeDummyString(151), "summary", "description", inputStream, contentDisposition);
+        assertThat(view instanceof ResultView, is(true));
+    }
+
+    @Test
+    public void shouldReturnResultViewWithErrorMessagesWhenSummaryLengthValidationFailed() throws IOException {
+        View view = resource.createSuccessStory("title", makeDummyString(151), "description", inputStream, contentDisposition);
+        assertThat(view instanceof ResultView, is(true));
+    }
+
+    @Test
+    public void shouldReturnSuccessStoryEditorViewWhenAdminIsLoggedIn() {
+        SuccessStoryView view = resource.viewSuccessStoryEditor(ADMIN_SESSION);
+        assertThat(view.getTemplateName(), is("/ftl/successStoryEditor.ftl"));
+    }
+
+    @Test
+    public void shouldReturnMainPageWhenAdminIsNotLoggedIn() {
+        SuccessStoryView view = resource.viewSuccessStoryEditor(NONADMIN_SESSION);
+        assertNull(view);
+    }
+
 }

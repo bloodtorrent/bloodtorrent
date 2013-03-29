@@ -5,17 +5,22 @@ import com.google.common.io.InputSupplier;
 import com.sun.jersey.core.header.FormDataContentDisposition;
 import com.sun.jersey.multipart.FormDataParam;
 import com.yammer.dropwizard.hibernate.UnitOfWork;
+import com.yammer.dropwizard.views.View;
 import org.bloodtorrent.IllegalDataException;
+import org.bloodtorrent.dto.BloodRequest;
 import org.bloodtorrent.dto.SuccessStory;
+import org.bloodtorrent.dto.User;
 import org.bloodtorrent.repository.SuccessStoryRepository;
+import org.bloodtorrent.view.ResultView;
 import org.bloodtorrent.view.SuccessStoryView;
+import org.eclipse.jetty.server.SessionManager;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.servlet.http.HttpSession;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.*;
@@ -27,8 +32,16 @@ import java.util.*;
 public class SuccessStoryResource {
     public static String UPLOAD_DIR = "upload";
     private final SuccessStoryRepository repository;
+    private SessionManager sessionManager;
 
     public SuccessStoryResource(SuccessStoryRepository repository) {
+        this.repository = repository;
+    }
+
+    public SuccessStoryResource(SessionManager httpSessionManager, SuccessStoryRepository repository) {
+
+        sessionManager = httpSessionManager;
+
         this.repository = repository;
     }
 
@@ -73,10 +86,8 @@ public class SuccessStoryResource {
     public Response loadImage(@PathParam("fileName") String fileName) {
         File imageFile = new File("upload/" + fileName);
 
-        System.out.println("File = " + imageFile.getAbsolutePath());
         Response.ResponseBuilder builder = null;
         if (imageFile.exists()) {
-            System.out.println("File size = " + imageFile.length());
             String extention = fileName.substring(fileName.lastIndexOf('.') + 1);
             if (extention.equalsIgnoreCase("jpg")) {
                 extention = "jpeg";
@@ -96,18 +107,26 @@ public class SuccessStoryResource {
 	public SuccessStoryView listSuccessStory() {
 		return new SuccessStoryView(repository.getListForSuccessStoriesView());
 	}
+
     @GET
 	@UnitOfWork
     @Path("createView")
-	public SuccessStoryView viewSuccessStoryEditor() {
-		return new SuccessStoryView();
+	public SuccessStoryView viewSuccessStoryEditor(@CookieParam("JSESSIONID") String sessionID) {
+        HttpSession session = sessionManager.getHttpSession(sessionID);
+        User user = (User)session.getAttribute("user");
+
+        if (user != null && 'Y' == user.getIsAdmin()) {
+            return new SuccessStoryView();
+        } else {
+            return null;
+        }
 	}
 
     @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Path("create")
     @UnitOfWork
-    public SuccessStoryView createSuccessStory(@FormDataParam("title") String title,
+    public View createSuccessStory(@FormDataParam("title") String title,
                                                @FormDataParam("summary") String summary,
                                                @FormDataParam("description") String description,
                                                @FormDataParam("visualResourcePath") final InputStream stream,
@@ -123,15 +142,30 @@ public class SuccessStoryResource {
         story.setSummary(summary);
         story.setDescription(description);
         story.setShowMainPage("Y");
-        if(stream != null){
+
+       if(stream != null && !content.getFileName().isEmpty()){
             final String fileName = id + "-" + content.getFileName();
             saveFile(UPLOAD_DIR, fileName, stream);
             story.setThumbnailPath(fileName);
             story.setVisualResourcePath(fileName);
         }
-        repository.insert(story);
 
-        return new SuccessStoryView(repository.getListForSuccessStoriesView());
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<SuccessStory>> constraintViolations = validator.validate(story);
+
+        if(constraintViolations.size() > 0){
+            List<String > messages = new ArrayList<String>();
+            for(ConstraintViolation constraintViolation :constraintViolations){
+                messages.add(constraintViolation.getMessage()) ;
+            }
+            return new ResultView("fail", messages);
+        } else {
+            repository.insert(story);
+            SuccessStoryView successStoryView = new SuccessStoryView(repository.getListForSuccessStoriesView());
+            successStoryView.setSavedSuccessFlag(true);
+            return successStoryView;
+        }
     }
 
     private void saveFile(String outputPath, String fileName, final InputStream stream) throws IOException {
