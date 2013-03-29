@@ -1,8 +1,12 @@
 Tags:Story-78,in-progress
 Preconditions:Blood Torrent
 Metadata:ScenarioType=Manual
-On Success Story List Page:
-#Create Success Story
+On Main Page:
+$Login as admin
+
+On Admin Page:
+#Verify a list of success stories is visible
+#Go to create success stories page
 
 On Create Success Story Page:
 #Display Register Success Story Page
