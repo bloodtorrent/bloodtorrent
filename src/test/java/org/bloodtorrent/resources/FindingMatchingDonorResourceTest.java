@@ -18,7 +18,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.lessThan;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
 
 /**
  * Created with IntelliJ IDEA.
@@ -38,11 +40,18 @@ public class FindingMatchingDonorResourceTest implements BloodTorrentConstants {
     @Mock
     UsersRepository usersRepository;
 
+
+
+    @Mock
+    private NotifyDonorSendEmailResource mailResource;
+
     private FindingMatchingDonorResource resource;
 
     @Before
     public void setUpResource() {
+        initMocks(this);
         resource = new FindingMatchingDonorResource(usersRepository);
+        mailResource = new NotifyDonorSendEmailResource();
     }
 
     @Test
@@ -148,13 +157,17 @@ public class FindingMatchingDonorResourceTest implements BloodTorrentConstants {
         String bloodGroup = "O-";
         when(usersRepository.listByBloodGroupAndAfter90DaysFromLastDonateDate(bloodGroup))
                 .thenReturn(Arrays.asList(createUser(bloodGroup), createUser(UNKNOWN_BLOOD_GROUP)));
+
         BloodRequest bloodRequest = createBloodRequest();
-        bloodRequest.setBloodGroup(bloodGroup);
         List<User> donors = resource.findMatchingDonors(bloodRequest);
+
+        bloodRequest.setBloodGroup(bloodGroup);
+
         for (User donor : donors) {
             assertThat(donor.getBloodGroup(), anyOf(is(bloodGroup), is(UNKNOWN_BLOOD_GROUP)));
         }
     }
+
 
     @Test
     public void lastDonateDateShouldBeBefore90DaysFromTodayForAllMatchingDonors() throws IllegalDataException {

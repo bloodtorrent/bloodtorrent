@@ -1,7 +1,6 @@
 package org.bloodtorrent.resources;
 
 import com.google.common.collect.Lists;
-import org.apache.commons.lang3.StringUtils;
 import org.bloodtorrent.BloodTorrentConstants;
 import org.bloodtorrent.IllegalDataException;
 import org.bloodtorrent.dto.BloodRequest;
@@ -84,8 +83,10 @@ public class FindingMatchingDonorResource implements BloodTorrentConstants {
 
         validateMatchingDonors(bloodRequest, donors);
         List<User> filteredDonors = filterWithState(bloodRequest, donors);
+
         return filteredDonors;
     }
+
 
     private List<User> filterWithState(BloodRequest bloodRequest, List<User> donors) {
         String stateOfHospital = bloodRequest.getState();

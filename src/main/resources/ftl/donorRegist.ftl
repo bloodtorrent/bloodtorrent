@@ -177,8 +177,8 @@
                         <label>When did you last donate blood?</label>
                         <select name="lastDonate">
                             <option value="1" selected>within 1 month</option>
-                            <option value="2">2 months ago</option>
-                            <option value="3">3 months ago</option>
+                            <option value="2">within 2 months</option>
+                            <option value="3">within 3 months</option>
                             <option value="4">I can't remember</option>
                         </select>
                     </td>

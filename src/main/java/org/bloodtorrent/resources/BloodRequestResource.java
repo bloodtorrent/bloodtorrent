@@ -30,9 +30,11 @@ import java.util.*;
 @Produces(MediaType.TEXT_HTML)
 public class BloodRequestResource {
     private final BloodRequestRepository repository;
+    private final NotifyDonorSendEmailResource mailResource;
 
-    public BloodRequestResource(BloodRequestRepository repository) {
+    public BloodRequestResource(BloodRequestRepository repository, NotifyDonorSendEmailResource mailResource) {
         this.repository = repository;
+        this.mailResource = mailResource;
     }
 
     @GET
@@ -92,6 +94,7 @@ public class BloodRequestResource {
             List<User> donors = null;
             try {
                 donors = resource.findMatchingDonors(bloodRequest);
+                mailResource.sendNotifyEmail(donors, bloodRequest);
             } catch (IllegalDataException e) {
                 e.printStackTrace();
                 throw new IllegalDataException("Finding matching donor failed.");

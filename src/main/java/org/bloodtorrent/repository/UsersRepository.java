@@ -15,6 +15,8 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class UsersRepository extends AbstractDAO<User> {
+    public static final int MIN_DAYS_LAST_DONATION = 90;
+
     /**
      * Creates a new DAO with a given session provider.
      *
@@ -39,7 +41,7 @@ public class UsersRepository extends AbstractDAO<User> {
      * @author James, Scott
      */
     public List<User> listByBloodGroupAndAfter90DaysFromLastDonateDate(String bloodGroup) {
-        Query query = currentSession().createQuery("from User u where (u.bloodGroup = :bloodGroup or u.bloodGroup = 'Unknown') and (current_date() - u.lastDonateDate) > 90 ");
+        Query query = currentSession().createQuery("from User u where (u.bloodGroup = :bloodGroup or u.bloodGroup = 'Unknown') and (current_date() - u.lastDonateDate) > " + MIN_DAYS_LAST_DONATION + " ");
         query.setParameter("bloodGroup", bloodGroup);
 
         return list(query);

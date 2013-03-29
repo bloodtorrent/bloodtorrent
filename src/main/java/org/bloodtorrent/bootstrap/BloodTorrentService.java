@@ -57,20 +57,22 @@ public class BloodTorrentService extends Service<SimpleConfiguration> {
         final BloodRequestRepository bloodReqRepository = new BloodRequestRepository(sessionFactory);
         final SuccessStoryRepository successStoryRepository = new SuccessStoryRepository(sessionFactory);
         final CatchPhraseRepository catchPhraseRepository = new CatchPhraseRepository(sessionFactory);
+        NotifyDonorSendEmailResource mailResource = new NotifyDonorSendEmailResource();
 
 //        environment.addProvider(MultiPartReaderServerSide.class);
         addResource(environment, new MainResource(httpsSessionManager));
         addResource(environment, new AdminResource(httpsSessionManager));
         addResource(environment, new LogOffResource(httpsSessionManager));
         addResource(environment, new UsersResource(userRepository));
-        addResource(environment, new BloodRequestResource(bloodReqRepository));
-        addResource(environment, new SuccessStoryResource(httpsSessionManager,  successStoryRepository));
+        addResource(environment, new BloodRequestResource(bloodReqRepository, mailResource));
+        addResource(environment, new SuccessStoryResource(httpsSessionManager, successStoryRepository));
         addResource(environment, new CatchPhraseResource(catchPhraseRepository));
         addResource(environment, new LoginResource(httpsSessionManager, userRepository));
         addResource(environment, new LoginFailResource());
         addResource(environment, new FindingMatchingDonorResource(userRepository));
         addResource(environment, new TestPageSendEmailResource());
         addResource(environment, new TestSendEmailResource());
+        addResource(environment, mailResource);
 
         ResourceManager.getInstance().add(config.getMailConfiguration());
     }

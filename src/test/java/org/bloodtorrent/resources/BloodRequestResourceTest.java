@@ -4,10 +4,13 @@ import org.bloodtorrent.IllegalDataException;
 import org.bloodtorrent.dto.BloodRequest;
 import org.bloodtorrent.repository.BloodRequestRepository;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
+import org.mockito.Mock;
 
 import java.util.Date;
+
+import static org.mockito.MockitoAnnotations.initMocks;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,8 +20,18 @@ import java.util.Date;
  * To change this template use File | Settings | File Templates.
  */
 public class BloodRequestResourceTest {
-    private final BloodRequestRepository repository = Mockito.mock(BloodRequestRepository.class);
-    private final BloodRequestResource resource = new BloodRequestResource(repository);
+    @Mock
+    BloodRequestRepository repository;
+    @Mock
+    NotifyDonorSendEmailResource mailResource;
+
+    BloodRequestResource resource;
+
+    @Before
+    public void setup() {
+        initMocks(this);
+        resource = new BloodRequestResource(repository, mailResource);
+    }
 
     @Test
     public void resourceCallCheck() {
