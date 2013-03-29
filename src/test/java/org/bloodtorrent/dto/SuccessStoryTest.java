@@ -58,53 +58,11 @@ public class SuccessStoryTest {
     }
 
     @Test
-    public void summaryShouldNotBeEmpty() {
+    public void summaryShouldNotBeMoreThan150Characters() {
         SuccessStory story = createNewSuccessStory();
-        setDummyString(story, "summary", 0);
+        setDummyString(story, "summary", 151);
         Set<ConstraintViolation<SuccessStory>> constraintViolations = validator.validateProperty(story, "summary");
         assertThat(constraintViolations.size(), is(1));
-    }
-
-    @Test
-    public void summaryShouldNotBeMoreThan100Characters() {
-        SuccessStory story = createNewSuccessStory();
-        setDummyString(story, "summary", 101);
-        Set<ConstraintViolation<SuccessStory>> constraintViolations = validator.validateProperty(story, "summary");
-        assertThat(constraintViolations.size(), is(1));
-    }
-
-    @Test
-    public void descriptionShouldNotBeEmpty() {
-        SuccessStory story = createNewSuccessStory();
-        setDummyString(story, "description", 0);
-        Set<ConstraintViolation<SuccessStory>> constraintViolations = validator.validateProperty(story, "description");
-        assertThat(constraintViolations.size(), is(1));
-    }
-
-    @Test
-    public void thumbnailPathShouldBeFilled() {
-        SuccessStory story = createNewSuccessStory();
-        setDummyString(story, "thumbnailPath", 0);
-
-        Set<ConstraintViolation<SuccessStory>> constraintViolations = validator.validateProperty(story, "thumbnailPath");
-        assertThat(constraintViolations.size(), is(1));
-
-        setDummyString(story, "thumbnailPath", 10);
-        constraintViolations = validator.validateProperty(story, "thumbnailPath");
-        assertThat(constraintViolations.size(), is(0));
-    }
-
-    @Test
-    public void visualResourcePathShouldBeFilled() {
-        SuccessStory story = createNewSuccessStory();
-        setDummyString(story, "visualResourcePath", 0);
-
-        Set<ConstraintViolation<SuccessStory>> constraintViolations = validator.validateProperty(story, "visualResourcePath");
-        assertThat(constraintViolations.size(), is(1));
-
-        setDummyString(story, "visualResourcePath", 10);
-        constraintViolations = validator.validateProperty(story, "visualResourcePath");
-        assertThat(constraintViolations.size(), is(0));
     }
 
 }
