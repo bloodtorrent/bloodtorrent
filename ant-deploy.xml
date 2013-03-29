@@ -1,0 +1,26 @@
+<project default="remote-start">
+    <property name="remote.host">54.244.117.61</property>
+    <property name="remote.user">bloodtorrent</property>
+    <property name="remote.dir">bloodtorrent-web</property>
+    <property name="private.keyfile">${user.home}/.ssh/id_rsa</property>
+
+    <target name="copy-files">
+        <scp trust="yes" remoteTodir="${remote.user}@${remote.host}:${remote.dir}"
+             keyfile="${private.keyfile}">
+             <fileset dir=".">
+                 <include name="db/scripts/*.sql"/>
+                 <include name="pom.xml"/>
+                 <include name="scripts/*.sh"/>
+                 <include name="src/main/resources/configurations.yml"/>
+                 <include name="target/bloodtorrent-1.0.0-SNAPSHOT.jar"/>
+             </fileset>
+        </scp>
+	</target>
+
+    <target name="remote-start" depends="copy-files">
+        <sshexec host="${remote.host}" trust="yes"
+            username="${remote.user}" keyfile="${private.keyfile}"
+            command="cd ${remote.dir} &amp;&amp; sh scripts/remoteRestart.sh"/>
+    </target>
+
+</project>

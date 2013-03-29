@@ -16,7 +16,6 @@
         <db.url>jdbc:h2:db/bloodtorrent</db.url>
         <db.username>bloodtorrent</db.username>
         <db.password>password</db.password>
-        <remote.deploy.files>pom.xml, scripts/stopDropwizard.sh, scripts/remoteRestart.sh, db/scripts/*.sql, src/main/resources/configurations.yml, target/${artifactId}-${version}.jar</remote.deploy.files>
     </properties>
 
     <dependencies>
@@ -332,34 +331,6 @@
                             <arg value = "src/main/resources/configurations.yml"/>
                         </java>
                     </tasks>
-                </configuration>
-            </plugin>
-
-            <!-- The plugins below are a WIP for remote deployment. - Scott/Kris/KwangJin-->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>wagon-maven-plugin</artifactId>
-                <version>1.0-beta-4</version>
-                <goals>
-                    <goal>upload</goal>
-                </goals>
-                <configuration>
-                    <fromDir>.</fromDir>
-                    <includes>${remote.deploy.files}</includes>
-                    <url>scp://bloodtorrent@54.244.117.61/</url>
-                    <toDir>/home/bloodtorrent/bloodtorrent-web</toDir>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>com.github.goldin</groupId>
-                <artifactId>sshexec-maven-plugin</artifactId>
-                <version>0.2.5</version>
-                <goals>
-                    <goal>sshexec</goal>
-                </goals>
-                <configuration>
-                    <location>scp://bloodtorrent:@54.244.117.61:.</location>
-                    <command>ls; ps</command>
                 </configuration>
             </plugin>
         </plugins>
