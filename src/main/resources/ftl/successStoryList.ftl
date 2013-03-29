@@ -6,7 +6,7 @@
        <#list successStoryList as story>
            <article>
                <h1>${story.title}</h1>
-               <img class="thumbnail" src="/uploaded?url=${story.thumbnailPath}"/>
+               <img class="thumbnail" src="/successStory/image/${story.thumbnailPath}"/>
                <p>${story.summary}</p>
                <p>${story.createDate?string("dd-MM-yyyy")}</p>
            </article>

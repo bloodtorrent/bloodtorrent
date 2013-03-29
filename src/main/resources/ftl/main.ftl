@@ -26,10 +26,10 @@
 <#if successStories??>
     <#list successStories as story>
         <article>
-            <h1>${story.getTitle()}</h1>
-            <img class="thumbnail" src="${story.getThumbnailPath()}"/>
-            <p>${story.getSummary()}</p>
-            <a class="successStoryDetailLink" href="/successStory/${story.getId()}">READ MORE</a>
+            <h1>${story.title}</h1>
+            <img class="thumbnail" src="/successStory/image/${story.thumbnailPath}"/>
+            <p>${story.summary}</p>
+            <a class="successStoryDetailLink" href="/successStory/${story.id}">READ MORE</a>
         </article>
     </#list>
 </#if>

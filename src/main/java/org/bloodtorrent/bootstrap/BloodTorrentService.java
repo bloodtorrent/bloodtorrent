@@ -39,7 +39,6 @@ public class BloodTorrentService extends Service<SimpleConfiguration> {
         bootstrap.setName("bloodtorrent");
         bootstrap.addBundle(new ViewBundle());
         bootstrap.addBundle(new AssetsBundle("/images"));
-        bootstrap.addBundle(new AssetsBundle("/upload"));
         bootstrap.addBundle(new AssetsBundle("/css"));
         bootstrap.addBundle(hibernateBundle);
     }

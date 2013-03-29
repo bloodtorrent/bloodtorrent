@@ -5,7 +5,6 @@ import com.google.common.io.InputSupplier;
 import com.sun.jersey.core.header.FormDataContentDisposition;
 import com.sun.jersey.multipart.FormDataParam;
 import com.yammer.dropwizard.hibernate.UnitOfWork;
-import org.apache.commons.lang3.StringUtils;
 import org.bloodtorrent.IllegalDataException;
 import org.bloodtorrent.dto.SuccessStory;
 import org.bloodtorrent.repository.SuccessStoryRepository;
@@ -18,9 +17,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import javax.ws.rs.core.Response;
+import java.io.*;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
@@ -29,7 +28,7 @@ import java.util.UUID;
 @Produces(MediaType.TEXT_HTML)
 public class SuccessStoryResource {
     private final SuccessStoryRepository repository;
-    private String UPLOAD_DIR = "/upload";
+    private String UPLOAD_DIR = "upload";
 
     public SuccessStoryResource(SuccessStoryRepository repository) {
         this.repository = repository;
@@ -71,21 +70,44 @@ public class SuccessStoryResource {
 	}
 
     @GET
+    @UnitOfWork
+    @Path("image/{fileName}")
+    public Response loadImage(@PathParam("fileName") String fileName) {
+        File imageFile = new File("upload/" + fileName);
+
+        System.out.println("File = " + imageFile.getAbsolutePath());
+        Response.ResponseBuilder builder = null;
+        if (imageFile.exists()) {
+            System.out.println("File size = " + imageFile.length());
+            String extention = fileName.substring(fileName.lastIndexOf('.') + 1);
+            if (extention.equalsIgnoreCase("jpg")) {
+                extention = "jpeg";
+            }
+            String mediaType = "image/" + extention;
+            builder = Response.ok((Object) imageFile, mediaType);
+            builder.header("Content-Encoding", "decompressed");
+        } else {
+            builder = Response.status(404);
+        }
+        return builder.build();
+    }
+
+    @GET
 	@UnitOfWork
-    @Path("/list")
+    @Path("list")
 	public SuccessStoryView listSuccessStory() {
 		return new SuccessStoryView(repository.getListForSuccessStoriesView());
 	}
     @GET
 	@UnitOfWork
-    @Path("/createView")
+    @Path("createView")
 	public SuccessStoryView viewSuccessStoryEditor() {
 		return new SuccessStoryView();
 	}
 
     @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    @Path("/create")
+    @Path("create")
     @UnitOfWork
     public SuccessStoryView createSuccessStory(@FormDataParam("title") String title,
                                                @FormDataParam("summary") String summary,
@@ -100,26 +122,28 @@ public class SuccessStoryResource {
         story.setDescription(description);
         story.setShowMainPage("Y");
         if(resource != null){
-            final String outputPath = UPLOAD_DIR + File.separator + id + "-" + content.getFileName();
-            String root = getClass().getResource("/").getPath();
-            saveFile(root, outputPath, resource);
-            story.setThumbnailPath(outputPath);
-            story.setVisualResourcePath(outputPath);
+            final String fileName = id + "-" + content.getFileName();
+            saveFile(UPLOAD_DIR, fileName, resource);
+            story.setThumbnailPath(fileName);
+            story.setVisualResourcePath(fileName);
         }
         repository.insert(story);
 
         return new SuccessStoryView(repository.getListForSuccessStoriesView());
     }
 
-    void saveFile(String root, String outputPath, final InputStream resource) throws IOException {
-        File uploadDir = new File(root + File.separator + UPLOAD_DIR);
+    private void saveFile(String outputPath, String fileName, final InputStream resource) throws IOException {
+        File uploadDir = new File(outputPath);
         if(!uploadDir.exists()){
             uploadDir.mkdir();
         }
+        final String filePath = outputPath + File.separator + fileName;
+        System.out.println("uploadDir = " + uploadDir.getAbsolutePath());
+        System.out.println("file = " + filePath);
         Files.copy(new InputSupplier<InputStream>() {
             public InputStream getInput() throws IOException {
                 return resource;
             }
-        }, new File(root + outputPath));
+        }, new File(filePath));
     }
 }
