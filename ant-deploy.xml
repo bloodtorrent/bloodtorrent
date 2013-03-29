@@ -13,6 +13,7 @@
                  <include name="scripts/*.sh"/>
                  <include name="src/main/resources/configurations.yml"/>
                  <include name="target/bloodtorrent-1.0.0-SNAPSHOT.jar"/>
+		 <include name="upload/*"/>
              </fileset>
         </scp>
 	</target>
