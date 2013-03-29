@@ -92,5 +92,5 @@ public class User {
     private double longitude;
 
     @Column(name = "is_admin")
-    private char isAdmin;
+    private char isAdmin = 'N';
 }

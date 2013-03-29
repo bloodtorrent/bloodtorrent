@@ -13,27 +13,30 @@
                 dateFormat: "dd-mm-yy"
             });
             $("#register").click(function(){
-                if($("#lat").val() == "" && $("#lng").val() == ""){
-                    var fullAddress = $("#orginalAddress").val() +"," + $("#city").val() +"," + $("#state").val() +"," +"India";
-                    var geocoder = new google.maps.Geocoder();
-                    geocoder.geocode(
-                        {
-                            'address': fullAddress,
-                        },
-                        function(results, status) {
-                            if (status == google.maps.GeocoderStatus.OK) {
-                                var loc = results[0].geometry.location;
-                                $("#lat").val(loc.lat());
-                                $("#lng").val(loc.lng());
-                                $("#user").submit();
-                            }else {
-                                alert("Not found: " + status);
-                            }
-                        }
-                    );
-                }
-                else {
-                   $("#user").submit();
+                if ($("#orginalAddress").val() != "" && $("#city").val() != "" && $("#state").val() != "") {
+                    if ( ($("#lat").val() == "" || $("#lng").val() == "") || $("isMapExcuted").val() == "N") {
+                        var fullAddress = $("#orginalAddress").val() + "," + $("#city").val() + "," + $("#state").val() + "," +"India";
+                            var geocoder = new google.maps.Geocoder();
+                            geocoder.geocode(
+                                {
+                                    'address': fullAddress,
+                                },
+                                function(results, status) {
+                                    if (status == google.maps.GeocoderStatus.OK) {
+                                        var loc = results[0].geometry.location;
+                                        $("#lat").val(loc.lat());
+                                        $("#lng").val(loc.lng());
+                                        $("#user").submit();
+                                    }else {
+                                        alert("Not found: " + status);
+                                    }
+                                }
+                            );
+                    } else {
+                       $("#user").submit();
+                    }
+                } else {
+                    $("#user").submit();
                 }
             });
         });
@@ -186,8 +189,7 @@
 
         <input type="hidden" name="lat" id="lat" value=""/>
         <input type="hidden" name="lng" id="lng" value=""/>
-        <!-- TODO After validation error occurred, if this flag is 'Y' then should be cleanup lat, lng field -->
-        <input type="hidden" name="shouldBeRefreshLocation" id="shouldBeRefreshLocation" value="Y"/>
+        <input type="hidden" name="isMapExcuted" id="isMapExcuted" value="N"/>
 
         <input type="button" id="register" name="register" value="Register"/>
         <a href ="/"><input type="button" name="cancel" value="Cancel"/></a>
