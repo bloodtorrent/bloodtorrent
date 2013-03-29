@@ -12,7 +12,6 @@ import static junit.framework.Assert.*;
 
 public class OnDetailedSuccessStoryPage {
 
-	private Browser browser;
 	private DetailedSuccessStory detailedSuccessStory;
 	
 	@Autowired
@@ -23,10 +22,10 @@ public class OnDetailedSuccessStoryPage {
 	}
 
 	public void verifyDetailedSuccessStoryTitle() throws Exception {
-		assertTrue(detailedSuccessStory.getTitle());
+		assertTrue(detailedSuccessStory.getTitle().exists());
 	}
 
 	public void goBackHome() throws Exception {
-		detailedSuccessStory.gotoDetailSuccessStory();
+		detailedSuccessStory.getHomeLink().click();
 	}
 }

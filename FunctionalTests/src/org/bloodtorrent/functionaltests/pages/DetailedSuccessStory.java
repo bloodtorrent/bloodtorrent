@@ -1,6 +1,7 @@
 package org.bloodtorrent.functionaltests.pages;
 
 import net.sf.sahi.client.Browser;
+import net.sf.sahi.client.ElementStub;
 
 public class DetailedSuccessStory extends BasePage {
 
@@ -8,11 +9,12 @@ public class DetailedSuccessStory extends BasePage {
 		super(browser);
 	}
 
-	public boolean getTitle() {
-		return browser.heading1(3).exists();
+	public ElementStub getTitle() {
+		return browser.byId("title");
 	}
 
-	public void gotoDetailSuccessStory() {
-		browser.link("Home").click();
+	public ElementStub getHomeLink() {
+		return browser.link("Home");
 	}
+
 }

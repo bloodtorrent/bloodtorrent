@@ -6,7 +6,6 @@ import net.sf.sahi.client.Browser;
 import org.bloodtorrent.functionaltests.pages.MainPage;
 import org.springframework.beans.factory.annotation.Autowired;
 
-
 import com.thoughtworks.twist.core.execution.TwistScenarioDataStore;
 
 public class OnMainPage {
