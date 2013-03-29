@@ -132,7 +132,7 @@ public class SuccessStoryResource {
         return new SuccessStoryView(repository.getListForSuccessStoriesView());
     }
 
-    private void saveFile(String outputPath, String fileName, final InputStream resource) throws IOException {
+    public void saveFile(String outputPath, String fileName, final InputStream resource) throws IOException {
         File uploadDir = new File(outputPath);
         if(!uploadDir.exists()){
             uploadDir.mkdir();

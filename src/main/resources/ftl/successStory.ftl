@@ -12,7 +12,7 @@
     </header>
     <h1>${successStory.title}</h1>
     <hr>
-    <img class="visualResource" src="${successStory.visualResourcePath}" width="800" height="600"/><br>
+    <img class="visualResource" src="/successStory/image/${successStory.visualResourcePath}" width="800" height="600"/><br>
     ${successStory.description}<br>
     <p align="right"><a href='/'>Home</a></p>
     <hr>
