@@ -1,6 +1,7 @@
 <html>
     <head>
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+        <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&language=en"></script>
         <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
         <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
         <script type="text/javascript" language="javascript">
@@ -13,8 +14,23 @@
             });
             $("#register").click(function(){
                 if($("#lat").val() == "" && $("#lng").val() == ""){
-                   alert("Please specify your location with map before register.");
-                   return false;
+                    var fullAddress = $("#orginalAddress").val() +"," + $("#city").val() +"," + $("#state").val() +"," +"India";
+                    var geocoder = new google.maps.Geocoder();
+                    geocoder.geocode(
+                        {
+                            'address': fullAddress,
+                        },
+                        function(results, status) {
+                            if (status == google.maps.GeocoderStatus.OK) {
+                                var loc = results[0].geometry.location;
+                                $("#lat").val(loc.lat());
+                                $("#lng").val(loc.lng());
+                                $("#user").submit();
+                            }else {
+                                alert("Not found: " + status);
+                            }
+                        }
+                    );
                 }
                 else {
                    $("#user").submit();
@@ -170,6 +186,8 @@
 
         <input type="hidden" name="lat" id="lat" value=""/>
         <input type="hidden" name="lng" id="lng" value=""/>
+        <!-- TODO After validation error occurred, if this flag is 'Y' then should be cleanup lat, lng field -->
+        <input type="hidden" name="shouldBeRefreshLocation" id="shouldBeRefreshLocation" value="Y"/>
 
         <input type="button" id="register" name="register" value="Register"/>
         <a href ="/"><input type="button" name="cancel" value="Cancel"/></a>

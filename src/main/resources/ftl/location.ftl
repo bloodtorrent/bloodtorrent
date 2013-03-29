@@ -44,6 +44,8 @@ $(function() {
                   $("#lng").val(originalLatLng.lng());
                   $("#messageLabel").text("Your map location is saved");
                   $("#messageLabel").css("color","blue");
+                  $("#shouldBeRefreshLocation").val("N");
+                  $("#lng").val(originalLatLng.lng());
                   $( this ).dialog( "close" );
               }
             },
