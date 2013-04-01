@@ -12,7 +12,7 @@
                 $("#createSuccessStory").submit();
             });
             $("#cancel").click(function(){
-                location.href="/";
+                location.href="/successStory/list";
             });
         });
         </script>
