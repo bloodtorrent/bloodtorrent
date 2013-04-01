@@ -8,13 +8,7 @@ import org.bloodtorrent.dto.User;
 
 import java.util.List;
 
-/**
- * Created with IntelliJ IDEA.
- * User: sds
- * Date: 3/25/13
- * Time: 1:00 PM
- * To change this template use File | Settings | File Templates.
- */
+@SuppressWarnings("PMD.UnusedPrivateField")
 public class SuccessStoryView extends View {
 
     private static final String PATH = "/ftl/successStory.ftl";

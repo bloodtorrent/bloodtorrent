@@ -13,6 +13,7 @@ import lombok.Setter;
  * To change this template use File | Settings | File Templates.
  */
 @Getter @Setter
+@SuppressWarnings("PMD.UnusedPrivateField")
 public class MailConfiguration extends Configuration {
     @JsonProperty
     private String adminMailId;

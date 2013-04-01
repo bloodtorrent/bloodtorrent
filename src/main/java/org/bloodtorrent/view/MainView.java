@@ -7,13 +7,7 @@ import org.bloodtorrent.dto.User;
 
 import java.util.List;
 
-/**
- * Created with IntelliJ IDEA.
- * User: sds
- * Date: 3/25/13
- * Time: 1:00 PM
- * To change this template use File | Settings | File Templates.
- */
+@SuppressWarnings("PMD.UnusedPrivateField")
 public class MainView extends CommonView {
 
     private static final String PATH = "/ftl/main.ftl";
