@@ -1,6 +1,5 @@
 package org.bloodtorrent.resources;
 
-import org.bloodtorrent.ResourceManager;
 import org.bloodtorrent.dto.User;
 import org.bloodtorrent.repository.CatchPhraseRepository;
 import org.bloodtorrent.repository.SuccessStoryRepository;

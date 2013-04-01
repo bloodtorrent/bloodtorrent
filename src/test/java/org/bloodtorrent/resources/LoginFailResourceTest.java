@@ -1,6 +1,5 @@
 package org.bloodtorrent.resources;
 
-import org.bloodtorrent.ResourceManager;
 import org.bloodtorrent.repository.CatchPhraseRepository;
 import org.bloodtorrent.repository.SuccessStoryRepository;
 import org.bloodtorrent.view.CommonView;
@@ -8,13 +7,10 @@ import org.eclipse.jetty.server.SessionManager;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.servlet.http.HttpSession;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 /**
  * Created with IntelliJ IDEA.

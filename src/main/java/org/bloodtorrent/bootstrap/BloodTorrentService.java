@@ -1,12 +1,10 @@
 package org.bloodtorrent.bootstrap;
 
-import com.sun.jersey.multipart.impl.MultiPartReaderServerSide;
 import com.yammer.dropwizard.Service;
 import com.yammer.dropwizard.assets.AssetsBundle;
 import com.yammer.dropwizard.config.Bootstrap;
 import com.yammer.dropwizard.config.Environment;
 import com.yammer.dropwizard.views.ViewBundle;
-import org.bloodtorrent.ResourceManager;
 import org.bloodtorrent.repository.BloodRequestRepository;
 import org.bloodtorrent.repository.CatchPhraseRepository;
 import org.bloodtorrent.repository.SuccessStoryRepository;
@@ -62,7 +60,8 @@ public class BloodTorrentService extends Service<SimpleConfiguration> {
         mailResource.setMailConfiguration(config.getMailConfiguration());
 
         MainResource mainResource = new MainResource(httpsSessionManager);
-
+        SuccessStoryResource successStoryResource = new SuccessStoryResource(httpsSessionManager, successStoryRepository);
+        mainResource.setSuccessStoryResource(successStoryResource);
         CatchPhraseResource catchPhraseResource = new CatchPhraseResource(catchPhraseRepository);
         mainResource.setCatchPhraseResource(catchPhraseResource);
 
@@ -85,7 +84,7 @@ public class BloodTorrentService extends Service<SimpleConfiguration> {
         addResource(environment, logOffResource);
         addResource(environment, new UsersResource(userRepository));
         addResource(environment, bloodRequestResource);
-        addResource(environment, new SuccessStoryResource(httpsSessionManager, successStoryRepository));
+        addResource(environment, successStoryResource);
         addResource(environment, catchPhraseResource);
         addResource(environment, new LoginResource(httpsSessionManager, userRepository));
         addResource(environment, loginFailResource);

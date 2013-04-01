@@ -4,7 +4,6 @@ import com.yammer.dropwizard.hibernate.UnitOfWork;
 import com.yammer.dropwizard.views.View;
 import lombok.Setter;
 import org.bloodtorrent.IllegalDataException;
-import org.bloodtorrent.ResourceManager;
 import org.bloodtorrent.dto.BloodRequest;
 import org.bloodtorrent.dto.User;
 import org.bloodtorrent.repository.BloodRequestRepository;

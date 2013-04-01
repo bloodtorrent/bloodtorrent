@@ -2,11 +2,8 @@ package org.bloodtorrent.resources;
 
 import com.yammer.dropwizard.hibernate.UnitOfWork;
 import lombok.Setter;
-import org.bloodtorrent.ResourceManager;
 import org.bloodtorrent.view.CommonView;
-import org.eclipse.jetty.server.SessionManager;
 
-import javax.servlet.http.HttpSession;
 import javax.ws.rs.CookieParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

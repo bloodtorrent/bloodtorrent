@@ -1,7 +1,6 @@
 package org.bloodtorrent.util;
 
 import lombok.Setter;
-import org.bloodtorrent.ResourceManager;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;

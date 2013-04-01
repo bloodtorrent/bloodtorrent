@@ -1,13 +1,8 @@
 package org.bloodtorrent.resources;
 
 import com.yammer.dropwizard.hibernate.UnitOfWork;
-import lombok.Setter;
-import org.bloodtorrent.ResourceManager;
-import org.bloodtorrent.dto.SuccessStory;
 import org.bloodtorrent.dto.User;
 import org.bloodtorrent.repository.UsersRepository;
-import org.bloodtorrent.view.CommonView;
-import org.bloodtorrent.view.MainView;
 import org.eclipse.jetty.server.SessionManager;
 
 import javax.servlet.http.HttpSession;
@@ -18,7 +13,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URI;
-import java.util.Collections;
 
 /**
  * Created with IntelliJ IDEA.

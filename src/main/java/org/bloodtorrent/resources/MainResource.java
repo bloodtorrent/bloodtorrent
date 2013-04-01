@@ -2,12 +2,9 @@ package org.bloodtorrent.resources;
 
 import com.yammer.dropwizard.hibernate.UnitOfWork;
 import lombok.Setter;
-import org.bloodtorrent.IllegalDataException;
-import org.bloodtorrent.ResourceManager;
 import org.bloodtorrent.dto.CatchPhrase;
 import org.bloodtorrent.dto.SuccessStory;
 import org.bloodtorrent.dto.User;
-import org.bloodtorrent.view.CommonView;
 import org.bloodtorrent.view.MainView;
 import org.eclipse.jetty.server.SessionManager;
 
@@ -17,7 +14,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.util.Collections;
 import java.util.List;
 
 /**
