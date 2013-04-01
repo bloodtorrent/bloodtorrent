@@ -134,7 +134,7 @@ public class SuccessStoryResourceTest {
 		String id = "One";
 		SuccessStory story = createNewSuccessStory(id);
 		when(repository.get(id)).thenReturn(story);
-		SuccessStoryView view = resource.getSuccessStory(id);
+		SuccessStoryView view = resource.getSuccessStory(id, "");
 		assertThat(view.getSuccessStory(), is(story));
 	}
 

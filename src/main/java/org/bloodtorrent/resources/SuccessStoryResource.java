@@ -71,9 +71,17 @@ public class SuccessStoryResource {
 	@GET
 	@UnitOfWork
     @Path("{id}")
-	public SuccessStoryView getSuccessStory(@PathParam("id") String id) {
+	public SuccessStoryView getSuccessStory(@PathParam("id") String id, @CookieParam("JSESSIONID") String sessionID) {
+        HttpSession session = sessionManager.getHttpSession(sessionID);
+        User user = null;
+        if (session != null) {
+            user = (User)session.getAttribute("user");
+        }
+
 		SuccessStory successStory = repository.get(id);
-		return new SuccessStoryView(successStory);
+        SuccessStoryView successStoryView = new SuccessStoryView(successStory);
+        successStoryView.setUser(user);
+        return successStoryView;
 	}
 
     @GET
@@ -159,6 +167,11 @@ public class SuccessStoryResource {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
         Date timestamp = new Date();
 
+
+        title = getHtmlSafeString(title);
+        summary = getHtmlSafeString(summary);
+        description = getHtmlSafeString(description);
+
         SuccessStory story = new SuccessStory();
         String id = sdf.format(timestamp);
         story.setId(id);
@@ -191,6 +204,15 @@ public class SuccessStoryResource {
             successStoryView.setUser(user);
             return successStoryView;
         }
+    }
+
+    private String getHtmlSafeString(String str) {
+        return str.replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll("\r\n", "<br/>")
+                .replaceAll("\n", "<br/>")
+                .replaceAll(" ", "&nbsp;");
     }
 
     private void saveFile(String outputPath, String fileName, final InputStream stream) throws IOException {

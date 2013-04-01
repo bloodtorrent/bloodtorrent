@@ -24,6 +24,8 @@ import java.net.URI;
 @Path("/logindb")
 @Produces(MediaType.TEXT_HTML)
 public class LoginResource {
+    public static final String URI_SUCCESS_STORY_LIST = "/successStory/list";
+    public static final String PATH_LOGIN_FAIL = "/loginfail";
     private final SessionManager sessionManager;
     private final UsersRepository usersRepository;
 
@@ -47,14 +49,11 @@ public class LoginResource {
             if(user != null && password.equals(user.getPassword())) {
                 session.setAttribute("user", user);
 
-//                return (user.getIsAdmin()=='Y'? "<html><meta http-equiv=\"refresh\" content=\"0;url=/admin\" /></html>"
-//                        : "<html><meta http-equiv=\"refresh\" content=\"0;url=/\" /></html>");
-                return Response.seeOther(URI.create('Y' == user.getIsAdmin() ? "/successStory/list" : "/")).status(302).build();
+                return Response.seeOther(URI.create('Y' == user.getIsAdmin() ? URI_SUCCESS_STORY_LIST : "/")).status(302).build();
             }
         }
 
-        //return "<html><meta http-equiv=\"refresh\" content=\"0;url=/loginfail\" /></html>";
-        return Response.seeOther(URI.create("/loginfail")).status(302).build();
+        return Response.seeOther(URI.create(PATH_LOGIN_FAIL)).status(302).build();
     }
 
     public HttpSession getSession(String sessionID) {

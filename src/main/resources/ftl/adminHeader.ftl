@@ -1,4 +1,4 @@
-<h1><img src="/images/main_sample.jpg" width="72" height="72" align="middle" /> <label id="title">Blood Torrent</label></h1> <br/>
+<h1><img src="/images/main_sample.jpg" width="72" height="72" align="middle" onclick="location.href='/'" /> <label id="title">Blood Torrent</label></h1> <br/>
 <#assign userId=user.id>
 Hello! <a href="">${userId?substring(0, userId?index_of("@")) }</a> | <a href="/logoff">Sign off</a>
 <hr noshade />

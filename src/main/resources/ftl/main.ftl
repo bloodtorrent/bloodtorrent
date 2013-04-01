@@ -16,7 +16,11 @@
     </script>
 </head>
 <body>
+<#if (user?exists && user.isAdmin = "Y")>
+<#include "/ftl/adminHeader.ftl" >
+<#else>
 <#include "/ftl/header.ftl" >
+</#if>
 <!-- Success Story -->
 <section id="successStory">
     <header><h1>Success Story</h1></header>
