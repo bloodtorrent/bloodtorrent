@@ -291,7 +291,6 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <skipTests>false</skipTests>
-                    <!--<forkMode>always</forkMode>-->
                     <reportFormat>xml</reportFormat>
                     <argLine>-XX:-UseSplitVerifier</argLine>
                 </configuration>
