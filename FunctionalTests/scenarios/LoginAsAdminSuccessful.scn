@@ -1,6 +1,8 @@
-Tags:Story-57,Login
+Tags:Story-57,Login,in-progress
 Preconditions:Blood Torrent
 Metadata:ScenarioType=Auto
+Currently working on fixing admin page URL. - John/Bowon/Kris
+
 On home page:
 $Login as admin
 
