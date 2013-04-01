@@ -95,7 +95,6 @@ public class SuccessStoryResource {
             }
             String mediaType = "image/" + extention;
             builder = Response.ok((Object) imageFile, mediaType);
-            builder.header("Content-Encoding", "decompressed");
         } else {
             builder = Response.status(404);
         }
@@ -148,11 +147,19 @@ public class SuccessStoryResource {
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Path("create")
     @UnitOfWork
-    public View createSuccessStory(@FormDataParam("title") String title,
-                                               @FormDataParam("summary") String summary,
-                                               @FormDataParam("description") String description,
-                                               @FormDataParam("visualResourcePath") final InputStream stream,
-                                               @FormDataParam("visualResourcePath") final FormDataContentDisposition content) throws IOException {
+    public View createSuccessStory(
+            @CookieParam("JSESSIONID") String sessionID,
+            @FormDataParam("title") String title,
+            @FormDataParam("summary") String summary,
+            @FormDataParam("description") String description,
+            @FormDataParam("visualResourcePath") final InputStream stream,
+            @FormDataParam("visualResourcePath") final FormDataContentDisposition content) throws IOException {
+
+        HttpSession session = sessionManager.getHttpSession(sessionID);
+        User  user = null;
+        if (session != null) {
+            user = (User)session.getAttribute("user");
+        }
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
         Date timestamp = new Date();
@@ -186,6 +193,7 @@ public class SuccessStoryResource {
             repository.insert(story);
             SuccessStoryView successStoryView = new SuccessStoryView(repository.getListForSuccessStoriesView());
             successStoryView.setSavedSuccessFlag(true);
+            successStoryView.setUser(user);
             return successStoryView;
         }
     }

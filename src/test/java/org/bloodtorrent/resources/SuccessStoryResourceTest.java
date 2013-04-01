@@ -157,7 +157,7 @@ public class SuccessStoryResourceTest {
             }
         }).when(repository).insert(Mockito.any(SuccessStory.class));
 
-        View view = resource.createSuccessStory(makeDummyString(150), makeDummyString(150), "description", inputStream, contentDisposition);
+        View view = resource.createSuccessStory("", makeDummyString(150), makeDummyString(150), "description", inputStream, contentDisposition);
 
         assertThat(view instanceof SuccessStoryView, is(true));
         assertThat(storyContainer.size(), is(1));
@@ -177,19 +177,19 @@ public class SuccessStoryResourceTest {
 
     @Test
     public void shouldReturnResultViewWithErrorMessagesWhenTitleValidationFailed() throws IOException {
-        View view = resource.createSuccessStory("", "summary", "description", inputStream, contentDisposition);
+        View view = resource.createSuccessStory("", "", "summary", "description", inputStream, contentDisposition);
         assertThat(view instanceof ResultView, is(true));
     }
 
     @Test
     public void shouldReturnResultViewWithErrorMessagesWhenTitleLengthValidationFailed() throws IOException {
-        View view = resource.createSuccessStory(makeDummyString(151), "summary", "description", inputStream, contentDisposition);
+        View view = resource.createSuccessStory("", makeDummyString(151), "summary", "description", inputStream, contentDisposition);
         assertThat(view instanceof ResultView, is(true));
     }
 
     @Test
     public void shouldReturnResultViewWithErrorMessagesWhenSummaryLengthValidationFailed() throws IOException {
-        View view = resource.createSuccessStory("title", makeDummyString(151), "description", inputStream, contentDisposition);
+        View view = resource.createSuccessStory("", "title", makeDummyString(151), "description", inputStream, contentDisposition);
         assertThat(view instanceof ResultView, is(true));
     }
 
