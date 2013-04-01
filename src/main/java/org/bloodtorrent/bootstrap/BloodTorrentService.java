@@ -17,10 +17,15 @@ import org.hibernate.SessionFactory;
 
 public class BloodTorrentService extends Service<SimpleConfiguration> {
     private SimpleHibernateBundle hibernateBundle = new SimpleHibernateBundle("org.bloodtorrent");
+    private BloodTorrentCustom404 custom404;
+
+    public BloodTorrentService(BloodTorrentCustom404 custom404) {
+        this.custom404 = custom404;
+    }
 
     public static void main(String[] args) {
 	  try {
-        new BloodTorrentService().run(args);
+        new BloodTorrentService(new BloodTorrentCustom404()).run(args);
 	  }
 	  catch(Exception ex) {
 	    System.out.println("Running BloodTorrent Service failed with exception.");
@@ -45,6 +50,8 @@ public class BloodTorrentService extends Service<SimpleConfiguration> {
     @Override
     public void run(SimpleConfiguration config,
                     Environment environment) throws ClassNotFoundException {
+
+        environment.addProvider(custom404);
 
         SessionHandler httpSessionHandler = new SessionHandler();
         SessionManager httpsSessionManager = httpSessionHandler.getSessionManager();

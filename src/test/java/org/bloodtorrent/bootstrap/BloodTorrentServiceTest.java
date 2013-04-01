@@ -9,6 +9,7 @@ import org.junit.Test;
 import java.io.IOException;
 
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
@@ -26,23 +27,38 @@ public class BloodTorrentServiceTest {
 
     @Before
     public void before() throws IOException {
-        service = new BloodTorrentService();
+        service = new BloodTorrentService(null);
         bootstrap = mock(Bootstrap.class);
         config = mock(SimpleConfiguration.class);
         environment = mock(Environment.class);
     }
 
     @Test
-    public void testInitialize() throws Exception {
+    public void thisDoesNotTestInitialize() throws Exception {
         service.initialize(bootstrap);
     }
 
     @Test
-    public void testRun() throws Exception {
+    public void thisDoesNotTestRun() throws Exception {
+        mockPersistenceLayer(service);
+        service.run(config, environment);
+    }
+
+    private void mockPersistenceLayer(BloodTorrentService bloodTorrentService) {
         SimpleHibernateBundle mock = mock(SimpleHibernateBundle.class);
         SessionFactory sessionFactory = mock(SessionFactory.class);
         when(mock.getSessionFactory()).thenReturn(sessionFactory);
-        service.setHibernateBundle(mock);
-        service.run(config, environment);
+        bloodTorrentService.setHibernateBundle(mock);
+    }
+
+    @Test
+    public void shouldAddCustom404ToEnvironment() throws ClassNotFoundException {
+        BloodTorrentCustom404 custom404 = new BloodTorrentCustom404();
+        BloodTorrentService bloodTorrentService = new BloodTorrentService(custom404);
+        mockPersistenceLayer(bloodTorrentService);
+
+        bloodTorrentService.run(config, environment);
+
+        verify(environment).addProvider(custom404);
     }
 }
