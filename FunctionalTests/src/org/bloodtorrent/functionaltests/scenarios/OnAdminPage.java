@@ -10,6 +10,7 @@ public class OnAdminPage {
 
 	private Admin admin;
 
+	private static String SUCCESS_STORY_TITLE = "How we helped";
 	
 	public OnAdminPage(Browser browser) {
 		admin = new Admin(browser);
@@ -22,6 +23,18 @@ public class OnAdminPage {
 
 	public void logout() throws Exception {
 		admin.signOff();
+	}
+
+	public void goToCreateSuccessStoriesPage() throws Exception {
+		admin.goToCreateSuccessStroy();
+	}
+
+	public void verifySuccessStoryListPage() throws Exception {
+		verifyEquals(SUCCESS_STORY_TITLE, admin.getTitleofSuccessStoryList());
+	}
+
+	public void verifyMessageSuccessStoryIsCreatedSuccessfully() throws Exception {
+	
 	}
 
 }

@@ -1,0 +1,11 @@
+Tags:Story-75,in-progress
+Preconditions:Blood Torrent
+Metadata:ScenarioType=Manual
+On home page:
+#Request for blood
+
+On request blood page:
+#Request blood
+#Verify missing field error message
+#Fill out invalid phone number
+#Verify invalid format error message 

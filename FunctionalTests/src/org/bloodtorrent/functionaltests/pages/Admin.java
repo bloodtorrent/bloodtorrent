@@ -15,6 +15,14 @@ public class Admin extends BasePage {
 	public void signOff() {
 		browser.link("Sign off").click();
 	}
+
+	public void goToCreateSuccessStroy() {
+		browser.button("Create").click();
+	}
+
+	public String getTitleofSuccessStoryList() {
+		return browser.heading1("title").text();
+	}
 	
 
 }

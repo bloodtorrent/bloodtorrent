@@ -1,0 +1,11 @@
+Tags:Story-75,in-progress
+Preconditions:Blood Torrent
+Metadata:ScenarioType=Manual
+On home page:
+#Select register donor
+
+On register donor page:
+#Register donor
+#Verify missing field error message
+#Fill out invalid phone number
+#Verify invalid format error message
