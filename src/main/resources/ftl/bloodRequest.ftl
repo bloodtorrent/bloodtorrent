@@ -2,17 +2,21 @@
     <head>
     <title>Request for Blood</title>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" href="/css/message.css" />
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+    <script src="http://malsup.github.com/jquery.form.js"></script>
+    <script src="/js/message.js"></script>
     <script type="text/javascript">
     $(function() {
+/* out of scope #1
         $( "#birthday" ).datepicker({
           showOn: "button",
           buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif",
           buttonImageOnly: true,
           dateFormat: "dd-mm-yy"
-
         });
+*/
       });
 
     function goHome(){
@@ -21,8 +25,8 @@
     </script>
     </head>
     <body>
-        <form id="bloodreqFrm" method="post" action="/requestForBlood" onsubmit="validate(this)">
-        <div id="bloodreqInfo">
+        <form id="bloodRequestForm" method="post" action="/requestForBlood">
+        <div id="bloodRequestInfo">
             <h2><u>Request for Blood</u></h2>
             <table cellspacing="3">
                 <tr>
@@ -102,7 +106,7 @@
                 <tr>
                     <td><label>Date of Birth:</label></td>
                     <td>
-                        <input type="text" name="birthday" id="birthday" width="30" value="" readonly/>
+                        <input type="text" name="birthday" id="birthday" width="30" value=""/>
                         (optional)
                     </td>
                 </tr>
@@ -138,8 +142,15 @@
                 </tr>
             </table>
         </div>
-        <input type="submit" name="register" value="Register"/>
-        <input type="button" name="reset" value="Cancel" onClick="goHome()"/>
+        <div>
+            <input type="submit" name="register" value="Register"/>
+            <input type="button" name="reset" value="Cancel" onClick="goHome()"/>
+        </div>
+        <div class="message" style="display: none"></div>
+        </form>
+
+        <form id="successForm" method="post" action="/requestForBlood/success">
+            <input type="hidden" name="requestId"/>
         </form>
     </body>
 </html>

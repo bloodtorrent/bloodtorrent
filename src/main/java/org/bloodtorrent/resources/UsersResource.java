@@ -144,4 +144,8 @@ public class UsersResource {
         }
         return messages;
     }
+
+    public User find(String id) {
+        return repository.get(id);
+    }
 }

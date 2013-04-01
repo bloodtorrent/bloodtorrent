@@ -1,6 +1,10 @@
 package org.bloodtorrent.view;
 
 import com.yammer.dropwizard.views.View;
+import lombok.Getter;
+import org.bloodtorrent.dto.User;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,9 +14,11 @@ import com.yammer.dropwizard.views.View;
  * To change this template use File | Settings | File Templates.
  */
 public class BloodRequestView extends View {
+    @Getter
+    private List<User> donors;
 
-    public BloodRequestView() {
-        super("/ftl/bloodRequest.ftl");
+    public BloodRequestView(List<User> donors) {
+        super("/ftl/thankyou.ftl");
+        this.donors = donors;
     }
-
 }

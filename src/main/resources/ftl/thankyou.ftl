@@ -5,10 +5,16 @@
        <br>
        <input type="button" value="Home" onclick="location.href='/';"/>
 
-       <div id="donor list">
-           <#list users as user>
+       <!--TODO Remove list after finishing emailing functionality-->
+       <div id="donor_list">
+         <#if donors?size = 0>
+           <h2>There is no matching donor.</h2>
+         <#else>
+           <#list donors as user>
                <li> ${user.firstName}, ${user.lastName},${user.cellPhone}, ${user.id}, ${user.lastDonateDate}, ${user.address}, ${user.city}, ${user.state}, ${user.bloodGroup}<br/>
            </#list>
+         </#if>
        </div>
+       <!-- End of temporary list -->
     </body>
 </html>

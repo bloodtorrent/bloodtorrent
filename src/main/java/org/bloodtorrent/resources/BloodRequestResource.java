@@ -1,5 +1,7 @@
 package org.bloodtorrent.resources;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.yammer.dropwizard.hibernate.UnitOfWork;
 import com.yammer.dropwizard.views.View;
 import lombok.Setter;
@@ -9,12 +11,7 @@ import org.bloodtorrent.dto.User;
 import org.bloodtorrent.repository.BloodRequestRepository;
 import org.bloodtorrent.view.BloodRequestView;
 import org.bloodtorrent.view.CommonView;
-import org.bloodtorrent.view.ResultView;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.*;
@@ -27,10 +24,10 @@ import java.util.*;
  * To change this template use File | Settings | File Templates.
  */
 @Path("/requestForBlood")
-@Produces(MediaType.TEXT_HTML)
 public class BloodRequestResource {
     private final BloodRequestRepository repository;
     private final NotifyDonorSendEmailResource mailResource;
+    private final BloodTorrentValidator validator;
 
     @Setter
     private FindingMatchingDonorResource findingMatchingDonorResource;
@@ -38,17 +35,38 @@ public class BloodRequestResource {
     public BloodRequestResource(BloodRequestRepository repository, NotifyDonorSendEmailResource mailResource) {
         this.repository = repository;
         this.mailResource = mailResource;
+        this.validator = new BloodTorrentValidator();
     }
 
     @GET
     @UnitOfWork
-    public BloodRequestView forwardBloodRequestForm() {
-        return new BloodRequestView();
+    @Produces(MediaType.TEXT_HTML)
+    public View forwardBloodRequestForm() {
+        return new CommonView("/ftl/bloodRequest.ftl");
     }
 
     @POST
     @UnitOfWork
-    public View requestForBlood(
+    @Produces(MediaType.TEXT_HTML)
+    @Path("success")
+    public View forwardBloodRequestResult(@FormParam("requestId") String requestId) {
+        BloodRequest bloodRequest = repository.get(requestId);
+        List<User> donors = null;
+        try {
+            donors = findMatchingDonors(bloodRequest);
+            sendEmailToMatchingDonors(bloodRequest, donors);
+        } catch (IllegalDataException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            donors = Lists.newArrayList();
+        }
+
+        return new BloodRequestView(donors);
+    }
+
+    @POST
+    @UnitOfWork
+    @Produces(MediaType.APPLICATION_JSON)
+    public Map<String, Object> requestForBlood(
             @FormParam("firstName") String firstName,
             @FormParam("lastName") String lastName,
             @FormParam("hospitalAddress") String hospitalAddress,
@@ -79,32 +97,34 @@ public class BloodRequestResource {
         bloodRequest.setRequesterType(requesterType);
         bloodRequest.setDate(new Date());
         bloodRequest.setValidated("N");
-        bloodRequest.setId("" + System.currentTimeMillis());
+        bloodRequest.setId(String.valueOf(System.currentTimeMillis()));
 
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        Validator validator = factory.getValidator();
-        Set<ConstraintViolation<BloodRequest>> constraintViolations = validator.validate(bloodRequest);
-
-        if(constraintViolations.size() > 0){
+        Map<String, Object> resultMap = Maps.newHashMap();
+        if (validator.isInvalid(bloodRequest)) {
             List<String > messages = new ArrayList<String>();
-            for(ConstraintViolation constraintViolation :constraintViolations){
-                messages.add(constraintViolation.getMessage()) ;
-            }
-            return new ResultView("fail", messages);
-        }else{
+            String message = validator.getFirstValidationMessageAlphabetically(bloodRequest);
+            messages.add(message);
+            resultMap.put("result", "fail");
+            resultMap.put("messages", messages);
+        } else {
             createNewBloodRequest(bloodRequest);
-            List<User> donors = null;
-            try {
-                donors = findingMatchingDonorResource.findMatchingDonors(bloodRequest);
-                mailResource.sendNotifyEmail(donors, bloodRequest);
-            } catch (IllegalDataException e) {
-                e.printStackTrace();
-                throw new IllegalDataException("Finding matching donor failed.");
-            }
-
-            return new CommonView("/ftl/thankyou.ftl", donors);
+            resultMap.put("result", "success");
+            resultMap.put("requestId", bloodRequest.getId());
         }
+        return resultMap;
+    }
 
+    private List<User> findMatchingDonors(BloodRequest bloodRequest) throws IllegalDataException {
+        try {
+            return findingMatchingDonorResource.findMatchingDonors(bloodRequest);
+        } catch (IllegalDataException e) {
+            e.printStackTrace();
+            throw new IllegalDataException("Finding matching donor failed.");
+        }
+    }
+
+    private void sendEmailToMatchingDonors(BloodRequest bloodRequest, List<User> donors) {
+        mailResource.sendNotifyEmail(donors, bloodRequest);
     }
 
     private void setBirthday(String birthday, BloodRequest bloodRequest) {
@@ -122,4 +142,5 @@ public class BloodRequestResource {
     public void createNewBloodRequest(BloodRequest bloodRequest) {
         repository.insert(bloodRequest);
     }
+
 }

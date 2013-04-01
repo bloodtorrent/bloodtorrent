@@ -20,8 +20,6 @@ public class CommonView extends View {
     private User user;
     @Getter @Setter
     private String message;
-    @Getter @Setter
-    private List<User> users;
 
     public CommonView(String viewPath) {
         super(viewPath);
@@ -35,10 +33,5 @@ public class CommonView extends View {
     public CommonView(String viewPath, String message) {
         super(viewPath);
         this.message = message;
-    }
-
-    public CommonView(String viewPath, List<User> users) {
-        super(viewPath);
-        this.users = users;
     }
 }
