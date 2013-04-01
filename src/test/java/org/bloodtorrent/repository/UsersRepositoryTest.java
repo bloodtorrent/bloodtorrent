@@ -50,25 +50,28 @@ public class UsersRepositoryTest{
     }
 
     @Test
-    public void shoulFindMatchingUsers() {
+    public void shouldFindMatchingUsers() {
         threeUsersButOnlyOneMatchingBloodGroup("O+");
 
         List<User> foundUsers = repository.listByBloodGroupAndAfter90DaysFromLastDonateDate("O+");
 
-        assertThat(foundUsers.size(), is(1));
+        assertThat(foundUsers.size(), is(2));
     }
 
     private void threeUsersButOnlyOneMatchingBloodGroup(String matchingBloodGroup) {
         Date longEnoughToDonateAgain = todayMinusDays(MIN_DAYS_LAST_DONATION + 5);
-        Date tooSoonToDonateAgain = todayMinusDays(MIN_DAYS_LAST_DONATION - 1);
+        Date tooSoonToDonateAgain = todayMinusDays(MIN_DAYS_LAST_DONATION );
+        Date timeToDonateAgain = todayMinusDays(MIN_DAYS_LAST_DONATION +1 );
 
         User expectedMatch = user(matchingBloodGroup, longEnoughToDonateAgain, "email1@naver.com");
         User unmatchedUser = user("A+", longEnoughToDonateAgain, "email2@naver.com");
         User anotherUnmatchedUser = user(matchingBloodGroup, tooSoonToDonateAgain, "email3@naver.com");
+        User anotherExpectedMatch = user(matchingBloodGroup, timeToDonateAgain, "email4@naver.com");
 
         repository.insert(expectedMatch);
         repository.insert(unmatchedUser);
         repository.insert(anotherUnmatchedUser);
+        repository.insert(anotherExpectedMatch);
     }
 
     private Date todayMinusDays(Integer numberOfDays) {

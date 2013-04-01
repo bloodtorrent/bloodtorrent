@@ -101,8 +101,12 @@ public class UsersResource {
         return validator.validate(user);
     }
 
-    private void calculateLastDonateDate(String lastDonate, User user) {
-        Date lastDonateDate = DateUtils.addMonths(new Date(), -Integer.parseInt(lastDonate));
+    public void calculateLastDonateDate(String lastDonate, User user) {
+        this.calculateLastDonateDate(new Date(), lastDonate, user);
+    }
+
+    public void calculateLastDonateDate(Date today, String lastDonate, User user) {
+        Date lastDonateDate = DateUtils.addDays(today, - Integer.parseInt(lastDonate));
         user.setLastDonateDate(lastDonateDate);
     }
 

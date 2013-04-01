@@ -5,14 +5,13 @@ import org.bloodtorrent.repository.UsersRepository;
 import org.bloodtorrent.view.ResultView;
 import org.junit.Test;
 
-import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Set;
+import java.util.Date;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -113,7 +112,26 @@ public class UsersResourceTest {
         assertThat(resultView.getMessages().isEmpty(), is(false));
     }
 
+    @Test
+    public void shouldCheckCalculatingDonationDate(){
+        UsersRepository usersRepository = mock(UsersRepository.class);
+        UsersResource usersResource = new UsersResource(usersRepository);
+        User user = createNewUser();
 
+        //1. within 1 month
+        Date today = new Date(113, 2, 26);
+        usersResource.calculateLastDonateDate(today, "31", user);
+        assertThat(user.getLastDonateDate(), is(new Date(113,1,23)));
+        //2. 2month ago
+        usersResource.calculateLastDonateDate(today, "61", user);
+        assertThat(user.getLastDonateDate(), is(new Date(113,0,24)));
+        //3. 3month ago
+        usersResource.calculateLastDonateDate(today, "91", user);
+        assertThat(user.getLastDonateDate(), is(new Date(112,11,25)));
+        //4. can not remember
+        usersResource.calculateLastDonateDate(today, "91", user);
+        assertThat(user.getLastDonateDate(), is(new Date(112,11,25)));
+    }
 
     private <T> void setDummyString(T t, String property, int num) {
         String dummyText = makeDummyString(num);
