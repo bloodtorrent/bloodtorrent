@@ -1,15 +1,15 @@
 Tags:Story-57,Login
 Preconditions:Blood Torrent
 Metadata:ScenarioType=Auto
-On Main Page:
+On home page:
 $Login as admin
 
-On Admin Page:
+On admin page:
 #Verify admin page
-#logout
+#Logout
 
-On Main Page:
-#Verify main title
-#Verify non login status
+On home page:
+#Verify title of home page
+#Verify user is not logged in
 
 

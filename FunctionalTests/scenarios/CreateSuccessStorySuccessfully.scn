@@ -1,20 +1,19 @@
 Tags:Story-78,in-progress
 Preconditions:Blood Torrent
 Metadata:ScenarioType=Manual
-On Main Page:
+On home page:
 $Login as admin
 
-On Admin Page:
+On admin page:
 #Verify a list of success stories is visible
 #Go to create success stories page
 
-On Create Success Story Page:
-#Fill out the information to register Success Story
+On create success story page:
+#Fill out the information to register success story
 #Attach an image
 #Replace a attached image
 #Verify replaced image
-#Register Success Story
-#Verify the message successfully
+#Register success story
 
-On Success Story List Page:
-#Verify Success Story Title
+On admin page:
+#Verify message success story is created successfully

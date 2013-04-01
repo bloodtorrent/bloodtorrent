@@ -7,11 +7,11 @@ NOTE
 2. "Verify Oldest Request Approval is top of List" is Twist ? or Junit 
      We need to discuss with assigned devloper(still not assign)
 
-On Main Page:
+On home page:
 $Login as admin
 
-On Admin Page:
+On admin page:
 #Verify navigation menu
-#Verify Request Approval List
-#Verify Oldest Request Approval is top of List
+#Verify request approval list
+#Verify oldest request approval is top of list
 

@@ -1,7 +1,7 @@
 Tags:Story-4
 Preconditions:Blood Torrent
 Metadata:ScenarioType=Auto
-On Main Page:
+On home page:
 #Select register donor
 
 On register donor page:

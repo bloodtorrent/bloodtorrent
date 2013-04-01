@@ -1,12 +1,12 @@
 Tags:Story-21
 Preconditions:Blood Torrent
 Metadata:ScenarioType=Auto
-On Main Page:
+On home page:
 #Display detailed success story
 
 On Detailed Success Story Page:
 #Verify detailed success story title
-#Go back Home
+#Go back to home page
 
-On Main Page:
-#Verify main title
+On home page:
+#Verify title of home page

@@ -5,7 +5,7 @@ import net.sf.sahi.client.Browser;
 public class BloodTorrent {
 
 	private Browser browser;
-	private String url = "http://localhost:8080";
+	public static String url = "http://localhost:8080/";
 
 	public BloodTorrent(Browser browser) {
 		this.browser = browser;

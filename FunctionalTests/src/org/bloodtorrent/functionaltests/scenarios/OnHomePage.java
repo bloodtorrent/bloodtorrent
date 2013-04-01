@@ -3,52 +3,52 @@ package org.bloodtorrent.functionaltests.scenarios;
 import static com.thoughtworks.twist.core.execution.TwistVerification.verifyEquals;
 import static com.thoughtworks.twist.core.execution.TwistVerification.verifyTrue;
 import net.sf.sahi.client.Browser;
-import org.bloodtorrent.functionaltests.pages.MainPage;
+import org.bloodtorrent.functionaltests.pages.HomePage;
 
-public class OnMainPage {
+public class OnHomePage {
 
 	private String adminEmail = "Administrator@bloodtorrent.org";
 	private String adminPassWord = "p@ssw0rd";
 
-	private MainPage mainPage;
+	private HomePage homePage;
 
-	public OnMainPage(Browser browser) {
-		mainPage = new MainPage(browser);
+	public OnHomePage(Browser browser) {
+		homePage = new HomePage(browser);
 	}
 
-	public void verifyMainTitle() throws Exception {
-		verifyEquals("Blood Torrent", mainPage.getTitle());
+	public void verifyTitleOfHomePage() throws Exception {
+		verifyEquals("Blood Torrent", homePage.getTitle());
 	}
 
 	public void selectRegisterDonor() throws Exception {
-		mainPage.registerDonor();
+		homePage.registerDonor();
 	}
 
 	public void requestForBlood() throws Exception {
-		mainPage.requestForBlood();
+		homePage.requestForBlood();
 	}
 
-	public void verifyNonLoginStatus() throws Exception {
-		verifyTrue(mainPage.loginButton().exists());
+	public void verifyUserIsNotLoggedIn() throws Exception {
+		verifyTrue(homePage.loginButton().exists());
 	}
 
 	public void fillOutTheValidInformationForLoginAsAdmin() throws Exception {
-		mainPage.enterLoginCredentials(adminEmail, adminPassWord);
+		homePage.enterLoginCredentials(adminEmail, adminPassWord);
 	}
 
 	public void login() throws Exception {
-		mainPage.login();
+		homePage.login();
 	}
 
 	public void verifySuccessStoriesSectionIsVisible() throws Exception {
-		verifyTrue(mainPage.getSectionOfSuccessStory().exists());
+		verifyTrue(homePage.getSectionOfSuccessStory().exists());
 	}
 
 	public void verifyReadMoreLinkIsPresentForSuccessStories() throws Exception {
-		verifyTrue(mainPage.getReadMoreLink().exists());
+		verifyTrue(homePage.getReadMoreLink().exists());
 	}
 
 	public void displayDetailedSuccessStory() throws Exception {
-		mainPage.getDetailSuccessStory();
+		homePage.getDetailSuccessStory();
 	}
 }

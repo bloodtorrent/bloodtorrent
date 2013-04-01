@@ -1,5 +1,5 @@
 Tags:Story-19
 Preconditions:Blood Torrent
-On Main Page:
-#Verify Success Stories section is visible
+On home page:
+#Verify success stories section is visible
 #Verify read more link is present for success stories

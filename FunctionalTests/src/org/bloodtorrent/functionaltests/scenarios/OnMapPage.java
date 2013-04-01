@@ -13,7 +13,7 @@ public class OnMapPage {
 		map = new MapForSavingLocation(browser);  
 	}
 
-	public void verifyDisplayedMap() throws Exception {
+	public void verifyMapIsVisible() throws Exception {
 		assertTrue(map.isLocationPinVisible());
 	}
 	

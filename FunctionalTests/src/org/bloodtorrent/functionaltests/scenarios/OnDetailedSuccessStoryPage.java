@@ -16,7 +16,7 @@ public class OnDetailedSuccessStoryPage {
 		assertTrue(detailedSuccessStory.getTitle().exists());
 	}
 
-	public void goBackHome() throws Exception {
+	public void goBackToHomePage() throws Exception {
 		detailedSuccessStory.getHomeLink().click();
 	}
 }

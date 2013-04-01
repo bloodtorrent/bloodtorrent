@@ -1,12 +1,12 @@
 Tags:Story-3
 Preconditions:Blood Torrent
 Metadata:ScenarioType=Auto
-On Main page:
+On home page:
 #Request for blood
 
 On request blood page:
 #Fill out the valid request information to mendatory fields
-#Cancel Request
+#Cancel request
 
-On Main Page :
-#Verify main title
+On home page:
+#Verify title of home page

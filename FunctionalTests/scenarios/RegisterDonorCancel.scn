@@ -1,11 +1,11 @@
 Tags:Story-1
 Preconditions:Blood Torrent
 Metadata:ScenarioType=Auto
-On Main Page:
+On home page:
 #Select register donor
 
 On register donor page:
 #Cancel registration
 
-On Main Page:
-#Verify main title
+On home page:
+#Verify title of home page

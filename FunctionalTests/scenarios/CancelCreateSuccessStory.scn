@@ -1,16 +1,15 @@
 Tags:Story-78,in-progress
 Preconditions:Blood Torrent
 Metadata:ScenarioType=Manual
-On Main Page:
+On home page:
 $Login as admin
 
-On Admin Page:
+On admin page:
 #Verify a list of success stories is visible
 #Go to create success stories page
 
-On Create Success Story Page:
-#Display Register Success Story Page
-#Cancel Register Success Story
+On create success story page:
+#Cancel creating a success Story
 
-On Success Story List Page:
-#Verify Success Story Title
+On admin page:
+#Verify user is back on admin page

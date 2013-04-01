@@ -1,11 +1,11 @@
 Tags:Story-4
 Preconditions:Blood Torrent
-On Main Page:
+On home page:
 #Select register donor
 
 On register donor page:
 #Fill out the address information 
 #Open maps to select accurate location
 
-On Map page:
-#verify displayed Map
+On map page:
+#Verify map is visible

@@ -3,8 +3,8 @@ package org.bloodtorrent.functionaltests.pages;
 import net.sf.sahi.client.Browser;
 import net.sf.sahi.client.ElementStub;
 
-public class MainPage extends BasePage {
-	public MainPage(Browser browser) {
+public class HomePage extends BasePage {
+	public HomePage(Browser browser) {
 		super(browser);
 	}
 
