@@ -4,6 +4,7 @@ import com.yammer.dropwizard.views.View;
 import lombok.Getter;
 import lombok.Setter;
 import org.bloodtorrent.dto.SuccessStory;
+import org.bloodtorrent.dto.User;
 
 import java.util.List;
 
@@ -26,6 +27,9 @@ public class SuccessStoryView extends View {
 
     @Getter @Setter
     public List<SuccessStory> successStoryList;
+
+    @Getter @Setter
+    private User user;
 
     public void setSavedSuccessFlag(Boolean flag) {
         savedSuccessFlag = flag.booleanValue();

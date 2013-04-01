@@ -22,6 +22,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import javax.ws.rs.core.Response;
 import java.io.*;
 import java.util.*;
 
@@ -194,14 +195,15 @@ public class SuccessStoryResourceTest {
 
     @Test
     public void shouldReturnSuccessStoryEditorViewWhenAdminIsLoggedIn() {
-        SuccessStoryView view = resource.viewSuccessStoryEditor(ADMIN_SESSION);
+        Response response = resource.viewSuccessStoryEditor(ADMIN_SESSION);
+        SuccessStoryView view = (SuccessStoryView) response.getEntity();
         assertThat(view.getTemplateName(), is("/ftl/successStoryEditor.ftl"));
     }
 
     @Test
     public void shouldReturnMainPageWhenAdminIsNotLoggedIn() {
-        SuccessStoryView view = resource.viewSuccessStoryEditor(NONADMIN_SESSION);
-        assertNull(view);
+        Response response = resource.viewSuccessStoryEditor(NONADMIN_SESSION);
+        assertThat(response.getStatus(), is(302));
     }
 
 }

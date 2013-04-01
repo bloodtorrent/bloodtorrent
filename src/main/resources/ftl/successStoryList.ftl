@@ -1,12 +1,16 @@
 <html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <#if savedSuccessFlag>
         <script language="javascript">
             alert("This story is saved successfully.");
         </script>
     </#if>
+    </head>
     <body>
-    <#include "/ftl/header.ftl" >
+    <#include "/ftl/adminHeader.ftl" >
        <h1 id="title" align="center">How we helped</h1>
+       <input type="button" value="Create" onclick="location.href='/successStory/createView';"/>
        <table border="1" cellspacing="0">
            <tr bgcolor="#cccccc">
               <th> </th>
@@ -21,7 +25,7 @@
            <tr>
               <td><input type="checkbox" id="${story.id}"></td>
               <td>${story.title}</td>
-              <td>${story.summary}</td>
+              <td>${story.summary}&nbsp;</td>
               <td>${story.createDate?string("dd-MM-yyyy")}</td>
               <td>${story.showMainPage}</td>
               <td>
@@ -32,7 +36,6 @@
            </tr>
            </#list>
        </table>
-
        <input type="button" value="Create" onclick="location.href='/successStory/createView';"/>
     </body>
 </html>

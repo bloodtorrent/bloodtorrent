@@ -39,6 +39,11 @@ database:
   # the maximum lifetime of an idle connection
   closeConnectionIfIdleFor: 1 minute
 
+#HTTP
+http:
+  gzip:
+    enabled: false
+
 #Mail
 
 mail:

@@ -1,5 +1,6 @@
 <html>
     <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
         <link rel="stylesheet" href="/css/bloodtorrent.css"/>
         <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
@@ -17,7 +18,7 @@
         </script>
         </head>
     <body>
-    <#include "/ftl/header.ftl" >
+    <#include "/ftl/adminHeader.ftl" >
         <section id = "successStoryEditor">
         <h1 align = "center">Success Stories</h1><br>
         <form id = "createSuccessStory" enctype="multipart/form-data" action="/successStory/create" method="post">

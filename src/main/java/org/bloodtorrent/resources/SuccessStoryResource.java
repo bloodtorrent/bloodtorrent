@@ -24,6 +24,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.*;
+import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -104,21 +105,42 @@ public class SuccessStoryResource {
     @GET
 	@UnitOfWork
     @Path("list")
-	public SuccessStoryView listSuccessStory() {
-		return new SuccessStoryView(repository.getListForSuccessStoriesView());
+    @Produces(MediaType.TEXT_HTML + ";charset=utf-8")
+	public Response listSuccessStory(@CookieParam("JSESSIONID") String sessionID) {
+        HttpSession session = sessionManager.getHttpSession(sessionID);
+        User user = null;
+        if (session != null) {
+            user = (User)session.getAttribute("user");
+        }
+
+        if (user != null && 'Y' == user.getIsAdmin()) {
+//    		return new SuccessStoryView(repository.getListForSuccessStoriesView());
+            SuccessStoryView view = new SuccessStoryView(repository.getListForSuccessStoriesView());
+            view.setUser(user);
+            return Response.ok(view).build();
+        } else {
+            return Response.seeOther(URI.create("/")).build();
+        }
 	}
 
     @GET
 	@UnitOfWork
     @Path("createView")
-	public SuccessStoryView viewSuccessStoryEditor(@CookieParam("JSESSIONID") String sessionID) {
+    @Produces(MediaType.TEXT_HTML + ";charset=utf-8")
+	public Response viewSuccessStoryEditor(@CookieParam("JSESSIONID") String sessionID) {
         HttpSession session = sessionManager.getHttpSession(sessionID);
-        User user = (User)session.getAttribute("user");
+        User  user = null;
+        if (session != null) {
+            user = (User)session.getAttribute("user");
+        }
 
         if (user != null && 'Y' == user.getIsAdmin()) {
-            return new SuccessStoryView();
+            //return new SuccessStoryView();
+            SuccessStoryView view = new SuccessStoryView();
+            view.setUser(user);
+            return Response.ok(view).build();
         } else {
-            return null;
+            return Response.seeOther(URI.create("/")).status(302).build();
         }
 	}
 
@@ -152,7 +174,7 @@ public class SuccessStoryResource {
 
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
-        Set<ConstraintViolation<SuccessStory>> constraintViolations = validator.validate(story);
+            Set<ConstraintViolation<SuccessStory>> constraintViolations = validator.validate(story);
 
         if(constraintViolations.size() > 0){
             List<String > messages = new ArrayList<String>();

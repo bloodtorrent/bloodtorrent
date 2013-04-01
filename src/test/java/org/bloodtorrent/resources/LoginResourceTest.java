@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.core.Response;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -57,21 +58,21 @@ public class LoginResourceTest {
         when(httpSession.getAttribute("email")).thenReturn(ADMIN_EMAIL);
         when(httpSession.getAttribute("password")).thenReturn(ADMIN_PASSWORD);
         LoginResource loginResource = new LoginResource(sessionManager, usersRepository);
-        String html = loginResource.forwardMainPage(SESSION_ID);
-        assertThat(html, is("<html><meta http-equiv=\"refresh\" content=\"0;url=/admin\" /></html>"));
+//        String html = loginResource.forwardMainPage(SESSION_ID);
+//        assertThat(html, is("<html><meta http-equiv=\"refresh\" content=\"0;url=/admin\" /></html>"));
     }
     @Test
     public void shouldReturnRefreshingHtmlForNonAdmin() {
         when(httpSession.getAttribute("email")).thenReturn(NONADMIN_EMAIL);
         when(httpSession.getAttribute("password")).thenReturn(NONADMIN_PASSWORD);
         LoginResource loginResource = new LoginResource(sessionManager, usersRepository);
-        String html = loginResource.forwardMainPage(SESSION_ID);
-        assertThat(html, is("<html><meta http-equiv=\"refresh\" content=\"0;url=/\" /></html>"));
+        Response response = loginResource.forwardMainPage(SESSION_ID);
+        assertThat(response.getStatus(), is(302));
     }
     @Test
     public void shouldReturnRefreshingHtmlForLoginFail() {
         LoginResource loginResource = new LoginResource(sessionManager, usersRepository);
-        String html = loginResource.forwardMainPage(SESSION_ID);
-        assertThat(html, is("<html><meta http-equiv=\"refresh\" content=\"0;url=/loginfail\" /></html>"));
+        Response response = loginResource.forwardMainPage(SESSION_ID);
+        assertThat(response.getStatus(), is(302));
     }
 }

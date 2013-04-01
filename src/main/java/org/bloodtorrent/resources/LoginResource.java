@@ -15,6 +15,8 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.net.URI;
 import java.util.Collections;
 
 /**
@@ -37,7 +39,7 @@ public class LoginResource {
 
     @GET
     @UnitOfWork
-    public String forwardMainPage(@CookieParam("JSESSIONID") String sessionID) {
+    public Response forwardMainPage(@CookieParam("JSESSIONID") String sessionID) {
         HttpSession session = getSession(sessionID);
         if(session != null){
             String email = (String) session.getAttribute("email");
@@ -50,12 +52,14 @@ public class LoginResource {
             if(user != null && password.equals(user.getPassword())) {
                 session.setAttribute("user", user);
 
-                return (user.getIsAdmin()=='Y'? "<html><meta http-equiv=\"refresh\" content=\"0;url=/admin\" /></html>"
-                        : "<html><meta http-equiv=\"refresh\" content=\"0;url=/\" /></html>");
+//                return (user.getIsAdmin()=='Y'? "<html><meta http-equiv=\"refresh\" content=\"0;url=/admin\" /></html>"
+//                        : "<html><meta http-equiv=\"refresh\" content=\"0;url=/\" /></html>");
+                return Response.seeOther(URI.create('Y' == user.getIsAdmin() ? "/successStory/list" : "/")).status(302).build();
             }
         }
 
-        return "<html><meta http-equiv=\"refresh\" content=\"0;url=/loginfail\" /></html>";
+        //return "<html><meta http-equiv=\"refresh\" content=\"0;url=/loginfail\" /></html>";
+        return Response.seeOther(URI.create("/loginfail")).status(302).build();
     }
 
     public HttpSession getSession(String sessionID) {

@@ -22,8 +22,6 @@
     <#assign userId = user.id>
 Hello ${userId?substring(0, userId?index_of("@")) }
 <a href="/logoff">Sign off</a>
-<br/>
-<h1>status : login</h1>
 <#else>
 <form name="login">
     <#if message?exists>
@@ -36,6 +34,5 @@ Hello ${userId?substring(0, userId?index_of("@")) }
 </form>
 <a href="/user">Register donor</a> &nbsp;
 <a href="/requestForBlood">Request blood</a>
-<a href="/successStory/list">Success Story</a>
-<h1>status : logoff</h1>
 </#if>
+<hr noshade />
