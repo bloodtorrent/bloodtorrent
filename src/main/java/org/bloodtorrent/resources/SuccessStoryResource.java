@@ -120,12 +120,11 @@ public class SuccessStoryResource {
         }
 
         if (user != null && 'Y' == user.getIsAdmin()) {
-//    		return new SuccessStoryView(repository.getListForSuccessStoriesView());
             SuccessStoryView view = new SuccessStoryView(repository.getListForSuccessStoriesView());
             view.setUser(user);
             return Response.ok(view).build();
         } else {
-            return Response.seeOther(URI.create("/")).build();
+            return Response.seeOther(URI.create("/")).status(302).build();
         }
 	}
 

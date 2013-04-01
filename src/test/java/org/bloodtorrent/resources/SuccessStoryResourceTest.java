@@ -9,6 +9,7 @@ import org.bloodtorrent.repository.SuccessStoryRepository;
 import org.bloodtorrent.view.ResultView;
 import org.bloodtorrent.view.SuccessStoryView;
 import org.eclipse.jetty.server.SessionManager;
+import org.hamcrest.CoreMatchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,12 +23,15 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static org.bloodtorrent.util.TestUtil.makeDummyString;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.doAnswer;
@@ -47,6 +51,7 @@ public class SuccessStoryResourceTest {
     private final String ADMIN_SESSION = "ADMIN_SESSION";
     private final String NONADMIN_SESSION = "NON_ADMIN_SESSION";
     private final static String ATTACH_FILE_NAME = "testfile.jpg";
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 
     @Mock
     private SuccessStoryRepository repository;
@@ -160,6 +165,8 @@ public class SuccessStoryResourceTest {
         View view = resource.createSuccessStory("", makeDummyString(150), makeDummyString(150), "description", inputStream, contentDisposition);
 
         assertThat(view instanceof SuccessStoryView, is(true));
+        SuccessStoryView successStoryView = (SuccessStoryView) view;
+        assertThat(successStoryView.getSavedSuccessFlag(), is(true));
         assertThat(storyContainer.size(), is(1));
 
         SuccessStory story = storyContainer.get(0);
@@ -206,4 +213,57 @@ public class SuccessStoryResourceTest {
         assertThat(response.getStatus(), is(302));
     }
 
+    @Test
+    public void shouldReturnImageFileWhenGivenFileNameIsCorrectJpeg() throws IOException {
+        String fileName = String.format("test%s.jpg", sdf.format(new Date()));
+        String filePath = "upload/" + fileName;
+        File imageFile = new File(filePath);
+        imageFile.createNewFile();
+        imageFile.deleteOnExit();
+
+        Response response = resource.loadImage(fileName);
+        assertThat(response.getStatus(), is (200));
+        assertThat((File) response.getEntity(), CoreMatchers.equalTo(imageFile));
+
+        MultivaluedMap<String, Object> map = response.getMetadata();
+        assertThat(map.getFirst("Content-Type").toString(), is("image/jpeg"));
+    }
+
+    @Test
+    public void shouldReturnImageFileWhenGivenFileNameIsCorrectPng() throws IOException {
+        String fileName = String.format("test%s.png", sdf.format(new Date()));
+        String filePath = "upload/" + fileName;
+        File imageFile = new File(filePath);
+        imageFile.createNewFile();
+        imageFile.deleteOnExit();
+
+        Response response = resource.loadImage(fileName);
+        assertThat(response.getStatus(), is (200));
+        assertThat((File) response.getEntity(), equalTo(imageFile));
+
+        MultivaluedMap<String, Object> map = response.getMetadata();
+        assertThat(map.getFirst("Content-Type").toString(), is("image/png"));
+    }
+
+    @Test
+    public void shouldReturnNotFoundErrorWhenGivenFileNameIsIncorrect() {
+        Response response = resource.loadImage("nofile.jpg");
+        assertThat(response.getStatus(), is (404));
+    }
+
+    @Test
+    public void shouldReturnSuccessStoryViewWhenAdminIsLoggedIn() {
+        Response response = resource.listSuccessStory(ADMIN_SESSION);
+        assertThat(response.getStatus(), is (200));
+        assertThat((SuccessStoryView) response.getEntity(), CoreMatchers.isA(SuccessStoryView.class));
+    }
+
+    @Test
+    public void shouldRedirectToMainPageWhenAdminIsNotNoggedIn() {
+        Response response = resource.listSuccessStory(NONADMIN_SESSION);
+        assertThat(response.getStatus(), is(302));
+
+        MultivaluedMap<String, Object> map = response.getMetadata();
+        assertThat(map.getFirst("Location").toString(), is("/"));
+    }
 }
