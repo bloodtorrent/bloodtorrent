@@ -1,6 +1,7 @@
 package org.bloodtorrent.resources;
 
 import com.yammer.dropwizard.hibernate.UnitOfWork;
+import lombok.Setter;
 import org.bloodtorrent.ResourceManager;
 import org.bloodtorrent.dto.User;
 import org.bloodtorrent.view.CommonView;
@@ -24,7 +25,8 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.TEXT_HTML)
 public class LogOffResource {
     private final SessionManager sessionManager;
-
+    @Setter
+    MainResource mainResource;
     public LogOffResource(SessionManager httpSessionManager) {
         sessionManager = httpSessionManager;
     }
@@ -34,7 +36,6 @@ public class LogOffResource {
     public CommonView forwardMainPage(@CookieParam("JSESSIONID") String sessionID) {
         HttpSession session = getSession(sessionID);
         session.removeAttribute("user");
-        MainResource mainResource = ResourceManager.getInstance().find(MainResource.class).get();
         CommonView commonView = mainResource.forwardMainPage(sessionID);
         return commonView;
     }

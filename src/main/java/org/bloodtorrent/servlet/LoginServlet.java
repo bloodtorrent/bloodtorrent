@@ -19,9 +19,6 @@ import java.io.IOException;
  */
 public class LoginServlet extends HttpServlet {
 
-//    private static final String ADMIN_ID = "Administrator";
-//    private static final String ADMIN_PWD = "p@ssw0rd";
-
     @Override
     public void service(HttpServletRequest servletRequest, HttpServletResponse servletResponse) throws ServletException, IOException {
 
@@ -32,16 +29,5 @@ public class LoginServlet extends HttpServlet {
         session.setAttribute("email", email);
         session.setAttribute("password", password);
         servletResponse.sendRedirect("/logindb");
-
-//
-//        User user = new User();
-//
-//        if(ADMIN_ID.equals(email) && ADMIN_PWD.equals(password)){
-//            user.setId(ADMIN_ID);
-//            session.setAttribute("user", user);
-//            session.setAttribute("adminCheck", email);
-//            servletResponse.sendRedirect("/admin");
-//        }
-//        servletResponse.sendRedirect("/");
     }
 }

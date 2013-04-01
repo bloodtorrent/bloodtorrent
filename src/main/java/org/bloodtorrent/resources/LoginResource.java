@@ -1,6 +1,7 @@
 package org.bloodtorrent.resources;
 
 import com.yammer.dropwizard.hibernate.UnitOfWork;
+import lombok.Setter;
 import org.bloodtorrent.ResourceManager;
 import org.bloodtorrent.dto.SuccessStory;
 import org.bloodtorrent.dto.User;

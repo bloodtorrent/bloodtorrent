@@ -57,28 +57,45 @@ public class BloodTorrentService extends Service<SimpleConfiguration> {
         final BloodRequestRepository bloodReqRepository = new BloodRequestRepository(sessionFactory);
         final SuccessStoryRepository successStoryRepository = new SuccessStoryRepository(sessionFactory);
         final CatchPhraseRepository catchPhraseRepository = new CatchPhraseRepository(sessionFactory);
-        NotifyDonorSendEmailResource mailResource = new NotifyDonorSendEmailResource();
 
-//        environment.addProvider(MultiPartReaderServerSide.class);
-        addResource(environment, new MainResource(httpsSessionManager));
-        addResource(environment, new AdminResource(httpsSessionManager));
-        addResource(environment, new LogOffResource(httpsSessionManager));
+        NotifyDonorSendEmailResource mailResource = new NotifyDonorSendEmailResource();
+        mailResource.setMailConfiguration(config.getMailConfiguration());
+
+        MainResource mainResource = new MainResource(httpsSessionManager);
+
+        CatchPhraseResource catchPhraseResource = new CatchPhraseResource(catchPhraseRepository);
+        mainResource.setCatchPhraseResource(catchPhraseResource);
+
+        AdminResource adminResource = new AdminResource(httpsSessionManager);
+        adminResource.setMainResource(mainResource);
+
+        LogOffResource logOffResource = new LogOffResource(httpsSessionManager);
+        logOffResource.setMainResource(mainResource);
+
+        FindingMatchingDonorResource findingMatchingDonorResource = new FindingMatchingDonorResource(userRepository);
+
+        BloodRequestResource bloodRequestResource = new BloodRequestResource(bloodReqRepository, mailResource);
+        bloodRequestResource.setFindingMatchingDonorResource(findingMatchingDonorResource);
+
+        LoginFailResource loginFailResource = new LoginFailResource();
+        loginFailResource.setMainResource(mainResource);
+
+        addResource(environment, mainResource);
+        addResource(environment, adminResource) ;
+        addResource(environment, logOffResource);
         addResource(environment, new UsersResource(userRepository));
-        addResource(environment, new BloodRequestResource(bloodReqRepository, mailResource));
+        addResource(environment, bloodRequestResource);
         addResource(environment, new SuccessStoryResource(httpsSessionManager, successStoryRepository));
-        addResource(environment, new CatchPhraseResource(catchPhraseRepository));
+        addResource(environment, catchPhraseResource);
         addResource(environment, new LoginResource(httpsSessionManager, userRepository));
-        addResource(environment, new LoginFailResource());
-        addResource(environment, new FindingMatchingDonorResource(userRepository));
+        addResource(environment, loginFailResource);
+        addResource(environment, findingMatchingDonorResource);
         addResource(environment, new TestPageSendEmailResource());
         addResource(environment, new TestSendEmailResource());
         addResource(environment, mailResource);
-
-        ResourceManager.getInstance().add(config.getMailConfiguration());
     }
 
     private void addResource(Environment environment, Object resource) {
         environment.addResource(resource);
-        ResourceManager.getInstance().add(resource);
     }
 }

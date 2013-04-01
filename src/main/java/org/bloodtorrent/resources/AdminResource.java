@@ -1,6 +1,7 @@
 package org.bloodtorrent.resources;
 
 import com.yammer.dropwizard.hibernate.UnitOfWork;
+import lombok.Setter;
 import org.bloodtorrent.ResourceManager;
 import org.bloodtorrent.dto.User;
 import org.bloodtorrent.view.CommonView;
@@ -26,6 +27,9 @@ public class AdminResource {
 
     private final SessionManager sessionManager;
 
+    @Setter
+    private MainResource mainResource;
+
     public AdminResource(SessionManager httpSessionManager) {
         sessionManager = httpSessionManager;
     }
@@ -35,7 +39,6 @@ public class AdminResource {
     public CommonView forwardAdminPage(@CookieParam("JSESSIONID") String sessionID) {
         HttpSession session = getSession(sessionID);
         User user = (User) session.getAttribute("user");
-        MainResource mainResource = ResourceManager.getInstance().find(MainResource.class).get();
         CommonView commonView = mainResource.forwardMainPage(sessionID);
         if(session != null && user != null) {
             user = (User) session.getAttribute("user");

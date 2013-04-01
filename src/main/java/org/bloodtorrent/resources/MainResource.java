@@ -66,28 +66,11 @@ public class MainResource {
     }
 
     private CatchPhrase getCatchPhrase() {
-        if(catchPhraseResource == null)
-            gatherCatchPhraseResource();
         return catchPhraseResource.get();
     }
 
-    private void gatherCatchPhraseResource() {
-        catchPhraseResource = ResourceManager.getInstance().find(CatchPhraseResource.class).get();
-    }
-
     private List<SuccessStory> getSuccessStories() {
-        if(successStoryResource == null)
-            gatherSuccessStoryResource();
-        try {
-            return successStoryResource.getSuccessStoriesBriefly();
-        } catch (IllegalDataException e) {
-            e.printStackTrace();
-            return Collections.emptyList();
-        }
-    }
-
-    private void gatherSuccessStoryResource() {
-        successStoryResource = ResourceManager.getInstance().find(SuccessStoryResource.class).get();
+        return successStoryResource.getSuccessStoriesBriefly();
     }
 
     public HttpSession getSession(String sessionID) {

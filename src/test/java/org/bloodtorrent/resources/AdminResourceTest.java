@@ -39,6 +39,7 @@ public class AdminResourceTest {
     private HttpSession nullHttpSession = mock(HttpSession.class);
     private SuccessStoryRepository successStoryRepository = mock(SuccessStoryRepository.class);
     private CatchPhraseRepository catchPhraseRepository = mock(CatchPhraseRepository.class);
+    private AdminResource adminResource = new AdminResource(sessionManager);
 
     @Before
     public void init() {
@@ -60,12 +61,12 @@ public class AdminResourceTest {
         MainResource mainResource = new MainResource(sessionManager);
         mainResource.setSuccessStoryResource(new SuccessStoryResource(successStoryRepository));
         mainResource.setCatchPhraseResource(new CatchPhraseResource(catchPhraseRepository));
-        ResourceManager.getInstance().add(mainResource);
+        adminResource.setMainResource(mainResource);
     }
 
     @Test
     public void shouldReturnAdminViewWhenAdminIsLoggedIn() {
-        AdminResource adminResource = new AdminResource(sessionManager);
+
         CommonView adminView = adminResource.forwardAdminPage(ADMIN_SESSION_ID);
         assertThat(adminView.getTemplateName(), is("/ftl/admin.ftl"));
         assertThat(adminView.getUser().getId(), is(ADMIN_ID));
@@ -73,7 +74,6 @@ public class AdminResourceTest {
 
     @Test
     public void shouldReturnMainViewWhenAdminIsNotLoggedIn() {
-        AdminResource adminResource = new AdminResource(sessionManager);
         CommonView mainView = adminResource.forwardAdminPage(NON_ADMIN_SESSION_ID);
         assertThat(mainView.getTemplateName(), is("/ftl/main.ftl"));
         assertNotEquals(ADMIN_ID, mainView.getUser().getId());
@@ -81,7 +81,6 @@ public class AdminResourceTest {
 
     @Test
     public void shouldReturnMainViewWhenNoUserLoggedIn() {
-        AdminResource adminResource = new AdminResource(sessionManager);
         CommonView adminView = adminResource.forwardAdminPage(NULL_SESSION_ID);
         assertThat(adminView.getTemplateName(), is("/ftl/main.ftl"));
         assertNull(adminView.getUser());

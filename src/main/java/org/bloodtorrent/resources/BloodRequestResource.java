@@ -2,6 +2,7 @@ package org.bloodtorrent.resources;
 
 import com.yammer.dropwizard.hibernate.UnitOfWork;
 import com.yammer.dropwizard.views.View;
+import lombok.Setter;
 import org.bloodtorrent.IllegalDataException;
 import org.bloodtorrent.ResourceManager;
 import org.bloodtorrent.dto.BloodRequest;
@@ -31,6 +32,9 @@ import java.util.*;
 public class BloodRequestResource {
     private final BloodRequestRepository repository;
     private final NotifyDonorSendEmailResource mailResource;
+
+    @Setter
+    private FindingMatchingDonorResource findingMatchingDonorResource;
 
     public BloodRequestResource(BloodRequestRepository repository, NotifyDonorSendEmailResource mailResource) {
         this.repository = repository;
@@ -90,10 +94,9 @@ public class BloodRequestResource {
             return new ResultView("fail", messages);
         }else{
             createNewBloodRequest(bloodRequest);
-            FindingMatchingDonorResource resource = ResourceManager.getInstance().find(FindingMatchingDonorResource.class).get();
             List<User> donors = null;
             try {
-                donors = resource.findMatchingDonors(bloodRequest);
+                donors = findingMatchingDonorResource.findMatchingDonors(bloodRequest);
                 mailResource.sendNotifyEmail(donors, bloodRequest);
             } catch (IllegalDataException e) {
                 e.printStackTrace();

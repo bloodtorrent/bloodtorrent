@@ -4,14 +4,13 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.yammer.dropwizard.config.ConfigurationException;
 import com.yammer.dropwizard.config.Environment;
 import com.yammer.dropwizard.db.DatabaseConfiguration;
 import com.yammer.dropwizard.hibernate.SessionFactoryFactory;
 import com.yammer.dropwizard.json.ObjectMapperFactory;
-import org.hibernate.FlushMode;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.bloodtorrent.bootstrap.SimpleHibernateBundle;
+import org.hibernate.*;
 import org.hibernate.context.internal.ManagedSessionContext;
 import org.mockito.Mockito;
 
@@ -25,16 +24,17 @@ import static com.yammer.dropwizard.testing.JsonHelpers.jsonFixture;
 public class UnitOfWorkHelper {
 
     Session session;
+
     static SessionFactory hibernateSessionFactory;
-    final static ObjectMapper MAPPER = new ObjectMapperFactory().build();
-    final static String DATABASE = "database";
+
+    static SimpleHibernateBundle hibernateBundle = new SimpleHibernateBundle("org.bloodtorrent");
 
     public SessionFactory getSessionFactory() {
         return hibernateSessionFactory;
     }
 
-    protected void initDB(DatabaseConfiguration config, Class<?>[] entities)throws IOException, ClassNotFoundException {
-        hibernateSessionFactory = createHibernateSessionFactory(config, entities);
+    protected void initDB() throws IOException, ClassNotFoundException, ConfigurationException {
+        hibernateSessionFactory = createHibernateSessionFactory(ConfigurationParser.configureFromFile().getDatabaseConfiguration(), hibernateBundle.getEntityClasses());
     }
 
     protected void startSession() {
@@ -44,8 +44,7 @@ public class UnitOfWorkHelper {
 
     protected Session openSession(SessionFactory hibernateSessionFactory) {
         Session session = hibernateSessionFactory.openSession();
-        session.setDefaultReadOnly(true);
-        session.setFlushMode(FlushMode.ALWAYS);
+        session.setFlushMode(FlushMode.AUTO);
         ManagedSessionContext.bind(session);
         return session;
     }

@@ -1,6 +1,7 @@
 package org.bloodtorrent.resources;
 
 import com.yammer.dropwizard.hibernate.UnitOfWork;
+import lombok.Setter;
 import org.bloodtorrent.ResourceManager;
 import org.bloodtorrent.view.CommonView;
 import org.eclipse.jetty.server.SessionManager;
@@ -25,11 +26,12 @@ public class LoginFailResource {
 
     private static final String LOG_IN_FAIL_MESSAGE = "The E-mail or password you entered is incorrect.";
 
+    @Setter
+    MainResource mainResource;
+
     @GET
     @UnitOfWork
     public CommonView forwardMainPage(@CookieParam("JSESSIONID") String sessionID) {
-
-        MainResource mainResource = ResourceManager.getInstance().find(MainResource.class).get();
         CommonView commonView = mainResource.forwardMainPage(sessionID);
         commonView.setMessage(LOG_IN_FAIL_MESSAGE);
         return commonView;

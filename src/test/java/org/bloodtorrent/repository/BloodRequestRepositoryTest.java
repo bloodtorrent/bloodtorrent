@@ -1,7 +1,7 @@
 package org.bloodtorrent.repository;
 
 import org.bloodtorrent.dto.BloodRequest;
-import org.bloodtorrent.testing.unitofwork.ConfigurableIntegrationTest;
+import org.bloodtorrent.testing.unitofwork.ConfigurationParser;
 import org.bloodtorrent.testing.unitofwork.UnitOfWorkRule;
 import org.junit.Before;
 import org.junit.Rule;
@@ -18,9 +18,9 @@ import static junit.framework.Assert.assertNotNull;
  * Time: 오전 10:31
  * To change this template use File | Settings | File Templates.
  */
-public class BloodRequestRepositoryTest extends ConfigurableIntegrationTest {
+public class BloodRequestRepositoryTest{
     @Rule
-    public UnitOfWorkRule unitOfWorkRule = new UnitOfWorkRule(configuration.getDatabaseConfiguration(), BloodRequest.class);
+    public UnitOfWorkRule unitOfWorkRule = UnitOfWorkRule.getInstance();
 
     private BloodRequestRepository  repository ;
 

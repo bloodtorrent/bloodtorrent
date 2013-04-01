@@ -69,3 +69,9 @@ mail:
                Best Regards,<br>
                <br>
                Blood Torrent<br></body></html>
+
+ # Logging settings.
+ logging:
+
+   # The default level of all loggers. Can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL.
+   level: INFO

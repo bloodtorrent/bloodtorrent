@@ -1,5 +1,6 @@
 package org.bloodtorrent.util;
 
+import lombok.Setter;
 import org.bloodtorrent.ResourceManager;
 
 import javax.mail.*;
@@ -14,20 +15,20 @@ import java.util.Properties;
  * Time: 2:35 PM
  * To change this template use File | Settings | File Templates.
  */
-public class MailUtil {
+public class MailSender {
 
     private String PROTOCOL = "smtp";
     private String HOST = "smtp.gmail.com";
     private String PORT = "587";
     private String CONTENT_TYPE = "text/html; charset=UTF-8";
-
+    @Setter
+    MailConfiguration mailConfiguration;
     public void sendEmail(String to, String title, String content) {
         Properties properties = new Properties();
         properties.put("mail.transport.protocol", PROTOCOL);
         properties.put("mail.smtp.host", HOST);
         properties.put("mail.smtp.port", PORT);
         properties.put("mail.smtp.auth", "true");
-        MailConfiguration mailConfiguration = ResourceManager.getInstance().find(MailConfiguration.class).get();
         String adminId = mailConfiguration.getAdminMailId();
         String adminPassword = mailConfiguration.getAdminMailPassword();
         Authenticator authenticator = new SMTPAuthenticator(adminId, adminPassword);

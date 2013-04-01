@@ -33,26 +33,26 @@ public class LogOffResourceTest {
     private HttpSession httpSession = mock(HttpSession.class);
     private SuccessStoryRepository successStoryRepository = mock(SuccessStoryRepository.class);
     private CatchPhraseRepository catchPhraseRepository = mock(CatchPhraseRepository.class);
-
+    private MainResource mainResource;
+    private LogOffResource logoffResource;
     @Before
     public void init() {
         when(sessionManager.getHttpSession(SESSION_ID)).thenReturn(httpSession);
-        MainResource mainResource = new MainResource(sessionManager);
+        mainResource = new MainResource(sessionManager);
         mainResource.setSuccessStoryResource(new SuccessStoryResource(successStoryRepository));
         mainResource.setCatchPhraseResource(new CatchPhraseResource(catchPhraseRepository));
-        ResourceManager.getInstance().add(mainResource);
+        logoffResource = new LogOffResource(sessionManager);
+        logoffResource.setMainResource(mainResource);
     }
 
     @Test
     public void shouldHaveNoSession() {
-        LogOffResource logoffResource = new LogOffResource(sessionManager);
         logoffResource.forwardMainPage(SESSION_ID);
         verify(httpSession).removeAttribute("user");
     }
 
     @Test
     public void shouldReturnMainView() {
-        LogOffResource logoffResource = new LogOffResource(sessionManager);
         CommonView adminView = logoffResource.forwardMainPage(SESSION_ID);
         assertThat(adminView.getTemplateName(), is("/ftl/main.ftl"));
     }

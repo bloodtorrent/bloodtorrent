@@ -29,18 +29,18 @@ public class LoginFailResourceTest {
     private CatchPhraseRepository catchPhraseRepository = mock(CatchPhraseRepository.class);
     private SessionManager sessionManager = mock(SessionManager.class);
     private String MESSAGE = "The E-mail or password you entered is incorrect.";
-
+    private LoginFailResource logOffResource = new LoginFailResource();
     @Before
     public void init() {
         MainResource mainResource = new MainResource(sessionManager);
         mainResource.setSuccessStoryResource(new SuccessStoryResource(successStoryRepository));
         mainResource.setCatchPhraseResource(new CatchPhraseResource(catchPhraseRepository));
-        ResourceManager.getInstance().add(mainResource);
+        logOffResource.setMainResource(mainResource);
     }
 
     @Test
     public void shouldReturnMainView() {
-        LoginFailResource logOffResource = new LoginFailResource();
+
         CommonView commonView = logOffResource.forwardMainPage("");
         assertThat(commonView.getMessage(), is(MESSAGE));
     }

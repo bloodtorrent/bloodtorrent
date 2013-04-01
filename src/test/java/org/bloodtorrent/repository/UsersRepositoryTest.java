@@ -1,7 +1,7 @@
 package org.bloodtorrent.repository;
 
 import org.bloodtorrent.dto.UserBuilder;
-import org.bloodtorrent.testing.unitofwork.ConfigurableIntegrationTest;
+import org.bloodtorrent.testing.unitofwork.ConfigurationParser;
 import org.bloodtorrent.testing.unitofwork.UnitOfWorkRule;
 import org.junit.Before;
 import org.junit.Rule;
@@ -26,9 +26,9 @@ import static org.junit.Assert.assertThat;
  * Time: 오전 11:54
  * To change this template use File | Settings | File Templates.
  */
-public class UsersRepositoryTest extends ConfigurableIntegrationTest {
+public class UsersRepositoryTest{
     @Rule
-    public UnitOfWorkRule unitOfWorkRule = new UnitOfWorkRule(configuration.getDatabaseConfiguration(), User.class);
+    public UnitOfWorkRule unitOfWorkRule = UnitOfWorkRule.getInstance();
 
     private UsersRepository repository;
 

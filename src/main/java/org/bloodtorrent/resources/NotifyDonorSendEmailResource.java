@@ -1,12 +1,11 @@
 package org.bloodtorrent.resources;
 
-import org.bloodtorrent.ResourceManager;
+import lombok.Setter;
 import org.bloodtorrent.dto.BloodRequest;
 import org.bloodtorrent.dto.User;
 import org.bloodtorrent.util.MailConfiguration;
-import org.bloodtorrent.util.MailUtil;
+import org.bloodtorrent.util.MailSender;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,14 +16,16 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class NotifyDonorSendEmailResource {
+    @Setter
+    MailConfiguration mailConfiguration;
 
     public void sendNotifyEmail(List<User> userList, BloodRequest bloodRequest) {
-        MailConfiguration mailConfiguration = ResourceManager.getInstance().find(MailConfiguration.class).get();
-        MailUtil mailutil = new MailUtil();
+        MailSender mailSender = new MailSender();
+        mailSender.setMailConfiguration(mailConfiguration);
         for(User oneUser : userList){
             String title = mailConfiguration.getDonorTitle();
             String content = rePlaceContent(mailConfiguration.getDonorContent(), oneUser, bloodRequest);
-            mailutil.sendEmail(oneUser.getId(), title, content);
+            mailSender.sendEmail(oneUser.getId(), title, content);
         }
     }
 

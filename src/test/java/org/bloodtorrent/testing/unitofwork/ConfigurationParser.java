@@ -11,15 +11,17 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public abstract class ConfigurableIntegrationTest {
+public class ConfigurationParser {
 
     protected static SimpleConfiguration configuration;
 
     private static String configFileName = "src/main/resources/configurations.yml";
 
-    @BeforeClass
-    public static void configureFromFile() throws IOException, ConfigurationException {
-        configuration = parseConfiguration(getConfigFileFromProperty(configFileName));
+    public static SimpleConfiguration configureFromFile() throws IOException, ConfigurationException {
+        if(configuration == null){
+            configuration = parseConfiguration(getConfigFileFromProperty(configFileName));
+        }
+        return configuration;
     }
 
     //this method copied/inspired from DropWizard's ConfiguredCommand.parseConfiguration() private method

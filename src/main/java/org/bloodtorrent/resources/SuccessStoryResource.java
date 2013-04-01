@@ -49,14 +49,9 @@ public class SuccessStoryResource {
     /**
      * Get at most 3 Success Stories. This will be used for being shown on main page.
      * @return
-     * @throws IllegalDataException Thrown unless the number of shown success stories is between 0 and MAXIMUM_SHOWN_STORY_ON_MAIN_PAGE.
      */
-    public List<SuccessStory> getSuccessStoriesBriefly() throws IllegalDataException {
+    public List<SuccessStory> getSuccessStoriesBriefly(){
         List<SuccessStory> list = repository.list();
-
-//        if (list.size() > SuccessStory.MAXIMUM_SHOWN_STORY_ON_MAIN_PAGE) {
-//            throw new IllegalDataException("At most " + SuccessStory.MAXIMUM_SHOWN_STORY_ON_MAIN_PAGE + " Success Stories should be shown.");
-//        }
 
         List<SuccessStory> result = new LinkedList<SuccessStory>();
         int index = 0;

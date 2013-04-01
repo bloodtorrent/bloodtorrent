@@ -1,7 +1,7 @@
 package org.bloodtorrent.repository;
 
 import org.bloodtorrent.dto.SuccessStory;
-import org.bloodtorrent.testing.unitofwork.ConfigurableIntegrationTest;
+import org.bloodtorrent.testing.unitofwork.ConfigurationParser;
 import org.bloodtorrent.testing.unitofwork.UnitOfWorkRule;
 import org.junit.Before;
 import org.junit.Rule;
@@ -21,9 +21,9 @@ import static org.hamcrest.Matchers.is;
  * Time: 오전 11:40
  * To change this template use File | Settings | File Templates.
  */
-public class SuccessStoryRepositoryTest extends ConfigurableIntegrationTest {
+public class SuccessStoryRepositoryTest{
     @Rule
-    public UnitOfWorkRule unitOfWorkRule = new UnitOfWorkRule(configuration.getDatabaseConfiguration(), SuccessStory.class);
+    public UnitOfWorkRule unitOfWorkRule = UnitOfWorkRule.getInstance();
     private SuccessStoryRepository  repository ;
 
     @Before

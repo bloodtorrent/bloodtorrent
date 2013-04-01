@@ -48,9 +48,6 @@ public class LoginResourceTest {
         when(sessionManager.getHttpSession(SESSION_ID)).thenReturn(httpSession);
         when(usersRepository.get(ADMIN_EMAIL)).thenReturn(adminUser);
         when(usersRepository.get(NONADMIN_EMAIL)).thenReturn(nonAdminUser);
-        MainResource mainResource = new MainResource(sessionManager);
-        mainResource.setSuccessStoryResource(new SuccessStoryResource(successStoryRepository));
-        ResourceManager.getInstance().add(mainResource);
     }
 
     @Test

@@ -1,11 +1,8 @@
 package org.bloodtorrent.resources;
 
-import org.bloodtorrent.ResourceManager;
 import org.bloodtorrent.dto.BloodRequest;
 import org.bloodtorrent.dto.User;
 import org.bloodtorrent.util.MailConfiguration;
-import org.bloodtorrent.util.MailUtil;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +19,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 /**
  * Created with IntelliJ IDEA.
@@ -42,7 +38,8 @@ public class NotifyDonorSendEmailResourceTest {
     private String EMAIL_TITLE = "test email for send donors";
     private String ADMIN_MAIL = "administrator@bloodtorrent.mygbiz.com";
     private String ADMIN_PASSWORD = "p@ssw0rd";
-
+    private MailConfiguration mailConfiguration;
+    private NotifyDonorSendEmailResource notifyDonorSendEmailResource = new NotifyDonorSendEmailResource();
 
     @Before
     public void init() {
@@ -60,13 +57,12 @@ public class NotifyDonorSendEmailResourceTest {
         bloodRequest.setHospitalAddress("India Hospital");
         bloodRequest.setPhone("00000000000");
 
-        MailConfiguration mailConfiguration = new MailConfiguration();
+        mailConfiguration = new MailConfiguration();
         mailConfiguration.setAdminMailId(ADMIN_MAIL);
         mailConfiguration.setAdminMailPassword(ADMIN_PASSWORD);
         mailConfiguration.setDonorTitle(EMAIL_TITLE);
         mailConfiguration.setDonorContent(content);
-        ResourceManager.getInstance().add(mailConfiguration);
-
+        notifyDonorSendEmailResource.setMailConfiguration(mailConfiguration);
         PowerMockito.spy(Transport.class);
         PowerMockito.doNothing().when(Transport.class);
     }
@@ -74,14 +70,13 @@ public class NotifyDonorSendEmailResourceTest {
     @Test
     public void shoudBeReturnReplaceString() {
         NotifyDonorSendEmailResource notifyDonorSendEmailResource = new NotifyDonorSendEmailResource();
+        notifyDonorSendEmailResource.setMailConfiguration(mailConfiguration);
         assertThat(notifyDonorSendEmailResource.rePlaceContent(content, user, bloodRequest),
                 is("Inchul Hur Priyank CUSTOMER B : India Hospital 00000000000"));
     }
 
     @Test
     public void shouldSendEmailToDonors() {
-        NotifyDonorSendEmailResource notifyDonorSendEmailResource = new NotifyDonorSendEmailResource();
-
         boolean result= true;
         try{
             notifyDonorSendEmailResource.sendNotifyEmail(userList, bloodRequest);

@@ -1,7 +1,7 @@
 package org.bloodtorrent.repository;
 
 import org.bloodtorrent.dto.CatchPhrase;
-import org.bloodtorrent.testing.unitofwork.ConfigurableIntegrationTest;
+import org.bloodtorrent.testing.unitofwork.ConfigurationParser;
 import org.bloodtorrent.testing.unitofwork.UnitOfWorkRule;
 import org.junit.Before;
 import org.junit.Rule;
@@ -18,9 +18,9 @@ import static org.junit.Assert.assertThat;
  * Time: 8:59 AM
  * To change this template use File | Settings | File Templates.
  */
-public class CatchPhraseRepositoryTest extends ConfigurableIntegrationTest {
+public class CatchPhraseRepositoryTest {
     @Rule
-    public UnitOfWorkRule unitOfWorkRule = new UnitOfWorkRule(configuration.getDatabaseConfiguration(), CatchPhrase.class);
+    public UnitOfWorkRule unitOfWorkRule = UnitOfWorkRule.getInstance();
     private CatchPhraseRepository repository;
 
     @Before
