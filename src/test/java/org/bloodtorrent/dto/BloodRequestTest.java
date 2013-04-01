@@ -84,10 +84,11 @@ public class BloodRequestTest {
         req.setGender(gender);
         assertThat(req.getGender(), is(gender));
     }
+
     @Test
     public void shouldGetExactlySameValueSetOnBirthday() {
         BloodRequest req = new BloodRequest();
-        Date birthday = new Date();
+        String birthday = "04-01-2013";
         req.setBirthday(birthday);
         assertThat(req.getBirthday(), is(birthday));
     }
@@ -104,16 +105,16 @@ public class BloodRequestTest {
     public void shouldGetExactlySameValueSetOnValidated() {
         BloodRequest req = new BloodRequest();
         String validated = "N";
-        req.setValidated(validated);
-        assertThat(req.getValidated(), is(validated));
+        req.setApproval(validated);
+        assertThat(req.getApproval(), is(validated));
     }
 
     @Test
     public void shouldGetExactlySameValueSetOnDate() {
         BloodRequest req = new BloodRequest();
         Date date = new Date();
-        req.setDate(date);
-        assertThat(req.getDate(), is(date));
+        req.setRequestDate(date);
+        assertThat(req.getRequestDate(), is(date));
     }
 
     @Test
@@ -136,8 +137,9 @@ public class BloodRequestTest {
         bloodRequest.setBloodGroup("O+");
         bloodRequest.setBloodVolume("11");
         bloodRequest.setRequesterType("C");
-        bloodRequest.setValidated("N");
-        bloodRequest.setDate(new Date());
+        bloodRequest.setBirthday("01-04-2013");
+        bloodRequest.setApproval("N");
+        bloodRequest.setRequestDate(new Date());
         bloodRequest.setState("texas");
         bloodRequest.setCity("seoul");
         bloodRequest.setHospitalAddress("gangnamgu 320-11");
@@ -319,18 +321,6 @@ public class BloodRequestTest {
     }
 
     @Test
-    public void shouldBirthDayMatchWithDateFormat() {
-        BloodRequest bloodRequest = createNewBloodRequest();
-        bloodRequest.setBirthday(new Date());
-        Set<ConstraintViolation<BloodRequest>> constraintViolations = validator.validateProperty(bloodRequest, "birthday");
-        assertThat(0, is(constraintViolations.size()));
-
-        bloodRequest.setBirthday(null);
-        constraintViolations = validator.validateProperty(bloodRequest, "birthday");
-        assertThat(0, is(constraintViolations.size()));
-    }
-
-    @Test
     public void shouldExistBloodGroup() {
         BloodRequest bloodRequest = createNewBloodRequest();
         bloodRequest.setBloodGroup("");
@@ -402,6 +392,38 @@ public class BloodRequestTest {
         bloodRequest.setBloodVolume("100");
         constraintViolations = validator.validateProperty(bloodRequest, "bloodVolume");
         assertThat(constraintViolations.size(), is(1));
+    }
+
+    @Test
+    public void shouldBirthdayMatchWithDateFormat() {
+        BloodRequest bloodRequest = createNewBloodRequest();
+        bloodRequest.setBirthday("11-04-1977");
+        Set<ConstraintViolation<BloodRequest>> constraintViolations = validator.validateProperty(bloodRequest, "birthday");
+        assertThat(0, is(constraintViolations.size()));
+
+        bloodRequest.setBirthday("1333-19-99");
+        constraintViolations = validator.validateProperty(bloodRequest, "birthday");
+        assertThat(1, is(constraintViolations.size()));
+
+        bloodRequest.setBirthday("13-19-1199");
+        constraintViolations = validator.validateProperty(bloodRequest, "birthday");
+        assertThat(1, is(constraintViolations.size()));
+
+        bloodRequest.setBirthday("13/12/1999");
+        constraintViolations = validator.validateProperty(bloodRequest, "birthday");
+        assertThat(1, is(constraintViolations.size()));
+
+        bloodRequest.setBirthday("11121981");
+        constraintViolations = validator.validateProperty(bloodRequest, "birthday");
+        assertThat(1, is(constraintViolations.size()));
+
+        bloodRequest.setBirthday("");
+        constraintViolations = validator.validateProperty(bloodRequest, "birthday");
+        assertThat(0, is(constraintViolations.size()));
+
+        bloodRequest.setBirthday(null);
+        constraintViolations = validator.validateProperty(bloodRequest, "birthday");
+        assertThat(0, is(constraintViolations.size()));
     }
 
 

@@ -116,7 +116,7 @@ public class BloodRequestResourceTest {
         bloodRequest.setBloodGroup("O+");
         bloodRequest.setBloodVolume("11");
         bloodRequest.setRequesterType("C");
-        bloodRequest.setValidated("N");
+        bloodRequest.setApproval("N");
         bloodRequest.setState("Chhattisgarh");
         bloodRequest.setCity("seoul");
         bloodRequest.setHospitalAddress("gangnamgu 320-11");

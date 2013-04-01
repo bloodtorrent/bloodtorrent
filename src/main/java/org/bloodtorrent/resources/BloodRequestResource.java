@@ -13,6 +13,7 @@ import org.bloodtorrent.view.BloodRequestView;
 import org.bloodtorrent.view.CommonView;
 
 import javax.ws.rs.*;
+
 import javax.ws.rs.core.MediaType;
 import java.util.*;
 
@@ -88,14 +89,12 @@ public class BloodRequestResource {
         bloodRequest.setPhone(phone);
         bloodRequest.setEmail(email);
         bloodRequest.setGender(gender);
-
-        setBirthday(birthday, bloodRequest);
-
+        bloodRequest.setBirthday(birthday);
         bloodRequest.setBloodGroup(bloodGroup);
         bloodRequest.setBloodVolume(bloodVolume);
         bloodRequest.setRequesterType(requesterType);
-        bloodRequest.setDate(new Date());
-        bloodRequest.setValidated("N");
+        bloodRequest.setRequestDate(new Date());
+        bloodRequest.setApproval("N");
         bloodRequest.setId(String.valueOf(System.currentTimeMillis()));
 
         Map<String, Object> resultMap = Maps.newHashMap();
@@ -124,18 +123,6 @@ public class BloodRequestResource {
 
     private void sendEmailToMatchingDonors(BloodRequest bloodRequest, List<User> donors) {
         mailResource.sendNotifyEmail(donors, bloodRequest);
-    }
-
-    private void setBirthday(String birthday, BloodRequest bloodRequest) {
-        Calendar cal;
-        if (birthday != null && birthday.trim().length() > 0) {
-            String[] birth = birthday.split("-");
-            cal = Calendar.getInstance();
-            cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(birth[0]));
-            cal.set(Calendar.MONTH, Integer.parseInt(birth[1]));
-            cal.set(Calendar.YEAR, Integer.parseInt(birth[2]));
-            bloodRequest.setBirthday(cal.getTime());
-        }
     }
 
     public void createNewBloodRequest(BloodRequest bloodRequest) {

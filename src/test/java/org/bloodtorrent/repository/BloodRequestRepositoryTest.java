@@ -34,7 +34,7 @@ public class BloodRequestRepositoryTest{
         BloodRequest bloodRequest = new BloodRequest();
         String id = "gildong@gmail.com";
         bloodRequest.setId(id);
-        bloodRequest.setBirthday(Date.valueOf("2013-03-26"));
+        bloodRequest.setBirthday("26-03-2013");
         bloodRequest.setCity("Seoul");
         bloodRequest.setBloodGroup("group");
         repository.insert(bloodRequest);
