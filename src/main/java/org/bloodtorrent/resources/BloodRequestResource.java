@@ -27,14 +27,13 @@ import java.util.*;
 public class BloodRequestResource {
     private final BloodRequestRepository repository;
     private final NotifyDonorSendEmailResource mailResource;
+    private final FindingMatchingDonorResource findingMatchingDonorResource;
     private final BloodTorrentValidator validator;
 
-    @Setter
-    private FindingMatchingDonorResource findingMatchingDonorResource;
-
-    public BloodRequestResource(BloodRequestRepository repository, NotifyDonorSendEmailResource mailResource) {
+    public BloodRequestResource(BloodRequestRepository repository, NotifyDonorSendEmailResource mailResource, FindingMatchingDonorResource findingMatchingDonorResource) {
         this.repository = repository;
         this.mailResource = mailResource;
+        this.findingMatchingDonorResource = findingMatchingDonorResource;
         this.validator = new BloodTorrentValidator();
     }
 
@@ -78,7 +77,7 @@ public class BloodRequestResource {
             @FormParam("birthday") String birthday,
             @FormParam("bloodGroup") String bloodGroup,
             @FormParam("bloodVolume") String bloodVolume,
-            @FormParam("requesterType") String requesterType) throws IllegalDataException {
+            @FormParam("requesterType") String requesterType) {
         Calendar cal = null;
         BloodRequest bloodRequest = new BloodRequest();
         bloodRequest.setFirstName(firstName);

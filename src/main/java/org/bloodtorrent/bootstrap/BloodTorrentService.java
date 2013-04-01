@@ -74,8 +74,7 @@ public class BloodTorrentService extends Service<SimpleConfiguration> {
 
         FindingMatchingDonorResource findingMatchingDonorResource = new FindingMatchingDonorResource(userRepository);
 
-        BloodRequestResource bloodRequestResource = new BloodRequestResource(bloodReqRepository, mailResource);
-        bloodRequestResource.setFindingMatchingDonorResource(findingMatchingDonorResource);
+        BloodRequestResource bloodRequestResource = new BloodRequestResource(bloodReqRepository, mailResource, findingMatchingDonorResource);
 
         LoginFailResource loginFailResource = new LoginFailResource();
         loginFailResource.setMainResource(mainResource);
