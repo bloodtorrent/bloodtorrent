@@ -1,5 +1,7 @@
 Tags:Story-4,in-progress
 Preconditions:Blood Torrent
+This test sometimes fails because of the way google maps API asynchronously updates the latitude/longitude values of the current pin. Please run this test manually.
+
 On home page:
 #Select register donor
 
