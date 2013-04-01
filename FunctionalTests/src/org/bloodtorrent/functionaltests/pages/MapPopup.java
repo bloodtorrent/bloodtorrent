@@ -4,11 +4,11 @@ import net.sf.sahi.client.Browser;
 import net.sf.sahi.client.BrowserCondition;
 import net.sf.sahi.client.ExecutionException;
 
-public class MapForSavingLocation extends BasePage {
+public class MapPopup extends BasePage {
 	static int MAX_WAIT_MILISEC = 5000;
 	private String locationPin = "Your Location";
 		
-	public MapForSavingLocation(Browser browser){
+	public MapPopup(Browser browser){
 		super(browser);
 	}
 	
@@ -33,5 +33,12 @@ public class MapForSavingLocation extends BasePage {
 
 	public void saveLocation() {
 		browser.button("Save").click();
+	}
+
+	public void specifyNewLocation(String latitude, String longitude) {
+		String combinedLongitudeLatitude = latitude + "," + longitude;
+		System.out.println(combinedLongitudeLatitude);
+		browser.textbox("search_address").setValue(combinedLongitudeLatitude);
+		browser.textbox("searchButton").click();	
 	}
 }

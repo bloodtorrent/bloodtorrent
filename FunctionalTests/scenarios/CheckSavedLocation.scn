@@ -8,10 +8,14 @@ On home page:
 
 On register donor page:
 #Fill out the address information 
-#Open maps to select accurate location
+#Open map
 
-On map page:
+On map popup:
+#Specify new location
 #Save location
+
+On register donor page:
+#Open map
 
 On register donor page:
 #Verify location value

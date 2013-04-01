@@ -1,19 +1,22 @@
 package org.bloodtorrent.functionaltests.pages;
 
 import net.sf.sahi.client.Browser;
+import net.sf.sahi.client.BrowserCondition;
+import net.sf.sahi.client.ExecutionException;
 
 public class RegisterDonor extends BasePage {
-	
-	public RegisterDonor(Browser browser){
+	private static final int DEFAULT_WAIT_MILLISECONDS = 1 * 1000;
+
+	public RegisterDonor(Browser browser) {
 		super(browser);
 	}
 
 	public void setEmail(String existsEmail) {
-		browser.textbox("email").setValue(existsEmail);		
+		browser.textbox("email").setValue(existsEmail);
 	}
 
 	public void setFirstName(String firstName) {
-		browser.textbox("firstName").setValue(firstName);		
+		browser.textbox("firstName").setValue(firstName);
 	}
 
 	public void setLastName(String lastName) {
@@ -33,7 +36,7 @@ public class RegisterDonor extends BasePage {
 	}
 
 	public void setCity(String city) {
-		browser.textbox("city").setValue(city);		
+		browser.textbox("city").setValue(city);
 	}
 
 	public void setState(String state) {
@@ -57,9 +60,9 @@ public class RegisterDonor extends BasePage {
 	}
 
 	public void cancel() {
-		 browser.button("Cancel").click();
+		browser.button("Cancel").click();
 	}
-	
+
 	public void openMap() {
 		browser.button("map").click();
 	}
@@ -68,12 +71,25 @@ public class RegisterDonor extends BasePage {
 		return browser.lastAlert();
 	}
 
-	public String getLng() {
-		return browser.byId("lng").getValue().trim();
-	}
-	
-	public String getLat() {
-		return browser.byId("lat").getValue().trim();
+	public double getLng() {
+		BrowserCondition condition = new BrowserCondition(browser) {
+			public boolean test() throws ExecutionException {
+				String lng = browser.byId("lng").getValue();
+				return (lng != null && lng.trim().length() > 0);
+			}
+		};
+		browser.waitFor(condition, DEFAULT_WAIT_MILLISECONDS);
+		return Double.parseDouble(browser.byId("lng").getValue());
 	}
 
+	public double getLat() {
+		BrowserCondition condition = new BrowserCondition(browser) {
+			public boolean test() throws ExecutionException {
+				String lat = browser.byId("lat").getValue();
+				return (lat != null && lat.trim().length() > 0);
+			}
+		};
+		browser.waitFor(condition, DEFAULT_WAIT_MILLISECONDS);
+		return Double.parseDouble(browser.byId("lat").getValue());
+	}
 }

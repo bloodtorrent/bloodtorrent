@@ -1,11 +1,15 @@
 package org.bloodtorrent.functionaltests.scenarios;
 
 import java.util.Random;
+
+import junit.framework.Assert;
 import net.sf.sahi.client.Browser;
 import org.bloodtorrent.functionaltests.pages.RegisterDonor;
 import static com.thoughtworks.twist.core.execution.TwistVerification.verifyEquals;
 
 public class OnRegisterDonorPage {
+
+	private static final double TOLERANCE_FOR_COMPARING_LAT_LONG = 0.003;
 
 	private RegisterDonor registerDonor;
 	
@@ -20,6 +24,7 @@ public class OnRegisterDonorPage {
 	private String cellPhone = "0102003000";
 	private String bloodGroup = "B+";
 	private String distance = "10";
+
 	
 	public OnRegisterDonorPage(Browser browser) {
 		registerDonor = new RegisterDonor(browser);
@@ -78,7 +83,7 @@ public class OnRegisterDonorPage {
 		registerDonor.setState(state);
 	}
 
-	public void openMapsToSelectAccurateLocation() throws Exception {
+	public void openMap() throws Exception {
 		registerDonor.openMap();
 	}
 
@@ -87,7 +92,7 @@ public class OnRegisterDonorPage {
 	}
 
 	public void verifyLocationValue() throws Exception {
-		verifyEquals("73.85674369999992", registerDonor.getLng());
-		verifyEquals("18.5204303", registerDonor.getLat());
+		Assert.assertEquals(73.8, registerDonor.getLng(), TOLERANCE_FOR_COMPARING_LAT_LONG);
+		Assert.assertEquals(18.5, registerDonor.getLat(), TOLERANCE_FOR_COMPARING_LAT_LONG);
 	}
 }
