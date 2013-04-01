@@ -72,8 +72,12 @@ public class SuccessStoryResource {
 	@UnitOfWork
     @Path("{id}")
 	public SuccessStoryView getSuccessStory(@PathParam("id") String id, @CookieParam("JSESSIONID") String sessionID) {
-        HttpSession session = sessionManager.getHttpSession(sessionID);
+        HttpSession session = null;
         User user = null;
+
+        if (sessionID != null) {
+            session = sessionManager.getHttpSession(sessionID);
+        }
         if (session != null) {
             user = (User)session.getAttribute("user");
         }
