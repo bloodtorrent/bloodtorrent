@@ -1,7 +1,5 @@
 package org.bloodtorrent.functionaltests.scenarios;
 
-// JUnit Assert framework can be used for verification
-
 import net.sf.sahi.client.Browser;
 
 import org.bloodtorrent.functionaltests.pages.CreateSuccessStory;
@@ -13,7 +11,8 @@ public class OnCreateSuccessStoryPage {
 	private String title = "Success Story!";
 	private String summary = "Saved my life!";
 	private String description = "Saved my life! Desc....";
-	private String imgPath = "..\\..\\..\\src\\main\\resources\\images\\ss_test01.png";
+	private String imgPathForWin = "..\\..\\bin\\test_images\\ss_test01.png";
+	private String imgPathForLinux = "../../bin/test_images/ss_test01.png";
 
 	public OnCreateSuccessStoryPage(Browser browser) {
 		createSuccessStory = new CreateSuccessStory(browser);
@@ -30,11 +29,16 @@ public class OnCreateSuccessStoryPage {
 	}
 
 	public void attachAnImage() throws Exception {
-		createSuccessStory.setImageFile(imgPath);
+		String currentOS = System.getProperty("os.name");
+		if (currentOS.contains("Windows")){
+			createSuccessStory.setImageFile(imgPathForWin);
+		}else{
+			createSuccessStory.setImageFile(imgPathForLinux);
+		}
 	}
 
-	public void registerSuccessStory() throws Exception {
-		createSuccessStory.save();
+	public void saveSuccessStory() throws Exception {
+		createSuccessStory.saveSuccessStory();
 	}
 
 }

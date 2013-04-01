@@ -28,7 +28,7 @@ public class CreateSuccessStory extends BasePage {
 		browser.file("visualResourcePath").setFile(imgPath);
 	}
 
-	public void save() {
+	public void saveSuccessStory() {
 		browser.button("Save").click();
 	}
 }
