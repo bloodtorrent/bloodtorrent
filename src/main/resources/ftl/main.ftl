@@ -31,10 +31,12 @@
     <#list successStories as story>
         <article>
             <h1>${story.title}</h1>
-            <#if story.thumbnailPath?has_content>
-            <img class="thumbnail" src="/successStory/image/${story.thumbnailPath}"/>
-            </#if>
-            <p style="word-wrap:break-word;">${story.summary}</p>
+            <p id="summary">
+                <#if story.thumbnailPath?has_content>
+                    <img class="thumbnail" src="/successStory/image/${story.thumbnailPath}"/>
+                </#if>
+                ${story.summary}
+            </p>
             <a class="successStoryDetailLink" href="/successStory/${story.id}">READ MORE</a>
         </article>
     </#list>
