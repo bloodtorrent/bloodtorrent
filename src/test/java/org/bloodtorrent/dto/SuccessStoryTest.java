@@ -60,7 +60,7 @@ public class SuccessStoryTest {
     @Test
     public void summaryShouldNotBeMoreThan150Characters() {
         SuccessStory story = createNewSuccessStory();
-        setDummyString(story, "summary", 151);
+        setDummyString(story, "summary", 251);
         Set<ConstraintViolation<SuccessStory>> constraintViolations = validator.validateProperty(story, "summary");
         assertThat(constraintViolations.size(), is(1));
     }

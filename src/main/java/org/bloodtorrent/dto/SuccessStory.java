@@ -31,7 +31,7 @@ public class SuccessStory {
 	@Column(name = "VISUAL_RESOURCE_PATH")
 	private String visualResourcePath;
 
-    @Size(max = 150, message = "Summary is too long.")
+    @Size(max = 250, message = "Short Description is too long.")
     private String summary;
 
 	private String description;
