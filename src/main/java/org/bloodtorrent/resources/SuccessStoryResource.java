@@ -2,6 +2,7 @@ package org.bloodtorrent.resources;
 
 import com.google.common.io.Files;
 import com.google.common.io.InputSupplier;
+import com.sun.jersey.api.JResponse;
 import com.sun.jersey.core.header.FormDataContentDisposition;
 import com.sun.jersey.multipart.FormDataParam;
 import com.yammer.dropwizard.hibernate.UnitOfWork;
@@ -31,6 +32,7 @@ import java.util.*;
 @Path("/successStory")
 @Produces(MediaType.TEXT_HTML)
 public class SuccessStoryResource {
+    public static final int STATUS_MOVED = 302;
     public static String UPLOAD_DIR = "upload";
     private final SuccessStoryRepository repository;
     private SessionManager sessionManager;
@@ -124,7 +126,7 @@ public class SuccessStoryResource {
             view.setUser(user);
             return Response.ok(view).build();
         } else {
-            return Response.seeOther(URI.create("/")).status(302).build();
+            return Response.seeOther(URI.create("/")).status(STATUS_MOVED).build();
         }
 	}
 
@@ -145,7 +147,7 @@ public class SuccessStoryResource {
             view.setUser(user);
             return Response.ok(view).build();
         } else {
-            return Response.seeOther(URI.create("/")).status(302).build();
+            return Response.seeOther(URI.create("/")).status(STATUS_MOVED).build();
         }
 	}
 
@@ -181,7 +183,7 @@ public class SuccessStoryResource {
         story.setTitle(title);
         story.setSummary(summary);
         story.setDescription(description);
-        story.setShowMainPage("Y");
+        story.setShowMainPage("N");
 
        if(stream != null && !content.getFileName().isEmpty()){
             final String fileName = id + "-" + content.getFileName();
@@ -231,5 +233,17 @@ public class SuccessStoryResource {
                 return stream;
             }
         }, new File(filePath));
+    }
+
+    @POST
+    @Path("/selectForMain")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @UnitOfWork
+    public Response selectForMain(@CookieParam("JSESSIONID") String sessionID,
+                                  @FormParam("checkStoryId") List<String> checkStoryId) {
+        if (checkStoryId.size() >= 1 && checkStoryId.size() <= 3) {
+            repository.selectForMain(checkStoryId);
+        }
+        return Response.seeOther(URI.create("/successStory/list")).status(STATUS_MOVED).build();
     }
 }

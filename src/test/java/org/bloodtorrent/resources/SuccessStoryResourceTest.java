@@ -18,6 +18,7 @@ import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
+import org.mockito.verification.VerificationMode;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Validation;
@@ -34,9 +35,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.doAnswer;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -48,6 +47,9 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class SuccessStoryResourceTest {
 
+    public static final int STATUS_MOVED = 302;
+    public static final int STATUS_NOT_FOUND = 404;
+    public static final int STATUS_OK = 200;
     private final String ADMIN_SESSION = "ADMIN_SESSION";
     private final String NONADMIN_SESSION = "NON_ADMIN_SESSION";
     private final static String ATTACH_FILE_NAME = "testfile.jpg";
@@ -173,6 +175,7 @@ public class SuccessStoryResourceTest {
         assertThat(story.getTitle(), is(makeDummyString(150)));
         assertThat(story.getSummary(), is(makeDummyString(150)));
         assertThat(story.getDescription(), is("description"));
+        assertThat(story.getShowMainPage(), is("N"));
 
         File attachFile = new File(SuccessStoryResource.UPLOAD_DIR + File.separator + story.getThumbnailPath());
         assertThat(attachFile.exists(), is(true));
@@ -210,7 +213,7 @@ public class SuccessStoryResourceTest {
     @Test
     public void shouldReturnMainPageWhenAdminIsNotLoggedIn() {
         Response response = resource.viewSuccessStoryEditor(NONADMIN_SESSION);
-        assertThat(response.getStatus(), is(302));
+        assertThat(response.getStatus(), is(STATUS_MOVED));
     }
 
     @Test
@@ -222,7 +225,7 @@ public class SuccessStoryResourceTest {
         imageFile.deleteOnExit();
 
         Response response = resource.loadImage(fileName);
-        assertThat(response.getStatus(), is (200));
+        assertThat(response.getStatus(), is (STATUS_OK));
         assertThat((File) response.getEntity(), CoreMatchers.equalTo(imageFile));
 
         MultivaluedMap<String, Object> map = response.getMetadata();
@@ -238,7 +241,7 @@ public class SuccessStoryResourceTest {
         imageFile.deleteOnExit();
 
         Response response = resource.loadImage(fileName);
-        assertThat(response.getStatus(), is (200));
+        assertThat(response.getStatus(), is (STATUS_OK));
         assertThat((File) response.getEntity(), equalTo(imageFile));
 
         MultivaluedMap<String, Object> map = response.getMetadata();
@@ -248,22 +251,49 @@ public class SuccessStoryResourceTest {
     @Test
     public void shouldReturnNotFoundErrorWhenGivenFileNameIsIncorrect() {
         Response response = resource.loadImage("nofile.jpg");
-        assertThat(response.getStatus(), is (404));
+        assertThat(response.getStatus(), is (STATUS_NOT_FOUND));
     }
 
     @Test
     public void shouldReturnSuccessStoryViewWhenAdminIsLoggedIn() {
         Response response = resource.listSuccessStory(ADMIN_SESSION);
-        assertThat(response.getStatus(), is (200));
+        assertThat(response.getStatus(), is (STATUS_OK));
         assertThat((SuccessStoryView) response.getEntity(), CoreMatchers.isA(SuccessStoryView.class));
     }
 
     @Test
     public void shouldRedirectToMainPageWhenAdminIsNotNoggedIn() {
         Response response = resource.listSuccessStory(NONADMIN_SESSION);
-        assertThat(response.getStatus(), is(302));
+        assertThat(response.getStatus(), is(STATUS_MOVED));
 
         MultivaluedMap<String, Object> map = response.getMetadata();
         assertThat(map.getFirst("Location").toString(), is("/"));
     }
+
+    @Test
+    public void shouldCheckValueFromList () {
+        List<String> checkStoryId = new ArrayList<String>();
+
+        resource.selectForMain(ADMIN_SESSION, checkStoryId);
+        verify(repository, never()).selectForMain(anyList());
+
+        checkStoryId.add("story1");
+        checkStoryId.add("story2");
+        checkStoryId.add("story3");
+        checkStoryId.add("story4");
+        resource.selectForMain(ADMIN_SESSION, checkStoryId);
+        verify(repository, never()).selectForMain(anyList());
+    }
+
+    @Test
+    public void shouldUpdateDatabase() {
+        List<String> checkStoryId = new ArrayList<String>();
+        checkStoryId.add("story1");
+        checkStoryId.add("story2");
+        checkStoryId.add("story3");
+
+        resource.selectForMain(ADMIN_SESSION, checkStoryId);
+        verify(repository).selectForMain(checkStoryId);
+    }
+
 }
