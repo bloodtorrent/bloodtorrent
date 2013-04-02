@@ -196,7 +196,7 @@ public class SuccessStoryResourceTest {
 
     @Test
     public void shouldReturnResultViewWithErrorMessagesWhenSummaryLengthValidationFailed() throws IOException {
-        View view = resource.createSuccessStory("", "title", makeDummyString(151), "description", inputStream, contentDisposition);
+        View view = resource.createSuccessStory("", "title", makeDummyString(251), "description", inputStream, contentDisposition);
         assertThat(view instanceof ResultView, is(true));
     }
 
