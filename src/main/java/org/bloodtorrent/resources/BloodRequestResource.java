@@ -84,7 +84,10 @@ public class BloodRequestResource implements BloodTorrentConstants {
             @FormParam("birthday") String birthday,
             @FormParam("bloodGroup") String bloodGroup,
             @FormParam("bloodVolume") String bloodVolume,
-            @FormParam("requesterType") String requesterType) {
+            @FormParam("requesterType") String requesterType,
+            @FormParam("lat") double latitude,
+            @FormParam("lng") double longitude
+    ) {
         Calendar cal = null;
         BloodRequest bloodRequest = new BloodRequest();
         bloodRequest.setFirstName(firstName);
@@ -102,6 +105,8 @@ public class BloodRequestResource implements BloodTorrentConstants {
         bloodRequest.setRequestDate(new Date());
         bloodRequest.setApproval("N");
         bloodRequest.setId(String.valueOf(System.currentTimeMillis()));
+        bloodRequest.setLatitude(latitude);
+        bloodRequest.setLongitude(longitude);
 
         Map<String, Object> resultMap = Maps.newHashMap();
         if (validator.isInvalid(bloodRequest)) {

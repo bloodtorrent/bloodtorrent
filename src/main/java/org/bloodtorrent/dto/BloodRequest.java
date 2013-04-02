@@ -82,4 +82,10 @@ public class BloodRequest implements BloodTorrentConstants {
     @NotBlank(message=PLEASE_FILL_OUT_ALL_THE_MANDATORY_FIELDS)
     @Pattern(regexp = "^C|P$", message= PLEASE_CHECK + "Requester.")
     private String requesterType;
+
+    @Column(name = "latitude")
+    private double latitude;
+
+    @Column(name = "longitude")
+    private double longitude;
 }

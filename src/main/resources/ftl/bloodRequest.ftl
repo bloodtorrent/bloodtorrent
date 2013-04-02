@@ -3,9 +3,11 @@
     <title>Request for Blood</title>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
     <link rel="stylesheet" href="/css/message.css" />
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&language=en"></script>
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
     <script src="http://malsup.github.com/jquery.form.js"></script>
+    <script src="/js/message.js"></script>
     <script type="text/javascript" language="javascript">
     $(function() {
         /* out of scope #1
@@ -27,6 +29,35 @@
                 $("#successForm").submit();
             }
         });
+
+        $("#register").click(function(){
+            if ($("#hospitalAddress").val() != "" && $("#city").val() != "" && $("#state").val() != "") {
+                if ( ($("#lat").val() == "" || $("#lng").val() == "") || $("isMapExcuted").val() == "N") {
+                    var fullAddress = $("#hospitalAddress").val() + "," + $("#city").val() + "," + $("#state").val() + "," +"India";
+                        var geocoder = new google.maps.Geocoder();
+                        geocoder.geocode(
+                            {
+                                'address': fullAddress,
+                            },
+                            function(results, status) {
+                                if (status == google.maps.GeocoderStatus.OK) {
+                                    var loc = results[0].geometry.location;
+                                    $("#lat").val(loc.lat());
+                                    $("#lng").val(loc.lng());
+                                    $("#bloodRequestForm").submit();
+                                }else {
+                                    alert("Not found: " + status);
+                                }
+                            }
+                        );
+                } else {
+                   $("#bloodRequestForm").submit();
+                }
+            } else {
+                $("#bloodRequestForm").submit();
+            }
+        });
+
       });
 
     function goHome(){
@@ -58,16 +89,16 @@
                 </tr>
                 <tr>
                     <td><label>Hospital or<br>Blood bank address:</label></td>
-                    <td><textarea name="hospitalAddress" width="30" rows="4"></textarea></td>
+                    <td><textarea id="hospitalAddress" name="hospitalAddress" width="30" rows="4"></textarea></td>
                 </tr>
                 <tr>
                     <td><label>City:</label></td>
-                    <td><input type="text" name="city" width="30" value="" maxLength="30"/></td>
+                    <td><input type="text" id = "city" name="city" width="30" value="" maxLength="30"/></td>
                 </tr>
                 <tr>
                     <td><label>State:</label></td>
                     <td>
-                        <select name="state">
+                        <select id = "state" name="state">
                             <option value="Andhra Pradesh">Andhra Pradesh</option>
                             <option value="Arunachal Pradesh">Arunachal Pradesh</option>
                             <option value="Asom (Assam)">Asom (Assam)</option>
@@ -155,9 +186,14 @@
             </table>
         </div>
         <div>
-            <input type="submit" name="register" value="Register"/>
+            <input type="button" id="register" name="register" value="Register"/>
             <input type="button" name="reset" value="Cancel" onClick="goHome()"/>
         </div>
+
+        <input type="hidden" name="lat" id="lat" value=""/>
+        <input type="hidden" name="lng" id="lng" value=""/>
+        <input type="hidden" name="isMapExcuted" id="isMapExcuted" value="N"/>
+        <div class="message" style="display: none"></div>
         </form>
 
         <form id="successForm" method="post" action="/requestForBlood/success">

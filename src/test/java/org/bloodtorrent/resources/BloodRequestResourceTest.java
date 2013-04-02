@@ -63,7 +63,8 @@ public class BloodRequestResourceTest {
         Map<String,Object> jsonMap = resource.requestForBlood(bloodRequest.getFirstName(), bloodRequest.getLastName(), bloodRequest.getHospitalAddress(),
                 bloodRequest.getCity(), bloodRequest.getState(), bloodRequest.getPhone(),
                 bloodRequest.getEmail(), bloodRequest.getGender(), "03-11-2012",
-                bloodRequest.getBloodGroup(), String.valueOf(bloodRequest.getBloodVolume()), bloodRequest.getRequesterType());
+                bloodRequest.getBloodGroup(), String.valueOf(bloodRequest.getBloodVolume()), bloodRequest.getRequesterType(),
+                bloodRequest.getLatitude(), bloodRequest.getLongitude());
 
         assertThat(String.valueOf(jsonMap.get("result")), is("success"));
 
@@ -79,7 +80,8 @@ public class BloodRequestResourceTest {
         Map<String,Object> jsonMap = resource.requestForBlood(bloodRequest.getFirstName(), bloodRequest.getLastName(), bloodRequest.getHospitalAddress(),
                 bloodRequest.getCity(), bloodRequest.getState(), bloodRequest.getPhone(),
                 bloodRequest.getEmail(), bloodRequest.getGender(), "03-11-2012",
-                bloodRequest.getBloodGroup(), String.valueOf(bloodRequest.getBloodVolume()), bloodRequest.getRequesterType());
+                bloodRequest.getBloodGroup(), String.valueOf(bloodRequest.getBloodVolume()), bloodRequest.getRequesterType(),
+                bloodRequest.getLatitude(), bloodRequest.getLongitude());
 
         assertThat(String.valueOf(jsonMap.get("result")), is("fail"));
     }
