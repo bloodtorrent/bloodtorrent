@@ -1,5 +1,7 @@
 package org.bloodtorrent.functionaltests.pages;
 
+import org.bloodtorrent.functionaltests.contexts.BloodTorrent;
+
 import net.sf.sahi.client.Browser;
 import net.sf.sahi.client.ElementStub;
 
@@ -9,15 +11,15 @@ public class HomePage extends BasePage {
 	}
 
 	public String getTitle() {
-		return browser.byId("title").text();
+		return browser.span("wsite-title").text();
 	}
 	
 	public void registerDonor() {
-		browser.link("Register donor").click();
+		browser.span("Register as donor").click();
 	}
 	
 	public void requestForBlood() {
-		browser.link("Request blood").click();
+		browser.span("Request blood").click();
 	}
 
 	public void enterLoginCredentials(String email, String password) {
@@ -34,7 +36,7 @@ public class HomePage extends BasePage {
 	}
 
 	public ElementStub getSectionOfSuccessStory() {
-		return browser.byId("successStory");
+		return browser.byId("successStoryTitle");
 	}
 
 	public ElementStub getReadMoreLink() {
@@ -45,5 +47,7 @@ public class HomePage extends BasePage {
 		getReadMoreLink().click();		
 	}
 
-
+	public void gotoLoginPage() {
+		browser.navigateTo(BloodTorrent.url + "successStory/list");		
+	}
 }

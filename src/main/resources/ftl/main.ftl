@@ -115,7 +115,7 @@
                             <hr class="styled-hr" style="width:100%;"></hr>
                             <div style="height: 20px; overflow: hidden; width: 100%;"></div></div>
 
-                        <h2 style="text-align:left;">How we have transformed some lives</h2>
+                        <h2 style="text-align:left;" id="successStoryTitle">How we have transformed some lives</h2>
 
                         <div><div class="wsite-multicol"><div class='wsite-multicol-table-wrap' style='margin:0 -15px'>
                             <table class='wsite-multicol-table'>
@@ -124,7 +124,7 @@
                                 <#if successStories??>
                                     <#list successStories as story>
                                         <td class='wsite-multicol-col' style='width:32%;padding:0 15px'>
-                                            <h2 style="text-align:left;"><a href="/successStory/${story.id}">${story.title}</a></h2>
+                                            <h2 style="text-align:left;"><a href="/successStory/${story.id}" class="successStoryDetailLink">${story.title}</a></h2>
                                             <span class='thumbnail' style='float:left;height:0px'></span><span style='position:relative;float:left;z-index:10;;clear:left;margin-top:0px;*margin-top:0px'><a href="/successStory/${story.id}"><img class="thumbnail" src="/successStory/image/${story.thumbnailPath}" style="margin-top: 5px; margin-bottom: 10px; margin-left: 0px; margin-right: 10px; border-width:1px;padding:3px;" alt="Picture" /></a><div style="display: block; font-size: 90%; margin-top: -10px; margin-bottom: 10px; text-align: center;"></div></span>
                                             <div class="paragraph" style="text-align:left;display:block;">${story.summary}</div>
                                             <hr style="clear:both;visibility:hidden;width:100%;"></hr>

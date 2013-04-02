@@ -7,9 +7,6 @@ import org.bloodtorrent.functionaltests.pages.HomePage;
 
 public class OnHomePage {
 
-	private String adminEmail = "Administrator@bloodtorrent.org";
-	private String adminPassWord = "p@ssw0rd";
-
 	private HomePage homePage;
 
 	public OnHomePage(Browser browser) {
@@ -32,14 +29,6 @@ public class OnHomePage {
 		verifyTrue(homePage.loginButton().exists());
 	}
 
-	public void fillOutTheValidInformationForLoginAsAdmin() throws Exception {
-		homePage.enterLoginCredentials(adminEmail, adminPassWord);
-	}
-
-	public void login() throws Exception {
-		homePage.login();
-	}
-
 	public void verifySuccessStoriesSectionIsVisible() throws Exception {
 		verifyTrue(homePage.getSectionOfSuccessStory().exists());
 	}
@@ -50,5 +39,10 @@ public class OnHomePage {
 
 	public void displayDetailedSuccessStory() throws Exception {
 		homePage.getDetailSuccessStory();
+	}
+
+	public void navigateToAdminPage() throws Exception {
+		homePage.gotoLoginPage();
+	
 	}
 }

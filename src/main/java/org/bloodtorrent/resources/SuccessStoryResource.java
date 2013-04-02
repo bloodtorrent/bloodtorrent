@@ -116,19 +116,20 @@ public class SuccessStoryResource {
     @Path("list")
     @Produces(MediaType.TEXT_HTML + ";charset=utf-8")
 	public Response listSuccessStory(@CookieParam("JSESSIONID") String sessionID) {
-        HttpSession session = sessionManager.getHttpSession(sessionID);
-        User user = null;
-        if (session != null) {
-            user = (User)session.getAttribute("user");
-        }
+        if(sessionID != null){
+            HttpSession session = sessionManager.getHttpSession(sessionID);
+            User user = null;
+            if (session != null) {
+                user = (User)session.getAttribute("user");
+            }
 
-        if (user != null && 'Y' == user.getIsAdmin()) {
-            SuccessStoryView view = new SuccessStoryView(repository.getListForSuccessStoriesView());
-            view.setUser(user);
-            return Response.ok(view).build();
-        } else {
-            return Response.ok(new LoginView()).build();
+            if (user != null && 'Y' == user.getIsAdmin()) {
+                SuccessStoryView view = new SuccessStoryView(repository.getListForSuccessStoriesView());
+                view.setUser(user);
+                return Response.ok(view).build();
+            }
         }
+        return Response.ok(new LoginView()).build();
 	}
 
     @GET

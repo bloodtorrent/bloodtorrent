@@ -4,7 +4,11 @@ Metadata:ScenarioType=Auto
 TODO - Update test to verify for the uploaded image.
 
 On home page:
-$Login as admin
+#Navigate to admin page
+
+On login page:
+#Fill out the valid information for login as Admin
+#Login
 
 On admin page:
 #Go to create success stories page

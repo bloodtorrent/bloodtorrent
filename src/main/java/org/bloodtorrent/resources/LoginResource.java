@@ -37,22 +37,23 @@ public class LoginResource {
     @GET
     @UnitOfWork
     public Response forwardMainPage(@CookieParam("JSESSIONID") String sessionID) {
-        HttpSession session = getSession(sessionID);
-        if(session != null){
-            String email = (String) session.getAttribute("email");
-            String password = (String) session.getAttribute("password");
-            email = email != null ? email.toLowerCase() : null;
-            session.removeAttribute("email");
-            session.removeAttribute("password");
+        if(sessionID != null){
+            HttpSession session = getSession(sessionID);
+            if(session != null){
+                String email = (String) session.getAttribute("email");
+                String password = (String) session.getAttribute("password");
+                email = email != null ? email.toLowerCase() : null;
+                session.removeAttribute("email");
+                session.removeAttribute("password");
 
-            User user = usersRepository.get(email);
-            if(user != null && password.equals(user.getPassword())) {
-                session.setAttribute("user", user);
+                User user = usersRepository.get(email);
+                if(user != null && password.equals(user.getPassword())) {
+                    session.setAttribute("user", user);
 
-                return Response.seeOther(URI.create('Y' == user.getIsAdmin() ? URI_SUCCESS_STORY_LIST : "/")).status(302).build();
+                    return Response.seeOther(URI.create('Y' == user.getIsAdmin() ? URI_SUCCESS_STORY_LIST : "/")).status(302).build();
+                }
             }
         }
-
         return Response.seeOther(URI.create(PATH_LOGIN_FAIL)).status(302).build();
     }
 
