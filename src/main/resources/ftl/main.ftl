@@ -8,7 +8,8 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-   <link rel='stylesheet' type='text/css' href='../css/main_style.css?1364781438' title='wsite-theme-css' />
+    <link rel='stylesheet' type='text/css' href='../css/main_style.css'/>
+    <link rel='stylesheet' type='text/css' href='../css/bloodtorrent.css'/>
     <link href='../css/fonts_googleapis.css' rel='stylesheet' type='text/css' />
     <style type='text/css'>
         .wsite-elements div.paragraph, .wsite-elements p, .wsite-elements .product-block .product-title, .wsite-elements .product-description, .wsite-elements .wsite-form-field label, .wsite-elements .wsite-form-field label, #wsite-content div.paragraph, #wsite-content p, #wsite-content .product-block .product-title, #wsite-content .product-description, #wsite-content .wsite-form-field label, #wsite-content .wsite-form-field label, .blog-sidebar div.paragraph, .blog-sidebar p, .blog-sidebar .wsite-form-field label, .blog-sidebar .wsite-form-field label {}
@@ -120,7 +121,7 @@
                                     <#list successStories as story>
                                     <td class='wsite-multicol-col' style='width:32%;padding:0 15px'>
                                         <h2 style="text-align:left;"><a href="/successStory/${story.id}">${story.title}</a></h2>
-                                        <span class='imgPusher' style='float:left;height:0px'></span><span style='position:relative;float:left;z-index:10;;clear:left;margin-top:0px;*margin-top:0px'><a href="/successStory/${story.id}"><img class="wsite-image galleryImageBorder" src="/successStory/image/${story.thumbnailPath}" style="margin-top: 5px; margin-bottom: 10px; margin-left: 0px; margin-right: 10px; border-width:1px;padding:3px;" alt="Picture" /></a><div style="display: block; font-size: 90%; margin-top: -10px; margin-bottom: 10px; text-align: center;"></div></span>
+                                        <span class='thumbnail' style='float:left;height:0px'></span><span style='position:relative;float:left;z-index:10;;clear:left;margin-top:0px;*margin-top:0px'><a href="/successStory/${story.id}"><img class="thumbnail" src="/successStory/image/${story.thumbnailPath}" style="margin-top: 5px; margin-bottom: 10px; margin-left: 0px; margin-right: 10px; border-width:1px;padding:3px;" alt="Picture" /></a><div style="display: block; font-size: 90%; margin-top: -10px; margin-bottom: 10px; text-align: center;"></div></span>
                                         <div class="paragraph" style="text-align:left;display:block;">${story.summary}</div>
                                         <hr style="clear:both;visibility:hidden;width:100%;"></hr>
                                     </td>
