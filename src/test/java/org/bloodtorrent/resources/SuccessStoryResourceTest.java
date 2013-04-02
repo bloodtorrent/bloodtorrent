@@ -6,7 +6,7 @@ import org.bloodtorrent.IllegalDataException;
 import org.bloodtorrent.dto.SuccessStory;
 import org.bloodtorrent.dto.User;
 import org.bloodtorrent.repository.SuccessStoryRepository;
-import org.bloodtorrent.view.loginView;
+import org.bloodtorrent.view.LoginView;
 import org.bloodtorrent.view.ResultView;
 import org.bloodtorrent.view.SuccessStoryView;
 import org.eclipse.jetty.server.SessionManager;
@@ -268,7 +268,7 @@ public class SuccessStoryResourceTest {
         assertThat(response.getStatus(), is(200));
 
         MultivaluedMap<String, Object> map = response.getMetadata();
-        assertThat((loginView)response.getEntity(), isA(loginView.class));
+        assertThat((LoginView)response.getEntity(), isA(LoginView.class));
     }
 
     @Test
