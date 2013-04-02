@@ -1,13 +1,14 @@
-Tags:Story-1
+Tags:Story-1,in-progress
 Preconditions:Blood Torrent
 Metadata:ScenarioType=Auto
+TODO - This test currently fails because of a timing issue before the error message appears. We are in the process of fixing it.
+
 On home page:
 #Select register donor
 
 On register donor page:
 #Fill out the valid information to mendatory fields with existing users email address
 #Register donor
-
-On error page:
 #Verify error message existing user
+
 

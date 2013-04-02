@@ -2,6 +2,7 @@ package org.bloodtorrent.functionaltests.pages;
 
 import net.sf.sahi.client.Browser;
 import net.sf.sahi.client.BrowserCondition;
+import net.sf.sahi.client.ElementStub;
 import net.sf.sahi.client.ExecutionException;
 
 public class RegisterDonor extends BasePage {
@@ -91,5 +92,9 @@ public class RegisterDonor extends BasePage {
 		};
 		browser.waitFor(condition, DEFAULT_WAIT_MILLISECONDS);
 		return Double.parseDouble(browser.byId("lat").getValue());
+	}
+
+	public String getFailMessage() {
+		return browser.div("message").getText();
 	}
 }

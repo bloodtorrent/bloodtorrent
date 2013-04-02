@@ -95,4 +95,9 @@ public class OnRegisterDonorPage {
 		Assert.assertEquals(73.8, registerDonor.getLng(), TOLERANCE_FOR_COMPARING_LAT_LONG);
 		Assert.assertEquals(18.5, registerDonor.getLat(), TOLERANCE_FOR_COMPARING_LAT_LONG);
 	}
+
+	public void verifyErrorMessageExistingUser() throws Exception {
+		verifyEquals("This email address is already taken.", registerDonor.getFailMessage());
+	
+	}
 }
