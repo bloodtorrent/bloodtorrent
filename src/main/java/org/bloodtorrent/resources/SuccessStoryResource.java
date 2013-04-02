@@ -2,19 +2,16 @@ package org.bloodtorrent.resources;
 
 import com.google.common.io.Files;
 import com.google.common.io.InputSupplier;
-import com.sun.jersey.api.JResponse;
 import com.sun.jersey.core.header.FormDataContentDisposition;
 import com.sun.jersey.multipart.FormDataParam;
 import com.yammer.dropwizard.hibernate.UnitOfWork;
 import com.yammer.dropwizard.views.View;
-import org.bloodtorrent.IllegalDataException;
-import org.bloodtorrent.dto.BloodRequest;
 import org.bloodtorrent.dto.SuccessStory;
 import org.bloodtorrent.dto.User;
 import org.bloodtorrent.repository.SuccessStoryRepository;
 import org.bloodtorrent.view.ResultView;
 import org.bloodtorrent.view.SuccessStoryView;
-import org.bloodtorrent.view.LoginView;
+import org.bloodtorrent.view.loginView;
 import org.eclipse.jetty.server.SessionManager;
 
 import javax.servlet.http.HttpSession;
@@ -129,7 +126,7 @@ public class SuccessStoryResource {
                 return Response.ok(view).build();
             }
         }
-        return Response.ok(new LoginView()).build();
+        return Response.ok(new loginView()).build();
 	}
 
     @GET

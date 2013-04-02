@@ -6,7 +6,7 @@ import org.bloodtorrent.IllegalDataException;
 import org.bloodtorrent.dto.SuccessStory;
 import org.bloodtorrent.dto.User;
 import org.bloodtorrent.repository.SuccessStoryRepository;
-import org.bloodtorrent.view.LoginView;
+import org.bloodtorrent.view.loginView;
 import org.bloodtorrent.view.ResultView;
 import org.bloodtorrent.view.SuccessStoryView;
 import org.eclipse.jetty.server.SessionManager;
@@ -19,7 +19,6 @@ import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
-import org.mockito.verification.VerificationMode;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Validation;
@@ -269,7 +268,7 @@ public class SuccessStoryResourceTest {
         assertThat(response.getStatus(), is(200));
 
         MultivaluedMap<String, Object> map = response.getMetadata();
-        assertThat((LoginView)response.getEntity(), isA(LoginView.class));
+        assertThat((loginView)response.getEntity(), isA(loginView.class));
     }
 
     @Test
