@@ -11,7 +11,8 @@
         <script>
             $(document).ready(function() {
                 var $form = $("#successStorySelectionForm");
-                $('#submitButton').click(function() {$form.submit()});
+                $('#submitButtonUp').click(function() {$form.submit()});
+                $('#submitButtonDown').click(function() {$form.submit()});
                 $form.find("input:checkbox").click(toggleCheckedSuccessStory);
                 $form.on('submit', suppressSubmitAndNotifyIfInvalid);
             });
@@ -21,7 +22,7 @@
     <#include "/ftl/adminHeader.ftl" >
        <h1 id="title" align="center">How we helped</h1>
        <input type="button" value="Create" onclick="location.href='/successStory/createView';"/>
-       <input type="button" id="submitButton" value="Display on the main page"/>
+       <input type="button" id="submitButtonUp" value="Display on the main page"/>
        <form id="successStorySelectionForm" method='POST' action="/successStory/selectForMain">
        <table border="1" cellspacing="0">
            <tr bgcolor="#cccccc">
@@ -49,7 +50,7 @@
            </#list>
        </table>
        <input type="button" value="Create" onclick="location.href='/successStory/createView';"/>
-       <input type="button" id="submitButton" value="Display on the main page"/>
+       <input type="button" id="submitButtonDown" value="Display on the main page"/>
        </form>
     </body>
 </html>
