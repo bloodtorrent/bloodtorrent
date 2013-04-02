@@ -49,7 +49,7 @@ public class RequestBlood extends BasePage {
 	}	
 	
 	public void register(){
-		browser.submit("Register").click();
+		browser.button("register").click();
 	}
 
 	public void cancel() {
