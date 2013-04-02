@@ -1,6 +1,8 @@
 Tags:Story-78
 Preconditions:Blood Torrent
 Metadata:ScenarioType=Auto
+TODO - Update test to verify for the uploaded image.
+
 On home page:
 $Login as admin
 
