@@ -3,6 +3,7 @@ package org.bloodtorrent.functionaltests.scenarios;
 import net.sf.sahi.client.Browser;
 
 import org.bloodtorrent.functionaltests.pages.CreateSuccessStory;
+import static java.io.File.separator;
 
 public class OnCreateSuccessStoryPage {
 
@@ -11,8 +12,7 @@ public class OnCreateSuccessStoryPage {
 	private String title = "Success Story!";
 	private String summary = "Saved my life!";
 	private String description = "Saved my life! Desc....";
-	private String imgPathForWin = "..\\..\\bin\\test_images\\ss_test01.png";
-	private String imgPathForLinux = "../../bin/test_images/ss_test01.png";
+	private String imgPath = ".." + separator + ".." + separator + "bin" + separator + "test_images" + separator + "ss_test01.png";
 
 	public OnCreateSuccessStoryPage(Browser browser) {
 		createSuccessStory = new CreateSuccessStory(browser);
@@ -29,12 +29,7 @@ public class OnCreateSuccessStoryPage {
 	}
 
 	public void attachAnImage() throws Exception {
-		String currentOS = System.getProperty("os.name");
-		if (currentOS.contains("Windows")){
-			createSuccessStory.setImageFile(imgPathForWin);
-		}else{
-			createSuccessStory.setImageFile(imgPathForLinux);
-		}
+		createSuccessStory.setImageFile(imgPath);
 	}
 
 	public void saveSuccessStory() throws Exception {
