@@ -6,6 +6,7 @@ import org.bloodtorrent.IllegalDataException;
 import org.bloodtorrent.dto.SuccessStory;
 import org.bloodtorrent.dto.User;
 import org.bloodtorrent.repository.SuccessStoryRepository;
+import org.bloodtorrent.view.LoginView;
 import org.bloodtorrent.view.ResultView;
 import org.bloodtorrent.view.SuccessStoryView;
 import org.eclipse.jetty.server.SessionManager;
@@ -33,6 +34,7 @@ import java.util.*;
 import static org.bloodtorrent.util.TestUtil.makeDummyString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.isA;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
@@ -264,10 +266,10 @@ public class SuccessStoryResourceTest {
     @Test
     public void shouldRedirectToMainPageWhenAdminIsNotNoggedIn() {
         Response response = resource.listSuccessStory(NONADMIN_SESSION);
-        assertThat(response.getStatus(), is(STATUS_MOVED));
+        assertThat(response.getStatus(), is(200));
 
         MultivaluedMap<String, Object> map = response.getMetadata();
-        assertThat(map.getFirst("Location").toString(), is("/"));
+        assertThat((LoginView)response.getEntity(), isA(LoginView.class));
     }
 
     @Test

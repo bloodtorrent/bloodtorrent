@@ -14,6 +14,7 @@ import org.bloodtorrent.dto.User;
 import org.bloodtorrent.repository.SuccessStoryRepository;
 import org.bloodtorrent.view.ResultView;
 import org.bloodtorrent.view.SuccessStoryView;
+import org.bloodtorrent.view.LoginView;
 import org.eclipse.jetty.server.SessionManager;
 
 import javax.servlet.http.HttpSession;
@@ -126,7 +127,7 @@ public class SuccessStoryResource {
             view.setUser(user);
             return Response.ok(view).build();
         } else {
-            return Response.seeOther(URI.create("/")).status(STATUS_MOVED).build();
+            return Response.ok(new LoginView()).build();
         }
 	}
 

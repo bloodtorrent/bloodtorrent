@@ -13,9 +13,9 @@
     </script>
 </head>
 <body>
-    <form id = "loginForm" action="/signin" method="post">
+    <form id = "loginForm" action="/login" method="post">
         <p>
-            SIGN-IN NAME : <input type="text" name="username" />
+            SIGN-IN NAME : <input type="text" name="email" />
         </p>
         <p>
             PASSWORD:
