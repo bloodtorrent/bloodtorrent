@@ -18,7 +18,7 @@ public class BloodRequestView extends View {
     private List<User> donors;
 
     public BloodRequestView(List<User> donors) {
-        super("/ftl/thankyou.ftl");
+        super("/ftl/thankyouForRequest.ftl");
         this.donors = donors;
     }
 }

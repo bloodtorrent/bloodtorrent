@@ -42,7 +42,7 @@ public class UsersRepositoryTest{
         User user = new User();
         String id = "123";
         user.setId(id);
-        user.setBirthDay("2013-03-30");
+        user.setBirthday("2013-03-30");
         user.setAddress("address, city, state, India");
         user.setAnonymous(false);
         repository.insert(user);

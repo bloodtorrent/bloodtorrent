@@ -1,5 +1,6 @@
 package org.bloodtorrent.dto;
 
+import org.bloodtorrent.BloodTorrentConstants;
 import org.junit.Test;
 
 import javax.validation.ConstraintViolation;
@@ -21,7 +22,7 @@ import static org.junit.Assert.assertThat;
  * Time: 오전 3:23
  * To change this template use File | Settings | File Templates.
  */
-public class UserTest {
+public class UserTest implements BloodTorrentConstants {
     private final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
     private final Validator validator = factory.getValidator();
 
@@ -40,7 +41,7 @@ public class UserTest {
         user.setCity("New Delhi");
         user.setState("Delhi");
         user.setDistance("10");
-        user.setBirthDay("18031980");
+        user.setBirthday("18031980");
         user.setLatitude(17.458418734757736);
         user.setLongitude(78.33536359287109);
         return user;
@@ -96,7 +97,7 @@ public class UserTest {
 
         Set<ConstraintViolation<User>> constraintViolations = validator.validateProperty(user, "id");
 
-        assertThat(2, is(constraintViolations.size()));
+        assertThat(3, is(constraintViolations.size()));
     }
 
     @Test
@@ -104,11 +105,11 @@ public class UserTest {
         User user = createNewUser();
         setDummyString(user, "id", 4);
         Set<ConstraintViolation<User>> constraintViolations = validator.validateProperty(user, "id");
-        assertThat(1, is(constraintViolations.size()));
+        assertThat(constraintViolations.size(), is(2));
 
         setDummyString(user, "id", 101);
         constraintViolations = validator.validateProperty(user, "id");
-        assertThat(1, is(constraintViolations.size()));
+        assertThat(2, is(constraintViolations.size()));
     }
 
     @Test
@@ -194,7 +195,7 @@ public class UserTest {
 
         Set<ConstraintViolation<User>> constraintViolations = validator.validateProperty(user, "password");
 
-        assertThat(2, is(constraintViolations.size()));
+        assertThat(constraintViolations.size(), is(3));
     }
 
     @Test
@@ -341,38 +342,38 @@ public class UserTest {
         user.setDistance("11");
         constraintViolations = validator.validateProperty(user, "distance");
         assertThat(1, is(constraintViolations.size()));
-        assertThat("Please check distance", is(constraintViolations.iterator().next().getMessage()));
+        assertThat(constraintViolations.iterator().next().getMessage(), is(PLEASE_CHECK + "Distance"));
     }
 
     @Test
     public void shouldBirthDayMatchWithDateFormat() {
         User user = createNewUser();
-        user.setBirthDay("11-04-1977");
-        Set<ConstraintViolation<User>> constraintViolations = validator.validateProperty(user, "birthDay");
+        user.setBirthday("11-04-1977");
+        Set<ConstraintViolation<User>> constraintViolations = validator.validateProperty(user, "birthday");
         assertThat(0, is(constraintViolations.size()));
 
-        user.setBirthDay("1333-19-99");
-        constraintViolations = validator.validateProperty(user, "birthDay");
+        user.setBirthday("1333-19-99");
+        constraintViolations = validator.validateProperty(user, "birthday");
         assertThat(1, is(constraintViolations.size()));
 
-        user.setBirthDay("13-19-1199");
-        constraintViolations = validator.validateProperty(user, "birthDay");
+        user.setBirthday("13-19-1199");
+        constraintViolations = validator.validateProperty(user, "birthday");
         assertThat(1, is(constraintViolations.size()));
 
-        user.setBirthDay("13/12/1999");
-        constraintViolations = validator.validateProperty(user, "birthDay");
+        user.setBirthday("13/12/1999");
+        constraintViolations = validator.validateProperty(user, "birthday");
         assertThat(1, is(constraintViolations.size()));
 
-        user.setBirthDay("11121981");
-        constraintViolations = validator.validateProperty(user, "birthDay");
+        user.setBirthday("11121981");
+        constraintViolations = validator.validateProperty(user, "birthday");
         assertThat(1, is(constraintViolations.size()));
 
-        user.setBirthDay("");
-        constraintViolations = validator.validateProperty(user, "birthDay");
+        user.setBirthday("");
+        constraintViolations = validator.validateProperty(user, "birthday");
         assertThat(0, is(constraintViolations.size()));
 
-        user.setBirthDay(null);
-        constraintViolations = validator.validateProperty(user, "birthDay");
+        user.setBirthday(null);
+        constraintViolations = validator.validateProperty(user, "birthday");
         assertThat(0, is(constraintViolations.size()));
     }
 

@@ -6,17 +6,27 @@
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
     <script src="http://malsup.github.com/jquery.form.js"></script>
-    <script src="/js/message.js"></script>
-    <script type="text/javascript">
+    <script type="text/javascript" language="javascript">
     $(function() {
-/* out of scope #1
-        $( "#birthday" ).datepicker({
-          showOn: "button",
-          buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif",
-          buttonImageOnly: true,
-          dateFormat: "dd-mm-yy"
+        /* out of scope #1
+            $( "#birthday" ).datepicker({
+              showOn: "button",
+              buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif",
+              buttonImageOnly: true,
+              dateFormat: "dd-mm-yy"
+            });
+        */
+
+        $("#bloodRequestForm").ajaxForm(function(data) {
+            if(data.result && data.result == "fail") {
+                $(".message").text(data.message);
+                $(".message").hide().slideDown();
+            } else {
+                $("#bloodRequestForm input[type=submit]").attr("disabled", "disabled");
+                $("#successForm input[name=requestId]").val(data.requestId);
+                $("#successForm").submit();
+            }
         });
-*/
       });
 
     function goHome(){
@@ -26,8 +36,11 @@
     </head>
     <body>
         <form id="bloodRequestForm" method="post" action="/requestForBlood">
+        <div id="title">
+            <h2>Request for Blood</h2>
+        </div>
+        <div class="message" style="display: none"></div>
         <div id="bloodRequestInfo">
-            <h2><u>Request for Blood</u></h2>
             <table cellspacing="3">
                 <tr>
                     <td><label>Name:</label></td>
@@ -145,7 +158,6 @@
             <input type="submit" name="register" value="Register"/>
             <input type="button" name="reset" value="Cancel" onClick="goHome()"/>
         </div>
-        <div class="message" style="display: none"></div>
         </form>
 
         <form id="successForm" method="post" action="/requestForBlood/success">

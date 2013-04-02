@@ -256,7 +256,7 @@ public class BloodRequestTest {
 
         Set<ConstraintViolation<BloodRequest>> constraintViolations = validator.validateProperty(bloodRequest, "phone");
 
-        assertThat(constraintViolations.size(), is(2));
+        assertThat(constraintViolations.size(), is(3));
     }
 
     @Test
@@ -264,11 +264,11 @@ public class BloodRequestTest {
         BloodRequest bloodRequest = createNewBloodRequest();
         setDummyString(bloodRequest, "phone", 9);
         Set<ConstraintViolation<BloodRequest>> constraintViolations = validator.validateProperty(bloodRequest, "phone");
-        assertThat(constraintViolations.size(), is(1));
+        assertThat(constraintViolations.size(), is(2));
 
         setDummyString(bloodRequest, "phone", 11);
         constraintViolations = validator.validateProperty(bloodRequest, "phone");
-        assertThat(constraintViolations.size(), is(1));
+        assertThat(constraintViolations.size(), is(2));
 
         setDummyNumericString(bloodRequest, "phone", 10);
         constraintViolations = validator.validateProperty(bloodRequest, "phone");

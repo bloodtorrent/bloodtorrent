@@ -1,9 +1,12 @@
 <html>
     <head>
+        <title>Register a donor</title>
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
-        <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&language=en"></script>
+        <link rel="stylesheet" href="/css/message.css" />
         <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
         <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+        <script src="http://malsup.github.com/jquery.form.js"></script>
+        <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&language=en"></script>
         <script type="text/javascript" language="javascript">
         //<![CDATA[
         $(function() {
@@ -12,26 +15,37 @@
                 selectOtherMonths: true,
                 dateFormat: "dd-mm-yy"
             });
+
+            $("#user").ajaxForm(function(data) {
+                if(data.result && data.result == "fail") {
+                    $(".message").text(data.message);
+                    $(".message").hide().slideDown();
+                } else {
+                    $("#register").attr("disabled", "disabled");
+                    $("#successForm").submit();
+                }
+            });
+
             $("#register").click(function(){
                 if ($("#orginalAddress").val() != "" && $("#city").val() != "" && $("#state").val() != "") {
                     if ( ($("#lat").val() == "" || $("#lng").val() == "") || $("isMapExcuted").val() == "N") {
                         var fullAddress = $("#orginalAddress").val() + "," + $("#city").val() + "," + $("#state").val() + "," +"India";
-                            var geocoder = new google.maps.Geocoder();
-                            geocoder.geocode(
-                                {
-                                    'address': fullAddress,
-                                },
-                                function(results, status) {
-                                    if (status == google.maps.GeocoderStatus.OK) {
-                                        var loc = results[0].geometry.location;
-                                        $("#lat").val(loc.lat());
-                                        $("#lng").val(loc.lng());
-                                        $("#user").submit();
-                                    }else {
-                                        alert("Not found: " + status);
-                                    }
+                        var geocoder = new google.maps.Geocoder();
+                        geocoder.geocode(
+                            {
+                                'address': fullAddress,
+                            },
+                            function(results, status) {
+                                if (status == google.maps.GeocoderStatus.OK) {
+                                    var loc = results[0].geometry.location;
+                                    $("#lat").val(loc.lat());
+                                    $("#lng").val(loc.lng());
+                                    $("#user").submit();
+                                }else {
+                                    alert("Not found: " + status);
                                 }
-                            );
+                            }
+                        );
                     } else {
                        $("#user").submit();
                     }
@@ -47,8 +61,9 @@
 
         <form id="user" method="post" action="/user">
         <div id="title">
-            <center><label><h2><u>New Account Registration as Donor</u></h2><label></center>
+            <h2>New Account Registration as Donor</h2>
         </div>
+        <div class="message" style="display: none"></div>
         <div id="userInfo">
             <table>
                 <tr>
@@ -185,15 +200,15 @@
                 </tr>
             </table>
         </div>
-        <center>
-
         <input type="hidden" name="lat" id="lat" value=""/>
         <input type="hidden" name="lng" id="lng" value=""/>
         <input type="hidden" name="isMapExcuted" id="isMapExcuted" value="N"/>
 
         <input type="button" id="register" name="register" value="Register"/>
         <a href ="/"><input type="button" name="cancel" value="Cancel"/></a>
-        </center>
+        </form>
+
+        <form id="successForm" method="post" action="/user/success">
         </form>
 
         <#include "location.ftl"/>

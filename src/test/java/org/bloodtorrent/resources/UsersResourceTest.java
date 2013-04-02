@@ -1,20 +1,29 @@
 package org.bloodtorrent.resources;
 
+import org.bloodtorrent.BloodTorrentConstants;
 import org.bloodtorrent.dto.User;
 import org.bloodtorrent.repository.UsersRepository;
 import org.bloodtorrent.view.ResultView;
+import org.hamcrest.core.IsInstanceOf;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -25,99 +34,97 @@ import static org.mockito.Mockito.when;
  * Time: 오후 1:56
  * To change this template use File | Settings | File Templates.
  */
-public class UsersResourceTest {
+@RunWith(MockitoJUnitRunner.class)
+public class UsersResourceTest implements BloodTorrentConstants {
 
 
     private final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
     private final Validator validator = factory.getValidator();
+    private UsersResource usersResource;
 
-    private User createNewUser() {
-        User user = new User();
-        user.setId("bloodtorrent@naver.com");
-        user.setPassword("password");
-        user.setRole("donor");
-        user.setFirstName("Blood");
-        user.setLastName("Torrent");
-        user.setCellPhone("0123456789");
-        user.setGender("male");
-        user.setBloodGroup("A+");
-        user.setAnonymous(false);
-        user.setAddress("BR Mehta Ln");
-        user.setCity("New Delhi");
-        user.setState("Delhi");
-        user.setDistance("10");
-        user.setBirthDay("18031980");
-        user.setLatitude(17.458418734757736);
-        user.setLongitude(78.33536359287109);
-        return user;
+    @Mock
+    private UsersRepository usersRepository;
+
+    @Before
+    public void setUpResource() {
+        usersResource = new UsersResource(usersRepository);
     }
 
-    @Test
-    public void shouldCheckEmailDuplication(){
-        UsersRepository usersRepository = mock(UsersRepository.class);
-        when(usersRepository.get("bloodtorrent@naver.com")).thenReturn(createNewUser());
-
-        User user = createNewUser();
-        UsersResource usersResource = new UsersResource(usersRepository);
-
-        assertThat(usersResource.checkEmailDuplicated(new ArrayList<String>(), user).get(0) ,is("This email address is already taken."));
+    private UsersResource.PotentialDonor createNewPotentialDonor() {
+        UsersResource.PotentialDonor potentialDonor = new UsersResource.PotentialDonor();
+        potentialDonor.setId("bloodtorrent@naver.com");
+        potentialDonor.setPassword("passw0rd");
+        potentialDonor.setFirstName("Blood");
+        potentialDonor.setLastName("Torrent");
+        potentialDonor.setCellPhone("0123456789");
+        potentialDonor.setGender("male");
+        potentialDonor.setBloodGroup("A+");
+        potentialDonor.setAnonymous(false);
+        potentialDonor.setAddress("BR Mehta Ln");
+        potentialDonor.setCity("New Delhi");
+        potentialDonor.setState("Bihar");
+        potentialDonor.setDistance("10");
+        potentialDonor.setBirthday("18-03-1980");
+        potentialDonor.setLatitude(17.458418734757736);
+        potentialDonor.setLongitude(78.33536359287109);
+        return potentialDonor;
     }
 
     @Test
     public void shouldRegisterDonorThenReturnResultView() {
-        UsersRepository usersRepository = mock(UsersRepository.class);
-        UsersResource usersResource = new UsersResource(usersRepository);
-        User user = createNewUser();
-        user.setPassword("passw0rd");
-        user.setBirthDay("18-03-1980");
-        user.setState("Bihar");
-        ResultView resultView = usersResource.registDonor(user.getFirstName(),user.getLastName(),user.getId(),user.getPassword()
-                                    ,user.getPassword(),user.getAddress(),user.getCity(),user.getState(),user.getCellPhone(),user.getBloodGroup()
-                                    ,user.getDistance(),user.getGender(),user.getBirthDay(),user.isAnonymous(),user.getLatitude(),user.getLongitude(),"1");
+        User user = createNewPotentialDonor();
+        Map<String, Object> jsonMap = usersResource.registerDonor(user.getFirstName(), user.getLastName(), user.getId(), user.getPassword()
+                , user.getPassword(), user.getAddress(), user.getCity(), user.getState(), user.getCellPhone(), user.getBloodGroup()
+                , user.getDistance(), user.getGender(), user.getBirthday(), user.isAnonymous(), user.getLatitude(), user.getLongitude(), "1");
 
-        assertThat(resultView.getTemplateName(), is("/ftl/registrationResult.ftl"));
-        assertThat(resultView.getResult(), is("success"));
+        assertThat(jsonMap.get("result"), hasToString("success"));
     }
 
     @Test
-    public void shouldRegisterDonorGivenNotEqualPasswordThenReturnValidationView() {
+    public void shouldOccurEmailDuplicationMessageOnceUsingTakenEmailAddress(){
+        when(usersRepository.get("bloodtorrent@naver.com")).thenReturn(createNewPotentialDonor());
+        UsersResource.PotentialDonor donor = createNewPotentialDonor();
+        Map<String, Object> jsonMap = usersResource.registerDonor(donor.getFirstName(), donor.getLastName(), donor.getId(), donor.getPassword()
+                , donor.getPassword(), donor.getAddress(), donor.getCity(), donor.getState(), donor.getCellPhone(), donor.getBloodGroup()
+                , donor.getDistance(), donor.getGender(), donor.getBirthday(), donor.isAnonymous(), donor.getLatitude(), donor.getLongitude(), "1");
+
+        assertThat(jsonMap.get(JSON_RESULT_KEY), hasToString(JSON_FAIL_VALUE));
+        assertThat(jsonMap.get(JSON_MESSAGE_KEY), hasToString(UsersResource.EMAIL_DUPLICATION_MESSAGE));
+    }
+
+    @Test
+    public void shouldOccurConfirmMessageOnceThereAreDifferentPasswords() {
         String password = "passw0rd";
         String confirmPassword = "password";
+        UsersResource.PotentialDonor donor = createNewPotentialDonor();
 
-        UsersRepository usersRepository = mock(UsersRepository.class);
-        UsersResource usersResource = new UsersResource(usersRepository);
-        User user = createNewUser();
-        user.setPassword(password);
+        Map<String, Object> jsonMap = usersResource.registerDonor(donor.getFirstName(), donor.getLastName(), donor.getId(), password
+                , confirmPassword, donor.getAddress(), donor.getCity(), donor.getState(), donor.getCellPhone(), donor.getBloodGroup()
+                , donor.getDistance(), donor.getGender(), donor.getBirthday(), donor.isAnonymous(), donor.getLatitude(), donor.getLongitude(), "1");
 
-        ResultView resultView = usersResource.registDonor(user.getFirstName(),user.getLastName(),user.getId(),user.getPassword()
-                ,confirmPassword,user.getAddress(),user.getCity(),user.getState(),user.getCellPhone(),user.getBloodGroup()
-                ,user.getDistance(),user.getGender(),user.getBirthDay(),user.isAnonymous(),user.getLatitude(),user.getLongitude(),"1");
-
-        assertThat(resultView.getTemplateName(), is("/ftl/registrationResult.ftl"));
-        assertThat(resultView.getResult(), is("fail"));
-        assertThat(resultView.getMessages().isEmpty(), is(false));
+        assertThat(jsonMap.get(JSON_RESULT_KEY), hasToString(JSON_FAIL_VALUE));
+        assertThat(jsonMap.get(JSON_MESSAGE_KEY), hasToString(UsersResource.PASSWORD_DIFFERENT_MESSAGE));
     }
 
     @Test
-    public void shouldRegisterDonorGivenWrongInformationThenReturnValidationView() {
-        UsersRepository usersRepository = mock(UsersRepository.class);
-        UsersResource usersResource = new UsersResource(usersRepository);
-        User user = createNewUser();
-        ResultView resultView = usersResource.registDonor(user.getFirstName(),user.getLastName(),user.getId(),user.getPassword()
-                ,user.getPassword(),user.getAddress(),user.getCity(),user.getState(),user.getCellPhone(),user.getBloodGroup()
-                ,user.getDistance(),user.getGender(),user.getBirthDay(),user.isAnonymous(),user.getLatitude(),user.getLongitude(),"1");
+    public void shouldShowErrorMessageOnceProvidingWrongInformation() {
+        UsersResource.PotentialDonor donor = createNewPotentialDonor();
+        donor.setBirthday("20120101");
 
-        assertThat(resultView.getTemplateName(), is("/ftl/registrationResult.ftl"));
-        assertThat(resultView.getResult(), is("fail"));
-        assertThat(resultView.getMessages().isEmpty(), is(false));
+        Map<String, Object> jsonMap = usersResource.registerDonor(donor.getFirstName(), donor.getLastName(), donor.getId(), donor.getPassword()
+                , donor.getPassword(), donor.getAddress(), donor.getCity(), donor.getState(), donor.getCellPhone(), donor.getBloodGroup()
+                , donor.getDistance(), donor.getGender(), donor.getBirthday(), donor.isAnonymous(), donor.getLatitude(), donor.getLongitude(), "1");
+
+        assertThat(jsonMap.get(JSON_RESULT_KEY), hasToString(JSON_FAIL_VALUE));
+        assertThat(jsonMap.get(JSON_MESSAGE_KEY), notNullValue());
+        assertThat(jsonMap.get(JSON_MESSAGE_KEY), instanceOf(String.class));
     }
 
     @Test
     public void shouldCheckCalculatingDonationDate(){
-        UsersRepository usersRepository = mock(UsersRepository.class);
-        UsersResource usersResource = new UsersResource(usersRepository);
-        User user = createNewUser();
+        User user = createNewPotentialDonor();
 
+        // TODO: Why is the deprecated constructor called in the following? (Scott)
         //1. within 1 month
         Date today = new Date(113, 2, 26);
         usersResource.calculateLastDonateDate(today, "31", user);
@@ -173,5 +180,4 @@ public class UsersResourceTest {
     private String makeDummyNumericString(int num) {
         return makeDummyString(num, "1");
     }
-
 }
