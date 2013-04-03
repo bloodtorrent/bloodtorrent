@@ -1,65 +1,124 @@
 package org.bloodtorrent.bootstrap;
 
-import com.yammer.dropwizard.config.Bootstrap;
 import com.yammer.dropwizard.config.Environment;
+import org.bloodtorrent.resources.BloodRequestResource;
+import org.bloodtorrent.resources.MainResource;
+import org.bloodtorrent.servlet.LoginServlet;
+import org.eclipse.jetty.server.SessionManager;
+import org.eclipse.jetty.server.session.SessionHandler;
 import org.hibernate.SessionFactory;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
-import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static com.google.common.collect.Sets.newHashSet;
+import static org.mockito.Mockito.*;
 
-/**
- * Created with IntelliJ IDEA.
- * User: sds
- * Date: 3/20/13
- * Time: 10:09 AM
- * To change this template use File | Settings | File Templates.
- */
+@RunWith(MockitoJUnitRunner.class)
 public class BloodTorrentServiceTest {
-    BloodTorrentService service;
-    Bootstrap<SimpleConfiguration> bootstrap;
-    SimpleConfiguration config;
+    @Mock
+    SimpleConfiguration configuration;
+    @Mock
     Environment environment;
+    @Mock
+    SessionHandler httpSessionHandler;
+    @Mock
+    SessionManager httpSessionManager;
+    @Mock
+    ResourceCreator resourceCreator;
+    @Mock
+    SimpleHibernateBundle hibernateBundle;
+    @Mock
+    SessionFactory hibernateSessionFactory;
 
     @Before
-    public void before() throws IOException {
-        service = mock(BloodTorrentService.class);
-        bootstrap = mock(Bootstrap.class);
-        config = mock(SimpleConfiguration.class);
-        environment = mock(Environment.class);
-    }
-
-    @Ignore
-    public void thisDoesNotTestInitialize() throws Exception {
-        verify(service).initialize(bootstrap);
-    }
-
-    @Ignore
-    public void thisDoesNotTestRun() throws Exception {
-        mockPersistenceLayer(service);
-        verify(service).run(config, environment);
-    }
-
-    private void mockPersistenceLayer(BloodTorrentService bloodTorrentService) {
-        SimpleHibernateBundle mock = mock(SimpleHibernateBundle.class);
-        SessionFactory sessionFactory = mock(SessionFactory.class);
-        when(mock.getSessionFactory()).thenReturn(sessionFactory);
-        bloodTorrentService.setHibernateBundle(mock);
+    public void setup() {
+        when(hibernateBundle.getSessionFactory()).thenReturn(hibernateSessionFactory);
+        when(httpSessionHandler.getSessionManager()).thenReturn(httpSessionManager);
+        Set<Object> noResources = newHashSet();
+        when(resourceCreator.createResources(any(SessionFactory.class), any(SimpleConfiguration.class),
+                                             any(SessionManager.class))).thenReturn(noResources);
     }
 
     @Test
-    public void shouldAddCustom404ToEnvironment() throws ClassNotFoundException {
+    public void shouldAddCustom404ToEnvironment() {
         BloodTorrentCustom404 custom404 = new BloodTorrentCustom404();
-        BloodTorrentService bloodTorrentService = new BloodTorrentService(custom404);
-        mockPersistenceLayer(bloodTorrentService);
+        BloodTorrentService bloodTorrentService = new BloodTorrentService(hibernateBundle, httpSessionHandler, custom404, resourceCreator);
 
-        bloodTorrentService.run(config, environment);
+        bloodTorrentService.run(null, environment);
 
         verify(environment).addProvider(custom404);
+    }
+
+    @Test
+    public void shouldAddSessionHandlerToEnvironment() {
+        BloodTorrentService bloodTorrentService = new BloodTorrentService(hibernateBundle, httpSessionHandler, null, resourceCreator);
+
+        bloodTorrentService.run(null, environment);
+
+        verify(environment).setSessionHandler(httpSessionHandler);
+    }
+
+    @Test
+    public void shouldAddLoginServletToEnvironment() {
+        BloodTorrentService bloodTorrentService = new BloodTorrentService(hibernateBundle, httpSessionHandler, null, resourceCreator);
+
+        bloodTorrentService.run(null, environment);
+
+        verify(environment).addServlet(any(LoginServlet.class), eq(LoginServlet.URI_PATH));
+    }
+
+    @Test
+    public void shouldCreateResources() {
+        BloodTorrentService bloodTorrentService = new BloodTorrentService(hibernateBundle, httpSessionHandler, null, resourceCreator);
+
+        bloodTorrentService.run(configuration, environment);
+
+        verify(resourceCreator).createResources(hibernateSessionFactory, configuration, httpSessionManager);
+    }
+
+    @Test
+    public void shouldAddAllCreatedResourcesToEnvironment() {
+        MainResource mainResource = mock(MainResource.class);
+        BloodRequestResource bloodRequestResource = mock(BloodRequestResource.class);
+        BloodTorrentService bloodTorrentService = serviceForResources(newHashSet(mainResource, bloodRequestResource));
+
+        bloodTorrentService.run(configuration, environment);
+
+        verify(environment).addResource(mainResource);
+        verify(environment).addResource(bloodRequestResource);
+    }
+
+    @Test
+    public void shouldAddTwoResourcesToEnvironment() {
+        HashSet<Object> twoResources = newHashSet(new Object(), new Object());
+        BloodTorrentService bloodTorrentService = serviceForResources(twoResources);
+
+        bloodTorrentService.run(configuration, environment);
+
+        verify(environment, times(2)).addResource(anyObject());
+    }
+
+
+    @Test
+    public void shouldAddFourResourcesToEnvironment() {
+        HashSet<Object> fourResources = newHashSet(new Object(), new Object(), new Object(), new Object());
+        BloodTorrentService bloodTorrentService = serviceForResources(fourResources);
+
+        bloodTorrentService.run(configuration, environment);
+
+        verify(environment, times(4)).addResource(anyObject());
+    }
+
+    private BloodTorrentService serviceForResources(HashSet<Object> resourceSet) {
+        BloodTorrentService bloodTorrentService = new BloodTorrentService(hibernateBundle, httpSessionHandler, null, resourceCreator);
+        when(resourceCreator.createResources(any(SessionFactory.class), any(SimpleConfiguration.class), any(SessionManager.class)))
+                .thenReturn(resourceSet);
+        return bloodTorrentService;
     }
 }

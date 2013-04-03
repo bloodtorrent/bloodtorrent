@@ -5,27 +5,27 @@ import com.yammer.dropwizard.assets.AssetsBundle;
 import com.yammer.dropwizard.config.Bootstrap;
 import com.yammer.dropwizard.config.Environment;
 import com.yammer.dropwizard.views.ViewBundle;
-import org.bloodtorrent.repository.BloodRequestRepository;
-import org.bloodtorrent.repository.CatchPhraseRepository;
-import org.bloodtorrent.repository.SuccessStoryRepository;
-import org.bloodtorrent.repository.UsersRepository;
-import org.bloodtorrent.resources.*;
 import org.bloodtorrent.servlet.LoginServlet;
-import org.eclipse.jetty.server.SessionManager;
 import org.eclipse.jetty.server.session.SessionHandler;
-import org.hibernate.SessionFactory;
+
+import java.util.Set;
 
 public class BloodTorrentService extends Service<SimpleConfiguration> {
-    private SimpleHibernateBundle hibernateBundle = new SimpleHibernateBundle("org.bloodtorrent");
-    private BloodTorrentCustom404 custom404;
+    private final SimpleHibernateBundle hibernateBundle;
+    private final SessionHandler httpSessionHandler;
+    private final BloodTorrentCustom404 custom404;
+    private final ResourceCreator resourceCreator;
 
-    public BloodTorrentService(BloodTorrentCustom404 custom404) {
+    public BloodTorrentService(SimpleHibernateBundle hibernateBundle, SessionHandler httpSessionHandler, BloodTorrentCustom404 custom404, ResourceCreator resourceCreator) {
+        this.hibernateBundle = hibernateBundle;
+        this.httpSessionHandler = httpSessionHandler;
         this.custom404 = custom404;
+        this.resourceCreator = resourceCreator;
     }
 
     public static void main(String[] args) {
 	  try {
-        new BloodTorrentService(new BloodTorrentCustom404()).run(args);
+        new BloodTorrentService(new SimpleHibernateBundle("org.bloodtorrent"), new SessionHandler(), new BloodTorrentCustom404(), new ResourceCreator()).run(args);
 	  }
 	  catch(Exception ex) {
 	    System.out.println("Running BloodTorrent Service failed with exception.");
@@ -33,9 +33,6 @@ public class BloodTorrentService extends Service<SimpleConfiguration> {
 	  }
     }
 
-    public void setHibernateBundle(SimpleHibernateBundle hibernateBundle) {
-        this.hibernateBundle = hibernateBundle;
-    }
 
     @Override
     public void initialize(Bootstrap<SimpleConfiguration> bootstrap) {
@@ -48,60 +45,19 @@ public class BloodTorrentService extends Service<SimpleConfiguration> {
     }
 
     @Override
-    public void run(SimpleConfiguration config,
-                    Environment environment) throws ClassNotFoundException {
-
+    public void run(SimpleConfiguration configuration, Environment environment) {
         environment.addProvider(custom404);
-
-        SessionHandler httpSessionHandler = new SessionHandler();
-        SessionManager httpsSessionManager = httpSessionHandler.getSessionManager();
         environment.setSessionHandler(httpSessionHandler);
-        environment.addServlet(new LoginServlet(), "/login");
-
-        SessionFactory sessionFactory = hibernateBundle.getSessionFactory();
-        final UsersRepository userRepository = new UsersRepository(sessionFactory);
-        final BloodRequestRepository bloodReqRepository = new BloodRequestRepository(sessionFactory);
-        final SuccessStoryRepository successStoryRepository = new SuccessStoryRepository(sessionFactory);
-        final CatchPhraseRepository catchPhraseRepository = new CatchPhraseRepository(sessionFactory);
-
-        NotifyDonorSendEmailResource mailResource = new NotifyDonorSendEmailResource();
-        mailResource.setMailConfiguration(config.getMailConfiguration());
-
-        MainResource mainResource = new MainResource(httpsSessionManager);
-        SuccessStoryResource successStoryResource = new SuccessStoryResource(httpsSessionManager, successStoryRepository);
-        mainResource.setSuccessStoryResource(successStoryResource);
-        CatchPhraseResource catchPhraseResource = new CatchPhraseResource(catchPhraseRepository);
-        mainResource.setCatchPhraseResource(catchPhraseResource);
-
-        AdminResource adminResource = new AdminResource(httpsSessionManager);
-        adminResource.setMainResource(mainResource);
-
-        LogOffResource logOffResource = new LogOffResource(httpsSessionManager);
-        logOffResource.setMainResource(mainResource);
-
-        FindingMatchingDonorResource findingMatchingDonorResource = new FindingMatchingDonorResource(userRepository);
-
-        BloodRequestResource bloodRequestResource = new BloodRequestResource(bloodReqRepository, mailResource, findingMatchingDonorResource);
-
-        LoginFailResource loginFailResource = new LoginFailResource();
-        loginFailResource.setMainResource(mainResource);
-
-        addResource(environment, mainResource);
-        addResource(environment, adminResource) ;
-        addResource(environment, logOffResource);
-        addResource(environment, new UsersResource(userRepository));
-        addResource(environment, bloodRequestResource);
-        addResource(environment, successStoryResource);
-        addResource(environment, catchPhraseResource);
-        addResource(environment, new LoginResource(httpsSessionManager, userRepository));
-        addResource(environment, loginFailResource);
-        addResource(environment, findingMatchingDonorResource);
-        addResource(environment, new TestPageSendEmailResource());
-        addResource(environment, new TestSendEmailResource());
-        addResource(environment, mailResource);
+        environment.addServlet(new LoginServlet(), LoginServlet.URI_PATH);
+        createResourcesAndAddToEnvironment(configuration, environment);
     }
 
-    private void addResource(Environment environment, Object resource) {
-        environment.addResource(resource);
+    private void createResourcesAndAddToEnvironment(SimpleConfiguration configuration, Environment environment) {
+        Set<Object> resources = resourceCreator.createResources(hibernateBundle.getSessionFactory(),
+                                                                configuration,
+                                                                httpSessionHandler.getSessionManager());
+        for (Object resource : resources) {
+            environment.addResource(resource);
+        }
     }
 }
