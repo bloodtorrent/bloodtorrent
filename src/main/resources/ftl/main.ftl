@@ -75,7 +75,7 @@
                             <table class='wsite-multicol-table'>
                                 <tbody class='wsite-multicol-tbody'>
                                 <tr class='wsite-multicol-tr'>
-                                    <td class='wsite-multicol-col' style='width:67.11509715994%;padding:0 15px'>
+                                    <td class='wsite-multicol-col' style='width:69%;padding:0 15px'>
 
                                         <div><div class="wsite-image wsite-image-border-thin " style="padding-top:10px;padding-bottom:10px;margin-left:0;margin-right:10px;text-align:left">
                                             <a>
@@ -123,9 +123,9 @@
                                 <tr class='wsite-multicol-tr'>
                                 <#if successStories??>
                                     <#list successStories as story>
-                                        <td class='wsite-multicol-col' style='width:32%;padding:0 15px'>
+                                        <td class='wsite-multicol-col' style='width:23%;padding:0 15px'>
                                             <h2 style="text-align:left;"><a href="/successStory/${story.id}" class="successStoryDetailLink">${story.title}</a></h2>
-                                            <span class='thumbnail' style='float:left;height:0px'></span><span style='position:relative;float:left;z-index:10;;clear:left;margin-top:0px;*margin-top:0px'><a href="/successStory/${story.id}"><img class="thumbnail" src="/successStory/image/${story.thumbnailPath}" style="margin-top: 5px; margin-bottom: 10px; margin-left: 0px; margin-right: 10px; border-width:1px;padding:3px;" alt="Picture" /></a><div style="display: block; font-size: 90%; margin-top: -10px; margin-bottom: 10px; text-align: center;"></div></span>
+                                            <#if story.thumbnailPath?exists><span class='imgPusher' style='float:left;height:0px'></span><span style='position:relative;float:left;z-index:10;;clear:left;margin-top:0px;*margin-top:0px'><a href="/successStory/${story.id}"><img class="thumbnail" src="/successStory/image/${story.thumbnailPath}" style="margin-top: 5px; margin-bottom: 10px; margin-left: 0px; margin-right: 10px; border-width:1px;padding:3px;" alt="Picture" /></a><div style="display: block; font-size: 90%; margin-top: -10px; margin-bottom: 10px; text-align: center;"></div></span></#if>
                                             <div class="paragraph" style="text-align:left;display:block;">${story.summary}</div>
                                             <hr style="clear:both;visibility:hidden;width:100%;"></hr>
                                         </td>

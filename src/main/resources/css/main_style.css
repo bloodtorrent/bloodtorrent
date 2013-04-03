@@ -735,3 +735,29 @@ states (normal, :hover, :active) have their sprite coordinates in the same place
 .wsite-button-highlight .wsite-button-inner {
 	background-image: url('../images/button_highlight_orange.png');
 }
+
+/* Multicolumn Element
+--------------------------------------------------------------------------------------*/
+
+.wsite-multicol {
+	position: relative;
+    direction: ltr;
+}
+
+.wsite-multicol-table {
+	position: relative;
+	border-collapse: collapse;
+	table-layout: fixed;
+	width: 100%;
+    margin: 0 !important;
+    border: 0 !important;
+    padding: 0 !important;
+}
+
+.wsite-multicol-col {
+	vertical-align: top;
+	width:200px;
+    margin: 0 !important;
+    border: 0 !important;
+    padding: 0;
+}

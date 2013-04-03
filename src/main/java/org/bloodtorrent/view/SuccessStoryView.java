@@ -37,7 +37,9 @@ public class SuccessStoryView extends View {
 
     public SuccessStoryView(SuccessStory successStory) {
 		super(PATH);
-		this.successStory = successStory;
+        String description = successStory.getDescription();
+        successStory.setDescription(description.replaceAll(System.getProperty("line.separator"), "<br/>"));
+        this.successStory = successStory;
 	}
 
     public SuccessStoryView(List<SuccessStory> successStoryList) {

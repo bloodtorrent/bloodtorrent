@@ -19,10 +19,14 @@
     <#if successStory.visualResourcePath?exists>
     <img class="visualResource" src="/successStory/image/${successStory.visualResourcePath}" width="800" height="600"/><br>
     </#if>
-    ${successStory.description}<br>
+    <table> <tr><td width="800px">
+    ${successStory.description}
+    </td>
+    </tr>
+    </table>
     <p align="right"><a href='/'>Home</a></p>
     <hr>
-</div>
+    </div>
 </body>
 </html>
 

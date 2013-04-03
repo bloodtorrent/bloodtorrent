@@ -205,15 +205,6 @@ public class SuccessStoryResource {
         }
     }
 
-    private String getHtmlSafeString(String str) {
-        return str.replaceAll("&", "&amp;")
-                .replaceAll("<", "&lt;")
-                .replaceAll(">", "&gt;")
-                .replaceAll("\r\n", "<br/>")
-                .replaceAll("\n", "<br/>")
-                .replaceAll(" ", "&nbsp;");
-    }
-
     private void saveFile(String outputPath, String fileName, final InputStream stream) throws IOException {
         File uploadDir = new File(outputPath);
         if(!uploadDir.exists()){
