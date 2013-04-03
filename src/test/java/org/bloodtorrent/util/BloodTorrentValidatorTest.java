@@ -76,7 +76,7 @@ public class BloodTorrentValidatorTest {
         TestUtil.setDummyString(testUser, "state", 1);
 
         String errorMessage = validator.getFirstValidationMessage(testUser);
-        assertThat(errorMessage, is(BloodTorrentConstants.PLEASE_CHECK + "Date of birth"));
+        assertThat(errorMessage, is(BloodTorrentConstants.PLEASE_CHECK + "Date of birth."));
     }
 
     private User createTestUser() {
