@@ -124,10 +124,9 @@
                                 <#if successStories??>
                                     <#list successStories as story>
                                         <td class='wsite-multicol-col' style='width:23%;padding:0 15px'>
-                                            <h2 style="text-align:left;"><a href="/successStory/${story.id}" class="successStoryDetailLink">${story.title}</a></h2>
-                                            <#if story.thumbnailPath?exists><span class='imgPusher' style='float:left;height:0px'></span><span style='position:relative;float:left;z-index:10;;clear:left;margin-top:0px;*margin-top:0px'><a href="/successStory/${story.id}"><img class="thumbnail" src="/successStory/image/${story.thumbnailPath}" style="margin-top: 5px; margin-bottom: 10px; margin-left: 0px; margin-right: 10px; border-width:1px;padding:3px;" alt="Picture" /></a><div style="display: block; font-size: 90%; margin-top: -10px; margin-bottom: 10px; text-align: center;"></div></span></#if>
-                                            <div class="paragraph" style="text-align:left;display:block;">${story.summary}</div>
-                                            <hr style="clear:both;visibility:hidden;width:100%;"></hr>
+                                            <h2><a href="/successStory/${story.id}">${story.title}</a></h2>
+                                            <#if story.thumbnailPath?exists><span class='imgPusher'></span><span><a href="/successStory/${story.id}"><img class="thumbnail" src="/successStory/image/${story.thumbnailPath}"/></a></span></#if>
+                                            <div class="paragraph">${story.summary}</div>
                                         </td>
                                     </#list>
                                 </#if>
