@@ -171,17 +171,12 @@ public class SuccessStoryResource {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
         Date timestamp = new Date();
 
-
-        title = getHtmlSafeString(title);
-        summary = getHtmlSafeString(summary);
-        description = getHtmlSafeString(description);
-
         SuccessStory story = new SuccessStory();
         String id = sdf.format(timestamp);
         story.setId(id);
-        story.setTitle(title);
-        story.setSummary(summary);
-        story.setDescription(description);
+        story.setTitle(getHtmlSafeString(title));
+        story.setSummary(getHtmlSafeString(summary));
+        story.setDescription(getHtmlSafeString(description));
         story.setShowMainPage("N");
 
        if(stream != null && !content.getFileName().isEmpty()){
