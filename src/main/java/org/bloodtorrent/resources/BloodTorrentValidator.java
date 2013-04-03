@@ -32,7 +32,6 @@ public class BloodTorrentValidator<T> {
         this.fieldNames = fieldNames;
     }
 
-
     protected BloodTorrentValidator()  {
         initValidator();
     }
@@ -81,7 +80,7 @@ public class BloodTorrentValidator<T> {
 
         protected int getPriority(ConstraintViolation<T> violation) {
             Class<?> thisType = violation.getConstraintDescriptor().getAnnotation().annotationType();
-            for (int i = 0, TOTAL = annotations.length; i < TOTAL; i++) {
+            for (int i = 0, total = annotations.length; i < total; i++) {
                 if(thisType.equals(annotations[i])) {
                     return i;
                 }
@@ -93,7 +92,7 @@ public class BloodTorrentValidator<T> {
     private class DisplayedOrdering<T> extends PrioritizedOrdering<T> {
         protected int getPriority(ConstraintViolation<T> violation) {
             final String fieldName = getFieldName(violation);
-            for (int i = 0, TOTAL = fieldNames.length; i < TOTAL; i++) {
+            for (int i = 0, total = fieldNames.length; i < total; i++) {
                 if(fieldName.equals(fieldNames[i])) {
                     return i;
                 }
