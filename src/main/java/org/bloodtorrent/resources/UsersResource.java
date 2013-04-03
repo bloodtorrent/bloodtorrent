@@ -18,6 +18,7 @@ import javax.validation.constraints.Size;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.*;
+import static org.bloodtorrent.BloodTorrentConstants.*;
 
 
 /**
@@ -28,7 +29,7 @@ import java.util.*;
  * To change this template use File | Settings | File Templates.
  */
 @Path("/user")
-public class UsersResource implements BloodTorrentConstants {
+public class UsersResource {
     public static final String EMAIL_DUPLICATION_MESSAGE = "This email address is already taken.";
     public static final String PASSWORD_DIFFERENT_MESSAGE = "password and confirm password are not same.";
     private static final String INVALID_LOCATION_MESSAGE = "location";
