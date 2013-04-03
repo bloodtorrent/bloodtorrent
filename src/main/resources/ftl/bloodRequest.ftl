@@ -193,7 +193,6 @@
         <input type="hidden" name="lat" id="lat" value=""/>
         <input type="hidden" name="lng" id="lng" value=""/>
         <input type="hidden" name="isMapExcuted" id="isMapExcuted" value="N"/>
-        <div class="message" style="display: none"></div>
         </form>
 
         <form id="successForm" method="post" action="/requestForBlood/success">
