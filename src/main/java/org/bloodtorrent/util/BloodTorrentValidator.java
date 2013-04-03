@@ -1,4 +1,4 @@
-package org.bloodtorrent.resources;
+package org.bloodtorrent.util;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Ordering;
@@ -32,7 +32,7 @@ public class BloodTorrentValidator<T> {
         this.fieldNames = fieldNames;
     }
 
-    protected BloodTorrentValidator()  {
+    public BloodTorrentValidator()  {
         initValidator();
     }
 
@@ -51,7 +51,7 @@ public class BloodTorrentValidator<T> {
             Collections.sort(violations, new TypeOrdering<T>(NotBlank.class, Pattern.class, Size.class));
         }
 
-        return violations.get(0).getMessage();
+        return violations.size() > 0 ? violations.get(0).getMessage() : "";
     }
 
     public boolean isInvalid(T vo) {
@@ -80,7 +80,7 @@ public class BloodTorrentValidator<T> {
 
         protected int getPriority(ConstraintViolation<T> violation) {
             Class<?> thisType = violation.getConstraintDescriptor().getAnnotation().annotationType();
-            for (int i = 0, total = annotations.length; i < total; i++) {
+            for (int i = 0, TOTAL = annotations.length; i < TOTAL; i++) {
                 if(thisType.equals(annotations[i])) {
                     return i;
                 }
@@ -92,7 +92,7 @@ public class BloodTorrentValidator<T> {
     private class DisplayedOrdering<T> extends PrioritizedOrdering<T> {
         protected int getPriority(ConstraintViolation<T> violation) {
             final String fieldName = getFieldName(violation);
-            for (int i = 0, total = fieldNames.length; i < total; i++) {
+            for (int i = 0, TOTAL = fieldNames.length; i < TOTAL; i++) {
                 if(fieldName.equals(fieldNames[i])) {
                     return i;
                 }

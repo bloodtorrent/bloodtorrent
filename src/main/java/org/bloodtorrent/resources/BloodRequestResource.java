@@ -9,6 +9,7 @@ import org.bloodtorrent.IllegalDataException;
 import org.bloodtorrent.dto.BloodRequest;
 import org.bloodtorrent.dto.User;
 import org.bloodtorrent.repository.BloodRequestRepository;
+import org.bloodtorrent.util.BloodTorrentValidator;
 import org.bloodtorrent.view.BloodRequestView;
 import org.bloodtorrent.view.CommonView;
 

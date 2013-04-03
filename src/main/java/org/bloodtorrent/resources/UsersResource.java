@@ -10,10 +10,10 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.bloodtorrent.BloodTorrentConstants;
 import org.bloodtorrent.dto.User;
 import org.bloodtorrent.repository.UsersRepository;
+import org.bloodtorrent.util.BloodTorrentValidator;
 import org.bloodtorrent.view.CommonView;
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -44,7 +44,7 @@ public class UsersResource {
 
     private void initValidator() {
         this.validator = new UserRegistrationValidator();
-        this.validator.setFieldNames("firstName", "lastName", "id","password", "confirmPassword", "address", "city", "state", "cellPhone", "bloodGroup", "distance", "gender", "birthday");
+        this.validator.setFieldNames("firstName", "lastName", "id", "password", "confirmPassword", "address", "city", "state", "cellPhone", "bloodGroup", "distance", "gender", "birthday");
     }
 
     @GET
