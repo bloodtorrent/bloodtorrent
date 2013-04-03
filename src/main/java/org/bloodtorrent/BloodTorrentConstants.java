@@ -17,7 +17,7 @@ public interface BloodTorrentConstants {
     final String PLEASE_FILL_OUT_ALL_THE_MANDATORY_FIELDS = "You must fill in all of the fields.";
     final String PLEASE_CHECK = "Please enter a valid ";
 
-    final double STATUTE_MILE_TO_KILLOMETER = 1.609344;
+    final double STATUTE_MILE_TO_KILOMETER = 1.609344;
     final double NAUTICAL_MILE_TO_STATUTE_MILE = 1.1515;
     final double DEGREE_PER_FIFTY_KM_FOR_LONGITUDE = 0.54;
     final double DEGREE_PER_FIFTY_KM_FOR_LATITUDE = 0.45;

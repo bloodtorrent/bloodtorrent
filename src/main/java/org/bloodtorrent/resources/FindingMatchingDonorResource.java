@@ -1,7 +1,6 @@
 package org.bloodtorrent.resources;
 
 import com.google.common.collect.Lists;
-import org.bloodtorrent.BloodTorrentConstants;
 import org.bloodtorrent.IllegalDataException;
 import org.bloodtorrent.dto.BloodRequest;
 import org.bloodtorrent.dto.User;
@@ -41,7 +40,7 @@ public class FindingMatchingDonorResource {
     }
 
     private double distanceToKillometer(double distance) {
-        return NauticalMilesToStatuteMile(distance) * STATUTE_MILE_TO_KILLOMETER;
+        return NauticalMilesToStatuteMile(distance) * STATUTE_MILE_TO_KILOMETER;
     }
 
     private double NauticalMilesToStatuteMile(double distance) {
@@ -84,7 +83,7 @@ public class FindingMatchingDonorResource {
         List<User> donors = usersRepository.listByBloodGroupAndAfter90DaysFromLastDonateDate(bloodRequest.getBloodGroup(), bloodRequest.getLatitude(), bloodRequest.getLongitude());
 
         validateMatchingDonors(bloodRequest, donors);
-        List<User> filteredDonors = getMatchingDonors(donors,bloodRequest.getLatitude(),bloodRequest.getLongitude());
+        List<User> filteredDonors = getMatchingDonors(donors, bloodRequest.getLatitude(), bloodRequest.getLongitude());
 
         return filteredDonors;
     }
