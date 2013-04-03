@@ -21,7 +21,7 @@ public class MailSender {
     private String PORT = "587";
     private String CONTENT_TYPE = "text/html; charset=UTF-8";
     @Setter
-    MailConfiguration mailConfiguration;
+    private MailConfiguration mailConfiguration;
     public void sendEmail(String to, String title, String content) {
         Properties properties = new Properties();
         properties.put("mail.transport.protocol", PROTOCOL);
@@ -49,7 +49,7 @@ public class MailSender {
     }
 
     private class SMTPAuthenticator extends Authenticator {
-        PasswordAuthentication passwordAuthentication;
+        private PasswordAuthentication passwordAuthentication;
         SMTPAuthenticator(String userName, String password) {
             passwordAuthentication = new PasswordAuthentication(userName, password);
         }
