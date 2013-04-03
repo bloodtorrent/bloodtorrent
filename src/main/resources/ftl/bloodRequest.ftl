@@ -4,10 +4,10 @@
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
     <link rel="stylesheet" href="/css/message.css" />
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&language=en"></script>
-    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
-    <script src="http://malsup.github.com/jquery.form.js"></script>
-    <script src="/js/message.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+    <script type="text/javascript" src="http://malsup.github.com/jquery.form.js"></script>
+    <script type="text/javascript" src="/js/message.js"></script>
     <script type="text/javascript" language="javascript">
     $(function() {
         /* out of scope #1
@@ -21,10 +21,11 @@
 
         $("#bloodRequestForm").ajaxForm(function(data) {
             if(data.result && data.result == "fail") {
-                $(".message").text(data.message);
-                $(".message").hide().slideDown();
+                showMessage(data.message);
             } else {
+                showMessage("Registering...", "success");
                 $("#bloodRequestForm input[type=submit]").attr("disabled", "disabled");
+                $("#bloodRequestForm input[type=button]").attr("disabled", "disabled");
                 $("#successForm input[name=requestId]").val(data.requestId);
                 $("#successForm").submit();
             }
@@ -37,7 +38,7 @@
                         var geocoder = new google.maps.Geocoder();
                         geocoder.geocode(
                             {
-                                'address': fullAddress,
+                                'address': fullAddress
                             },
                             function(results, status) {
                                 if (status == google.maps.GeocoderStatus.OK) {

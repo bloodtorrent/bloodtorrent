@@ -7,6 +7,7 @@
         <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
         <script src="http://malsup.github.com/jquery.form.js"></script>
         <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&language=en"></script>
+        <script type="text/javascript" src="/js/message.js"></script>
         <script type="text/javascript" language="javascript">
         //<![CDATA[
         $(function() {
@@ -18,10 +19,10 @@
 
             $("#user").ajaxForm(function(data) {
                 if(data.result && data.result == "fail") {
-                    $(".message").text(data.message);
-                    $(".message").hide().slideDown();
+                    showMessage(data.message);
                 } else {
-                    $("#register").attr("disabled", "disabled");
+                    showMessage("Registering...", "success");
+                    $("#user input[type=button]").attr("disabled", "disabled");
                     $("#successForm").submit();
                 }
             });
@@ -33,7 +34,7 @@
                         var geocoder = new google.maps.Geocoder();
                         geocoder.geocode(
                             {
-                                'address': fullAddress,
+                                'address': fullAddress
                             },
                             function(results, status) {
                                 if (status == google.maps.GeocoderStatus.OK) {

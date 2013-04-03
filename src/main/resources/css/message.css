@@ -1,3 +1,5 @@
+/* ref: http://www.red-team-design.com/cool-notification-messages-with-css3-jquery */
+
 .message {
 		background-size: 40px 40px;
 		background-image: linear-gradient(135deg, rgba(255, 255, 255, .05) 25%, transparent 25%,
@@ -8,8 +10,6 @@
         border: 1px solid;
 		/*text-shadow: 0 1px 0 rgba(0,0,0,.5);*/
 
-		background-color: #c43d3d;
-		border-color: #c43d3d;
 		color: white;
 		font-family: 'Arial';
 		font-weight: bold;
@@ -17,19 +17,30 @@
         padding: 10px;
 }
 
-.message h3{
+.info {
+    background-color: #4ea5cd;
+    border-color: #3b8eb5;
+}
+
+.error {
+    background-color: #de4343;
+    border-color: #c43d3d;
+}
+
+.warning {
+    background-color: #eaaf51;
+    border-color: #d99a36;
+}
+
+.success {
+    background-color: #61b832;
+    border-color: #55a12c;
+}
+
+.message h3 {
 		 margin: 0 0 5px 0;
 }
 
-.message p{
+.message p {
 		 margin: 0;
-}
-
-@keyframes animate-bg {
-    from {
-        background-position: 0 0;
-    }
-    to {
-        background-position: -80px 0;
-    }
 }

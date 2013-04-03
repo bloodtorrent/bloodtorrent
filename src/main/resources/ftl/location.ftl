@@ -72,27 +72,30 @@ $(function() {
 
     $( "#dialog_confirm" ).dialog({
         autoOpen: false,
-         buttons: {
-            "Yes": {
-                id : "closeMap",
-                text : "Yes",
-                click : function() {
-                    $( this ).dialog( "close" );
-                    currentLatLng = originalLatLng;
-                    $( "#map_dialog"  ).dialog( "close" );
-                }
-            },
-             "No" : {
-                 id : "cancelCloseMap",
-                 text : "No",
-                 click : function() {
-                    $( this ).dialog( "close" );
-                 }
+        resizable: false,
+        modal:  true,
+        height: 200,
+        width:  370,
+        buttons: {
+        "Yes": {
+            id : "closeMap",
+            text : "Yes",
+            click : function() {
+                $( this ).dialog( "close" );
+                currentLatLng = originalLatLng;
+                $( "#map_dialog"  ).dialog( "close" );
+            }
+        },
+         "No" : {
+             id : "cancelCloseMap",
+             text : "No",
+             click : function() {
+                $( this ).dialog( "close" );
              }
          }
+        }
     });
-    $("#dialog_confirm").html('Do you wish to proceed without specifying exact location?');
-    $("#dialog_confirm").css('font-size','62.5%');
+    $("#dialog_confirm span:not(.ui-icon)").text('Do you wish to proceed without specifying exact location?');
     $("#dialog_confirm").dialog();
 });
 
@@ -117,8 +120,7 @@ var searchAddress = function(fullAddress) {
     geocoder.geocode(
         {
             'address': fullAddress,
-            'location': originalLatLng,
-
+            'location': originalLatLng
         },
         function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
@@ -216,5 +218,7 @@ function init(latLng) {
         <div id="address"></div>
     </div>
     <div id="dialog_confirm" title="Set Location">
+        <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 50px 0;"></span>
+        <span></span>
     </div>
 </div>
