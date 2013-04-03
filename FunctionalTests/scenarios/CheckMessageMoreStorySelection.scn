@@ -1,0 +1,14 @@
+Tags:Story-79,Success Story,in-progress
+Preconditions:Blood Torrent
+On home page:
+#Navigate to admin page
+
+On login page:
+#Fill out the valid information for login as Admin
+#Login
+
+On Detailed Success Story Page, On admin page:
+#Check stories "4"
+#Display on the home  page
+#Verify the message in case that More Story Selection
+#Logout

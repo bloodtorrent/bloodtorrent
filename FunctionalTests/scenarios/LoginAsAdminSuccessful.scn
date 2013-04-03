@@ -1,10 +1,13 @@
-Tags:Story-57,Login,in-progress
+Tags:Story-57,Login
 Preconditions:Blood Torrent
 Metadata:ScenarioType=Auto
-Currently working on fixing admin page URL. - John/Bowon/Kris
 
 On home page:
-$Login as admin
+#Navigate to admin page
+
+On login page:
+#Fill out the valid information for login as Admin
+#Login
 
 On admin page:
 #Verify admin page
@@ -12,6 +15,5 @@ On admin page:
 
 On home page:
 #Verify title of home page
-#Verify user is not logged in
 
 

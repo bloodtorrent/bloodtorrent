@@ -18,7 +18,7 @@ public class OnAdminPage {
 
 	public void verifyAdminPage() throws Exception {
 		String url = BloodTorrent.url;
-		verifyEquals(  url + "admin", admin.getUrl());
+		verifyEquals(  url + "successStory/list", admin.getUrl());
 	}
 
 	public void logout() throws Exception {
