@@ -31,7 +31,12 @@ import java.util.*;
 @Produces(MediaType.TEXT_HTML)
 public class SuccessStoryResource {
     public static final int STATUS_MOVED = 302;
+    public static final int STATUS_NOT_FOUND = 404;
     public static final String UPLOAD_DIR = "upload";
+    public static final String JSESSIONID = "JSESSIONID";
+    public static final String USER = "user";
+    public static final int MIN_SUCCESS_STORIES_TO_SHOW = 1;
+    public static final int MAX_SUCCESS_STORIES_TO_SHOW = 3;
     private final SuccessStoryRepository repository;
     private SessionManager sessionManager;
 
@@ -71,7 +76,7 @@ public class SuccessStoryResource {
 	@GET
 	@UnitOfWork
     @Path("{id}")
-	public SuccessStoryView getSuccessStory(@PathParam("id") String id, @CookieParam("JSESSIONID") String sessionID) {
+	public SuccessStoryView getSuccessStory(@PathParam("id") String id, @CookieParam(JSESSIONID) String sessionID) {
         HttpSession session = null;
         User user = null;
 
@@ -79,7 +84,7 @@ public class SuccessStoryResource {
             session = sessionManager.getHttpSession(sessionID);
         }
         if (session != null) {
-            user = (User)session.getAttribute("user");
+            user = (User)session.getAttribute(USER);
         }
 
 		SuccessStory successStory = repository.get(id);
@@ -103,7 +108,7 @@ public class SuccessStoryResource {
             String mediaType = "image/" + extention;
             builder = Response.ok((Object) imageFile, mediaType);
         } else {
-            builder = Response.status(404);
+            builder = Response.status(STATUS_NOT_FOUND);
         }
         return builder.build();
     }
@@ -112,12 +117,12 @@ public class SuccessStoryResource {
 	@UnitOfWork
     @Path("list")
     @Produces(MediaType.TEXT_HTML + ";charset=utf-8")
-	public Response listSuccessStory(@CookieParam("JSESSIONID") String sessionID) {
+	public Response listSuccessStory(@CookieParam(JSESSIONID) String sessionID) {
         if(sessionID != null){
             HttpSession session = sessionManager.getHttpSession(sessionID);
             User user = null;
             if (session != null) {
-                user = (User)session.getAttribute("user");
+                user = (User)session.getAttribute(USER);
             }
 
             if (user != null && 'Y' == user.getIsAdmin()) {
@@ -133,15 +138,14 @@ public class SuccessStoryResource {
 	@UnitOfWork
     @Path("createView")
     @Produces(MediaType.TEXT_HTML + ";charset=utf-8")
-	public Response viewSuccessStoryEditor(@CookieParam("JSESSIONID") String sessionID) {
+	public Response viewSuccessStoryEditor(@CookieParam(JSESSIONID) String sessionID) {
         HttpSession session = sessionManager.getHttpSession(sessionID);
         User  user = null;
         if (session != null) {
-            user = (User)session.getAttribute("user");
+            user = (User)session.getAttribute(USER);
         }
 
         if (user != null && 'Y' == user.getIsAdmin()) {
-            //return new SuccessStoryView();
             SuccessStoryView view = new SuccessStoryView();
             view.setUser(user);
             return Response.ok(view).build();
@@ -155,7 +159,7 @@ public class SuccessStoryResource {
     @Path("create")
     @UnitOfWork
     public View createSuccessStory(
-            @CookieParam("JSESSIONID") String sessionID,
+            @CookieParam(JSESSIONID) String sessionID,
             @FormDataParam("title") String title,
             @FormDataParam("summary") String summary,
             @FormDataParam("description") String description,
@@ -165,7 +169,7 @@ public class SuccessStoryResource {
         HttpSession session = sessionManager.getHttpSession(sessionID);
         User  user = null;
         if (session != null) {
-            user = (User)session.getAttribute("user");
+            user = (User)session.getAttribute(USER);
         }
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
@@ -224,14 +228,14 @@ public class SuccessStoryResource {
     @Path("/selectForMain")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @UnitOfWork
-    public Response selectForMain(@CookieParam("JSESSIONID") String sessionID,
+    public Response selectForMain(@CookieParam(JSESSIONID) String sessionID,
                                   @FormParam("checkStoryId") List<String> checkStoryId) {
         HttpSession session = sessionManager.getHttpSession(sessionID);
         User user = null;
         if (session != null) {
-            user = (User)session.getAttribute("user");
+            user = (User)session.getAttribute(USER);
         }
-        if (checkStoryId.size() >= 1 && checkStoryId.size() <= 3) {
+        if (checkStoryId.size() >= MIN_SUCCESS_STORIES_TO_SHOW && checkStoryId.size() <= MAX_SUCCESS_STORIES_TO_SHOW) {
             repository.selectForMain(checkStoryId);
         }
         SuccessStoryView view = new SuccessStoryView(repository.getListForSuccessStoriesView());
