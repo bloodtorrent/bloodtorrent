@@ -49,16 +49,20 @@ public class MainResource {
         CatchPhrase catchPhrase = getCatchPhrase();
         if(session != null && session.getAttribute("user") !=  null){
             user = (User) session.getAttribute("user");
-            if(successStories.isEmpty())
+            if(successStories.isEmpty()) {
                 return new MainView(user, catchPhrase);
-            else
+            }
+            else {
                 return new MainView(user, successStories);
+            }
         }
 
-        if(successStories.isEmpty())
+        if(successStories.isEmpty()) {
             return new MainView(catchPhrase);
-        else
+        }
+        else {
             return new MainView(successStories);
+        }
     }
 
     private CatchPhrase getCatchPhrase() {

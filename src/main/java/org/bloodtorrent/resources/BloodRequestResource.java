@@ -88,7 +88,6 @@ public class BloodRequestResource {
             @FormParam("lat") double latitude,
             @FormParam("lng") double longitude
     ) {
-        Calendar cal = null;
         BloodRequest bloodRequest = new BloodRequest();
         bloodRequest.setFirstName(firstName);
         bloodRequest.setLastName(lastName);
