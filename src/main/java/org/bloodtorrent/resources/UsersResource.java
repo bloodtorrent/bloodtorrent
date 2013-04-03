@@ -82,8 +82,8 @@ public class UsersResource implements BloodTorrentConstants {
                                     @FormParam("lng") double longitude,
                                     @FormParam("lastDonate") String lastDonate) {
 
-        id = id.toLowerCase();
-        PotentialDonor potentialDonor = assemblePotentialDonorWithParam(firstName, lastName, id, password, confirmPassword, address, city, state, cellPhone, bloodGroup, distance, gender, birthday, anonymous, latitude, longitude);
+        String lowerCaseId = id.toLowerCase();
+        PotentialDonor potentialDonor = assemblePotentialDonorWithParam(firstName, lastName, lowerCaseId, password, confirmPassword, address, city, state, cellPhone, bloodGroup, distance, gender, birthday, anonymous, latitude, longitude);
 
         Map<String, Object> resultMap = Maps.newHashMap();
         if(validator.isInvalid(potentialDonor)) {
