@@ -121,6 +121,19 @@ public class UsersResourceTest {
     }
 
     @Test
+    public void shouldProvideErrorMessageOnceBirthdayIsInvalid() {
+        UsersResource.PotentialDonor donor = createNewPotentialDonor();
+        donor.setBirthday("31-02-1910");
+
+        Map<String, Object> jsonMap = usersResource.registerDonor(donor.getFirstName(), donor.getLastName(), donor.getId(), donor.getPassword()
+                , donor.getPassword(), donor.getAddress(), donor.getCity(), donor.getState(), donor.getCellPhone(), donor.getBloodGroup()
+                , donor.getDistance(), donor.getGender(), donor.getBirthday(), donor.isAnonymous(), donor.getLatitude(), donor.getLongitude(), "1");
+
+        assertThat(jsonMap.get(JSON_RESULT_KEY), hasToString(JSON_FAIL_VALUE));
+        assertThat(jsonMap.get(JSON_MESSAGE_KEY), hasToString(PLEASE_CHECK + "Date of birth."));
+    }
+
+    @Test
     public void shouldCheckCalculatingDonationDate(){
         User user = createNewPotentialDonor();
 

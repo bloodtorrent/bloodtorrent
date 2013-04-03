@@ -73,11 +73,11 @@ public class User {
     private String address;
 
     @NotBlank(message= PLEASE_FILL_OUT_ALL_THE_MANDATORY_FIELDS)
-    @Pattern(regexp = "^5|10|20|50$" , message= PLEASE_CHECK + "Distance")
+    @Pattern(regexp = "^5|10|20|50$" , message= PLEASE_CHECK + "Distance.")
     private String distance;
 
     @Column(name = "birthday")
-    @Pattern(regexp ="^((0[1-9]|[1-2][0-9]|3[0-1])\\-(0[0-9]|1[0-2])\\-(19[0-9][0-9]|20\\d{2}))*$", message= PLEASE_CHECK + "Date of birth")
+    @Pattern(regexp ="^((0[1-9]|[1-2][0-9]|3[0-1])\\-(0[0-9]|1[0-2])\\-(19[0-9][0-9]|20\\d{2}))*$", message= PLEASE_CHECK + "Date of birth.")
     private String birthday;
 
     @Column(name = "last_donate_date")

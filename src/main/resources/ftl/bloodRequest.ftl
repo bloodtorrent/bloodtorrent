@@ -74,7 +74,7 @@
         <div id="bloodRequestInfo">
             <table cellspacing="3">
                 <tr>
-                    <td><label>Name:</label></td>
+                    <td><label>Name :</label></td>
                     <td>
                         <table><tr><td>First name<br>
                             <input type="text" name="firstName" width="30" value="" maxLength="35"/>
@@ -92,11 +92,11 @@
                     <td><textarea id="hospitalAddress" name="hospitalAddress" width="30" rows="4"></textarea></td>
                 </tr>
                 <tr>
-                    <td><label>City:</label></td>
+                    <td><label>City :</label></td>
                     <td><input type="text" id = "city" name="city" width="30" value="" maxLength="30"/></td>
                 </tr>
                 <tr>
-                    <td><label>State:</label></td>
+                    <td><label>State :</label></td>
                     <td>
                         <select id = "state" name="state">
                             <option value="Andhra Pradesh">Andhra Pradesh</option>
@@ -131,15 +131,15 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><label>Cell Phone:</label></td>
+                    <td><label>Cell Phone :</label></td>
                     <td><input type="text" name="phone" width="30" value="" maxLength="10"/> (10 digits)</td>
                 </tr>
                 <tr>
-                    <td><label>E-mail:</label></td>
+                    <td><label>E-mail :</label></td>
                     <td><input type="text" name="email" width="30" value=""/></td>
                 </tr>
                 <tr>
-                    <td><label>Gender:</label></td>
+                    <td><label>Gender :</label></td>
                     <td>
                         <select name="gender">
                             <option value="F">Female</option>
@@ -148,14 +148,14 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><label>Date of Birth:</label></td>
+                    <td><label>Date of Birth :</label></td>
                     <td>
                         <input type="text" name="birthday" id="birthday" width="30" value=""/>
-                        (optional)
+                        (optional, DD-MM-YYYY)
                     </td>
                 </tr>
                 <tr>
-                    <td><label>Blood Group:</label></td>
+                    <td><label>Blood Group :</label></td>
                     <td>
                         <select name="bloodGroup">
                             <option value="A+">A+</option>
@@ -170,7 +170,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><label>Blood Volume:</label></td>
+                    <td><label>Blood Volume :</label></td>
                     <td>
                         <input type="text" name="bloodVolume" width="30" maxlength="2" value=""/>
                         Unit (1~99 units)

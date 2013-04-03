@@ -17,6 +17,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import static org.bloodtorrent.BloodTorrentConstants.*;
 
@@ -31,8 +32,8 @@ import static org.bloodtorrent.BloodTorrentConstants.*;
 @Path("/user")
 public class UsersResource {
     public static final String EMAIL_DUPLICATION_MESSAGE = "This email address is already taken.";
-    public static final String PASSWORD_DIFFERENT_MESSAGE = "password and confirm password are not same.";
-    private static final String INVALID_LOCATION_MESSAGE = "location";
+    public static final String PASSWORD_DIFFERENT_MESSAGE = "Please enter confirm password same as password.";
+    public static final String INVALID_LOCATION_MESSAGE = "location";
 
     private final UsersRepository repository;
     private UserRegistrationValidator validator;
@@ -162,7 +163,7 @@ public class UsersResource {
             if(super.isInvalid(potentialDonor)) {
                 return true;
             }
-            return isEmailDuplicated(potentialDonor) || isConfirmPasswordDifferent(potentialDonor);
+            return isEmailDuplicated(potentialDonor) || isConfirmPasswordDifferent(potentialDonor) || isDateOfBirthInvalid(potentialDonor);
         }
 
         public String getFirstValidationMessage(PotentialDonor potentialDonor) {
@@ -178,6 +179,9 @@ public class UsersResource {
             if(isInvalidLocation(potentialDonor)) {
                 return INVALID_LOCATION_MESSAGE;
             }
+            if (isDateOfBirthInvalid(potentialDonor)) {
+                return PLEASE_CHECK + "Date of birth.";
+            }
             throw new RuntimeException("Ambiguous violation.");
         }
 
@@ -187,6 +191,32 @@ public class UsersResource {
 
         private boolean isEmailDuplicated(PotentialDonor potentialDonor) {
             return !(repository.get(potentialDonor.getId()) == null);
+        }
+
+        private boolean isDateOfBirthInvalid(PotentialDonor potentialDonor) {
+            // (date of birth) String -> date type -> validation
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            String birthday = potentialDonor.getBirthday();
+
+            if (birthday == null || birthday.trim().length() == 0) {
+                return false;
+            }
+
+            String[] birthdayElements = birthday.split("-");
+            Calendar calendar = GregorianCalendar.getInstance();
+
+            try {
+                calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(birthdayElements[0]));
+                calendar.set(Calendar.MONTH, Integer.parseInt(birthdayElements[1]) - 1);
+                calendar.set(Calendar.YEAR, Integer.parseInt(birthdayElements[2]));
+            } catch (NumberFormatException e) {
+                return true;
+            }
+
+            Date dateConverted = calendar.getTime();
+            String dateConvertedString = dateFormat.format(dateConverted);
+
+            return !dateConvertedString.equals(birthday);
         }
 
         private boolean isConfirmPasswordDifferent(PotentialDonor potentialDonor) {
@@ -199,7 +229,6 @@ public class UsersResource {
     @NoArgsConstructor
     public static class PotentialDonor extends User {
 
-        @Size(min = 8, max = 25, message= PLEASE_CHECK + "the length of Confirm Password")
         @NotBlank(message=PLEASE_FILL_OUT_ALL_THE_MANDATORY_FIELDS)
         private String confirmPassword;
     }

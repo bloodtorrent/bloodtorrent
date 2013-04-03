@@ -141,12 +141,12 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><label>Cell Phone</label></td>
+                    <td><label>Cell Phone : </label></td>
                     <td><input type="text" name="cellPhone" width="30" maxlength="10"/></td>
                     <td><label>(10 digits)</label></td>
                 </tr>
                 <tr>
-                    <td><label>Blood Group:</label></td>
+                    <td><label>Blood Group :</label></td>
                     <td>
                         <select name="bloodGroup">
                             <option value="A+" selected="true">A+</option>
@@ -182,7 +182,7 @@
                 </tr>
                 <tr>
                     <td><label>Date of Birth : </label> </td>
-                    <td><input type="text" id="birthDay" name="birthDay"/> (optional)</td>
+                    <td><input type="text" id="birthday" name="birthday"/> (optional, DD-MM-YYYY)</td>
                 </tr>
                 <tr>
                     <td colspan="3"><label>Do you want to remain anonymous ?</label><input type="radio" name="anonymous" value="Y"/>Y <input type="radio" name="anonymous" value="N" checked/>N</td>

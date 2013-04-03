@@ -1,6 +1,7 @@
 package org.bloodtorrent.resources;
 
 import com.yammer.dropwizard.views.View;
+import org.bloodtorrent.BloodTorrentConstants;
 import org.bloodtorrent.IllegalDataException;
 import org.bloodtorrent.dto.BloodRequest;
 import org.bloodtorrent.dto.User;
@@ -21,6 +22,7 @@ import static junit.framework.Assert.assertTrue;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.isA;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasToString;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyListOf;
 import static org.mockito.Matchers.isNotNull;
@@ -36,7 +38,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
  * To change this template use File | Settings | File Templates.
  */
 @RunWith(MockitoJUnitRunner.class)
-public class BloodRequestResourceTest {
+public class BloodRequestResourceTest implements BloodTorrentConstants {
     @Mock
     BloodRequestRepository repository;
     @Mock
@@ -104,6 +106,22 @@ public class BloodRequestResourceTest {
         assertTrue(view instanceof BloodRequestView);   // TODO  assertThat((BloodRequestView) view, isA(BloodRequestView.class));
 
         verify(findingMatchingDonorResource).findMatchingDonors(any(BloodRequest.class));
+    }
+
+
+    @Test
+    public void shouldProvideErrorMessageOnceBirthdayIsInvalid() {
+        BloodRequest bloodRequest = createBloodRequest();
+        bloodRequest.setBirthday("31-02-1910");
+
+        Map<String,Object> jsonMap = resource.requestForBlood(bloodRequest.getFirstName(), bloodRequest.getLastName(), bloodRequest.getHospitalAddress(),
+                bloodRequest.getCity(), bloodRequest.getState(), bloodRequest.getPhone(),
+                bloodRequest.getEmail(), bloodRequest.getGender(), bloodRequest.getBirthday(),
+                bloodRequest.getBloodGroup(), String.valueOf(bloodRequest.getBloodVolume()), bloodRequest.getRequesterType(),
+                bloodRequest.getLatitude(), bloodRequest.getLongitude());
+
+        Assert.assertThat(jsonMap.get(JSON_RESULT_KEY), hasToString(JSON_FAIL_VALUE));
+        Assert.assertThat(jsonMap.get(JSON_MESSAGE_KEY), hasToString(PLEASE_CHECK + "Date of birth."));
     }
 
 

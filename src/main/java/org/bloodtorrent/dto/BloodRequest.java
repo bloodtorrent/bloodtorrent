@@ -49,7 +49,7 @@ public class BloodRequest {
 
     @NotBlank(message=PLEASE_FILL_OUT_ALL_THE_MANDATORY_FIELDS)
     @Size(min = 1, max = 255, message= PLEASE_CHECK + "State. ")
-    @Pattern(regexp = "^(Andhra Pradesh)|(Arunachal Pradesh)|(Asom \\(Assam\\))|(Bihar)|(Karnataka)|(Kerala)|(Chhattisgarh)|(Goa)|(Gujarat)|(Haryana)|(Himachal Pradesh)|(Jammu And Kashmir)|(Jharkhand)|(West Bengal)|(Madhya Pradesh)|(Maharashtra)|(Manipur)|(Meghalaya)|(Mizoram)|(Nagaland)|(Orissa)|(Punjab)|(Rajasthan)|(Sikkim)|(Tamilnadu)|(Tripura)|(Uttarakhand \\(Uttaranchal\\))|(Uttar Pradesh)$")
+    @Pattern(regexp = "^(Andhra Pradesh)|(Arunachal Pradesh)|(Asom \\(Assam\\))|(Bihar)|(Karnataka)|(Kerala)|(Chhattisgarh)|(Goa)|(Gujarat)|(Haryana)|(Himachal Pradesh)|(Jammu And Kashmir)|(Jharkhand)|(West Bengal)|(Madhya Pradesh)|(Maharashtra)|(Manipur)|(Meghalaya)|(Mizoram)|(Nagaland)|(Orissa)|(Punjab)|(Rajasthan)|(Sikkim)|(Tamilnadu)|(Tripura)|(Uttarakhand \\(Uttaranchal\\))|(Uttar Pradesh)$", message = PLEASE_CHECK + "State.")
     private String state;
 
     @NotBlank(message=PLEASE_FILL_OUT_ALL_THE_MANDATORY_FIELDS)
@@ -71,7 +71,7 @@ public class BloodRequest {
 
     @Column(name = "blood_group")
     @NotBlank(message=PLEASE_FILL_OUT_ALL_THE_MANDATORY_FIELDS)
-    @Pattern(regexp = "^(A\\+)|(A-)|(B\\+)|(B-)|(AB\\+)|(AB-)|(O\\+)|(O-)|(Unknown)$", message= PLEASE_CHECK + "Blood Group.")
+    @Pattern(regexp = "^(A\\+)|(A-)|(B\\+)|(B-)|(AB\\+)|(AB-)|(O\\+)|(O-)$", message= PLEASE_CHECK + "Blood Group.")
     private String bloodGroup;
 
     @Column(name = "blood_volume")

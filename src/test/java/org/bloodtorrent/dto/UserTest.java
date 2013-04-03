@@ -342,7 +342,7 @@ public class UserTest {
         user.setDistance("11");
         constraintViolations = validator.validateProperty(user, "distance");
         assertThat(1, is(constraintViolations.size()));
-        assertThat(constraintViolations.iterator().next().getMessage(), is(PLEASE_CHECK + "Distance"));
+        assertThat(constraintViolations.iterator().next().getMessage(), is(PLEASE_CHECK + "Distance."));
     }
 
     @Test
