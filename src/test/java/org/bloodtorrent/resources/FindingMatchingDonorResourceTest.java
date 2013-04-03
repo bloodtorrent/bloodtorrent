@@ -39,7 +39,7 @@ public class FindingMatchingDonorResourceTest {
     private static final double TEST_DEFAULT_DONOR_LONGITUDE = 76.0154;
     private static final double TEST_DEFAULT_HOSPITAL_LATITUDE = 32.3793;
     private static final double TEST_DEFAULT_HOSPITAL_LONGITUDE = 75.6720;
-    private static final String TEST_DEFAULT_DONOR_TRIP_DISTANCE = "50";
+    private static final String TEST_DEFAULT_DONOR_TRIP_MAX_DISTANCE = "50";
 
     private final double ACCEPTANCE_DIFFERENT_KILLOMETER = 1.0;
 
@@ -254,7 +254,7 @@ public class FindingMatchingDonorResourceTest {
         user.setState(TEST_DEFAULT_STATE);
         user.setLatitude(TEST_DEFAULT_DONOR_LATITUDE);
         user.setLongitude(TEST_DEFAULT_DONOR_LONGITUDE);
-        user.setDistance(TEST_DEFAULT_DONOR_TRIP_DISTANCE);
+        user.setDistance(TEST_DEFAULT_DONOR_TRIP_MAX_DISTANCE);
         return user;
     }
 

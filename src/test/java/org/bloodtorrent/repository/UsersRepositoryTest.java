@@ -75,10 +75,10 @@ public class UsersRepositoryTest{
         Date tooSoonToDonateAgain = todayMinusDays(MIN_DAYS_LAST_DONATION );
         Date timeToDonateAgain = todayMinusDays(MIN_DAYS_LAST_DONATION +1 );
 
-        User expectedMatch = user(matchingBloodGroup, longEnoughToDonateAgain, "email1@naver.com");
-        User unmatchedUser = user("A+", longEnoughToDonateAgain, "email2@naver.com");
-        User anotherUnmatchedUser = user(matchingBloodGroup, tooSoonToDonateAgain, "email3@naver.com");
-        User anotherExpectedMatch = user(matchingBloodGroup, timeToDonateAgain, "email4@naver.com");
+        User expectedMatch = user(matchingBloodGroup, longEnoughToDonateAgain, "email1@bloodtorrent.com");
+        User unmatchedUser = user("A+", longEnoughToDonateAgain, "email2@bloodtorrent.com");
+        User anotherUnmatchedUser = user(matchingBloodGroup, tooSoonToDonateAgain, "email3@bloodtorrent.com");
+        User anotherExpectedMatch = user(matchingBloodGroup, timeToDonateAgain, "email4@bloodtorrent.com");
 
         repository.insert(expectedMatch);
         repository.insert(unmatchedUser);
@@ -95,8 +95,8 @@ public class UsersRepositoryTest{
 
         double notEnoughLatitudeToDonate = 33.19999;
 
-        User expectedMatch = user("O+", longEnoughToDonateAgain, "email5@naver.com", longEnoughLatitudeToDonate, longEnoughLongitudeToDonate);
-        User unmatchedUser = user("O+", longEnoughToDonateAgain, "email6@naver.com", notEnoughLatitudeToDonate, longEnoughLongitudeToDonate);
+        User expectedMatch = user("O+", longEnoughToDonateAgain, "email5@bloodtorrent.com", longEnoughLatitudeToDonate, longEnoughLongitudeToDonate);
+        User unmatchedUser = user("O+", longEnoughToDonateAgain, "email6@bloodtorrent.com", notEnoughLatitudeToDonate, longEnoughLongitudeToDonate);
 
         repository.insert(expectedMatch);
         repository.insert(unmatchedUser);

@@ -12,6 +12,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import static org.bloodtorrent.BloodTorrentConstants.*;
+import java.util.*;
+
 /**
  * Created with IntelliJ IDEA.
  * User: sds
@@ -59,12 +61,15 @@ public class FindingMatchingDonorResource {
     }
 
     public List<User> getMatchingDonors(List<User> users, double hospitalLatitude, double hospitalLongitude) {
+
+        List<User> matchingDonors = new ArrayList<User>();
+
         for (User user : users) {
-            if (!isNearDonor(user.getLatitude(), user.getLongitude(), hospitalLatitude, hospitalLongitude, Double.parseDouble(user.getDistance()))) {
-                users.remove(user);
+            if (isNearDonor(user.getLatitude(), user.getLongitude(), hospitalLatitude, hospitalLongitude, Double.parseDouble(user.getDistance()))) {
+                matchingDonors.add(user);
             }
         }
-        return users;
+        return matchingDonors;
     }
 
     public boolean isNearDonor(double userLatitude, double userLongitude, double hospitalLatitude, double hospitalLongitude, double distance) {
