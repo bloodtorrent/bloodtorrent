@@ -235,9 +235,17 @@ public class SuccessStoryResource {
     @UnitOfWork
     public Response selectForMain(@CookieParam("JSESSIONID") String sessionID,
                                   @FormParam("checkStoryId") List<String> checkStoryId) {
+        HttpSession session = sessionManager.getHttpSession(sessionID);
+        User user = null;
+        if (session != null) {
+            user = (User)session.getAttribute("user");
+        }
         if (checkStoryId.size() >= 1 && checkStoryId.size() <= 3) {
             repository.selectForMain(checkStoryId);
         }
-        return Response.seeOther(URI.create("/successStory/list")).status(STATUS_MOVED).build();
+        SuccessStoryView view = new SuccessStoryView(repository.getListForSuccessStoriesView());
+        view.setEditSuccessFlag(true);
+        view.setUser(user);
+        return Response.ok(view).build();
     }
 }

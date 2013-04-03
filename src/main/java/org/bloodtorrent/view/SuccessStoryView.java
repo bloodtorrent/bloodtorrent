@@ -16,6 +16,8 @@ public class SuccessStoryView extends View {
     private static final String PATH_SUCCESS_STORY_VIEW = "/ftl/successStoryEditor.ftl";
 
     private boolean savedSuccessFlag;
+    @Getter @Setter
+    private boolean editSuccessFlag;
     @Getter
 	private SuccessStory successStory;
 

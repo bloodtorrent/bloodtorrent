@@ -6,6 +6,11 @@
             alert("This story is saved successfully.");
         </script>
     </#if>
+    <#if editSuccessFlag>
+        <script language="javascript">
+            alert("These stories will be displayed as success story\n on the main page");
+        </script>
+    </#if>
         <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
         <script src="/js/successStories.js"></script>
         <script>
