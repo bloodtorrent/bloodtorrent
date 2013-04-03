@@ -16,10 +16,10 @@ import java.util.Properties;
  */
 public class MailSender {
 
-    private String PROTOCOL = "smtp";
-    private String HOST = "smtp.gmail.com";
-    private String PORT = "587";
-    private String CONTENT_TYPE = "text/html; charset=UTF-8";
+    private static final String PROTOCOL = "smtp";
+    private static final String HOST = "smtp.gmail.com";
+    private static final String PORT = "587";
+    private static final String CONTENT_TYPE = "text/html; charset=UTF-8";
     @Setter
     private MailConfiguration mailConfiguration;
     public void sendEmail(String to, String title, String content) {
