@@ -16,7 +16,7 @@ import javax.ws.rs.*;
 
 import javax.ws.rs.core.MediaType;
 import java.util.*;
-
+import static org.bloodtorrent.BloodTorrentConstants.*;
 /**
  * Created with IntelliJ IDEA.
  * User: sds
@@ -25,7 +25,7 @@ import java.util.*;
  * To change this template use File | Settings | File Templates.
  */
 @Path("/requestForBlood")
-public class BloodRequestResource implements BloodTorrentConstants {
+public class BloodRequestResource {
     private final BloodRequestRepository repository;
     private final NotifyDonorSendEmailResource mailResource;
     private final FindingMatchingDonorResource findingMatchingDonorResource;

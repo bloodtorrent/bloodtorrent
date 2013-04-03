@@ -13,13 +13,13 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Date;
-
+import static org.bloodtorrent.BloodTorrentConstants.*;
 
 @Entity
 @Table(name = "USER")
 @Getter @Setter
 @SuppressWarnings("PMD.UnusedPrivateField")
-public class User implements BloodTorrentConstants {
+public class User {
     @Id
     @Pattern(regexp = "^([0-9a-zA-Z_-]|(([0-9a-zA-Z_-]+[\\\\.]?)+[0-9a-zA-Z_-]))@([0-9a-zA-Z_-]+)(\\.[0-9a-zA-Z_-]+){1,2}$", message= PLEASE_CHECK + "E-mail.")
     @Size(min = 5, max = 100, message= PLEASE_CHECK + "E-mail. ")

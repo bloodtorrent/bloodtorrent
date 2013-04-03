@@ -22,7 +22,7 @@ import static org.hamcrest.core.Is.is;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
-
+import static org.bloodtorrent.BloodTorrentConstants.*;
 /**
  * Created with IntelliJ IDEA.
  * User: sds
@@ -31,7 +31,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
  * To change this template use File | Settings | File Templates.
  */
 @RunWith(MockitoJUnitRunner.class)
-public class FindingMatchingDonorResourceTest implements BloodTorrentConstants {
+public class FindingMatchingDonorResourceTest {
     private static final String TEST_DEFAULT_BLOOD_GROUP = "A+";
     private static final Date TEST_DEFAULT_LAST_DONATE_DATE = DateUtils.addDays(new Date(), -100);
     private static final String TEST_DEFAULT_STATE = "Andhra Pradesh";

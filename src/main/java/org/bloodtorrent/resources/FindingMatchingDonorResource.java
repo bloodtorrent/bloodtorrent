@@ -11,7 +11,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-
+import static org.bloodtorrent.BloodTorrentConstants.*;
 /**
  * Created with IntelliJ IDEA.
  * User: sds
@@ -19,7 +19,7 @@ import java.util.List;
  * Time: 오전 10:56
  * To change this template use File | Settings | File Templates.
  */
-public class FindingMatchingDonorResource implements BloodTorrentConstants {
+public class FindingMatchingDonorResource {
     private UsersRepository usersRepository;
 
     public FindingMatchingDonorResource(UsersRepository usersRepository) {

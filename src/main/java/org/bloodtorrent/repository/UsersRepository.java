@@ -7,7 +7,7 @@ import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 
 import java.util.List;
-
+import static org.bloodtorrent.BloodTorrentConstants.*;
 /**
  * Created with IntelliJ IDEA.
  * User: sds
@@ -15,7 +15,7 @@ import java.util.List;
  * Time: 오후 1:42
  * To change this template use File | Settings | File Templates.
  */
-public class UsersRepository extends AbstractDAO<User> implements BloodTorrentConstants{
+public class UsersRepository extends AbstractDAO<User> {
     public static final int MIN_DAYS_LAST_DONATION = 90;
 
     /**

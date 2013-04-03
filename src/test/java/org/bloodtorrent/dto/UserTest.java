@@ -14,7 +14,7 @@ import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-
+import static org.bloodtorrent.BloodTorrentConstants.*;
 /**
  * Created with IntelliJ IDEA.
  * User: sds
@@ -22,7 +22,7 @@ import static org.junit.Assert.assertThat;
  * Time: 오전 3:23
  * To change this template use File | Settings | File Templates.
  */
-public class UserTest implements BloodTorrentConstants {
+public class UserTest {
     private final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
     private final Validator validator = factory.getValidator();
 

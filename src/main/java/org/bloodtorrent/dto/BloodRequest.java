@@ -11,11 +11,12 @@ import javax.persistence.Id;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import static org.bloodtorrent.BloodTorrentConstants.*;
 
 @Entity(name = "BLOOD_REQUEST")
 @Setter @Getter
 @SuppressWarnings("PMD.UnusedPrivateField")
-public class BloodRequest implements BloodTorrentConstants {
+public class BloodRequest {
 
     @Id
     private String id;

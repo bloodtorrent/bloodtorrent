@@ -26,7 +26,7 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-
+import static org.bloodtorrent.BloodTorrentConstants.*;
 /**
  * Created with IntelliJ IDEA.
  * User: sds
@@ -35,7 +35,7 @@ import static org.mockito.Mockito.when;
  * To change this template use File | Settings | File Templates.
  */
 @RunWith(MockitoJUnitRunner.class)
-public class UsersResourceTest implements BloodTorrentConstants {
+public class UsersResourceTest {
 
 
     private final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
