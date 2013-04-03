@@ -158,20 +158,25 @@ public class UsersResource implements BloodTorrentConstants {
 
     private class UserRegistrationValidator extends BloodTorrentValidator<PotentialDonor> {
         public boolean isInvalid(PotentialDonor potentialDonor) {
-            if(super.isInvalid(potentialDonor))
+            if(super.isInvalid(potentialDonor)) {
                 return true;
+            }
             return isEmailDuplicated(potentialDonor) || isConfirmPasswordDifferent(potentialDonor);
         }
 
         public String getFirstValidationMessage(PotentialDonor potentialDonor) {
-            if(super.isInvalid(potentialDonor))
+            if(super.isInvalid(potentialDonor)) {
                 return super.getFirstValidationMessage(potentialDonor);
-            if(isEmailDuplicated(potentialDonor))
+            }
+            if(isEmailDuplicated(potentialDonor)) {
                 return EMAIL_DUPLICATION_MESSAGE;
-            if(isConfirmPasswordDifferent(potentialDonor))
+            }
+            if(isConfirmPasswordDifferent(potentialDonor)) {
                 return PASSWORD_DIFFERENT_MESSAGE;
-            if(isInvalidLocation(potentialDonor))
+            }
+            if(isInvalidLocation(potentialDonor)) {
                 return INVALID_LOCATION_MESSAGE;
+            }
             throw new RuntimeException("Ambiguous violation.");
         }
 

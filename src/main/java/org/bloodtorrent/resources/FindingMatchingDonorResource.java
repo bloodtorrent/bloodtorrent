@@ -92,18 +92,21 @@ public class FindingMatchingDonorResource implements BloodTorrentConstants {
         String stateOfHospital = bloodRequest.getState();
         List<User> filteredList = Lists.newArrayList();
         for (User donor : donors) {
-            if(stateOfHospital.equals(donor.getState()))
+            if(stateOfHospital.equals(donor.getState())) {
                 filteredList.add(donor);
+            }
         }
         return filteredList;
     }
 
     private void validateMatchingDonors(BloodRequest bloodRequest, List<User> donors) throws IllegalDataException {
         for (User donor : donors) {
-            if(isNotValidBloodGroup(bloodRequest.getBloodGroup(), donor))
+            if(isNotValidBloodGroup(bloodRequest.getBloodGroup(), donor)) {
                 throw new IllegalDataException("The blood group should be equal to the one of request.");
-            if(isNotValidDonateDate(donor))
+            }
+            if(isNotValidDonateDate(donor)) {
                 throw new IllegalDataException("With all found users, the last donate date of each user should be before 90 days from today.");
+            }
         }
     }
 
