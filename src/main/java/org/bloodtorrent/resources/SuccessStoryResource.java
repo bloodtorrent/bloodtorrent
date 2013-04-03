@@ -31,7 +31,7 @@ import java.util.*;
 @Produces(MediaType.TEXT_HTML)
 public class SuccessStoryResource {
     public static final int STATUS_MOVED = 302;
-    public static String UPLOAD_DIR = "upload";
+    public static final String UPLOAD_DIR = "upload";
     private final SuccessStoryRepository repository;
     private SessionManager sessionManager;
 
