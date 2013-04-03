@@ -174,9 +174,9 @@ public class SuccessStoryResource {
         SuccessStory story = new SuccessStory();
         String id = sdf.format(timestamp);
         story.setId(id);
-        story.setTitle(getHtmlSafeString(title));
-        story.setSummary(getHtmlSafeString(summary));
-        story.setDescription(getHtmlSafeString(description));
+        story.setTitle(title);
+        story.setSummary(summary);
+        story.setDescription(description);
         story.setShowMainPage("N");
 
        if(stream != null && !content.getFileName().isEmpty()){
