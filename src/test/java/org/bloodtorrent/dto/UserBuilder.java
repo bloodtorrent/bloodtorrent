@@ -15,6 +15,9 @@ public class UserBuilder {
     private String password = "password1";
     private String cellPhone = "0000000000";
     private String role = "donor";
+    private double latitude = 32.5999;
+    private double longitude = 76.0154;
+
 
     public UserBuilder(String email) {
         this.email = email;
@@ -36,6 +39,16 @@ public class UserBuilder {
         return this;
     }
 
+    public UserBuilder withLatitude(double latitude) {
+        this.latitude = latitude;
+        return this;
+    }
+
+    public UserBuilder withLongitude(double longitude) {
+        this.longitude = longitude;
+        return this;
+    }
+
     public User build() {
         User user = new User();
         user.setId(email);
@@ -50,6 +63,8 @@ public class UserBuilder {
         user.setLastName(lastName);
         user.setPassword(password);
         user.setRole(role);
+        user.setLatitude(latitude);
+        user.setLongitude(longitude);
         return user;
     }
 }

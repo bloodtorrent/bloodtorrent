@@ -1,7 +1,6 @@
 package org.bloodtorrent.repository;
 
 import org.bloodtorrent.dto.UserBuilder;
-import org.bloodtorrent.testing.unitofwork.ConfigurationParser;
 import org.bloodtorrent.testing.unitofwork.UnitOfWorkRule;
 import org.junit.Before;
 import org.junit.Rule;
@@ -27,6 +26,11 @@ import static org.junit.Assert.assertThat;
  * To change this template use File | Settings | File Templates.
  */
 public class UsersRepositoryTest{
+    private static final double TEST_DEFAULT_DONOR_LATITUDE = 32.5999;
+    private static final double TEST_DEFAULT_DONOR_LONGITUDE = 76.0154;
+    private static final double TEST_DEFAULT_HOSPITAL_LATITUDE = 32.3793;
+    private static final double TEST_DEFAULT_HOSPITAL_LONGITUDE = 75.6720;
+
     @Rule
     public UnitOfWorkRule unitOfWorkRule = UnitOfWorkRule.getInstance();
 
@@ -51,14 +55,22 @@ public class UsersRepositoryTest{
 
     @Test
     public void shouldFindMatchingUsers() {
-        threeUsersButOnlyOneMatchingBloodGroup("O+");
+        fourUsersButOnlyTwoMatchingBloodGroup("O+");
 
-        List<User> foundUsers = repository.listByBloodGroupAndAfter90DaysFromLastDonateDate("O+");
+        List<User> foundUsers = repository.listByBloodGroupAndAfter90DaysFromLastDonateDate("O+", TEST_DEFAULT_HOSPITAL_LATITUDE, TEST_DEFAULT_HOSPITAL_LONGITUDE );
 
         assertThat(foundUsers.size(), is(2));
     }
 
-    private void threeUsersButOnlyOneMatchingBloodGroup(String matchingBloodGroup) {
+    @Test
+    public void shouldFindMatchingUserForLocation(){
+        twoUsersButOneMatchingForDistance();
+        List<User> foundUsers = repository.listByBloodGroupAndAfter90DaysFromLastDonateDate("O+", TEST_DEFAULT_HOSPITAL_LATITUDE, TEST_DEFAULT_HOSPITAL_LONGITUDE );
+
+        assertThat(foundUsers.size(), is(1));
+    }
+
+    private void fourUsersButOnlyTwoMatchingBloodGroup(String matchingBloodGroup) {
         Date longEnoughToDonateAgain = todayMinusDays(MIN_DAYS_LAST_DONATION + 5);
         Date tooSoonToDonateAgain = todayMinusDays(MIN_DAYS_LAST_DONATION );
         Date timeToDonateAgain = todayMinusDays(MIN_DAYS_LAST_DONATION +1 );
@@ -74,6 +86,22 @@ public class UsersRepositoryTest{
         repository.insert(anotherExpectedMatch);
     }
 
+    private void twoUsersButOneMatchingForDistance(){
+
+        Date longEnoughToDonateAgain = todayMinusDays(MIN_DAYS_LAST_DONATION + 5);
+
+        double longEnoughLatitudeToDonate = TEST_DEFAULT_DONOR_LATITUDE;
+        double longEnoughLongitudeToDonate = TEST_DEFAULT_DONOR_LONGITUDE;
+
+        double notEnoughLatitudeToDonate = 33.19999;
+
+        User expectedMatch = user("O+", longEnoughToDonateAgain, "email5@naver.com", longEnoughLatitudeToDonate, longEnoughLongitudeToDonate);
+        User unmatchedUser = user("O+", longEnoughToDonateAgain, "email6@naver.com", notEnoughLatitudeToDonate, longEnoughLongitudeToDonate);
+
+        repository.insert(expectedMatch);
+        repository.insert(unmatchedUser);
+    }
+
     private Date todayMinusDays(Integer numberOfDays) {
         Calendar calendar = GregorianCalendar.getInstance();
         calendar.add(Calendar.DAY_OF_YEAR, -numberOfDays);
@@ -85,5 +113,14 @@ public class UsersRepositoryTest{
                                 .withBloodGroup(bloodGroup)
                                 .withLastDonateDate(lastDonateDate)
                                 .build();
+    }
+
+    private User user(String bloodGroup, Date lastDonateDate, String email, double latitude, double longitude) {
+        return new UserBuilder(email)
+                .withBloodGroup(bloodGroup)
+                .withLastDonateDate(lastDonateDate)
+                .withLatitude(latitude)
+                .withLongitude(longitude)
+                .build();
     }
 }

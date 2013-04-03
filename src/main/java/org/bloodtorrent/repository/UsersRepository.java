@@ -1,6 +1,7 @@
 package org.bloodtorrent.repository;
 
 import com.yammer.dropwizard.hibernate.AbstractDAO;
+import org.bloodtorrent.BloodTorrentConstants;
 import org.bloodtorrent.dto.User;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
@@ -14,7 +15,7 @@ import java.util.List;
  * Time: 오후 1:42
  * To change this template use File | Settings | File Templates.
  */
-public class UsersRepository extends AbstractDAO<User> {
+public class UsersRepository extends AbstractDAO<User> implements BloodTorrentConstants{
     public static final int MIN_DAYS_LAST_DONATION = 90;
 
     /**
@@ -40,9 +41,20 @@ public class UsersRepository extends AbstractDAO<User> {
      * @param bloodGroup A blood group string of A/B/AB/O with Rh+- or just "Unknown". For example it may be "A+".
      * @author James, Scott
      */
-    public List<User> listByBloodGroupAndAfter90DaysFromLastDonateDate(String bloodGroup) {
-        Query query = currentSession().createQuery("from User u where (u.bloodGroup = :bloodGroup or u.bloodGroup = 'Unknown') and (current_date() - u.lastDonateDate) > " + MIN_DAYS_LAST_DONATION + " ");
+    public List<User> listByBloodGroupAndAfter90DaysFromLastDonateDate(String bloodGroup, double hospitalLatitude, double hospitalLongitude) {
+//        Query query = currentSession().createQuery("from User u where (u.bloodGroup = :bloodGroup or u.bloodGroup = 'Unknown') and (current_date() - u.lastDonateDate) > " + MIN_DAYS_LAST_DONATION + " ");
+
+        String sql = "from User u where (u.bloodGroup = :bloodGroup or u.bloodGroup = 'Unknown') " +
+                     "and (current_date() - u.lastDonateDate) > " + MIN_DAYS_LAST_DONATION +
+                     "and u.latitude >= :hospitalLatitude - " + DEGREE_PER_FIFTY_KM_FOR_LATITUDE +
+                     "and u.latitude <= :hospitalLatitude + " + DEGREE_PER_FIFTY_KM_FOR_LATITUDE+
+                     "and u.longitude >= :hospitalLongitude - " + DEGREE_PER_FIFTY_KM_FOR_LONGITUDE +
+                     "and u.longitude <= :hospitalLongitude + " + DEGREE_PER_FIFTY_KM_FOR_LONGITUDE ;
+        Query query = currentSession().createQuery(sql);
         query.setParameter("bloodGroup", bloodGroup);
+        query.setParameter("hospitalLatitude", hospitalLatitude);
+        query.setParameter("hospitalLongitude", hospitalLongitude);
+
 
         return list(query);
     }

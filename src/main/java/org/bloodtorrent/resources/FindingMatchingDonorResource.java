@@ -20,9 +20,6 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class FindingMatchingDonorResource implements BloodTorrentConstants {
-    private final double STATUTE_MILE_TO_KILLOMETER = 1.609344;
-    private final double NAUTICAL_MILE_TO_STATUTE_MILE = 1.1515;
-
     private UsersRepository usersRepository;
 
     public FindingMatchingDonorResource(UsersRepository usersRepository) {
@@ -79,10 +76,10 @@ public class FindingMatchingDonorResource implements BloodTorrentConstants {
     }
 
     public List<User> findMatchingDonors(BloodRequest bloodRequest) throws IllegalDataException {
-        List<User> donors = usersRepository.listByBloodGroupAndAfter90DaysFromLastDonateDate(bloodRequest.getBloodGroup());
+        List<User> donors = usersRepository.listByBloodGroupAndAfter90DaysFromLastDonateDate(bloodRequest.getBloodGroup(), bloodRequest.getLatitude(), bloodRequest.getLongitude());
 
         validateMatchingDonors(bloodRequest, donors);
-        List<User> filteredDonors = filterWithState(bloodRequest, donors);
+        List<User> filteredDonors = getMatchingDonors(donors,bloodRequest.getLatitude(),bloodRequest.getLongitude());
 
         return filteredDonors;
     }
