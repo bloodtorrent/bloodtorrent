@@ -24,7 +24,7 @@ import javax.ws.rs.core.MediaType;
 public class LogOffResource {
     private final SessionManager sessionManager;
     @Setter
-    MainResource mainResource;
+    private MainResource mainResource;
     public LogOffResource(SessionManager httpSessionManager) {
         sessionManager = httpSessionManager;
     }

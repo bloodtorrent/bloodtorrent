@@ -24,7 +24,7 @@ public class LoginFailResource {
     private static final String LOG_IN_FAIL_MESSAGE = "The E-mail or password you entered is incorrect.";
 
     @Setter
-    MainResource mainResource;
+    private MainResource mainResource;
 
     @GET
     @UnitOfWork

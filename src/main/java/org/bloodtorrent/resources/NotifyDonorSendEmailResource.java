@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class NotifyDonorSendEmailResource {
     @Setter
-    MailConfiguration mailConfiguration;
+    private MailConfiguration mailConfiguration;
 
     public void sendNotifyEmail(List<User> userList, BloodRequest bloodRequest) {
         MailSender mailSender = new MailSender();
