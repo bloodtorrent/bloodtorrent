@@ -40,10 +40,10 @@ public class FindingMatchingDonorResource {
     }
 
     private double distanceToKillometer(double distance) {
-        return NauticalMilesToStatuteMile(distance) * STATUTE_MILE_TO_KILOMETER;
+        return nauticalMilesToStatuteMile(distance) * STATUTE_MILE_TO_KILOMETER;
     }
 
-    private double NauticalMilesToStatuteMile(double distance) {
+    private double nauticalMilesToStatuteMile(double distance) {
         return distanceToNauticalMiles(distance) * NAUTICAL_MILE_TO_STATUTE_MILE;
     }
 
@@ -72,11 +72,7 @@ public class FindingMatchingDonorResource {
     }
 
     public boolean isNearDonor(double userLatitude, double userLongitude, double hospitalLatitude, double hospitalLongitude, double distance) {
-        if (distance < this.getDistance(userLatitude, userLongitude, hospitalLatitude, hospitalLongitude)) {
-            return false;
-        } else {
-            return true;
-        }
+        return distance >= this.getDistance(userLatitude, userLongitude, hospitalLatitude, hospitalLongitude);
     }
 
     public List<User> findMatchingDonors(BloodRequest bloodRequest) throws IllegalDataException {
@@ -86,18 +82,6 @@ public class FindingMatchingDonorResource {
         List<User> filteredDonors = getMatchingDonors(donors, bloodRequest.getLatitude(), bloodRequest.getLongitude());
 
         return filteredDonors;
-    }
-
-
-    private List<User> filterWithState(BloodRequest bloodRequest, List<User> donors) {
-        String stateOfHospital = bloodRequest.getState();
-        List<User> filteredList = Lists.newArrayList();
-        for (User donor : donors) {
-            if(stateOfHospital.equals(donor.getState())) {
-                filteredList.add(donor);
-            }
-        }
-        return filteredList;
     }
 
     private void validateMatchingDonors(BloodRequest bloodRequest, List<User> donors) throws IllegalDataException {
