@@ -10,7 +10,9 @@
 			<zipfileset file="pom.xml"/>
 			<zipfileset file="target/${build.jar}" prefix="target"/>
 			<zipfileset dir="scripts" prefix="scripts"/>
-			<zipfileset dir="FunctionalTests" prefix="FunctionalTests"/>
+			<zipfileset dir="FunctionalTests" prefix="FunctionalTests">
+				<exclude name="**/sahi/userdata/**/*"/>
+			</zipfileset>
 			<zipfileset dir="db" prefix="db"/>
 			<zipfileset dir="upload" prefix="upload"/>
 			<zipfileset file="src/main/resources/configurations.yml" prefix="src/main/resources"/>
