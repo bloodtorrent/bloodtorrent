@@ -8,11 +8,8 @@ public class LoginPage extends BasePage {
 	}
 
 	public void enterLoginCredentials(String email, String password) {
-		System.out.println("email, password" + email + ", " + password);
 		browser.textbox("email").setValue(email);
 		browser.password("password").setValue(password);
-		
-		System.out.println("after email, password : " + browser.textbox("email").getText() + ", " + browser.password("password").getText());
 	}
 
 	public void login() {
