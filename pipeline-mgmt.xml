@@ -13,6 +13,7 @@
 			<zipfileset dir="FunctionalTests" prefix="FunctionalTests"/>
 			<zipfileset dir="db" prefix="db"/>
 			<zipfileset dir="upload" prefix="upload"/>
+			<zipfileset dir="src/main/resources/configuration.yml"/>
 		</zip>
 	</target>
 
