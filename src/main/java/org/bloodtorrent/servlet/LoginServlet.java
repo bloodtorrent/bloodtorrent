@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class LoginServlet extends HttpServlet {
 
-    public static String URI_PATH = "/login";
+    public static final String URI_PATH = "/login";
 
     @Override
     public void service(HttpServletRequest servletRequest, HttpServletResponse servletResponse) throws ServletException, IOException {

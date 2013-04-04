@@ -1,6 +1,5 @@
 package org.bloodtorrent.bootstrap;
 
-import com.google.common.collect.ImmutableList;
 import com.yammer.dropwizard.ConfiguredBundle;
 import com.yammer.dropwizard.config.Bootstrap;
 import com.yammer.dropwizard.config.Environment;
@@ -11,9 +10,6 @@ import org.hibernate.SessionFactory;
 import org.reflections.Reflections;
 
 import javax.persistence.Entity;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -59,7 +55,7 @@ public class SimpleHibernateBundle implements ConfiguredBundle<SimpleConfigurati
 
     @Override
     public DatabaseConfiguration getDatabaseConfiguration(SimpleConfiguration simpleConfiguration) {
-        return delegateBundle.getDatabaseConfiguration(simpleConfiguration);  //To change body of implemented methods use File | Settings | File Templates.
+        return delegateBundle.getDatabaseConfiguration(simpleConfiguration);
     }
 
     public SessionFactory getSessionFactory() {

@@ -1,7 +1,5 @@
 package org.bloodtorrent.bootstrap;
 
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.jaxrs.json.JsonMappingExceptionMapper;
 import com.sun.jersey.api.NotFoundException;
 
 import javax.ws.rs.core.Response;
