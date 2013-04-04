@@ -1,41 +1,44 @@
-<script>
-    function goLogin() {
-        var email = document.getElementById("email");
-        var password = document.getElementById("password");
-        if(email.value == ""){
-            alert('Please input E-mail');
-            email.focus();
-            return;
-        }
-        if(password.value == ""){
-            alert('Please input Password');
-            password.focus();
-            return;
-        }
-        document.login.action = "/login";
-        document.login.method = "post";
-        document.login.submit();
-    }
-</script>
-<table border="0" width="100%"><tr><td>
-<h1><img src="/images/main_sample.jpg" width="72" height="72" align="middle" onclick="location.href='/'" /> <label id="title">Blood Torrent</label></h1></td><td align="right">
-<#if user?exists>
-    <#assign userId = user.id>
-Hello! ${userId?substring(0, userId?index_of("@")) }
-<a href="/logoff">Sign off</a>
-</td></tr></table>
-<#else>
-<form name="login">
-    <#if message?exists>
-        <span style="color:red">${message}</span>
-        <br/>
-    </#if>
-    E-mail : <input type="text" name="email" id="email" value="" />&nbsp;&nbsp;&nbsp;&nbsp;
-    Password : <input type="password" id="password" name="password" onkeydown="if (event.keyCode == 13) goLogin();" /> &nbsp;&nbsp;
-    <input type="button" value="Log in" name="login" onclick="goLogin();">&nbsp;&nbsp;
-    <a href="/user">Register donor</a> &nbsp;|
-    <a href="/requestForBlood">Request blood</a>
-</form>
-</td></tr></table>
-</#if>
-<hr noshade />
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel='stylesheet' type='text/css' href='../css/main_style.css'/>
+    <link rel='stylesheet' type='text/css' href='../css/bloodtorrent.css'/>
+    <link href='../css/fonts_googleapis.css' rel='stylesheet' type='text/css' />
+    <style type='text/css'>
+        .wsite-elements div.paragraph, .wsite-elements p, .wsite-elements .product-block .product-title, .wsite-elements .product-description, .wsite-elements .wsite-form-field label, .wsite-elements .wsite-form-field label, #wsite-content div.paragraph, #wsite-content p, #wsite-content .product-block .product-title, #wsite-content .product-description, #wsite-content .wsite-form-field label, #wsite-content .wsite-form-field label, .blog-sidebar div.paragraph, .blog-sidebar p, .blog-sidebar .wsite-form-field label, .blog-sidebar .wsite-form-field label {}
+        #wsite-content div.paragraph, #wsite-content p, #wsite-content .product-block .product-title, #wsite-content .product-description, #wsite-content .wsite-form-field label, #wsite-content .wsite-form-field label, .blog-sidebar div.paragraph, .blog-sidebar p, .blog-sidebar .wsite-form-field label, .blog-sidebar .wsite-form-field label {}
+        .wsite-elements h2, .wsite-elements .product-long .product-title, .wsite-elements .product-large .product-title, .wsite-elements .product-small .product-title, #wsite-content h2, #wsite-content .product-long .product-title, #wsite-content .product-large .product-title, #wsite-content .product-small .product-title, .blog-sidebar h2 {}
+        #wsite-content h2, #wsite-content .product-long .product-title, #wsite-content .product-large .product-title, #wsite-content .product-small .product-title, .blog-sidebar h2 {}
+        #wsite-title {color:#990000 !important;}
+    </style>
+</head>
+<div id="header-wrap">
+    <div class="page">
+        <div id="header-container">
+            <table id="header">
+                <tr>
+                    <td id="logo"><span class='wsite-logo'><a href='/'><span id="wsite-title">Blood Torrent</span></a></span></td>
+                    <td id="header-right">
+                        <table>
+                            <tr>
+                                <td class="phone-number"></td>
+                                <td class="social"></td>
+                                <td class="search"></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <div id="topnav">
+                <ul>
+                    <li <#if templateName?contains('main')>id='active'</#if>><a href='/'>Home</a></li>
+                    <li <#if templateName?contains('donorRegister')>id='active'</#if>><a href='/user'>Register as Donor</a></li>
+                    <li <#if templateName?contains('bloodRequest')>id='active'</#if>><a href='/requestForBlood'>Request blood</a></li>
+                </ul>
+                <div style="clear:both"></div>
+            </div>
+        </div>
+        <div id="banner">
+            <div class="wsite-header"></div>
+        </div>
+    </div>
+</div>

@@ -1,70 +1,9 @@
 <!doctype html>
 <html>
-<head>
-    <title>Blood Torrent - Home</title>
-    <meta property='og:site_name' content='Blood Torrent' />
-    <meta property='og:title' content='Blood Torrent' />
-    <meta property='og:description' content='Save Life, Save Community, ' />
-
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-
-    <link rel='stylesheet' type='text/css' href='../css/main_style.css'/>
-    <link rel='stylesheet' type='text/css' href='../css/bloodtorrent.css'/>
-    <link href='../css/fonts_googleapis.css' rel='stylesheet' type='text/css' />
-    <style type='text/css'>
-        .wsite-elements div.paragraph, .wsite-elements p, .wsite-elements .product-block .product-title, .wsite-elements .product-description, .wsite-elements .wsite-form-field label, .wsite-elements .wsite-form-field label, #wsite-content div.paragraph, #wsite-content p, #wsite-content .product-block .product-title, #wsite-content .product-description, #wsite-content .wsite-form-field label, #wsite-content .wsite-form-field label, .blog-sidebar div.paragraph, .blog-sidebar p, .blog-sidebar .wsite-form-field label, .blog-sidebar .wsite-form-field label {}
-        #wsite-content div.paragraph, #wsite-content p, #wsite-content .product-block .product-title, #wsite-content .product-description, #wsite-content .wsite-form-field label, #wsite-content .wsite-form-field label, .blog-sidebar div.paragraph, .blog-sidebar p, .blog-sidebar .wsite-form-field label, .blog-sidebar .wsite-form-field label {}
-        .wsite-elements h2, .wsite-elements .product-long .product-title, .wsite-elements .product-large .product-title, .wsite-elements .product-small .product-title, #wsite-content h2, #wsite-content .product-long .product-title, #wsite-content .product-large .product-title, #wsite-content .product-small .product-title, .blog-sidebar h2 {}
-        #wsite-content h2, #wsite-content .product-long .product-title, #wsite-content .product-large .product-title, #wsite-content .product-small .product-title, .blog-sidebar h2 {}
-        #wsite-title {color:#990000 !important;}
-    </style>
-    </script>
-    <script type='text/javascript' src='../js/jquery.min.js'></script>
-    <script type='text/javascript' src='../js/jquery_effects.js'></script>
-    <script type='text/javascript' src='../js/jquery.animate.js'></script>
-    <script type='text/javascript' src='../js/fancybox.min.js'></script>
-    <script type='text/javascript' src='../js/utilities-jq.js'></script>
-    <script type='text/javascript' src='../js/flyout_menus_jq.js'></script>
+<title>Blood Torrent - Home</title>
+<#include "header.ftl"/>
 
 
-    <script>
-        $(function() {
-            $( "input[type=button]" ).button()
-        });
-    </script>
-</head>
-<body class='wsite-theme-light no-header-page wsite-page-index'>
-<div id="header-wrap">
-    <div class="page">
-        <div id="header-container">
-            <table id="header">
-                <tr>
-                    <td id="logo"><span class='wsite-logo'><a href='/'><span id="wsite-title">Blood Torrent</span></a></span></td>
-                    <td id="header-right">
-                        <table>
-                            <tr>
-                                <td class="phone-number"></td>
-                                <td class="social"></td>
-                                <td class="search"></td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-            <div id="topnav">
-                <ul>
-                    <li id='active'><a href='/'>Home</a></li>
-                    <li><a href='/user'>Register as Donor</a></li>
-                    <li ><a href='/requestForBlood'>Request blood</a></li>
-                </ul>
-                <div style="clear:both"></div>
-            </div>
-        </div>
-        <div id="banner">
-            <div class="wsite-header"></div>
-        </div>
-    </div>
-</div>
 <div class="outer-main-wrap">
     <div id="main-wrap">
         <div class="page-shadow">
@@ -112,7 +51,7 @@
                         </div></div></div>
 
                         <div><div style="height: 20px; overflow: hidden; width: 100%;"></div>
-                            <hr class="styled-hr" style="width:100%;"></hr>
+                            <hr class="styled-hr" style="width:100%;">
                             <div style="height: 20px; overflow: hidden; width: 100%;"></div></div>
 
                         <h2 style="text-align:left;" id="successStoryTitle">How we have transformed some lives</h2>
@@ -141,56 +80,4 @@
     </div>
 </div>
 
-<script type="text/javascript">
-
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-7870337-1']);
-    _gaq.push(['_setDomainName', 'none']);
-    _gaq.push(['_setAllowLinker', true]);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-
-</script>
-
-<!-- Start Quantcast tag -->
-<script type="text/javascript">
-    _qoptions={
-        qacct:"p-0dYLvhSGGqUWo"
-    };
-</script>
-<script type="text/javascript" src="http://edge.quantserve.com/quant.js"></script>
-<noscript>
-    <img src="http://pixel.quantserve.com/pixel/p-0dYLvhSGGqUWo.gif" style="display: none;" border="0" height="1" width="1" alt="Quantcast"/>
-</noscript>
-<!-- End Quantcast tag -->
-
-<script>
-
-    (function(jQuery) {
-        try {
-            if (jQuery) {
-                jQuery('div.blog-social div.fb-like').attr('class', 'blog-social-item blog-fb-like');
-                jQuery('#commentArea iframe').css('min-height', '410px');
-            }
-            else {
-                // Prototype
-                $$('div.blog-social div.fb-like').each(function(div) {
-                    div.className = 'blog-social-item blog-fb-like';
-                });
-                $$('#commentArea iframe').each(function(iframe) {
-                    iframe.style.minHeight = '410px';
-                });
-            }
-        }
-        catch(ex) {}
-    })(window._W && _W.jQuery);
-
-</script>
-
-</body>
 </html>
