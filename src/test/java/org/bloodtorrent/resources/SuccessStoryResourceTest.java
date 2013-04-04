@@ -51,6 +51,7 @@ public class SuccessStoryResourceTest {
     public static final int STATUS_MOVED = 302;
     public static final int STATUS_NOT_FOUND = 404;
     public static final int STATUS_OK = 200;
+    public static final String USER = "user";
     private final String ADMIN_SESSION = "ADMIN_SESSION";
     private final String NONADMIN_SESSION = "NON_ADMIN_SESSION";
     private final static String ATTACH_FILE_NAME = "testfile.jpg";
@@ -87,9 +88,9 @@ public class SuccessStoryResourceTest {
         nonAdminUser.setIsAdmin('N');
 
         when(sessionManager.getHttpSession(ADMIN_SESSION)).thenReturn(adminSession);
-        when(adminSession.getAttribute("user")).thenReturn(adminUser);
+        when(adminSession.getAttribute(USER)).thenReturn(adminUser);
         when(sessionManager.getHttpSession(NONADMIN_SESSION)).thenReturn(nonAdminSession);
-        when(nonAdminSession.getAttribute("user")).thenReturn(nonAdminUser);
+        when(nonAdminSession.getAttribute(USER)).thenReturn(nonAdminUser);
         when(contentDisposition.getFileName()).thenReturn(ATTACH_FILE_NAME);
     }
 
@@ -295,6 +296,15 @@ public class SuccessStoryResourceTest {
 
         resource.selectForMain(ADMIN_SESSION, checkStoryId);
         verify(repository).selectForMain(checkStoryId);
+    }
+
+    @Test
+    public void getSuccessStoryShouldGetUserFromSessionWhenSessionIdIsNotNull() {
+        String id = "One";
+        SuccessStory story = createNewSuccessStory(id);
+        when(repository.get(id)).thenReturn(story);
+        resource.getSuccessStory(id, ADMIN_SESSION);
+        verify(adminSession).getAttribute(USER);
     }
 
 }
