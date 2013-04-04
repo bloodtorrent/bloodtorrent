@@ -163,13 +163,10 @@ public class SuccessStoryResource {
             @FormDataParam("visualResourcePath") final FormDataContentDisposition content) throws IOException {
 
         HttpSession session = sessionManager.getHttpSession(sessionID);
-        User  user = null;
         if (session == null || stream == null || content == null || session.getAttribute(USER) == null) {
             throw new IOException("************* Something is rotten!");
         }
-        if (session != null) {
-            user = (User)session.getAttribute(USER);
-        }
+        User user = (User)session.getAttribute(USER);
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
         Date timestamp = new Date();
@@ -182,7 +179,7 @@ public class SuccessStoryResource {
         story.setDescription(description);
         story.setShowMainPage("N");
 
-       if(stream != null && !content.getFileName().isEmpty()){
+       if(!content.getFileName().isEmpty()){
             final String fileName = id + "-" + content.getFileName();
             saveFile(UPLOAD_DIR, fileName, stream);
             story.setThumbnailPath(fileName);

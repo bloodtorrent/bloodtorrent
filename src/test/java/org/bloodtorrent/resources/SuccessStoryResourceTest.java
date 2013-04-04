@@ -156,7 +156,6 @@ public class SuccessStoryResourceTest {
 		assertThat(resource.get(id), is(story));
 	}
 
-    @Ignore("this test will become unnecessary when SuccessStoryResource is refactored")
     @Test
     public void shouldCreateNewSuccessStoryWithAttachedImageFile() throws IOException {
         final ArrayList<SuccessStory> storyContainer = new ArrayList<SuccessStory>();
@@ -168,7 +167,7 @@ public class SuccessStoryResourceTest {
             }
         }).when(repository).insert(Mockito.any(SuccessStory.class));
 
-        View view = resource.createSuccessStory("", makeDummyString(150), makeDummyString(150), "description", inputStream, contentDisposition);
+        View view = resource.createSuccessStory(ADMIN_SESSION, makeDummyString(150), makeDummyString(150), "description", inputStream, contentDisposition);
 
         assertThat(view instanceof SuccessStoryView, is(true));
         SuccessStoryView successStoryView = (SuccessStoryView) view;
@@ -189,24 +188,21 @@ public class SuccessStoryResourceTest {
         assertThat(fileContent, is(FILE_CONTENT));
     }
 
-    @Ignore("this test will become unnecessary when SuccessStoryResource is refactored")
     @Test
     public void shouldReturnResultViewWithErrorMessagesWhenTitleValidationFailed() throws IOException {
-        View view = resource.createSuccessStory("", "", "summary", "description", inputStream, contentDisposition);
+        View view = resource.createSuccessStory(ADMIN_SESSION, "", "summary", "description", inputStream, contentDisposition);
         assertThat(view instanceof ResultView, is(true));
     }
 
-    @Ignore("this test will become unnecessary when SuccessStoryResource is refactored")
     @Test
     public void shouldReturnResultViewWithErrorMessagesWhenTitleLengthValidationFailed() throws IOException {
-        View view = resource.createSuccessStory("", makeDummyString(151), "summary", "description", inputStream, contentDisposition);
+        View view = resource.createSuccessStory(ADMIN_SESSION, makeDummyString(151), "summary", "description", inputStream, contentDisposition);
         assertThat(view instanceof ResultView, is(true));
     }
 
-    @Ignore("this test will become unnecessary when SuccessStoryResource is refactored")
     @Test
     public void shouldReturnResultViewWithErrorMessagesWhenSummaryLengthValidationFailed() throws IOException {
-        View view = resource.createSuccessStory("", "title", makeDummyString(251), "description", inputStream, contentDisposition);
+        View view = resource.createSuccessStory(ADMIN_SESSION, "title", makeDummyString(251), "description", inputStream, contentDisposition);
         assertThat(view instanceof ResultView, is(true));
     }
 
@@ -321,29 +317,26 @@ public class SuccessStoryResourceTest {
         verify(adminSession, never()).getAttribute(USER);
     }
 
-    @Ignore("this test will become unnecessary when SuccessStoryResource is refactored")
+    @Ignore("this test is work in progress, requires more mocking before it can pass")
     @Test
-    public void createSuccessStoryShouldGetUserFromSessionWhenSessionIdIsNotNull() throws Exception {
+    public void createSuccessStoryShouldGetUserFromSession() throws Exception {
         String id = "One";
         SuccessStory story = createNewSuccessStory(id);
         when(repository.get(id)).thenReturn(story);
-        resource.createSuccessStory(ADMIN_SESSION, "Title: Does not matter", "Summary: Does not matter", "Description: Does not matter", null, null);
+        resource.createSuccessStory(ADMIN_SESSION, "Title: Does not matter", "Summary: Does not matter", "Description: Does not matter", mock(InputStream.class), mock(FormDataContentDisposition.class));
         verify(adminSession).getAttribute(USER);
     }
 
-    @Ignore("this test will become unnecessary when SuccessStoryResource is refactored")
-    @Test
-    public void createSuccessStoryShouldNotGetUserFromSessionWhenSessionIdIsNull() throws Exception {
+    @Test(expected = IOException.class)
+    public void createSuccessStoryShouldThrowExceptionWhenSessionIdIsNull() throws Exception {
         String id = "One";
         SuccessStory story = createNewSuccessStory(id);
         when(repository.get(id)).thenReturn(story);
-        resource.createSuccessStory(null, "Title: Does not matter", "Summary: Does not matter", "Description: Does not matter", null, null);
-        verify(adminSession, never()).getAttribute(USER);
+        resource.createSuccessStory(null, "Title: Does not matter", "Summary: Does not matter", "Description: Does not matter", mock(InputStream.class), mock(FormDataContentDisposition.class));
     }
 
-    @Ignore("this test will become unnecessary when SuccessStoryResource is refactored")
-    @Test(expected = NullPointerException.class)
-    public void createSuccessStoryShouldThrowExceptionWhenInputStreamIsNotNullAndFormDataContentDispositionIsNull() throws Exception {
+    @Test(expected = IOException.class)
+    public void createSuccessStoryShouldThrowExceptionWhenFormDataContentDispositionIsNull() throws Exception {
         String id = "One";
         SuccessStory story = createNewSuccessStory(id);
         when(repository.get(id)).thenReturn(story);
