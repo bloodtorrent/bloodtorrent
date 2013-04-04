@@ -307,4 +307,30 @@ public class SuccessStoryResourceTest {
         verify(adminSession).getAttribute(USER);
     }
 
+    @Test
+    public void getSuccessStoryShouldNotGetUserFromSessionWhenSessionIdIsNull() {
+        String id = "One";
+        SuccessStory story = createNewSuccessStory(id);
+        when(repository.get(id)).thenReturn(story);
+        resource.getSuccessStory(id, null);
+        verify(adminSession, never()).getAttribute(USER);
+    }
+
+    @Test
+    public void createSuccessStoryShouldGetUserFromSessionWhenSessionIdIsNotNull() throws Exception {
+        String id = "One";
+        SuccessStory story = createNewSuccessStory(id);
+        when(repository.get(id)).thenReturn(story);
+        resource.createSuccessStory(ADMIN_SESSION, "Title: Does not matter", "Summary: Does not matter", "Description: Does not matter", null, null);
+        verify(adminSession).getAttribute(USER);
+    }
+
+    @Test
+    public void createSuccessStoryShouldNotGetUserFromSessionWhenSessionIdIsNull() throws Exception {
+        String id = "One";
+        SuccessStory story = createNewSuccessStory(id);
+        when(repository.get(id)).thenReturn(story);
+        resource.createSuccessStory(null, "Title: Does not matter", "Summary: Does not matter", "Description: Does not matter", null, null);
+        verify(adminSession, never()).getAttribute(USER);
+    }
 }
