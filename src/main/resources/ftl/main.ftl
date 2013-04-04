@@ -31,37 +31,6 @@
     </script>
 </head>
 <body class='wsite-theme-light no-header-page wsite-page-index'>
-<div id="header-wrap">
-    <div class="page">
-        <div id="header-container">
-            <table id="header">
-                <tr>
-                    <td id="logo"><span class='wsite-logo'><a href='/'><span id="wsite-title">Blood Torrent</span></a></span></td>
-                    <td id="header-right">
-                        <table>
-                            <tr>
-                                <td class="phone-number"></td>
-                                <td class="social"></td>
-                                <td class="search"></td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-            <div id="topnav">
-                <ul>
-                    <li id='active'><a href='/'>${properties.menuBarHome}</a></li>
-                    <li><a href='/user'>${properties.menuBarRegister}</a></li>
-                    <li ><a href='/requestForBlood'>${properties.menuBarRequest}</a></li>
-                </ul>
-                <div style="clear:both"></div>
-            </div>
-        </div>
-        <div id="banner">
-            <div class="wsite-header"></div>
-        </div>
-    </div>
-</div>
 <div class="outer-main-wrap">
     <div id="main-wrap">
         <div class="page-shadow">
