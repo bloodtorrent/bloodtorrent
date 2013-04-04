@@ -8,7 +8,7 @@
     </#if>
     <#if editSuccessFlag>
         <script language="javascript">
-            alert("These stories will be displayed as success story\n on the main page");
+            alert("These stories will be displayed as success story on the main page");
         </script>
     </#if>
         <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
