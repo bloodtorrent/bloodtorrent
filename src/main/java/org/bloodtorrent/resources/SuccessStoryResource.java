@@ -164,6 +164,9 @@ public class SuccessStoryResource {
 
         HttpSession session = sessionManager.getHttpSession(sessionID);
         User  user = null;
+        if (session == null || stream == null || content == null || session.getAttribute(USER) == null) {
+            throw new IOException("************* Something is rotten!");
+        }
         if (session != null) {
             user = (User)session.getAttribute(USER);
         }
