@@ -124,7 +124,7 @@
                                 <#if successStories??>
                                     <#list successStories as story>
                                         <td class='wsite-multicol-col' style='width:23%;padding:0 15px'>
-                                            <h2><a href="/successStory/${story.id}">${story.title}</a></h2>
+                                            <h2><a href="/successStory/${story.id}" class="successStoryDetailLink">${story.title}</a></h2>
                                             <#if story.thumbnailPath?exists><span class='imgPusher'></span><span><a href="/successStory/${story.id}"><img class="thumbnail" src="/successStory/image/${story.thumbnailPath}"/></a></span></#if>
                                             <div class="paragraph">${story.summary}</div>
                                         </td>
