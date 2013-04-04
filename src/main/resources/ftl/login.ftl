@@ -6,23 +6,29 @@
     <script>
         $(function() {
             $( "input[type=button]" ).button()
+
             $("#signin").click(function(){
                 $("#loginForm").submit();
+            });
+            $(window).keypress( function(e) {
+                if (e.which == 13) {
+                    $("#loginForm").submit();
+                }
             });
         });
     </script>
 </head>
 <body>
-    <form id = "loginForm" action="/login" method="post">
-        <p>
-            SIGN-IN NAME : <input type="text" name="email" />
-        </p>
-        <p>
-            PASSWORD:
-            <input type="password" name="password" id="password" />
-        </p>
-        <p>
-            <input type="button" id="signin" value="SIGN IN" />
-        </p>
-    </form>
+<form id = "loginForm" action="/login" method="post">
+    <p>
+        SIGN-IN NAME : <input type="text" name="email" id="email" />
+    </p>
+    <p>
+        PASSWORD:
+        <input type="password" name="password" id="password" />
+    </p>
+    <p>
+        <input type="button" id="signin" value="SIGN IN" />
+    </p>
+</form>
 </body>
