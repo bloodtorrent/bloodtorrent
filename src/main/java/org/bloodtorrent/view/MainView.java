@@ -6,6 +6,7 @@ import org.bloodtorrent.dto.SuccessStory;
 import org.bloodtorrent.dto.User;
 
 import java.util.List;
+import java.util.ResourceBundle;
 
 @SuppressWarnings("PMD.UnusedPrivateField")
 public class MainView extends CommonView {

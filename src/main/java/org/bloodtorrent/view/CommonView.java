@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.bloodtorrent.dto.User;
 
 import java.util.List;
+import java.util.ResourceBundle;
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,6 +21,9 @@ public class CommonView extends View {
     private User user;
     @Getter @Setter
     private String message;
+
+    @Getter
+    private ResourceBundle properties = ResourceBundle.getBundle("properties/bloodtorrent");
 
     public CommonView(String viewPath) {
         super(viewPath);

@@ -66,48 +66,48 @@
                     <div id="content"><div id='wsite-content' class='wsite-elements wsite-not-footer'>
                         <form id="user" method="post" action="/user">
                             <div id="title">
-                                <h2>New Account Registration as Donor</h2>
+                                <h2>${properties.registerTitle}</h2>
                             </div>
                             <div class="message" style="display: none"></div>
                             <div id="userInfo">
                                 <table>
                                     <tr>
                                         <td></td>
-                                        <td><label>First name</label></td>
-                                        <td><label>Last name</label></td>
+                                        <td><label>${properties.labelFirstName}</label></td>
+                                        <td><label>${properties.labelLastName}</label></td>
                                     </tr>
                                     <tr>
-                                        <td><label>Name : </label></td>
+                                        <td><label>${properties.labelName} : </label></td>
                                         <td><input type="text" name="firstName" width="30" maxLength="35"/></td>
                                         <td><input type="text" name="lastName" width="30" maxLength="35"/></td>
                                     </tr>
                                     <tr>
-                                        <td><label>E-Mail : </label></td>
+                                        <td><label>${properties.labelEmail} : </label></td>
                                         <td><input type="text" name="email" width="30"/></td>
-                                        <td><label>Your email will also act as login id</label></td>
+                                        <td><label>${properties.labelValidationEmail}</label></td>
                                     </tr>
                                     <tr>
-                                        <td><label>Password : </label></td>
+                                        <td><label>${properties.labelPassword} : </label></td>
                                         <td><input type="password" name="password" width="30" minLength="8" maxLength="25"/></td>
-                                        <td><label>(8~25 characters at least 1 digit)</label></td>
+                                        <td><label>${properties.labelValidationPassword}</label></td>
                                     </tr>
                                     <tr>
-                                        <td><label>Confirm Password : </label></td>
+                                        <td><label>${properties.labelConfirmPassword} : </label></td>
                                         <td colspan="2"><input type="password" name="confirmPassword" width="30" minLength="8" maxLength="25"/></td>
                                     </tr>
                                     <tr>
-                                        <td colspan="3"><label>Please provide correct address so that we can suggest donation locations closer to this address.</label></td>
+                                        <td colspan="3"><label>${properties.labelValidationAddress}</label></td>
                                     </tr>
                                     <tr>
-                                        <td><label>Address : </label></td>
+                                        <td><label>${properties.labelAddress} : </label></td>
                                         <td colspan="2"><textarea name="address" id="orginalAddress" rows="3" cols="50"></textarea></td>
                                     </tr>
                                     <tr>
-                                        <td><label>City : </label></td>
+                                        <td><label>${properties.labelCity} : </label></td>
                                         <td><input type="text" name="city" id="city" width="30" maxLength="255"/></td>
                                     </tr>
                                     <tr>
-                                        <td><label>State : </label></td>
+                                        <td><label>${properties.labelState} : </label></td>
                                         <td>
                                             <select name="state" id="state">
                                                 <option value="Andhra Pradesh" selected="true">Andhra Pradesh</option>
@@ -141,17 +141,17 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <input type="button" id="popupMap" value="map"/>
-                                            <label id="messageLabel">Use a map to specify exact location</label>
+                                            <input type="button" id="popupMap" value="${properties.labelMapButton}"/>
+                                            <label id="messageLabel">${properties.labelValidationMap}</label>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><label>Cell Phone : </label></td>
+                                        <td><label>${properties.labelCellphone} : </label></td>
                                         <td><input type="text" name="cellPhone" width="30" maxlength="10"/></td>
-                                        <td><label>(10 digits)</label></td>
+                                        <td><label>${properties.labelValidationCellphone}</label></td>
                                     </tr>
                                     <tr>
-                                        <td><label>Blood Group :</label></td>
+                                        <td><label>${properties.labelBloodGroup} :</label></td>
                                         <td>
                                             <select name="bloodGroup">
                                                 <option value="A+" selected="true">A+</option>
@@ -167,7 +167,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="3"><label>How far are you willing to travel to donate blood?</label>
+                                        <td colspan="3"><label>${properties.labelDistance}</label>
                                             <select name="distance">
                                                 <option value="5" selected>5</option>
                                                 <option value="10">10</option>
@@ -177,7 +177,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td ><label>Gender : </label> </td>
+                                        <td ><label>${properties.labelGender} : </label> </td>
                                         <td colspan="2">
                                             <select name="gender">
                                                 <option value="female" selected>Female</option>
@@ -186,15 +186,15 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><label>Date of Birth : </label> </td>
+                                        <td><label>${properties.labelBirth} : </label> </td>
                                         <td><input type="text" id="birthday" name="birthday"/> (optional, DD-MM-YYYY)</td>
                                     </tr>
                                     <tr>
-                                        <td colspan="3"><label>Do you want to remain anonymous ?</label><input type="radio" name="anonymous" value="Y"/>Y <input type="radio" name="anonymous" value="N" checked/>N</td>
+                                        <td colspan="3"><label>${properties.labelAnonymous}</label><input type="radio" name="anonymous" value="Y"/>Y <input type="radio" name="anonymous" value="N" checked/>N</td>
                                     </tr>
                                     <tr>
                                         <td colspan="3">
-                                            <label>When did you last donate blood?</label>
+                                            <label>${properties.labelLastDonateDate}</label>
                                             <select name="lastDonate">
                                                 <option value="31" selected>within 1 month</option>
                                                 <option value="61">2 months ago</option>
@@ -209,8 +209,8 @@
                             <input type="hidden" name="lng" id="lng" value=""/>
                             <input type="hidden" name="isMapExcuted" id="isMapExcuted" value="N"/>
 
-                            <input type="button" id="register" name="register" value="Register"/>
-                            <a href ="/"><input type="button" name="cancel" value="Cancel"/></a>
+                            <input type="button" id="register" name="register" value="${properties.labelRegisterButton}"/>
+                            <a href ="/"><input type="button" name="cancel" value="${properties.labelCancelButton}"/></a>
                         </form>
 
                         <form id="successForm" method="post" action="/user/success">

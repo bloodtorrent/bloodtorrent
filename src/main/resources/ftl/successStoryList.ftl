@@ -3,12 +3,12 @@
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <#if savedSuccessFlag>
         <script language="javascript">
-            alert("This story is saved successfully.");
+            alert("${properties.successStoryCreateAlert}");
         </script>
     </#if>
     <#if editSuccessFlag>
         <script language="javascript">
-            alert("These stories will be displayed as success story on the main page");
+            alert("${properties.successStoryEditAlert}");
         </script>
     </#if>
         <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
@@ -25,18 +25,18 @@
     </head>
     <body>
     <#include "/ftl/adminHeader.ftl" >
-       <h1 id="title" align="center">How we helped</h1>
-       <input type="button" value="Create" onclick="location.href='/successStory/createView';"/>
-       <input type="button" id="submitButtonUp" value="Display on the main page"/>
+       <h1 id="title" align="center">${properties.successStoryListTitle}</h1>
+       <input type="button" value="${properties.successStoryCreateButton}" onclick="location.href='/successStory/createView';"/>
+       <input type="button" id="submitButtonUp" value="${properties.successStorySubmitButton}"/>
        <form id="successStorySelectionForm" method='POST' action="/successStory/selectForMain">
        <table border="1" cellspacing="0">
            <tr bgcolor="#cccccc">
               <th> </th>
-              <th>Title</th>
-              <th>Short Description</th>
-              <th>Create Date</th>
-              <th>Display on main page</th>
-              <th>Image Preview</th>
+              <th>${properties.tableTitle}</th>
+              <th>${properties.tableShortDescription}</th>
+              <th>${properties.tableCreateDate}</th>
+              <th>${properties.tableDisplayOnMainPage}</th>
+              <th>${properties.tableImagePreview}</th>
            </tr>
 
            <#list successStoryList as story>
@@ -54,8 +54,8 @@
            </tr>
            </#list>
        </table>
-       <input type="button" value="Create" onclick="location.href='/successStory/createView';"/>
-       <input type="button" id="submitButtonDown" value="Display on the main page"/>
+       <input type="button" value="${properties.successStoryCreateButton}" onclick="location.href='/successStory/createView';"/>
+       <input type="button" id="${properties.successStorySubmitButton}" value="Display on the main page"/>
        </form>
     </body>
 </html>

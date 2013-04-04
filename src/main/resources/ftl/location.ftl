@@ -62,7 +62,7 @@ $(function() {
 
         //address, state, city
         if ( address == "" || city == "" || state == "" ) {
-            alert("Please provide the address, city and state before using map.");
+            alert("${properties.locationValidationAlert}");
             return;
         }
         searchLocation();
@@ -147,7 +147,7 @@ function geocodePosition(pos) {
         if (responses && responses.length > 0) {
             updateMarkerAddress(responses[0].formatted_address);
         } else {
-            updateMarkerAddress('Cannot determine address at this location.');
+            updateMarkerAddress('${properties.locationErrorAlert}');
         }
     });
 }
@@ -206,15 +206,15 @@ function init(latLng) {
 </script>
 <div id="map_dialog" title="Map">
     <div id="searchAddress">
-        <H4>Please set exact location in this map. It will help us to provide you more accurate notification to donate</H4>
+        <H4>${properties.locationTitle}</H4>
         <input type="text" id="search_address" size="40%" value="India" onkeydown="if(event.keyCode == 13) document.getElementById('searchButton').click()" />
         <input type="text" id="searchButton" value="search"/>
     </div>
     <div id="mapCanvas" ></div>
     <div id="infoPanel">
-        <b>Current position:</b>
+        <b>${properties.locationCurrentPosition}:</b>
         <div id="info"></div>
-        <b>Closest matching address:</b>
+        <b>${properties.locationClosestAddress}:</b>
         <div id="address"></div>
     </div>
     <div id="dialog_confirm" title="Set Location">

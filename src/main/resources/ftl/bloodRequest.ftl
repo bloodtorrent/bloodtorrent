@@ -1,6 +1,6 @@
 <html>
 <#include "header.ftl"/>
-<title>Request for Blood</title>
+<title>${properties.windowTitle}-${properties.menuBarRequest}</title>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
 <link rel="stylesheet" href="/css/message.css" />
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&language=en"></script>
@@ -74,35 +74,35 @@
                     <div id="content"><div id='wsite-content' class='wsite-elements wsite-not-footer'>
                         <form id="bloodRequestForm" method="post" action="/requestForBlood">
                             <div id="title">
-                                <h2>Request for Blood</h2>
+                                <h2>${properties.requestTitle}</h2>
                             </div>
                             <div class="message" style="display: none"></div>
                             <div id="bloodRequestInfo">
                                 <table cellspacing="3">
                                     <tr>
-                                        <td><label>Name :</label></td>
+                                        <td><label>${properties.labelName} :</label></td>
                                         <td>
-                                            <table><tr><td>First name<br>
+                                            <table><tr><td>${properties.labelFirstName}<br>
                                                 <input type="text" name="firstName" width="30" value="" maxLength="35"/>
                                             </td>
-                                                <td>Last name<br>
+                                                <td>${properties.labelLastName}<br>
                                                     <input type="text" name="lastName" width="30" value="" maxLength="35"/>
                                                 </td></tr></table>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="2">Please provide correct hospital or blood bank address so that we can find out matched donors.</td>
+                                        <td colspan="2">${properties.labelValidationHospital}</td>
                                     </tr>
                                     <tr>
-                                        <td><label>Hospital or<br>Blood bank address:</label></td>
+                                        <td><label>${properties.labelHospitalAddress}:</label></td>
                                         <td><textarea id="hospitalAddress" name="hospitalAddress" width="30" rows="4"></textarea></td>
                                     </tr>
                                     <tr>
-                                        <td><label>City :</label></td>
+                                        <td><label>${properties.labelCity} :</label></td>
                                         <td><input type="text" id = "city" name="city" width="30" value="" maxLength="30"/></td>
                                     </tr>
                                     <tr>
-                                        <td><label>State :</label></td>
+                                        <td><label>${properties.labelState} :</label></td>
                                         <td>
                                             <select id = "state" name="state">
                                                 <option value="Andhra Pradesh">Andhra Pradesh</option>
@@ -137,15 +137,15 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><label>Cell Phone :</label></td>
+                                        <td><label>${properties.labelCellphone} :</label></td>
                                         <td><input type="text" name="phone" width="30" value="" maxLength="10"/> (10 digits)</td>
                                     </tr>
                                     <tr>
-                                        <td><label>E-mail :</label></td>
+                                        <td><label>${properties.labelEmail} :</label></td>
                                         <td><input type="text" name="email" width="30" value=""/></td>
                                     </tr>
                                     <tr>
-                                        <td><label>Gender :</label></td>
+                                        <td><label>${properties.labelGender} :</label></td>
                                         <td>
                                             <select name="gender">
                                                 <option value="F">Female</option>
@@ -154,14 +154,14 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><label>Date of Birth :</label></td>
+                                        <td><label>${properties.labelBirth} :</label></td>
                                         <td>
                                             <input type="text" name="birthday" id="birthday" width="30" value=""/>
-                                            (optional, DD-MM-YYYY)
+                                        ${properties.labelValidationBirth}
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><label>Blood Group :</label></td>
+                                        <td><label>${properties.labelBloodGroup} :</label></td>
                                         <td>
                                             <select name="bloodGroup">
                                                 <option value="A+">A+</option>
@@ -176,24 +176,24 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><label>Blood Volume :</label></td>
+                                        <td><label>${properties.labelBloodVolume} :</label></td>
                                         <td>
                                             <input type="text" name="bloodVolume" width="30" maxlength="2" value=""/>
-                                            Unit (1~99 units)
+                                        ${properties.labelValidationBloodVolume}
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><label>Requester</label></td>
+                                        <td><label>${properties.labelRequester}</label></td>
                                         <td>
-                                            <input type="radio" name="requesterType" value="C" checked/>Care-giver
-                                            <input type="radio" name="requesterType" value="P"/>Patient
+                                            <input type="radio" name="requesterType" value="C" checked/>${properties.labelCareGiver}
+                                            <input type="radio" name="requesterType" value="P"/>${properties.labelPatient}
                                         </td>
                                     </tr>
                                 </table>
                             </div>
                             <div>
-                                <input type="button" id="register" name="register" value="Register"/>
-                                <input type="button" name="reset" value="Cancel" onClick="goHome()"/>
+                                <input type="button" id="register" name="register" value="${properties.labelRegisterButton}"/>
+                                <input type="button" name="reset" value="${properties.labelCancelButton}" onClick="goHome()"/>
                             </div>
 
                             <input type="hidden" name="lat" id="lat" value=""/>
