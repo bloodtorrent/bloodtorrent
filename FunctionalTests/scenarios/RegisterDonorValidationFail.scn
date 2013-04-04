@@ -1,11 +1,21 @@
 Tags:Story-75,in-progress
 Preconditions:Blood Torrent
-Metadata:ScenarioType=Manual
+Metadata:ScenarioType=Auto
 On home page:
 #Select register donor
 
 On register donor page:
 #Register donor
-#Verify missing field error message
+#Verify error message "You must fill in all of the fields."
 #Fill out invalid phone number
-#Verify invalid format error message
+#Register donor
+#Verify error message "Please enter a valid Cell Phone."
+#Fill out different confirm password from password
+#Register donor
+#Verify error message "Please enter confirm password same as password."
+#Fill out invalid date of birth
+#Register donor
+#Verify error message "Please enter a valid Date of birth."
+
+
+

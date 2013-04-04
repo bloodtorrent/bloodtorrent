@@ -6,6 +6,8 @@ import junit.framework.Assert;
 import net.sf.sahi.client.Browser;
 import org.bloodtorrent.functionaltests.pages.RegisterDonor;
 import static com.thoughtworks.twist.core.execution.TwistVerification.verifyEquals;
+import static junit.framework.Assert.*;
+import static org.junit.Assert.assertThat;
 
 public class OnRegisterDonorPage {
 
@@ -14,7 +16,7 @@ public class OnRegisterDonorPage {
 	private RegisterDonor registerDonor;
 	
 	private String email = "administrator@bloodtorrent.org";
-	private String firstName = "Jane";
+	private String firstName = "donor";
 	private String lastName = "Jung";
 	private String passWord = "12341234";
 	private String confirmPassWord = "12341234";
@@ -97,7 +99,30 @@ public class OnRegisterDonorPage {
 	}
 
 	public void verifyErrorMessageExistingUser() throws Exception {
-		verifyEquals("This email address is already taken.", registerDonor.getFailMessage());
+		verifyEquals("This email address is already taken. ", registerDonor.getErrorMessage());
 	
+	}
+
+	public void verifyErrorMessage(String errorMessage) throws Exception {
+		
+		assertEquals(errorMessage, registerDonor.getErrorMessage());
+	
+	}
+
+	public void fillOutInvalidPhoneNumber() throws Exception {
+		
+		fillOutTheValidInformationToMandatoryFields();
+		registerDonor.setCellPhone("11112222ss");
+	}
+
+
+	public void fillOutDifferentConfirmPasswordFromPassword() throws Exception {
+		fillOutTheValidInformationToMandatoryFields();
+		registerDonor.setConfirmPassWord("123412");
+	}
+
+	public void fillOutInvalidDateOfBirth() throws Exception {
+		fillOutTheValidInformationToMandatoryFields();
+		registerDonor.setBirthday("30-02-1940");	
 	}
 }

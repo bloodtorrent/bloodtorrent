@@ -1,9 +1,13 @@
 package org.bloodtorrent.functionaltests.pages;
 
 import net.sf.sahi.client.Browser;
+import net.sf.sahi.client.BrowserCondition;
+import net.sf.sahi.client.ExecutionException;
 
 public class RequestBlood extends BasePage {
 
+	private static final int DEFAULT_WAIT_MILLISECONDS = 1 * 1000;
+	
 	public RequestBlood(Browser browser){
 		super(browser);
 	}
@@ -54,5 +58,32 @@ public class RequestBlood extends BasePage {
 
 	public void cancel() {
 		browser.button("Cancel").click();
+	}
+
+	public String getErrorMessage() {
+		BrowserCondition condition = new BrowserCondition(browser) {
+			public boolean test() throws ExecutionException {
+				// initial : hide -> show up
+				// change error : compare the messages
+				
+				boolean isChanged = false;
+				String errorMessage = browser.div("message error").getText();
+				if (errorMessage != null || errorMessage.trim().length() > 0) {
+					isChanged = true;
+				} else {
+					String changedMessage = "";					
+					do {
+						changedMessage = browser.div("message error").getText();
+					} while (!changedMessage.equals(errorMessage));
+					
+					isChanged = true;
+				}
+
+				return isChanged;
+			}
+		};
+		browser.waitFor(condition, DEFAULT_WAIT_MILLISECONDS);		
+		
+		return browser.div("message error").getText(); 
 	}
 }

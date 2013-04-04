@@ -2,6 +2,7 @@ package org.bloodtorrent.functionaltests.scenarios;
 
 import net.sf.sahi.client.Browser;
 import org.bloodtorrent.functionaltests.pages.RequestBlood;
+import static junit.framework.Assert.*;
 
 public class OnRequestBloodPage {
 
@@ -42,6 +43,21 @@ public class OnRequestBloodPage {
 
 	public void cancelRequest () throws Exception {
 		requestBlood.cancel();
+	}
+
+	public void verifyErrorMessage(String errorMessage) throws Exception {		
+		assertEquals(errorMessage, requestBlood.getErrorMessage());	
+	}
+
+	public void fillOutInvalidPhoneNumber() throws Exception {
+		
+		fillOutTheValidRequestInformationToMendatoryFields();
+		requestBlood.setPhone("11112222ss");	
+	}
+
+	public void fillOutInvalidEmailAddress() throws Exception {
+		fillOutTheValidRequestInformationToMendatoryFields();
+		requestBlood.setEmail("11112222ss");		
 	}
 
 }

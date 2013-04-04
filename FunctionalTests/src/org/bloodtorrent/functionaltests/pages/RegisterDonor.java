@@ -53,6 +53,10 @@ public class RegisterDonor extends BasePage {
 
 	public void setDistance(String distance) {
 		browser.select("distance").choose(distance);
+	}	
+
+	public void setBirthday(String birthday) {
+		browser.textbox("birthday").setValue(birthday);		
 	}
 
 	public void register() {
@@ -92,8 +96,33 @@ public class RegisterDonor extends BasePage {
 		browser.waitFor(condition, DEFAULT_WAIT_MILLISECONDS);
 		return Double.parseDouble(browser.byId("lat").getValue());
 	}
+	
+	public String getErrorMessage() {
+		
+		BrowserCondition condition = new BrowserCondition(browser) {
+			public boolean test() throws ExecutionException {
+				// initial : hide -> show up
+				// change error : compare the messages
+				
+				boolean isChanged = false;
+				String errorMessage = browser.div("message error").getText();
+				if (errorMessage != null || errorMessage.trim().length() > 0) {
+					isChanged = true;
+				} else {
+					String changedMessage = "";					
+					do {
+						changedMessage = browser.div("message error").getText();
+					} while (!changedMessage.equals(errorMessage));
+					
+					isChanged = true;
+				}
 
-	public String getFailMessage() {
-		return browser.div("message").getText();
+				return isChanged;
+			}
+		};
+		browser.waitFor(condition, DEFAULT_WAIT_MILLISECONDS);		
+		
+		return browser.div("message error").getText(); 
 	}
+
 }
