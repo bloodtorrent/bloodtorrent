@@ -1,0 +1,57 @@
+<project default="remote-start">
+    <property name="remote.host">54.244.117.61</property>
+    <property name="remote.user">bloodtorrent</property>
+    <property name="remote.dir">bloodtorrent-web</property>
+    <property name="private.keyfile">${user.home}/.ssh/id_rsa</property>
+	<property name="build.jar">bloodtorrent-1.0.0-SNAPSHOT.jar</property>
+
+	<target name="zip-for-ft">
+		<zip destfile="artifacts-for-ft.zip">
+			<zipfileset file="pom.xml"/>
+			<zipfileset file="target/${build.jar}" prefix="target"/>
+			<zipfileset dir="scripts" prefix="scripts"/>
+			<zipfileset dir="FunctionalTests" prefix="FunctionalTests"/>
+			<zipfileset dir="db" prefix="db"/>
+			<zipfileset dir="upload" prefix="upload"/>
+		</zip>
+	</target>
+
+	<target name="unzip-for-ft">
+		<unzip src="artifacts-for-ft.zip" dest="."/>
+	</target>
+
+	<target name="zip-for-deploy">
+		<zip destfile="artifacts-for-deploy.zip">
+			<zipfileset file="pom.xml"/>
+			<zipfileset file="target/${build.jar}" prefix="target"/>
+			<zipfileset dir="scripts" prefix="scripts"/>
+			<zipfileset dir="db/scripts" prefix="db/scripts"/>
+			<zipfileset dir="upload" prefix="upload"/>
+		</zip>
+	</target>
+
+	<target name="unzip-for-deploy">
+		<unzip src="artifacts-for-deploy.zip" dest="."/>
+	</target>
+
+    <target name="copy-files">
+        <scp trust="yes" remoteTodir="${remote.user}@${remote.host}:${remote.dir}"
+             keyfile="${private.keyfile}">
+             <fileset dir=".">
+                 <include name="db/scripts/*.sql"/>
+                 <include name="pom.xml"/>
+                 <include name="scripts/*.sh"/>
+                 <include name="src/main/resources/configurations.yml"/>
+                 <include name="target/${build.jar}"/>
+		 <include name="upload/*"/>
+             </fileset>
+        </scp>
+	</target>
+
+    <target name="remote-start" depends="copy-files">
+        <sshexec host="${remote.host}" trust="yes"
+            username="${remote.user}" keyfile="${private.keyfile}"
+            command="cd ${remote.dir} &amp;&amp; sh scripts/remoteRestart.sh"/>
+    </target>
+
+</project>
