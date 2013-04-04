@@ -2,7 +2,6 @@ package org.bloodtorrent.functionaltests.pages;
 
 import net.sf.sahi.client.Browser;
 import net.sf.sahi.client.BrowserCondition;
-import net.sf.sahi.client.ElementStub;
 import net.sf.sahi.client.ExecutionException;
 
 public class RegisterDonor extends BasePage {
