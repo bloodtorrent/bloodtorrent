@@ -21,7 +21,7 @@
                 if(data.result && data.result == "fail") {
                     showMessage(data.message);
                 } else {
-                    showMessage("Registering...", "success");
+                    hideMessage();
                     $("#user input[type=button]").attr("disabled", "disabled");
                     $("#successForm").submit();
                 }

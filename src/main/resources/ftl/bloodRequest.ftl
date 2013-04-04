@@ -23,7 +23,7 @@
             if(data.result && data.result == "fail") {
                 showMessage(data.message);
             } else {
-                showMessage("Registering...", "success");
+                hideMessage();
                 $("#bloodRequestForm input[type=submit]").attr("disabled", "disabled");
                 $("#bloodRequestForm input[type=button]").attr("disabled", "disabled");
                 $("#successForm input[name=requestId]").val(data.requestId);

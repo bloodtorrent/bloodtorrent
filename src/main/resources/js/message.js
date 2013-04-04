@@ -4,3 +4,7 @@ function showMessage(message, type) {
             .addClass(type === undefined ? "error" : type)
             .text(message).slideDown()});
 }
+
+function hideMessage() {
+    $(".message").hide();
+}
