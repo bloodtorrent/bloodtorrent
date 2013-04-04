@@ -333,4 +333,13 @@ public class SuccessStoryResourceTest {
         resource.createSuccessStory(null, "Title: Does not matter", "Summary: Does not matter", "Description: Does not matter", null, null);
         verify(adminSession, never()).getAttribute(USER);
     }
+
+    @Test(expected = NullPointerException.class)
+    public void createSuccessStoryShouldThrowExceptionWhenInputStreamIsNotNullAndFormDataContentDispositionIsNull() throws Exception {
+        String id = "One";
+        SuccessStory story = createNewSuccessStory(id);
+        when(repository.get(id)).thenReturn(story);
+        InputStream mockInputStream = mock(InputStream.class);
+        resource.createSuccessStory(ADMIN_SESSION, "Title: Does not matter", "Summary: Does not matter", "Description: Does not matter", mockInputStream, null);
+    }
 }
