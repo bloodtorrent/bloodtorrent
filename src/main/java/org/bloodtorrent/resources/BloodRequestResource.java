@@ -34,7 +34,7 @@ public class BloodRequestResource {
 
     private BloodRequestValidator validator;
 
-    public BloodRequestResource(BloodRequestRepository repository, NotifyDonorSendEmailResource mailResource, FindingMatchingDonorResource findingMatchingDonorResource) {
+    protected BloodRequestResource(BloodRequestRepository repository, NotifyDonorSendEmailResource mailResource, FindingMatchingDonorResource findingMatchingDonorResource) {
         this.repository = repository;
         this.mailResource = mailResource;
         this.findingMatchingDonorResource = findingMatchingDonorResource;

@@ -1,5 +1,6 @@
 package org.bloodtorrent.resources;
 
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.bloodtorrent.dto.BloodRequest;
 import org.bloodtorrent.dto.User;
@@ -8,13 +9,9 @@ import org.bloodtorrent.util.MailSender;
 
 import java.util.List;
 
-/**
- * Created with IntelliJ IDEA.
- * User: sds
- * Date: 3/27/13
- * Time: 10:46 AM
- * To change this template use File | Settings | File Templates.
- */
+import static lombok.AccessLevel.PROTECTED;
+
+@NoArgsConstructor(access = PROTECTED)
 public class NotifyDonorSendEmailResource {
     @Setter
     private MailConfiguration mailConfiguration;

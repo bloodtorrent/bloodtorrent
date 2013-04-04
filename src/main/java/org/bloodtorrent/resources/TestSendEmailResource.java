@@ -1,5 +1,6 @@
 package org.bloodtorrent.resources;
 
+import lombok.NoArgsConstructor;
 import org.bloodtorrent.dto.BloodRequest;
 import org.bloodtorrent.dto.User;
 import org.bloodtorrent.view.CommonView;
@@ -12,6 +13,8 @@ import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 import java.util.List;
 
+import static lombok.AccessLevel.PROTECTED;
+
 /**
  * Created with IntelliJ IDEA.
  * User: sds
@@ -21,6 +24,7 @@ import java.util.List;
  */
 @Path("/sendMailTest")
 @Produces(MediaType.TEXT_HTML)
+@NoArgsConstructor(access = PROTECTED)
 public class TestSendEmailResource {
 
     @POST

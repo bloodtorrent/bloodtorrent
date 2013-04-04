@@ -1,5 +1,6 @@
 package org.bloodtorrent.resources;
 
+import lombok.NoArgsConstructor;
 import org.bloodtorrent.view.CommonView;
 
 import javax.ws.rs.GET;
@@ -7,15 +8,11 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-/**
- * Created with IntelliJ IDEA.
- * User: sds
- * Date: 3/28/13
- * Time: 2:25 PM
- * To change this template use File | Settings | File Templates.
- */
+import static lombok.AccessLevel.PROTECTED;
+
 @Path("/testSendEmail")
 @Produces(MediaType.TEXT_HTML)
+@NoArgsConstructor(access = PROTECTED)
 public class TestPageSendEmailResource {
 
     @GET

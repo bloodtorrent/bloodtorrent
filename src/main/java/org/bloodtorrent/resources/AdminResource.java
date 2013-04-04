@@ -29,7 +29,7 @@ public class AdminResource {
     @Setter
     private MainResource mainResource;
 
-    public AdminResource(SessionManager httpSessionManager) {
+    protected AdminResource(SessionManager httpSessionManager) {
         sessionManager = httpSessionManager;
     }
 

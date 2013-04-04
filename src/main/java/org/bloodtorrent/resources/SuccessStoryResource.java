@@ -40,11 +40,7 @@ public class SuccessStoryResource {
     private final SuccessStoryRepository repository;
     private SessionManager sessionManager;
 
-    public SuccessStoryResource(SuccessStoryRepository repository) {
-        this.repository = repository;
-    }
-
-    public SuccessStoryResource(SessionManager httpSessionManager, SuccessStoryRepository repository) {
+    protected SuccessStoryResource(SessionManager httpSessionManager, SuccessStoryRepository repository) {
 
         sessionManager = httpSessionManager;
 

@@ -3,6 +3,7 @@ package org.bloodtorrent.bootstrap;
 import com.yammer.dropwizard.config.Environment;
 import org.bloodtorrent.resources.BloodRequestResource;
 import org.bloodtorrent.resources.MainResource;
+import org.bloodtorrent.resources.ResourceCreator;
 import org.bloodtorrent.servlet.LoginServlet;
 import org.eclipse.jetty.server.SessionManager;
 import org.eclipse.jetty.server.session.SessionHandler;

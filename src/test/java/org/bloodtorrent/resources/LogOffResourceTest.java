@@ -11,11 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNull;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -37,7 +33,7 @@ public class LogOffResourceTest {
     public void init() {
         when(sessionManager.getHttpSession(SESSION_ID)).thenReturn(httpSession);
         mainResource = new MainResource(sessionManager);
-        mainResource.setSuccessStoryResource(new SuccessStoryResource(successStoryRepository));
+        mainResource.setSuccessStoryResource(new SuccessStoryResource(null, successStoryRepository));
         mainResource.setCatchPhraseResource(new CatchPhraseResource(catchPhraseRepository));
         logoffResource = new LogOffResource(sessionManager);
         logoffResource.setMainResource(mainResource);

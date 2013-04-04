@@ -7,18 +7,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.lang3.time.DateUtils;
-import org.bloodtorrent.BloodTorrentConstants;
 import org.bloodtorrent.dto.User;
 import org.bloodtorrent.repository.UsersRepository;
 import org.bloodtorrent.util.BloodTorrentValidator;
 import org.bloodtorrent.view.CommonView;
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.validation.constraints.Size;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Map;
+
 import static org.bloodtorrent.BloodTorrentConstants.*;
 
 
@@ -38,7 +40,7 @@ public class UsersResource {
     private final UsersRepository repository;
     private UserRegistrationValidator validator;
 
-    public UsersResource(UsersRepository repository) {
+    protected UsersResource(UsersRepository repository) {
         this.repository = repository;
         initValidator();
     }

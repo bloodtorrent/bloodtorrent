@@ -1,29 +1,18 @@
 package org.bloodtorrent.resources;
 
-import com.google.common.collect.Lists;
 import org.bloodtorrent.IllegalDataException;
 import org.bloodtorrent.dto.BloodRequest;
 import org.bloodtorrent.dto.User;
 import org.bloodtorrent.repository.UsersRepository;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
-import static org.bloodtorrent.BloodTorrentConstants.*;
 import java.util.*;
 
-/**
- * Created with IntelliJ IDEA.
- * User: sds
- * Date: 13. 3. 26
- * Time: 오전 10:56
- * To change this template use File | Settings | File Templates.
- */
+import static org.bloodtorrent.BloodTorrentConstants.*;
+
 public class FindingMatchingDonorResource {
     private UsersRepository usersRepository;
 
-    public FindingMatchingDonorResource(UsersRepository usersRepository) {
+    protected FindingMatchingDonorResource(UsersRepository usersRepository) {
         this.usersRepository = usersRepository;
     }
 

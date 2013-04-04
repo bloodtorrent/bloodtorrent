@@ -7,12 +7,10 @@ import org.bloodtorrent.repository.SuccessStoryRepository;
 import org.bloodtorrent.view.CommonView;
 import org.bloodtorrent.view.MainView;
 import org.eclipse.jetty.server.SessionManager;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import javax.servlet.http.HttpSession;
-
 import java.util.Arrays;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -54,7 +52,7 @@ public class MainResourceTest {
 
     private MainResource createMockMainResource() {
         MainResource mainResource = new MainResource(sessionManager);
-        mainResource.setSuccessStoryResource(new SuccessStoryResource(successStoryRepository));
+        mainResource.setSuccessStoryResource(new SuccessStoryResource(null, successStoryRepository));
         mainResource.setCatchPhraseResource(new CatchPhraseResource(catchPhraseRepository));
         return mainResource;
     }

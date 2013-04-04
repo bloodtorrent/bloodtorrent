@@ -1,6 +1,7 @@
 package org.bloodtorrent.resources;
 
 import com.yammer.dropwizard.hibernate.UnitOfWork;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.bloodtorrent.view.CommonView;
 
@@ -10,15 +11,11 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-/**
- * Created with IntelliJ IDEA.
- * User: sds
- * Date: 13. 3. 20
- * Time: 오후 12:06
- * To change this template use File | Settings | File Templates.
- */
+import static lombok.AccessLevel.PROTECTED;
+
 @Path("/loginfail")
 @Produces(MediaType.TEXT_HTML)
+@NoArgsConstructor(access = PROTECTED)
 public class LoginFailResource {
 
     private static final String LOG_IN_FAIL_MESSAGE = "The E-mail or password you entered is incorrect.";

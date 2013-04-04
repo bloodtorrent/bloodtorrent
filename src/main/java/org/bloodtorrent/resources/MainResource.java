@@ -37,7 +37,7 @@ public class MainResource {
 
     private User user;
 
-    public MainResource(SessionManager httpSessionManager) {
+    protected MainResource(SessionManager httpSessionManager) {
         sessionManager = httpSessionManager;
     }
 

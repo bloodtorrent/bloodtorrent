@@ -10,7 +10,6 @@ import org.junit.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 
 /**
  * Created with IntelliJ IDEA.
@@ -29,7 +28,7 @@ public class LoginFailResourceTest {
     @Before
     public void init() {
         MainResource mainResource = new MainResource(sessionManager);
-        mainResource.setSuccessStoryResource(new SuccessStoryResource(successStoryRepository));
+        mainResource.setSuccessStoryResource(new SuccessStoryResource(null, successStoryRepository));
         mainResource.setCatchPhraseResource(new CatchPhraseResource(catchPhraseRepository));
         logOffResource.setMainResource(mainResource);
     }

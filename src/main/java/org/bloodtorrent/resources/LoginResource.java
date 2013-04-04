@@ -29,7 +29,7 @@ public class LoginResource {
     private final SessionManager sessionManager;
     private final UsersRepository usersRepository;
 
-    public LoginResource(SessionManager httpSessionManager, UsersRepository usersRepository) {
+    protected LoginResource(SessionManager httpSessionManager, UsersRepository usersRepository) {
         sessionManager = httpSessionManager;
         this.usersRepository = usersRepository;
     }

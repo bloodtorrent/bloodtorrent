@@ -58,7 +58,7 @@ public class AdminResourceTest {
         when(nullHttpSession.getAttribute("user")).thenReturn(null);
 
         MainResource mainResource = new MainResource(sessionManager);
-        mainResource.setSuccessStoryResource(new SuccessStoryResource(successStoryRepository));
+        mainResource.setSuccessStoryResource(new SuccessStoryResource(null, successStoryRepository));
         mainResource.setCatchPhraseResource(new CatchPhraseResource(catchPhraseRepository));
         adminResource.setMainResource(mainResource);
     }

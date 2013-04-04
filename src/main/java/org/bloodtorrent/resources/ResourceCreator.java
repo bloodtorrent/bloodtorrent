@@ -1,10 +1,10 @@
-package org.bloodtorrent.bootstrap;
+package org.bloodtorrent.resources;
 
+import org.bloodtorrent.bootstrap.SimpleConfiguration;
 import org.bloodtorrent.repository.BloodRequestRepository;
 import org.bloodtorrent.repository.CatchPhraseRepository;
 import org.bloodtorrent.repository.SuccessStoryRepository;
 import org.bloodtorrent.repository.UsersRepository;
-import org.bloodtorrent.resources.*;
 import org.eclipse.jetty.server.SessionManager;
 import org.hibernate.SessionFactory;
 

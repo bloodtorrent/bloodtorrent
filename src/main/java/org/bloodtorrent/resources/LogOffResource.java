@@ -25,7 +25,7 @@ public class LogOffResource {
     private final SessionManager sessionManager;
     @Setter
     private MainResource mainResource;
-    public LogOffResource(SessionManager httpSessionManager) {
+    protected LogOffResource(SessionManager httpSessionManager) {
         sessionManager = httpSessionManager;
     }
 
