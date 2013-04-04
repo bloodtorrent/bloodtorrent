@@ -336,11 +336,27 @@ public class SuccessStoryResourceTest {
     }
 
     @Test(expected = IOException.class)
+    public void createSuccessStoryShouldThrowExceptionWhenInputStreamIsNull() throws Exception {
+        String id = "One";
+        SuccessStory story = createNewSuccessStory(id);
+        when(repository.get(id)).thenReturn(story);
+        resource.createSuccessStory(ADMIN_SESSION, "Title: Does not matter", "Summary: Does not matter", "Description: Does not matter", null, mock(FormDataContentDisposition.class));
+    }
+
+    @Test(expected = IOException.class)
     public void createSuccessStoryShouldThrowExceptionWhenFormDataContentDispositionIsNull() throws Exception {
         String id = "One";
         SuccessStory story = createNewSuccessStory(id);
         when(repository.get(id)).thenReturn(story);
         InputStream mockInputStream = mock(InputStream.class);
         resource.createSuccessStory(ADMIN_SESSION, "Title: Does not matter", "Summary: Does not matter", "Description: Does not matter", mockInputStream, null);
+    }
+
+    @Test(expected = IOException.class)
+    public void createSuccessStoryShouldThrowExceptionWhenUserIsNull() throws Exception {
+        String id = "One";
+        SuccessStory story = createNewSuccessStory(id);
+        when(repository.get(id)).thenReturn(story);
+        resource.createSuccessStory("NO_SUCH_USER_ID_IN_SESSION", "Title: Does not matter", "Summary: Does not matter", "Description: Does not matter", mock(InputStream.class), mock(FormDataContentDisposition.class));
     }
 }
