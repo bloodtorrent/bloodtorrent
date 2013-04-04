@@ -729,7 +729,7 @@ states (normal, :hover, :active) have their sprite coordinates in the same place
 
 .wsite-button-highlight {
 	background-image: url('../images/button_highlight_orange.png');
-	text-shadow:0 -1px 0 rgba(0,0,0,0.5');
+	text-shadow:0 -1px 0 rgba(0,0,0,0.5);
 }
 
 .wsite-button-highlight .wsite-button-inner {
