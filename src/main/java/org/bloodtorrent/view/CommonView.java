@@ -5,8 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bloodtorrent.dto.User;
 
-import java.util.List;
 import java.util.ResourceBundle;
+
+import static java.io.File.separator;
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,7 +24,10 @@ public class CommonView extends View {
     private String message;
 
     @Getter
-    private ResourceBundle properties = ResourceBundle.getBundle("properties/bloodtorrent");
+    private ResourceBundle printStrings = ResourceBundle.getBundle("properties" + separator + "bloodtorrentStrings");
+
+    @Getter
+    private ResourceBundle printUrls = ResourceBundle.getBundle("properties" + separator + "bloodtorrentUrls");
 
     public CommonView(String viewPath) {
         super(viewPath);

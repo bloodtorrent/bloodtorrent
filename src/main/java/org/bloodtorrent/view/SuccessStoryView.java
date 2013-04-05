@@ -26,9 +26,6 @@ public class SuccessStoryView extends CommonView {
     @Getter @Setter
     private User user;
 
-    @Getter
-    private ResourceBundle properties = ResourceBundle.getBundle("properties/bloodtorrent");
-
     public void setSavedSuccessFlag(Boolean flag) {
         savedSuccessFlag = flag.booleanValue();
     }

@@ -62,7 +62,7 @@ $(function() {
 
         //address, state, city
         if ( address == "" || city == "" || state == "" ) {
-            alert("${properties.locationValidationAlert}");
+            alert("${printStrings.locationValidationAlert}");
             return;
         }
         searchLocation();
@@ -147,7 +147,7 @@ function geocodePosition(pos) {
         if (responses && responses.length > 0) {
             updateMarkerAddress(responses[0].formatted_address);
         } else {
-            updateMarkerAddress('${properties.locationErrorAlert}');
+            updateMarkerAddress('${printStrings.locationErrorAlert}');
         }
     });
 }
@@ -206,15 +206,15 @@ function init(latLng) {
 </script>
 <div id="map_dialog" title="Map">
     <div id="searchAddress">
-        <H4>${properties.locationTitle}</H4>
+        <H4>${printStrings.locationTitle}</H4>
         <input type="text" id="search_address" size="40%" value="India" onkeydown="if(event.keyCode == 13) document.getElementById('searchButton').click()" />
         <input type="text" id="searchButton" value="search"/>
     </div>
     <div id="mapCanvas" ></div>
     <div id="infoPanel">
-        <b>${properties.locationCurrentPosition}:</b>
+        <b>${printStrings.locationCurrentPosition}:</b>
         <div id="info"></div>
-        <b>${properties.locationClosestAddress}:</b>
+        <b>${printStrings.locationClosestAddress}:</b>
         <div id="address"></div>
     </div>
     <div id="dialog_confirm" title="Set Location">

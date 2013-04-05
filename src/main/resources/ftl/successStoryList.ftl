@@ -3,12 +3,12 @@
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <#if savedSuccessFlag>
         <script language="javascript">
-            alert("${properties.successStoryCreateAlert}");
+            alert("${printStrings.successStoryCreateAlert}");
         </script>
     </#if>
     <#if editSuccessFlag>
         <script language="javascript">
-            alert("${properties.successStoryEditAlert}");
+            alert("${printStrings.successStoryEditAlert}");
         </script>
     </#if>
         <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
@@ -19,25 +19,30 @@
                 $('#submitButtonUp').click(function() {$form.submit()});
                 $('#submitButtonDown').click(function() {$form.submit()});
                 $form.find("input:checkbox").click(toggleCheckedSuccessStory);
-                $form.on('submit', suppressSubmitAndNotifyIfInvalid);
+                $form.on('submit', function(){
+                    if(!suppressSubmitAndNotifyIfInvalid(
+                            "${printStrings.successStoryIfMoreThreeFirst}",
+                            "${printStrings.successStoryIfMoreThreeSecond}",
+                            "${printStrings.successStoryIfZero}"))
+                            return false;});
             });
         </script>
     </head>
     <body>
     <#include "/ftl/adminHeader.ftl" >
-       <h1 id="title" align="center">${properties.successStoryListTitle}</h1>
-       <input type="button" value="${properties.successStoryCreateButton}" onclick="location.href='/successStory/createView';"/>
-       <input type="button" id="submitButtonUp" value="${properties.successStorySubmitButton}"/>
+       <h1 id="title" align="center">${printStrings.successStoryListTitle}</h1>
+       <input type="button" value="${printStrings.successStoryCreateButton}" onclick="location.href='/successStory/createView';"/>
+       <input type="button" id="submitButtonUp" value="${printStrings.successStorySubmitButton}"/>
        <form id="successStorySelectionForm" method='POST' action="/successStory/selectForMain">
-       <table border="1" cellspacing="0">
-           <tr bgcolor="#cccccc">
-              <th> </th>
-              <th>${properties.tableTitle}</th>
-              <th>${properties.tableShortDescription}</th>
-              <th>${properties.tableCreateDate}</th>
-              <th>${properties.tableDisplayOnMainPage}</th>
-              <th>${properties.tableImagePreview}</th>
-           </tr>
+           <table border="1" cellspacing="0">
+               <tr bgcolor="#cccccc">
+                   <th> </th>
+                   <th>${printStrings.tableTitle}</th>
+                   <th>${printStrings.tableShortDescription}</th>
+                   <th>${printStrings.tableCreateDate}</th>
+                   <th>${printStrings.tableDisplayOnMainPage}</th>
+                   <th>${printStrings.tableImagePreview}</th>
+               </tr>
 
            <#list successStoryList as story>
            <tr>
@@ -54,8 +59,8 @@
            </tr>
            </#list>
        </table>
-       <input type="button" value="${properties.successStoryCreateButton}" onclick="location.href='/successStory/createView';"/>
-       <input type="button" id="${properties.successStorySubmitButton}" value="Display on the main page"/>
+       <input type="button" value="${printStrings.successStoryCreateButton}" onclick="location.href='/successStory/createView';"/>
+       <input type="button" id="${printStrings.successStorySubmitButton}" value="Display on the main page"/>
        </form>
     </body>
 </html>

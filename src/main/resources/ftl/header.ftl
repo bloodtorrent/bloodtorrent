@@ -16,7 +16,7 @@
         <div id="header-container">
             <table id="header">
                 <tr>
-                    <td id="logo"><span class='wsite-logo'><a href='/'><span id="wsite-title">Blood Torrent</span></a></span></td>
+                    <td id="logo"><span class='wsite-logo'><a href='/'><span id="wsite-title">${printStrings.logoTitle}</span></a></span></td>
                     <td id="header-right">
                         <table>
                             <tr>
@@ -30,9 +30,9 @@
             </table>
             <div id="topnav">
                 <ul>
-                    <li <#if templateName?contains('main')>id='active'</#if>><a href='/'>Home</a></li>
-                    <li <#if templateName?contains('donorRegister')>id='active'</#if>><a href='/user'>Register as Donor</a></li>
-                    <li <#if templateName?contains('bloodRequest')>id='active'</#if>><a href='/requestForBlood'>Request blood</a></li>
+                    <li <#if templateName?contains('main')>id='active'</#if>><a href='/'>${printStrings.menuBarHome}</a></li>
+                    <li <#if templateName?contains('donorRegister')>id='active'</#if>><a href='/user'>${printStrings.menuBarRegister}</a></li>
+                    <li <#if templateName?contains('bloodRequest')>id='active'</#if>><a href='/requestForBlood'>${printStrings.menuBarRequest}</a></li>
                 </ul>
                 <div style="clear:both"></div>
             </div>

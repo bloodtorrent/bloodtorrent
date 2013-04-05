@@ -1,6 +1,6 @@
 <html>
 <#include "header.ftl"/>
-<title>Register a donor</title>
+<title>${printStrings.windowTitle}-${printStrings.menuBarRegister}</title>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
 <link rel="stylesheet" href="/css/message.css" />
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
@@ -66,48 +66,48 @@
                     <div id="content"><div id='wsite-content' class='wsite-elements wsite-not-footer'>
                         <form id="user" method="post" action="/user">
                             <div id="title">
-                                <h2>${properties.registerTitle}</h2>
+                                <h2>${printStrings.registerTitle}</h2>
                             </div>
                             <div class="message" style="display: none"></div>
                             <div id="userInfo">
                                 <table>
                                     <tr>
                                         <td></td>
-                                        <td><label>${properties.labelFirstName}</label></td>
-                                        <td><label>${properties.labelLastName}</label></td>
+                                        <td><label>${printStrings.labelFirstName}</label></td>
+                                        <td><label>${printStrings.labelLastName}</label></td>
                                     </tr>
                                     <tr>
-                                        <td><label>${properties.labelName} : </label></td>
+                                        <td><label>${printStrings.labelName} : </label></td>
                                         <td><input type="text" name="firstName" width="30" maxLength="35"/></td>
                                         <td><input type="text" name="lastName" width="30" maxLength="35"/></td>
                                     </tr>
                                     <tr>
-                                        <td><label>${properties.labelEmail} : </label></td>
+                                        <td><label>${printStrings.labelEmail} : </label></td>
                                         <td><input type="text" name="email" width="30"/></td>
-                                        <td><label>${properties.labelValidationEmail}</label></td>
+                                        <td><label>${printStrings.labelValidationEmail}</label></td>
                                     </tr>
                                     <tr>
-                                        <td><label>${properties.labelPassword} : </label></td>
+                                        <td><label>${printStrings.labelPassword} : </label></td>
                                         <td><input type="password" name="password" width="30" minLength="8" maxLength="25"/></td>
-                                        <td><label>${properties.labelValidationPassword}</label></td>
+                                        <td><label>${printStrings.labelValidationPassword}</label></td>
                                     </tr>
                                     <tr>
-                                        <td><label>${properties.labelConfirmPassword} : </label></td>
+                                        <td><label>${printStrings.labelConfirmPassword} : </label></td>
                                         <td colspan="2"><input type="password" name="confirmPassword" width="30" minLength="8" maxLength="25"/></td>
                                     </tr>
                                     <tr>
-                                        <td colspan="3"><label>${properties.labelValidationAddress}</label></td>
+                                        <td colspan="3"><label>${printStrings.labelValidationAddress}</label></td>
                                     </tr>
                                     <tr>
-                                        <td><label>${properties.labelAddress} : </label></td>
+                                        <td><label>${printStrings.labelAddress} : </label></td>
                                         <td colspan="2"><textarea name="address" id="orginalAddress" rows="3" cols="50"></textarea></td>
                                     </tr>
                                     <tr>
-                                        <td><label>${properties.labelCity} : </label></td>
+                                        <td><label>${printStrings.labelCity} : </label></td>
                                         <td><input type="text" name="city" id="city" width="30" maxLength="255"/></td>
                                     </tr>
                                     <tr>
-                                        <td><label>${properties.labelState} : </label></td>
+                                        <td><label>${printStrings.labelState} : </label></td>
                                         <td>
                                             <select name="state" id="state">
                                                 <option value="Andhra Pradesh" selected="true">Andhra Pradesh</option>
@@ -141,17 +141,17 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <input type="button" id="popupMap" value="${properties.labelMapButton}"/>
-                                            <label id="messageLabel">${properties.labelValidationMap}</label>
+                                            <input type="button" id="popupMap" value="${printStrings.labelMapButton}"/>
+                                            <label id="messageLabel">${printStrings.labelValidationMap}</label>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><label>${properties.labelCellphone} : </label></td>
+                                        <td><label>${printStrings.labelCellphone} : </label></td>
                                         <td><input type="text" name="cellPhone" width="30" maxlength="10"/></td>
-                                        <td><label>${properties.labelValidationCellphone}</label></td>
+                                        <td><label>${printStrings.labelValidationCellphone}</label></td>
                                     </tr>
                                     <tr>
-                                        <td><label>${properties.labelBloodGroup} :</label></td>
+                                        <td><label>${printStrings.labelBloodGroup} :</label></td>
                                         <td>
                                             <select name="bloodGroup">
                                                 <option value="A+" selected="true">A+</option>
@@ -167,7 +167,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="3"><label>${properties.labelDistance}</label>
+                                        <td colspan="3"><label>${printStrings.labelDistance}</label>
                                             <select name="distance">
                                                 <option value="5" selected>5</option>
                                                 <option value="10">10</option>
@@ -177,7 +177,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td ><label>${properties.labelGender} : </label> </td>
+                                        <td ><label>${printStrings.labelGender} : </label> </td>
                                         <td colspan="2">
                                             <select name="gender">
                                                 <option value="female" selected>Female</option>
@@ -186,15 +186,15 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><label>${properties.labelBirth} : </label> </td>
+                                        <td><label>${printStrings.labelBirth} : </label> </td>
                                         <td><input type="text" id="birthday" name="birthday"/> (optional, DD-MM-YYYY)</td>
                                     </tr>
                                     <tr>
-                                        <td colspan="3"><label>${properties.labelAnonymous}</label><input type="radio" name="anonymous" value="Y"/>Y <input type="radio" name="anonymous" value="N" checked/>N</td>
+                                        <td colspan="3"><label>${printStrings.labelAnonymous}</label><input type="radio" name="anonymous" value="Y"/>Y <input type="radio" name="anonymous" value="N" checked/>N</td>
                                     </tr>
                                     <tr>
                                         <td colspan="3">
-                                            <label>${properties.labelLastDonateDate}</label>
+                                            <label>${printStrings.labelLastDonateDate}</label>
                                             <select name="lastDonate">
                                                 <option value="31" selected>within 1 month</option>
                                                 <option value="61">2 months ago</option>
@@ -209,8 +209,8 @@
                             <input type="hidden" name="lng" id="lng" value=""/>
                             <input type="hidden" name="isMapExcuted" id="isMapExcuted" value="N"/>
 
-                            <input type="button" id="register" name="register" value="${properties.labelRegisterButton}"/>
-                            <a href ="/"><input type="button" name="cancel" value="${properties.labelCancelButton}"/></a>
+                            <input type="button" id="register" name="register" value="${printStrings.labelRegisterButton}"/>
+                            <a href ="/"><input type="button" name="cancel" value="${printStrings.labelCancelButton}"/></a>
                         </form>
 
                         <form id="successForm" method="post" action="/user/success">

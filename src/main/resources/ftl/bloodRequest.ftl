@@ -1,6 +1,6 @@
 <html>
 <#include "header.ftl"/>
-<title>${properties.windowTitle}-${properties.menuBarRequest}</title>
+<title>${printStrings.windowTitle}-${printStrings.menuBarRequest}</title>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
 <link rel="stylesheet" href="/css/message.css" />
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&language=en"></script>
@@ -74,35 +74,35 @@
                     <div id="content"><div id='wsite-content' class='wsite-elements wsite-not-footer'>
                         <form id="bloodRequestForm" method="post" action="/requestForBlood">
                             <div id="title">
-                                <h2>${properties.requestTitle}</h2>
+                                <h2>${printStrings.requestTitle}</h2>
                             </div>
                             <div class="message" style="display: none"></div>
                             <div id="bloodRequestInfo">
                                 <table cellspacing="3">
                                     <tr>
-                                        <td><label>${properties.labelName} :</label></td>
+                                        <td><label>${printStrings.labelName} :</label></td>
                                         <td>
-                                            <table><tr><td>${properties.labelFirstName}<br>
+                                            <table><tr><td>${printStrings.labelFirstName}<br>
                                                 <input type="text" name="firstName" width="30" value="" maxLength="35"/>
                                             </td>
-                                                <td>${properties.labelLastName}<br>
+                                                <td>${printStrings.labelLastName}<br>
                                                     <input type="text" name="lastName" width="30" value="" maxLength="35"/>
                                                 </td></tr></table>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="2">${properties.labelValidationHospital}</td>
+                                        <td colspan="2">${printStrings.labelValidationHospital}</td>
                                     </tr>
                                     <tr>
-                                        <td><label>${properties.labelHospitalAddress}:</label></td>
+                                        <td><label>${printStrings.labelHospitalAddress}:</label></td>
                                         <td><textarea id="hospitalAddress" name="hospitalAddress" width="30" rows="4"></textarea></td>
                                     </tr>
                                     <tr>
-                                        <td><label>${properties.labelCity} :</label></td>
+                                        <td><label>${printStrings.labelCity} :</label></td>
                                         <td><input type="text" id = "city" name="city" width="30" value="" maxLength="30"/></td>
                                     </tr>
                                     <tr>
-                                        <td><label>${properties.labelState} :</label></td>
+                                        <td><label>${printStrings.labelState} :</label></td>
                                         <td>
                                             <select id = "state" name="state">
                                                 <option value="Andhra Pradesh">Andhra Pradesh</option>
@@ -137,15 +137,15 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><label>${properties.labelCellphone} :</label></td>
+                                        <td><label>${printStrings.labelCellphone} :</label></td>
                                         <td><input type="text" name="phone" width="30" value="" maxLength="10"/> (10 digits)</td>
                                     </tr>
                                     <tr>
-                                        <td><label>${properties.labelEmail} :</label></td>
+                                        <td><label>${printStrings.labelEmail} :</label></td>
                                         <td><input type="text" name="email" width="30" value=""/></td>
                                     </tr>
                                     <tr>
-                                        <td><label>${properties.labelGender} :</label></td>
+                                        <td><label>${printStrings.labelGender} :</label></td>
                                         <td>
                                             <select name="gender">
                                                 <option value="F">Female</option>
@@ -154,14 +154,14 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><label>${properties.labelBirth} :</label></td>
+                                        <td><label>${printStrings.labelBirth} :</label></td>
                                         <td>
                                             <input type="text" name="birthday" id="birthday" width="30" value=""/>
-                                        ${properties.labelValidationBirth}
+                                        ${printStrings.labelValidationBirth}
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><label>${properties.labelBloodGroup} :</label></td>
+                                        <td><label>${printStrings.labelBloodGroup} :</label></td>
                                         <td>
                                             <select name="bloodGroup">
                                                 <option value="A+">A+</option>
@@ -176,24 +176,24 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><label>${properties.labelBloodVolume} :</label></td>
+                                        <td><label>${printStrings.labelBloodVolume} :</label></td>
                                         <td>
                                             <input type="text" name="bloodVolume" width="30" maxlength="2" value=""/>
-                                        ${properties.labelValidationBloodVolume}
+                                        ${printStrings.labelValidationBloodVolume}
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><label>${properties.labelRequester}</label></td>
+                                        <td><label>${printStrings.labelRequester}</label></td>
                                         <td>
-                                            <input type="radio" name="requesterType" value="C" checked/>${properties.labelCareGiver}
-                                            <input type="radio" name="requesterType" value="P"/>${properties.labelPatient}
+                                            <input type="radio" name="requesterType" value="C" checked/>${printStrings.labelCareGiver}
+                                            <input type="radio" name="requesterType" value="P"/>${printStrings.labelPatient}
                                         </td>
                                     </tr>
                                 </table>
                             </div>
                             <div>
-                                <input type="button" id="register" name="register" value="${properties.labelRegisterButton}"/>
-                                <input type="button" name="reset" value="${properties.labelCancelButton}" onClick="goHome()"/>
+                                <input type="button" id="register" name="register" value="${printStrings.labelRegisterButton}"/>
+                                <input type="button" name="reset" value="${printStrings.labelCancelButton}" onClick="goHome()"/>
                             </div>
 
                             <input type="hidden" name="lat" id="lat" value=""/>

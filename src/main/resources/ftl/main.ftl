@@ -1,6 +1,6 @@
 <!doctype html>
 <html>
-<title>Blood Torrent - Home</title>
+<title>${printStrings.windowTitle} - ${printStrings.menuBarHome}</title>
 <#include "header.ftl"/>
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -45,7 +45,7 @@
 
                                         <div><div class="wsite-image wsite-image-border-thin " style="padding-top:10px;padding-bottom:10px;margin-left:0;margin-right:10px;text-align:left">
                                             <a>
-                                                <img src="../images/2034022.png?526" alt="Picture" style="width:auto;max-width:100%" />
+                                                <img src="${printUrls.mainPageImage}" alt="Picture" style="width:auto;max-width:100%" />
                                             </a>
                                             <div style="display:block;font-size:90%"></div>
                                         </div></div>
@@ -53,9 +53,9 @@
                                     </td>
                                     <td class='wsite-multicol-col' style='width:32.88490284006%;padding:0 15px'>
 
-                                        <h2 style="text-align:center;"><br />${properties.homeDescriptionTitle}</h2>
+                                        <h2 style="text-align:center;"><br />${printStrings.homeDescriptionTitle}</h2>
 
-                                        <div class="paragraph" style="text-align:center;">${properties.homeDescriptionSubTitle}&nbsp;</div>
+                                        <div class="paragraph" style="text-align:center;">${printStrings.homeDescriptionSubTitle}&nbsp;</div>
 
                                         <div class="paragraph" style="text-align:left;">&nbsp;&nbsp;</div>
 
