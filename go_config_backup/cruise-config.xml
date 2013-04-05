@@ -74,6 +74,7 @@
             <artifacts>
               <artifact src="artifacts-for-deploy.zip" dest="artifacts" />
               <artifact src="pipeline-mgmt.xml" dest="artifacts" />
+              <artifact src="FunctionalTests/twist-reports" />
             </artifacts>
           </job>
         </jobs>
