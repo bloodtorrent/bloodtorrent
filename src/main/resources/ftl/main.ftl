@@ -1,10 +1,6 @@
-<!doctype html>
 <html>
 <title>${printStrings.windowTitle} - ${printStrings.menuBarHome}</title>
 <#include "header.ftl"/>
-
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-
     <link rel='stylesheet' type='text/css' href='../css/main_style.css'/>
     <link rel='stylesheet' type='text/css' href='../css/bloodtorrent.css'/>
     <link href='../css/fonts_googleapis.css' rel='stylesheet' type='text/css' />
@@ -15,7 +11,6 @@
         #wsite-content h2, #wsite-content .product-long .product-title, #wsite-content .product-large .product-title, #wsite-content .product-small .product-title, .blog-sidebar h2 {}
         #wsite-title {color:#990000 !important;}
     </style>
-    </script>
     <script type='text/javascript' src='../js/jquery.min.js'></script>
     <script type='text/javascript' src='../js/jquery_effects.js'></script>
     <script type='text/javascript' src='../js/jquery.animate.js'></script>
@@ -29,8 +24,7 @@
             $( "input[type=button]" ).button()
         });
     </script>
-</head>
-<body class='wsite-theme-light no-header-page wsite-page-index'>
+<body>
 <div class="outer-main-wrap">
     <div id="main-wrap">
         <div class="page-shadow">
