@@ -20,27 +20,27 @@
     <body>
     <#include "/ftl/adminHeader.ftl" >
         <section id = "successStoryEditor">
-        <h1 align = "center">Success Stories</h1><br>
+        <h1 align = "center">${printStrings.successStorySubTitle}</h1><br>
         <form id = "createSuccessStory" enctype="multipart/form-data" action="/successStory/create" method="post">
             <p>
-               Title :
+               ${printStrings.labelTitle} :
                <input type="text" name="title" />
             </p>
             <p>
-               Select Image:
+               ${printStrings.labelSelectImage} :
                <input type="file" name="visualResourcePath" id="visualResourcePath" style="visibility:show;"/>
             </p>
             <p>
-               Short Description :<br/>
+               ${printStrings.labelShortDescription} :<br/>
                <input type="text" name="summary" />
             </p>
             <p>
-               Detailed Description : <br/>
+               ${printStrings.labelDetailedDescription} : <br/>
                <textarea cols="80" rows="10" fixed="true" name="description"></textarea>
             </p>
             <p>
-               <input type="button" id="save" value="Save" />
-               <input type="button" id="cancel" value="Cancel"/>
+               <input type="button" id="save" value="${printStrings.labelSaveButton}" />
+               <input type="button" id="cancel" value="${printStrings.labelCancelButton}"/>
             </p>
         </form>
        </section>

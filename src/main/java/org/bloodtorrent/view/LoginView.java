@@ -9,7 +9,7 @@ import org.bloodtorrent.dto.User;
 import java.util.List;
 
 @SuppressWarnings("PMD.UnusedPrivateField")
-public class LoginView extends View {
+public class LoginView extends CommonView {
     // Saleem added this comment to force git to reload this file
     private static final String PATH = "/ftl/login.ftl";
 

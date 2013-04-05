@@ -12,7 +12,7 @@ import java.util.List;
  * Time: 오후 2:57
  * To change this template use File | Settings | File Templates.
  */
-public class ResultView extends View {
+public class ResultView extends CommonView {
     private final String result;
     private final List<String> messages;
 

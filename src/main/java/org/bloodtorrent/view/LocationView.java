@@ -10,7 +10,7 @@ import org.bloodtorrent.dto.Location;
  * Time: 오후 5:28
  * To change this template use File | Settings | File Templates.
  */
-public class LocationView extends View {
+public class LocationView extends CommonView {
     private final Location location;
 
     public LocationView(Location location) {
