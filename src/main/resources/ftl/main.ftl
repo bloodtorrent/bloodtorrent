@@ -10,6 +10,9 @@
         .wsite-elements h2, .wsite-elements .product-long .product-title, .wsite-elements .product-large .product-title, .wsite-elements .product-small .product-title, #wsite-content h2, #wsite-content .product-long .product-title, #wsite-content .product-large .product-title, #wsite-content .product-small .product-title, .blog-sidebar h2 {}
         #wsite-content h2, #wsite-content .product-long .product-title, #wsite-content .product-large .product-title, #wsite-content .product-small .product-title, .blog-sidebar h2 {}
         #wsite-title {color:#990000 !important;}
+        .wsite-button-inner {
+            width: 170px;     /* equal width for all buttons */
+        }
     </style>
     <script type='text/javascript' src='../js/jquery.min.js'></script>
     <script type='text/javascript' src='../js/jquery_effects.js'></script>
@@ -54,13 +57,13 @@
                                         <div class="paragraph" style="text-align:left;">&nbsp;&nbsp;</div>
 
                                         <div style="text-align:center;"><div style="height: 10px; overflow: hidden;"></div>
-                                            <a class="wsite-button wsite-button-large wsite-button-highlight" href="/user" >
+                                            <a class="wsite-button wsite-button-large wsite-button-highlight" href="/user">
                                                 <span class="wsite-button-inner">Register as donor</span>
                                             </a>
                                             <div style="height: 10px; overflow: hidden;"></div></div>
 
                                         <div style="text-align:center;"><div style="height: 10px; overflow: hidden;"></div>
-                                            <a class="wsite-button wsite-button-large wsite-button-highlight" href="/requestForBlood" >
+                                            <a class="wsite-button wsite-button-large wsite-button-highlight" href="/requestForBlood">
                                                 <span class="wsite-button-inner">Request blood</span>
                                             </a>
                                             <div style="height: 10px; overflow: hidden;"></div></div>
