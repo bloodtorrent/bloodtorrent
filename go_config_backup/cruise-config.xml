@@ -310,6 +310,13 @@
                 <arg>.</arg>
                 <runif status="passed" />
               </exec>
+              <exec command="svn">
+                <arg>commit</arg>
+                <arg>cruise-config.xml</arg>
+                <arg>-m</arg>
+                <arg>"[GO-SERVER] checking-in config backup."</arg>
+                <runif status="passed" />
+              </exec>
             </tasks>
             <resources>
               <resource>configBackup</resource>
