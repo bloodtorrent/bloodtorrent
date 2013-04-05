@@ -60,15 +60,15 @@ public class RegisterDonor extends BasePage {
 	}
 
 	public void register() {
-		browser.button("register").click();
+		browser.byId("register").click();
 	}
 
 	public void cancel() {
-		browser.button("Cancel").click();
+		browser.byId("cancel").click();
 	}
 
 	public void openMap() {
-		browser.button("map").click();
+		browser.byId("popupMap").click();
 	}
 
 	public String returnAlertText() {

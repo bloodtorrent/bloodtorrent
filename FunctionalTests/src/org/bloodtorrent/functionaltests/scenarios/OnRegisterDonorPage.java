@@ -99,7 +99,7 @@ public class OnRegisterDonorPage {
 	}
 
 	public void verifyErrorMessageExistingUser() throws Exception {
-		verifyEquals("This email address is already taken. ", registerDonor.getErrorMessage());
+		verifyEquals("This email address is already taken.", registerDonor.getErrorMessage());
 	
 	}
 

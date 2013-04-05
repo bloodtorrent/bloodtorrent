@@ -208,7 +208,7 @@
                             <input type="hidden" name="isMapExcuted" id="isMapExcuted" value="N"/>
 
                             <a href="#" class="wsite-button wsite-button-large wsite-button-highlight" id="register"><span class="wsite-button-inner">${printStrings.labelRegisterButton}</span></a>
-                            <a href="/" class="wsite-button wsite-button-large" name="cancel"><span class="wsite-button-inner">${printStrings.labelCancelButton}</span></a>
+                            <a href="/" class="wsite-button wsite-button-large" id="cancel"><span class="wsite-button-inner">${printStrings.labelCancelButton}</span></a>
                         </form>
 
                         <form id="successForm" method="post" action="/user/success">

@@ -14,6 +14,6 @@ public class ThankYou extends BasePage {
 
 	public String getMessageForRegistering() {
 		//TODO: Refactor this to remove index to identify the html element.
-		return browser.heading1("title").text();
+		return browser.heading2("title").text();
 	}
 }
