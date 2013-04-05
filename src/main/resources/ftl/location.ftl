@@ -68,6 +68,7 @@ $(function() {
         searchLocation();
 
         $( "#map_dialog" ).dialog( "open" );
+        return false;
     });
 
     $( "#dialog_confirm" ).dialog({

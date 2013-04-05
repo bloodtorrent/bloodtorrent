@@ -7,9 +7,13 @@
                 <div id="main">
                     <div id="content">
                         <div id='wsite-content' class='wsite-elements wsite-not-footer'>
-                            <h1 id="title">${printStrings.thankYouRegistrationTitle}</h1>
-                            <br>
-                            <input type="button" value="${printStrings.menuBarHome}" onclick="location.href='/';"/>
+                            <div class="title">
+                                <h2 id="title">${printStrings.thankYouRegistrationTitle}</h2>
+                            </div>
+                            <div class="paragraph" style="text-align:left;display:block;">
+                                We are very happy to have you as a Donor. Please check your emails and donate blood.
+                            </div>
+                            <a href="/" class="wsite-button wsite-button-large" name="cancel"><span class="wsite-button-inner">${printStrings.menuBarHome}</span></a>
                         </div>
                     </div>
                 </div>

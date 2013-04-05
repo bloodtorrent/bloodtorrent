@@ -46,8 +46,22 @@ img.thumbnail {
 }
 
 #title h2 {
-    font-size: 1.5em;
     font-weight: bold;
-    text-decoration: underline;
-    text-align: center;
+    text-align: left;
+    padding-bottom: 20px;
+}
+
+/* --------- form ---------- */
+.form-container {
+    display: block;
+}
+
+.form-divider {
+    clear:both;
+    height: 5px;
+}
+
+.notLast {
+    float: left;
+    margin-right: 5px;
 }
