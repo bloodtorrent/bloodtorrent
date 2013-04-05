@@ -319,11 +319,13 @@ public class SuccessStoryResourceTest {
 
     @Ignore("this test is work in progress, requires more mocking before it can pass")
     @Test
-    public void createSuccessStoryShouldGetUserFromSession() throws Exception {
+    public void createSuccessStoryShouldSaveFileWhenFilenameIsSpecified() throws Exception {
         String id = "One";
         SuccessStory story = createNewSuccessStory(id);
         when(repository.get(id)).thenReturn(story);
-        resource.createSuccessStory(ADMIN_SESSION, "Title: Does not matter", "Summary: Does not matter", "Description: Does not matter", mock(InputStream.class), mock(FormDataContentDisposition.class));
+        FormDataContentDisposition mockContent = mock(FormDataContentDisposition.class);
+        when(mockContent.getFileName()).thenReturn("/fully/qualified/path/to/some/file");
+        resource.createSuccessStory(ADMIN_SESSION, "Title: Does not matter", "Summary: Does not matter", "Description: Does not matter", mock(InputStream.class), mockContent);
         verify(adminSession).getAttribute(USER);
     }
 
