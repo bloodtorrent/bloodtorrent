@@ -43,4 +43,11 @@ public class SuccessStory {
 	@Column(name = "CREATE_DATE")
 	private Date createDate = new Date();
 
+    public SuccessStory(String id, String title, String summary, String description, String showMainPage) {
+        this.id = id;
+        this.title = title;
+        this.summary = summary;
+        this.description = description;
+        this.showMainPage = showMainPage;
+    }
 }

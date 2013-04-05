@@ -163,38 +163,22 @@ public class SuccessStoryResource {
             @FormDataParam("visualResourcePath") final FormDataContentDisposition content) throws IOException {
 
         HttpSession session = sessionManager.getHttpSession(sessionID);
-        if (session == null || stream == null || content == null || session.getAttribute(USER) == null) {
-            throw new IOException("************* Something is rotten!");
-        }
+        validateParameters(stream, content, session);
         User user = (User)session.getAttribute(USER);
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
         Date timestamp = new Date();
 
-        SuccessStory story = new SuccessStory();
         String id = sdf.format(timestamp);
-        story.setId(id);
-        story.setTitle(title);
-        story.setSummary(summary);
-        story.setDescription(description);
-        story.setShowMainPage("N");
-
-       if(!content.getFileName().isEmpty()){
-            final String fileName = id + "-" + content.getFileName();
-            saveFile(UPLOAD_DIR, fileName, stream);
-            story.setThumbnailPath(fileName);
-            story.setVisualResourcePath(fileName);
-        }
+        SuccessStory story = new SuccessStory(id, title, summary, description, "N");
+        saveImageFile(stream, content, story, id);
 
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
             Set<ConstraintViolation<SuccessStory>> constraintViolations = validator.validate(story);
 
         if(constraintViolations.size() > 0){
-            List<String > messages = new ArrayList<String>();
-            for(ConstraintViolation constraintViolation :constraintViolations){
-                messages.add(constraintViolation.getMessage()) ;
-            }
+            List<String> messages = createConstraintViolationsMessages(constraintViolations);
             return new ResultView("fail", messages);
         } else {
             repository.insert(story);
@@ -203,6 +187,38 @@ public class SuccessStoryResource {
             successStoryView.setUser(user);
             return successStoryView;
         }
+    }
+
+    private void validateParameters(InputStream stream, FormDataContentDisposition content, HttpSession session) {
+        if (session == null) {
+            throw new IllegalArgumentException("Attempt to create a Success Story with null HttpSession parameter.");
+        }
+        if (stream == null) {
+            throw new IllegalArgumentException("Attempt to create a Success Story with null InputStream parameter.");
+        }
+        if (content == null) {
+            throw new IllegalArgumentException("Attempt to create a Success Story with null FormDataContentDisposition parameter.");
+        }
+        if (session.getAttribute(USER) == null) {
+            throw new IllegalArgumentException("Attempt to create a Success Story with no user in HttpSession.");
+        }
+    }
+
+    private List<String> createConstraintViolationsMessages(Set<ConstraintViolation<SuccessStory>> constraintViolations) {
+        List<String > messages = new ArrayList<String>();
+        for(ConstraintViolation constraintViolation :constraintViolations){
+            messages.add(constraintViolation.getMessage()) ;
+        }
+        return messages;
+    }
+
+    private void saveImageFile(InputStream stream, FormDataContentDisposition content, SuccessStory story, String id) throws IOException {
+        if(!content.getFileName().isEmpty()){
+             final String fileName = id + "-" + content.getFileName();
+             saveFile(UPLOAD_DIR, fileName, stream);
+             story.setThumbnailPath(fileName);
+             story.setVisualResourcePath(fileName);
+         }
     }
 
     private void saveFile(String outputPath, String fileName, final InputStream stream) throws IOException {

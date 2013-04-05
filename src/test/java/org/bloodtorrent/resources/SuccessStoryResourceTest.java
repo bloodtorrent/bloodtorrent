@@ -81,6 +81,9 @@ public class SuccessStoryResourceTest {
     private final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
     private final Validator validator = factory.getValidator();
 
+    @Rule
+    public ExpectedException expectedEx = ExpectedException.none();
+
     @Before
     public void setUpResource() {
         resource = new SuccessStoryResource(sessionManager, repository);
@@ -320,8 +323,6 @@ public class SuccessStoryResourceTest {
         verify(adminSession, never()).getAttribute(USER);
     }
 
-    @Rule
-    public ExpectedException expectedEx =  ExpectedException.none();
     @Test
     public void createSuccessStoryShouldThrowExceptionWhenFileNameContainsPathSeparator() throws Exception {
         expectedEx.expect(IOException.class);
@@ -331,24 +332,30 @@ public class SuccessStoryResourceTest {
         resource.createSuccessStory(ADMIN_SESSION, "Title: Does not matter", "Summary: Does not matter", "Description: Does not matter", mock(InputStream.class), mockContent);
     }
 
-    @Test(expected = IOException.class)
+    @Test
     public void createSuccessStoryShouldThrowExceptionWhenSessionIdIsNull() throws Exception {
+        expectedEx.expect(IllegalArgumentException.class);
+        expectedEx.expectMessage("Attempt to create a Success Story with null HttpSession parameter.");
         String id = "One";
         SuccessStory story = createNewSuccessStory(id);
         when(repository.get(id)).thenReturn(story);
         resource.createSuccessStory(null, "Title: Does not matter", "Summary: Does not matter", "Description: Does not matter", mock(InputStream.class), mock(FormDataContentDisposition.class));
     }
 
-    @Test(expected = IOException.class)
+    @Test
     public void createSuccessStoryShouldThrowExceptionWhenInputStreamIsNull() throws Exception {
+        expectedEx.expect(IllegalArgumentException.class);
+        expectedEx.expectMessage("Attempt to create a Success Story with null InputStream parameter.");
         String id = "One";
         SuccessStory story = createNewSuccessStory(id);
         when(repository.get(id)).thenReturn(story);
         resource.createSuccessStory(ADMIN_SESSION, "Title: Does not matter", "Summary: Does not matter", "Description: Does not matter", null, mock(FormDataContentDisposition.class));
     }
 
-    @Test(expected = IOException.class)
+    @Test
     public void createSuccessStoryShouldThrowExceptionWhenFormDataContentDispositionIsNull() throws Exception {
+        expectedEx.expect(IllegalArgumentException.class);
+        expectedEx.expectMessage("Attempt to create a Success Story with null FormDataContentDisposition parameter.");
         String id = "One";
         SuccessStory story = createNewSuccessStory(id);
         when(repository.get(id)).thenReturn(story);
@@ -356,8 +363,10 @@ public class SuccessStoryResourceTest {
         resource.createSuccessStory(ADMIN_SESSION, "Title: Does not matter", "Summary: Does not matter", "Description: Does not matter", mockInputStream, null);
     }
 
-    @Test(expected = IOException.class)
+    @Test
     public void createSuccessStoryShouldThrowExceptionWhenUserIsNull() throws Exception {
+        expectedEx.expect(IllegalArgumentException.class);
+        expectedEx.expectMessage("Attempt to create a Success Story with null HttpSession parameter.");
         String id = "One";
         SuccessStory story = createNewSuccessStory(id);
         when(repository.get(id)).thenReturn(story);

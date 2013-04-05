@@ -65,4 +65,18 @@ public class SuccessStoryTest {
         assertThat(constraintViolations.size(), is(1));
     }
 
+    @Test
+    public void shouldInitializedWithConstructorArguments() {
+        String id = "id";
+        String title = "title";
+        String showMainPage = "N";
+        String summary = "summary";
+        String description = "description";
+        SuccessStory story = new SuccessStory(id, title, summary, description, showMainPage);
+        assertThat(story.getId(), is(id));
+        assertThat(story.getTitle(), is(title));
+        assertThat(story.getSummary(), is(summary));
+        assertThat(story.getDescription(), is(description));
+        assertThat(story.getShowMainPage(), is(showMainPage));
+    }
 }
