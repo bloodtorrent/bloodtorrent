@@ -13,7 +13,9 @@ import org.eclipse.jetty.server.SessionManager;
 import org.hamcrest.CoreMatchers;
 import org.junit.Before;
 import org.junit.Ignore;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -38,6 +40,7 @@ import static org.hamcrest.CoreMatchers.isA;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
+import static java.io.File.separator;
 
 /**
  * Created with IntelliJ IDEA.
@@ -317,16 +320,15 @@ public class SuccessStoryResourceTest {
         verify(adminSession, never()).getAttribute(USER);
     }
 
-    @Ignore("this test is work in progress, requires more mocking before it can pass")
+    @Rule
+    public ExpectedException expectedEx =  ExpectedException.none();
     @Test
-    public void createSuccessStoryShouldSaveFileWhenFilenameIsSpecified() throws Exception {
-        String id = "One";
-        SuccessStory story = createNewSuccessStory(id);
-        when(repository.get(id)).thenReturn(story);
+    public void createSuccessStoryShouldThrowExceptionWhenFileNameContainsPathSeparator() throws Exception {
+        expectedEx.expect(IOException.class);
+        expectedEx.expectMessage("File name must not contain separators");
         FormDataContentDisposition mockContent = mock(FormDataContentDisposition.class);
-        when(mockContent.getFileName()).thenReturn("/fully/qualified/path/to/some/file");
+        when(mockContent.getFileName()).thenReturn(separator + "fully qualified path to " + separator + "some" + separator + "file");
         resource.createSuccessStory(ADMIN_SESSION, "Title: Does not matter", "Summary: Does not matter", "Description: Does not matter", mock(InputStream.class), mockContent);
-        verify(adminSession).getAttribute(USER);
     }
 
     @Test(expected = IOException.class)

@@ -206,6 +206,9 @@ public class SuccessStoryResource {
     }
 
     private void saveFile(String outputPath, String fileName, final InputStream stream) throws IOException {
+        if (fileName.contains(File.separator)) {
+            throw new IOException("File name must not contain separators");
+        }
         File uploadDir = new File(outputPath);
         if(!uploadDir.exists()){
             uploadDir.mkdir();
