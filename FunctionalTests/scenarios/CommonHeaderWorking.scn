@@ -1,0 +1,15 @@
+Tags:story-127
+Preconditions:Blood Torrent
+On home page:
+#verify existance of comon header
+#verify go home page 
+
+On home page:
+#Select register donor
+#verify existance of comon header
+#verify go home page 
+
+On home page :
+#Request for blood
+#verify existance of comon header
+#verify go home page

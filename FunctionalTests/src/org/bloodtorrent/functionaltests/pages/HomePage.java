@@ -58,4 +58,13 @@ public class HomePage extends BasePage {
 	public ElementStub getContentOnMainpage(String contentExpected) {
 		return browser.span(contentExpected);
 	}
+
+	public boolean existsCommonHeader() {
+		return browser.span("wsite-title").exists();
+	}
+
+	public String clickCommonHeader() {
+		browser.span("Blood Torrent").click();
+		return getTitle();
+	}
 }

@@ -5,11 +5,12 @@ import static com.thoughtworks.twist.core.execution.TwistVerification.verifyTrue
 import static junit.framework.Assert.assertTrue;
 import net.sf.sahi.client.Browser;
 import org.bloodtorrent.functionaltests.pages.HomePage;
+import static junit.framework.Assert.*;
 
 public class OnHomePage {
 
 	private HomePage homePage;
-
+	
 	public OnHomePage(Browser browser) {
 		homePage = new HomePage(browser);
 	}
@@ -53,5 +54,16 @@ public class OnHomePage {
 
 	public void verifyDisplayingOnTheMainpage(String contentExpected) throws Exception {
 		assertTrue(homePage.getContentOnMainpage(contentExpected).exists());	
+	}
+
+	public void verifyExistanceOfComonHeader() throws Exception {
+		assertTrue(homePage.existsCommonHeader());
+		// assertTrue(browser.span("wsite-title").exists());
+	
+	}
+
+	public void verifyGoHomePage() throws Exception {
+		homePage.clickCommonHeader();
+		verifyTitleOfHomePage();
 	}
 }
