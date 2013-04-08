@@ -31,8 +31,8 @@
             <div id="topnav">
                 <ul>
                     <li <#if templateName?contains('main')>id='active'</#if>><a href='/'>${printStrings.menuBarHome}</a></li>
-                    <li <#if templateName?contains('donorRegister')>id='active'</#if>><a href='/user'>${printStrings.menuBarRegister}</a></li>
-                    <li <#if templateName?contains('bloodRequest')>id='active'</#if>><a href='/requestForBlood'>${printStrings.menuBarRequest}</a></li>
+                    <li <#if templateName?contains('donorRegister') || templateName?contains('thankyouForRegistration')>id='active'</#if>><a href='/user'>${printStrings.menuBarRegister}</a></li>
+                    <li <#if templateName?contains('bloodRequest') || templateName?contains('thankyouForRequest')>id='active'</#if>><a href='/requestForBlood'>${printStrings.menuBarRequest}</a></li>
                 </ul>
                 <div style="clear:both"></div>
             </div>
