@@ -137,7 +137,6 @@
                                         <option value="Uttarakhand (Uttaranchal)">Uttarakhand (Uttaranchal)</option>
                                         <option value="Uttar Pradesh">Uttar Pradesh</option>
                                     </select>
-                                    <label class="wsite-form-sublabel" id="messageLabel">${printStrings.labelValidationMap}</label>
                                     <div class="form-divider"></div>
 
                                     <label class="wsite-form-label">${printStrings.labelCellphone}</label>
