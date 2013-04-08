@@ -8,7 +8,8 @@
 	</target>
 
 	<target name="run" depends="compile">
-		<java className="${main.class.name}">
+		<sleep seconds="10"/><!-- for launching prod server -->
+		<java className="${main.class.name}" failonerror="true">
 			<classpath>
 				<pathelement path="${build.dir}" />
 			</classpath>
