@@ -30,6 +30,23 @@
           </job>
         </jobs>
       </stage>
+      <stage name="smoke-test">
+        <jobs>
+          <job name="smoke-test">
+            <tasks>
+              <exec command="sh">
+                <arg>scripts/stopDropwizard.sh</arg>
+                <runif status="passed" />
+              </exec>
+              <exec command="mvn">
+                <arg>antrun:run</arg>
+                <runif status="passed" />
+              </exec>
+              <ant workingdir="smoke_test" />
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
     </pipeline>
     <pipeline name="NEW-functional-test">
       <materials>
