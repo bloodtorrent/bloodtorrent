@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="/css/message.css" />
 <style type="text/css">
     .wsite-form-label {
-        width: 120px;   /* for equal width of all labels. the longest label is 'Confirm Password'. */
+        min-width: 120px;   /* for equal width of all labels. the longest label is 'Confirm Password'. */
     }
 </style>
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
@@ -100,6 +100,7 @@
                                 <input class="wsite-form-input wsite-input" type="password" name="confirmPassword" width="40"  minLength="8" maxLength="25"/>
                                 <div class="form-divider"></div>
 
+                                <div class="form-divider"></div>
                                 <label class="wsite-form-sublabel">${printStrings.labelValidationAddress}</label>
                                 <div class="form-divider"></div>
 
@@ -165,8 +166,8 @@
                                 </select>
                                 <div class="form-divider"></div>
 
-                                <label class="wsite-form-label notLast" style="width: 350px;">${printStrings.labelDistance}</label>
-                                <select name="distance" class="form-select" style="width: 100px;">
+                                <label class="wsite-form-label">${printStrings.labelDistance}</label>
+                                <select name="distance" class="form-select" style="width: 70px;">
                                     <option value="5" selected="selected">5</option>
                                     <option value="10">10</option>
                                     <option value="20">20</option>
@@ -194,7 +195,7 @@
                                 </div>
                                 <div class="form-divider"></div>
 
-                                <label class="wsite-form-label notLast" style="width: 300px;">${printStrings.labelLastDonateDate}</label>
+                                <label class="wsite-form-label">${printStrings.labelLastDonateDate}</label>
                                 <select name="lastDonate" class="form-select" style="width: 150px;">
                                     <option value="31" selected="selected">within 1 month</option>
                                     <option value="61">2 months ago</option>

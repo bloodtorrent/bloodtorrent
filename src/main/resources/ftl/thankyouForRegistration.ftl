@@ -13,7 +13,6 @@
                             <div class="paragraph" style="text-align:left;display:block;">
                                 We are very happy to have you as a Donor. Please check your emails and donate blood.
                             </div>
-                            <a href="/" class="wsite-button wsite-button-large" name="cancel"><span class="wsite-button-inner">${printStrings.menuBarHome}</span></a>
                         </div>
                     </div>
                 </div>
