@@ -9,7 +9,6 @@
                         <div id='wsite-content' class='wsite-elements wsite-not-footer'>
                             <h1 id="title">${printStrings.thankYouRequestTitle}</h1>
                             <br>
-                            <input type="button" value="${printStrings.menuBarHome}" onclick="location.href='/';"/>
 
                             <!--TODO Remove list after finishing emailing functionality-->
                             <div id="donor_list">

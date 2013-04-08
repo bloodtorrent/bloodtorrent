@@ -3,6 +3,7 @@ package org.bloodtorrent.view;
 import com.yammer.dropwizard.views.View;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -27,10 +28,7 @@ public class ResultView extends CommonView {
     }
 
     public ResultView(String result, String message) {
-        super("/ftl/registrationResult.ftl");
-        this.result = result;
-        messages = new ArrayList<String>();
-        messages.add(message);
+        this(result, Arrays.asList(message));
     }
 
     public String getResult() {

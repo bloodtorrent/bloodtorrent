@@ -53,11 +53,11 @@ public class RequestBlood extends BasePage {
 	}	
 	
 	public void register(){
-		browser.button("register").click();
+		browser.byId("register").click();
 	}
 
 	public void cancel() {
-		browser.button("Cancel").click();
+		browser.byId("Cancel").click();
 	}
 
 	public String getErrorMessage() {

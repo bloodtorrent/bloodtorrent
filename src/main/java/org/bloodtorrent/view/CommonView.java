@@ -7,8 +7,6 @@ import org.bloodtorrent.dto.User;
 
 import java.util.ResourceBundle;
 
-import static java.io.File.separator;
-
 /**
  * Created with IntelliJ IDEA.
  * User: sds
