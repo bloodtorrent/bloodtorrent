@@ -23,9 +23,6 @@
                 <runif status="passed" />
               </ant>
             </tasks>
-            <resources>
-              <resource>pipeline2</resource>
-            </resources>
             <artifacts>
               <artifact src="artifacts-for-ft.zip" dest="artifacts" />
               <artifact src="pipeline-mgmt.xml" dest="artifacts" />
@@ -68,9 +65,6 @@
             <tabs>
               <tab name="TwistReports" path="twist-reports/html/index.html" />
             </tabs>
-            <resources>
-              <resource>pipeline2</resource>
-            </resources>
             <artifacts>
               <artifact src="artifacts-for-deploy.zip" dest="artifacts" />
               <artifact src="pipeline-mgmt.xml" dest="artifacts" />
@@ -100,7 +94,7 @@
               </ant>
             </tasks>
             <resources>
-              <resource>pipeline2</resource>
+              <resource>Deploy</resource>
             </resources>
             <artifacts>
               <artifact src="pipeline-mgmt.xml" dest="artifacts" />
@@ -118,7 +112,7 @@
               <ant buildfile="pipeline-mgmt.xml" target="remote-start" />
             </tasks>
             <resources>
-              <resource>pipeline2</resource>
+              <resource>Deploy</resource>
             </resources>
           </job>
         </jobs>
@@ -193,145 +187,6 @@
       </stage>
     </pipeline>
   </pipelines>
-  <pipelines group="Development">
-    <pipeline name="bloodtorrent" isLocked="true">
-      <mingle baseUrl="https://minglehosting.thoughtworks.com/samsung/" projectIdentifier="blood_torrent">
-        <mqlGroupingConditions />
-      </mingle>
-      <environmentvariables>
-        <variable name="JAVA_HOME">
-          <value>/usr/local/java</value>
-        </variable>
-        <variable name="GRADLE_HOME">
-          <value>/home/samsungsds/gradle-1.4</value>
-        </variable>
-      </environmentvariables>
-      <materials>
-        <svn url="svn://192.168.0.100/project/trunk/bloodtorrent" username="john" encryptedPassword="amMBgMitHjA=">
-          <filter>
-            <ignore pattern="FunctionalTests/**/*" />
-          </filter>
-        </svn>
-      </materials>
-      <stage name="build">
-        <jobs>
-          <job name="build_and_unit_test">
-            <tasks>
-              <exec command="mvn">
-                <arg>clean</arg>
-                <arg>package</arg>
-                <runif status="passed" />
-              </exec>
-            </tasks>
-            <resources>
-              <resource>pipeline1</resource>
-            </resources>
-            <artifacts>
-              <artifact src="target/classes" dest="target" />
-              <artifact src="db/bloodtorrent.h2.db" dest="db" />
-              <artifact src="target/bloodtorrent-1.0.0-SNAPSHOT.jar" dest="target" />
-              <artifact src="ant-deploy.xml" dest="target" />
-            </artifacts>
-          </job>
-        </jobs>
-      </stage>
-    </pipeline>
-    <pipeline name="FunctionalTests" isLocked="true">
-      <materials>
-        <svn url="svn://192.168.0.100/project/trunk/bloodtorrent" username="kris" encryptedPassword="QGt/MVlJjLU=">
-          <filter>
-            <ignore pattern="src/**/*" />
-          </filter>
-        </svn>
-        <pipeline pipelineName="bloodtorrent" stageName="build" materialName="bloodtorrent" />
-      </materials>
-      <stage name="StartBuild">
-        <jobs>
-          <job name="start">
-            <tasks>
-              <fetchartifact pipeline="bloodtorrent" stage="build" job="build_and_unit_test" srcfile="db/bloodtorrent.h2.db" dest="db">
-                <runif status="passed" />
-              </fetchartifact>
-              <fetchartifact pipeline="bloodtorrent" stage="build" job="build_and_unit_test" srcfile="target/ant-deploy.xml" dest="target">
-                <runif status="passed" />
-              </fetchartifact>
-              <fetchartifact pipeline="bloodtorrent" stage="build" job="build_and_unit_test" srcfile="target/bloodtorrent-1.0.0-SNAPSHOT.jar" dest="target">
-                <runif status="passed" />
-              </fetchartifact>
-              <exec command="scripts/stopDropwizard.sh">
-                <runif status="passed" />
-              </exec>
-              <exec command="mvn">
-                <arg>antrun:run</arg>
-                <runif status="passed" />
-              </exec>
-            </tasks>
-            <resources>
-              <resource>FT</resource>
-              <resource>pipeline1</resource>
-            </resources>
-            <artifacts>
-              <artifact src="target/bloodtorrent-1.0.0-SNAPSHOT.jar" dest="target" />
-              <artifact src="target/ant-deploy.xml" dest="target" />
-            </artifacts>
-          </job>
-        </jobs>
-      </stage>
-      <stage name="Execute_Scenarios">
-        <jobs>
-          <job name="execute">
-            <environmentvariables>
-              <variable name="DISPLAY">
-                <value>127.0.0.1:0.0</value>
-              </variable>
-            </environmentvariables>
-            <tasks>
-              <ant buildfile="build.xml" target="execute-scenarios" workingdir="./FunctionalTests">
-                <runif status="passed" />
-              </ant>
-            </tasks>
-            <tabs>
-              <tab name="TwistReports" path="twist-reports/html/index.html" />
-            </tabs>
-            <resources>
-              <resource>FT</resource>
-              <resource>pipeline1</resource>
-            </resources>
-            <artifacts>
-              <artifact src="FunctionalTests\twist-reports" />
-            </artifacts>
-          </job>
-        </jobs>
-      </stage>
-    </pipeline>
-  </pipelines>
-  <pipelines group="Deployment">
-    <pipeline name="deployment">
-      <materials>
-        <pipeline pipelineName="FunctionalTests" stageName="Execute_Scenarios" />
-        <svn url="svn://192.168.0.100/project/trunk/bloodtorrent" username="scott" encryptedPassword="u2mZqU3bLug=" materialName="source" />
-      </materials>
-      <stage name="AWS-deploy-restart">
-        <approval type="manual" />
-        <jobs>
-          <job name="deploy-restart">
-            <tasks>
-              <fetchartifact pipeline="FunctionalTests" stage="StartBuild" job="start" srcfile="target/bloodtorrent-1.0.0-SNAPSHOT.jar" dest="target">
-                <runif status="passed" />
-              </fetchartifact>
-              <ant buildfile="ant-deploy.xml">
-                <runif status="passed" />
-              </ant>
-            </tasks>
-            <resources>
-              <resource>Deploy</resource>
-              <resource>pipeline1</resource>
-            </resources>
-          </job>
-        </jobs>
-      </stage>
-    </pipeline>
-  </pipelines>
   <environments>
     <environment name="Deployment" />
   </environments>
@@ -340,16 +195,10 @@
       <resources>
         <resource>Deploy</resource>
         <resource>Sonar</resource>
-        <resource>pipeline1</resource>
-        <resource>FT</resource>
         <resource>configBackup</resource>
       </resources>
     </agent>
-    <agent hostname="build-slave-1" ipaddress="192.168.0.35" uuid="11954bc5-4dac-486b-b5cf-1e08707359f0">
-      <resources>
-        <resource>pipeline2</resource>
-      </resources>
-    </agent>
+    <agent hostname="build-slave-1" ipaddress="192.168.0.35" uuid="11954bc5-4dac-486b-b5cf-1e08707359f0" />
   </agents>
 </cruise>
 
