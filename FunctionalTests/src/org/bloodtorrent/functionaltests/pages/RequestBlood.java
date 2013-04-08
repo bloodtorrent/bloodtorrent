@@ -57,7 +57,7 @@ public class RequestBlood extends BasePage {
 	}
 
 	public void cancel() {
-		browser.byId("Cancel").click();
+		browser.byId("cancel").click();
 	}
 
 	public String getErrorMessage() {
