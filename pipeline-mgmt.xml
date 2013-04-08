@@ -11,7 +11,7 @@
 			<zipfileset file="target/${build.jar}" prefix="target"/>
 			<zipfileset dir="scripts" prefix="scripts"/>
 			<zipfileset dir="FunctionalTests" prefix="FunctionalTests">
-				<exclude name="**/sahi/userdata/**/*"/>
+				<exclude name="**/sahi/userdata/browser/**/*"/>
 			</zipfileset>
 			<zipfileset dir="db" prefix="db"/>
 			<zipfileset dir="upload" prefix="upload"/>
