@@ -554,6 +554,14 @@ blockquote {
     font-weight: bold;
     vertical-align: middle;
 }
+.wsite-normal-label {
+	display: inline-block;
+	color: #797979;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 1em;
+	padding: 5px 10px 5px 0;
+    vertical-align: middle;
+}
 
 .wsite-form-sublabel {
     padding-bottom: 5px !important;

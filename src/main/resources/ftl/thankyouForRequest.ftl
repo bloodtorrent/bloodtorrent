@@ -7,19 +7,21 @@
                 <div id="main">
                     <div id="content">
                         <div id='wsite-content' class='wsite-elements wsite-not-footer'>
-                            <h1 id="title">${printStrings.thankYouRequestTitle}</h1>
-                            <br>
+                            <div id="title">
+                                <h2>${printStrings.thankYouRequestTitle}</h2>
+                            </div>
+                            <label class="wsitewsite-normal-label">${printStrings.thankYouRequestSubTitle}</label>
 
-                            <!--TODO Remove list after finishing emailing functionality-->
-                            <div id="donor_list">
+                            <!--TODO Remain this list because it might be needed for showcase-->
+                            <#--<div id="donor_list">
                             <#if donors?size = 0>
-                                <h2>${printStrings.thankYouRequestSubTitle}</h2>
+                                <h2>${printStrings.requestDonorNotFound}</h2>
                             <#else>
                                 <#list donors as user>
                                 <li> ${user.firstName}, ${user.lastName},${user.cellPhone}, ${user.id}, ${user.lastDonateDate}, ${user.address}, ${user.city}, ${user.state}, ${user.bloodGroup}<br/>
                                 </#list>
                             </#if>
-                            </div>
+                            </div>-->
                             <!-- End of temporary list -->
                         </div>
                     </div>

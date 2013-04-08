@@ -175,7 +175,7 @@
                                     <div class="form-divider"></div>
 
                                     <label class="wsite-form-label" for="bloodVolume">${printStrings.labelBloodVolume}</label>
-                                    <input class="wsite-form-input wsite-input" type="text" name="bloodVolume" id="bloodVolume" width="30" maxlength="2"/>
+                                    <input class="wsite-form-input wsite-input" type="text" name="bloodVolume" id="bloodVolume" style="width: 100px;" maxlength="2"/>
                                     <label class="wsite-form-sublabel">${printStrings.labelValidationBloodVolume}</label>
                                     <div class="form-divider"></div>
 
@@ -185,7 +185,7 @@
                                     <div class="form-divider"></div>
                                 </div>
                                 <div>
-                                    <a href="#" class="wsite-button wsite-button-large wsite-button-highlight" id="register"><span class="wsite-button-inner">${printStrings.labelRegisterButton}</span></a>
+                                    <a href="#" class="wsite-button wsite-button-large wsite-button-highlight" id="register"><span class="wsite-button-inner">${printStrings.labelRequestButton}</span></a>
                                     <a href="/" class="wsite-button wsite-button-large" id="cancel"><span class="wsite-button-inner">${printStrings.labelCancelButton}</span></a>
                                 </div>
 
