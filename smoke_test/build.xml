@@ -1,0 +1,22 @@
+<project default="run">
+	<property name="src.dir" value="."/>
+	<property name="build.dir" value="${src.dir}/build"/>
+	<property name="main.class.name" value="SmokeTest"/>
+
+	<target name="compile" depends="clean">
+		<javac srcdir="${src.dir}" destdir="${build.dir}" />
+	</target>
+
+	<target name="run" depends="compile">
+		<java className="${main.class.name}">
+			<classpath>
+				<pathelement path="${build.dir}" />
+			</classpath>
+		</java>
+	</target>
+
+	<target name="clean">
+		<delete dir="${build.dir}"/>
+		<mkdir dir="${build.dir}"/>
+	</target>
+</project>

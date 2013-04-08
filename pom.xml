@@ -326,6 +326,7 @@
                 <configuration>
                     <tasks>
                         <java fork="true" spawn="true" jar="target/${artifactId}-${version}.jar">
+                            <!--<arg value = "-Dbuild.version=${svn.id}"/>-->
                             <arg value = "server"/>
                             <arg value = "src/main/resources/configurations.yml"/>
                         </java>
