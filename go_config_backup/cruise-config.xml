@@ -79,6 +79,7 @@
         <pipeline pipelineName="NEW-functional-test" stageName="functional-test" />
       </materials>
       <stage name="deploy">
+        <approval type="manual" />
         <jobs>
           <job name="deploy">
             <tasks>
