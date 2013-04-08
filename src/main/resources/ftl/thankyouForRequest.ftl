@@ -7,8 +7,8 @@
                 <div id="main">
                     <div id="content">
                         <div id='wsite-content' class='wsite-elements wsite-not-footer'>
-                            <div id="title">
-                                <h2>${printStrings.thankYouRequestTitle}</h2>
+                            <div class="title">
+                                <h2 id="title">${printStrings.thankYouRequestTitle}</h2>
                             </div>
                             <label class="wsitewsite-normal-label">${printStrings.thankYouRequestSubTitle}</label>
 

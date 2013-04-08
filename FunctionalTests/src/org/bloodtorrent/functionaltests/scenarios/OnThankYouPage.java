@@ -12,8 +12,8 @@ public class OnThankYouPage {
 		thankyou = new ThankYou(browser);
 	}
 
-	public void verifyThankYouMessage() throws Exception {
-		verifyEquals("Thank you for posting your request. We will get in touch soon to validate the details." ,thankyou.getMessageForBloodRequest());
+	public void verifyThankYouMessage(String message) throws Exception {
+		verifyEquals(message, thankyou.getMessageForBloodRequest());
 	}
 
 	public void verifyThankYouMessageForRegister() throws Exception {

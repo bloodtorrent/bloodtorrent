@@ -9,7 +9,7 @@ public class ThankYou extends BasePage {
 	}
 
 	public String getMessageForBloodRequest() {
-		return browser.heading1("Thank you for posting your request. We will get in touch soon to validate the details.").getText();
+		return browser.heading2("title").getText();
 	}
 
 	public String getMessageForRegistering() {
