@@ -51,7 +51,7 @@
         </scp>
 	</target>
 
-    <target name="remote-start" depends="copy-files">
+    <target name="remote-start">
         <sshexec host="${remote.host}" trust="yes"
             username="${remote.user}" keyfile="${private.keyfile}"
             command="cd ${remote.dir} &amp;&amp; sh scripts/remoteRestart.sh"/>
