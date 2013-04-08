@@ -25,10 +25,10 @@ public class CommonView extends View {
 
 
     @Getter
-    private ResourceBundle printStrings = ResourceBundle.getBundle("properties" + separator + "bloodtorrentStrings");
+    private ResourceBundle printStrings = ResourceBundle.getBundle("properties/bloodtorrentStrings");
 
     @Getter
-    private ResourceBundle printUrls = ResourceBundle.getBundle("properties" + separator + "bloodtorrentUrls");
+    private ResourceBundle printUrls = ResourceBundle.getBundle("properties/bloodtorrentUrls");
 
     public CommonView(String viewPath) {
         super(viewPath);
