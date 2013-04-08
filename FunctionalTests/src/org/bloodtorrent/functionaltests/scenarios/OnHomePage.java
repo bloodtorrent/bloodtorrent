@@ -2,6 +2,7 @@ package org.bloodtorrent.functionaltests.scenarios;
 
 import static com.thoughtworks.twist.core.execution.TwistVerification.verifyEquals;
 import static com.thoughtworks.twist.core.execution.TwistVerification.verifyTrue;
+import static junit.framework.Assert.assertTrue;
 import net.sf.sahi.client.Browser;
 import org.bloodtorrent.functionaltests.pages.HomePage;
 
@@ -44,5 +45,13 @@ public class OnHomePage {
 	public void navigateToAdminPage() throws Exception {
 		homePage.gotoLoginPage();
 	
+	}
+
+	public void navigateToPageViaUrl(String directUrl) throws Exception {
+		homePage.gotoPage(directUrl);
+	}
+
+	public void verifyDisplayingOnTheMainpage(String contentExpected) throws Exception {
+		assertTrue(homePage.getContentOnMainpage(contentExpected).exists());	
 	}
 }

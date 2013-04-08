@@ -1,0 +1,11 @@
+Tags:Story-76,in-progress
+Preconditions:Blood Torrent
+On home page:
+#Navigate to "successStory/list" page via url
+
+On login page:
+#fill out the invalid admin credentials
+#Login
+
+On Home page:
+#verify displaying "Register as donor" on the mainpage

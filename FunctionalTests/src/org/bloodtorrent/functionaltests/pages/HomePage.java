@@ -50,4 +50,12 @@ public class HomePage extends BasePage {
 	public void gotoLoginPage() {
 		browser.navigateTo(BloodTorrent.url + "successStory/list");		
 	}
+
+	public void gotoPage(String directUrl) {
+		browser.navigateTo(BloodTorrent.url + directUrl);		
+	}
+	
+	public ElementStub getContentOnMainpage(String contentExpected) {
+		return browser.span(contentExpected);
+	}
 }

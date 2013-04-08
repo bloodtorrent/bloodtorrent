@@ -1,13 +1,14 @@
 package org.bloodtorrent.functionaltests.scenarios;
 
+import static com.thoughtworks.twist.core.execution.TwistVerification.verifyEquals;
+import static junit.framework.Assert.assertEquals;
+
 import java.util.Random;
 
 import junit.framework.Assert;
 import net.sf.sahi.client.Browser;
+
 import org.bloodtorrent.functionaltests.pages.RegisterDonor;
-import static com.thoughtworks.twist.core.execution.TwistVerification.verifyEquals;
-import static junit.framework.Assert.*;
-import static org.junit.Assert.assertThat;
 
 public class OnRegisterDonorPage {
 
