@@ -5,7 +5,6 @@ import org.bloodtorrent.dto.SuccessStory;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
 
 import java.util.List;
@@ -31,7 +30,6 @@ public class SuccessStoryRepository extends AbstractDAO<SuccessStory> {
 	}
 
 	public SuccessStory get(String id){
-
 		return super.get(id);
 	}
 

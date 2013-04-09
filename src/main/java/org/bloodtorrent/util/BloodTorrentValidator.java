@@ -3,9 +3,6 @@ package org.bloodtorrent.util;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Ordering;
 import com.google.common.primitives.Ints;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 import org.fest.util.Strings;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -13,8 +10,10 @@ import javax.annotation.Nullable;
 import javax.validation.*;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.lang.annotation.Annotation;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -80,7 +79,7 @@ public class BloodTorrentValidator<T> {
 
         protected int getPriority(ConstraintViolation<T> violation) {
             Class<?> thisType = violation.getConstraintDescriptor().getAnnotation().annotationType();
-            for (int i = 0, TOTAL = annotations.length; i < TOTAL; i++) {
+            for (int i = 0, total = annotations.length; i < total; i++) {
                 if(thisType.equals(annotations[i])) {
                     return i;
                 }
@@ -92,7 +91,7 @@ public class BloodTorrentValidator<T> {
     private class DisplayedOrdering<T> extends PrioritizedOrdering<T> {
         protected int getPriority(ConstraintViolation<T> violation) {
             final String fieldName = getFieldName(violation);
-            for (int i = 0, TOTAL = fieldNames.length; i < TOTAL; i++) {
+            for (int i = 0, total = fieldNames.length; i < total; i++) {
                 if(fieldName.equals(fieldNames[i])) {
                     return i;
                 }
@@ -107,7 +106,7 @@ public class BloodTorrentValidator<T> {
                     return name;
                 }
             }
-            return null;    // Should be avoided...
+            return null;
         }
     }
 }

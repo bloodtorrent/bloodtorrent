@@ -6,6 +6,7 @@ import com.yammer.dropwizard.config.Environment;
 import com.yammer.dropwizard.db.ConfigurationStrategy;
 import com.yammer.dropwizard.db.DatabaseConfiguration;
 import com.yammer.dropwizard.hibernate.HibernateBundle;
+import org.bloodtorrent.util.exception.AmbiguousException;
 import org.hibernate.SessionFactory;
 import org.reflections.Reflections;
 
@@ -40,8 +41,12 @@ public class SimpleHibernateBundle implements ConfiguredBundle<SimpleConfigurati
     }
 
     @Override
-    public void run(SimpleConfiguration simpleConfiguration, Environment environment) throws Exception {
-        delegateBundle.run(simpleConfiguration, environment);
+    public void run(SimpleConfiguration simpleConfiguration, Environment environment) throws AmbiguousException {
+        try {
+            delegateBundle.run(simpleConfiguration, environment);
+        } catch(Exception e) {
+            throw new AmbiguousException(e);
+        }
     }
 
     public Class<?>[] getEntityClasses() {

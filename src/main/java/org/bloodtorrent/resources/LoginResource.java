@@ -26,6 +26,7 @@ import java.net.URI;
 public class LoginResource {
     public static final String URI_SUCCESS_STORY_LIST = "/successStory/list";
     public static final String PATH_LOGIN_FAIL = "/loginfail";
+    public static final int STATUS_MOVED = 302;
     private final SessionManager sessionManager;
     private final UsersRepository usersRepository;
 
@@ -50,11 +51,11 @@ public class LoginResource {
                 if(user != null && password.equals(user.getPassword())) {
                     session.setAttribute("user", user);
 
-                    return Response.seeOther(URI.create('Y' == user.getIsAdmin() ? URI_SUCCESS_STORY_LIST : "/")).status(302).build();
+                    return Response.seeOther(URI.create('Y' == user.getIsAdmin() ? URI_SUCCESS_STORY_LIST : "/")).status(STATUS_MOVED).build();
                 }
             }
         }
-        return Response.seeOther(URI.create(PATH_LOGIN_FAIL)).status(302).build();
+        return Response.seeOther(URI.create(PATH_LOGIN_FAIL)).status(STATUS_MOVED).build();
     }
 
     public HttpSession getSession(String sessionID) {

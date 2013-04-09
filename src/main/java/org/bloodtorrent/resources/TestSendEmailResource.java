@@ -27,6 +27,8 @@ import static lombok.AccessLevel.PROTECTED;
 @NoArgsConstructor(access = PROTECTED)
 public class TestSendEmailResource {
 
+    public static final int TEST_USER_COUNT = 3;
+
     @POST
     public CommonView sendEmail(
             @FormParam("uId") List<String> uId,
@@ -39,7 +41,7 @@ public class TestSendEmailResource {
             @FormParam("pCellPhone") String pCellPhone){
 
         List<User> userList = new ArrayList();
-        for(int i=0;i<3;i++){
+        for(int i=0;i< TEST_USER_COUNT;i++){
             User user = new User();
             user.setId(uId.get(i));
             user.setFirstName(uFirstName.get(i));

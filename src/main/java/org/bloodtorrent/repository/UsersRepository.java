@@ -1,13 +1,14 @@
 package org.bloodtorrent.repository;
 
 import com.yammer.dropwizard.hibernate.AbstractDAO;
-import org.bloodtorrent.BloodTorrentConstants;
 import org.bloodtorrent.dto.User;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 
 import java.util.List;
-import static org.bloodtorrent.BloodTorrentConstants.*;
+
+import static org.bloodtorrent.BloodTorrentConstants.DEGREE_PER_FIFTY_KM_FOR_LATITUDE;
+import static org.bloodtorrent.BloodTorrentConstants.DEGREE_PER_FIFTY_KM_FOR_LONGITUDE;
 /**
  * Created with IntelliJ IDEA.
  * User: sds
@@ -42,8 +43,6 @@ public class UsersRepository extends AbstractDAO<User> {
      * @author James, Scott
      */
     public List<User> listByBloodGroupAndAfter90DaysFromLastDonateDate(String bloodGroup, double hospitalLatitude, double hospitalLongitude) {
-//        Query query = currentSession().createQuery("from User u where (u.bloodGroup = :bloodGroup or u.bloodGroup = 'Unknown') and (current_date() - u.lastDonateDate) > " + MIN_DAYS_LAST_DONATION + " ");
-
         String sql = "from User u where (u.bloodGroup = :bloodGroup or u.bloodGroup = 'Unknown') " +
                      "and (current_date() - u.lastDonateDate) > " + MIN_DAYS_LAST_DONATION +
                      "and u.latitude >= :hospitalLatitude - " + DEGREE_PER_FIFTY_KM_FOR_LATITUDE +
@@ -54,7 +53,6 @@ public class UsersRepository extends AbstractDAO<User> {
         query.setParameter("bloodGroup", bloodGroup);
         query.setParameter("hospitalLatitude", hospitalLatitude);
         query.setParameter("hospitalLongitude", hospitalLongitude);
-
 
         return list(query);
     }

@@ -2,21 +2,27 @@ package org.bloodtorrent.resources;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.yammer.dropwizard.config.LoggingFactory;
 import com.yammer.dropwizard.hibernate.UnitOfWork;
+import com.yammer.dropwizard.logging.LogbackFactory;
 import com.yammer.dropwizard.views.View;
 import org.bloodtorrent.IllegalDataException;
 import org.bloodtorrent.dto.BloodRequest;
 import org.bloodtorrent.dto.User;
 import org.bloodtorrent.repository.BloodRequestRepository;
 import org.bloodtorrent.util.BloodTorrentValidator;
+import org.bloodtorrent.util.exception.AmbiguousException;
 import org.bloodtorrent.view.BloodRequestView;
 import org.bloodtorrent.view.CommonView;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.*;
 
 import javax.ws.rs.core.MediaType;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
 import static org.bloodtorrent.BloodTorrentConstants.*;
 
 /**
@@ -31,6 +37,7 @@ public class BloodRequestResource {
     private final BloodRequestRepository repository;
     private final NotifyDonorSendEmailResource mailResource;
     private final FindingMatchingDonorResource findingMatchingDonorResource;
+    private static final Logger logger = LoggerFactory.getLogger(BloodRequestResource.class);
 
     private BloodRequestValidator validator;
 
@@ -64,7 +71,7 @@ public class BloodRequestResource {
             donors = findMatchingDonors(bloodRequest);
             sendEmailToMatchingDonors(bloodRequest, donors);
         } catch (IllegalDataException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            logger.error(e.getMessage(), e);
             donors = Lists.newArrayList();
         }
 
@@ -128,8 +135,7 @@ public class BloodRequestResource {
         try {
             return findingMatchingDonorResource.findMatchingDonors(bloodRequest);
         } catch (IllegalDataException e) {
-            e.printStackTrace();
-            throw new IllegalDataException("Finding matching donor failed.");
+            throw e;
         }
     }
 
@@ -156,7 +162,7 @@ public class BloodRequestResource {
             if (isDateOfBirthInvalid(bloodRequest)) {
                 return PLEASE_CHECK + "Date of birth.";
             }
-            throw new RuntimeException("Ambiguous violation.");
+            throw new AmbiguousException("Ambiguous violation.");
         }
 
         private boolean isDateOfBirthInvalid(BloodRequest bloodRequest) {

@@ -1,7 +1,5 @@
 package org.bloodtorrent.view;
 
-import com.yammer.dropwizard.views.View;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

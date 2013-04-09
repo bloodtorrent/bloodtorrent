@@ -5,8 +5,6 @@ import org.bloodtorrent.dto.CatchPhrase;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 
-import java.util.List;
-
 /**
  * Created with IntelliJ IDEA.
  * User: sds

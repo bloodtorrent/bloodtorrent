@@ -59,7 +59,9 @@ public class SuccessStoryResource {
         for(SuccessStory story : list){
             result.add(story);
             index++;
-            if(index == SuccessStory.MAXIMUM_SHOWN_STORY_ON_MAIN_PAGE) break;
+            if(index == SuccessStory.MAXIMUM_SHOWN_STORY_ON_MAIN_PAGE) {
+                break;
+            }
         }
 
         return result;
@@ -230,8 +232,6 @@ public class SuccessStoryResource {
             uploadDir.mkdir();
         }
         final String filePath = outputPath + File.separator + fileName;
-        System.out.println("uploadDir = " + uploadDir.getAbsolutePath());
-        System.out.println("file = " + filePath);
         Files.copy(new InputSupplier<InputStream>() {
             public InputStream getInput() throws IOException {
                 return stream;

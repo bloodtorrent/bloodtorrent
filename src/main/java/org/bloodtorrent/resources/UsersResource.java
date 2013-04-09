@@ -10,6 +10,7 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.bloodtorrent.dto.User;
 import org.bloodtorrent.repository.UsersRepository;
 import org.bloodtorrent.util.BloodTorrentValidator;
+import org.bloodtorrent.util.exception.AmbiguousException;
 import org.bloodtorrent.view.CommonView;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -178,17 +179,10 @@ public class UsersResource {
             if(isConfirmPasswordDifferent(potentialDonor)) {
                 return PASSWORD_DIFFERENT_MESSAGE;
             }
-            if(isInvalidLocation(potentialDonor)) {
-                return INVALID_LOCATION_MESSAGE;
-            }
             if (isDateOfBirthInvalid(potentialDonor)) {
                 return PLEASE_CHECK + "Date of birth.";
             }
-            throw new RuntimeException("Ambiguous violation.");
-        }
-
-        private boolean isInvalidLocation(PotentialDonor potentialDonor) {
-            return false;  //To change body of created methods use File | Settings | File Templates.
+            throw new AmbiguousException("Ambiguous violation.");
         }
 
         private boolean isEmailDuplicated(PotentialDonor potentialDonor) {

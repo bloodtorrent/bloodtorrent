@@ -1,6 +1,5 @@
 package org.bloodtorrent.view;
 
-import com.yammer.dropwizard.views.View;
 import org.bloodtorrent.dto.Location;
 
 /**

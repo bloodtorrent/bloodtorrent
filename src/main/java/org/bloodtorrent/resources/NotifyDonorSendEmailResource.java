@@ -28,12 +28,11 @@ public class NotifyDonorSendEmailResource {
 
 
     public String rePlaceContent(String content, User oneUser, BloodRequest bloodRequest) {
-        content = content.replaceAll("%:%",":");
-        content = content.replaceAll("<DONOR_NAME>", oneUser.getFirstName() + " " + oneUser.getLastName());
-        content = content.replaceAll("<PATIENT_NAME>", bloodRequest.getFirstName() + " " + bloodRequest.getLastName());
-        content = content.replaceAll("<BLOOD_TYPE>", bloodRequest.getBloodGroup());
-        content = content.replaceAll("<HOSPITAL_ADDRESS>", bloodRequest.getHospitalAddress());
-        content = content.replaceAll("<CELL_PHONE>", bloodRequest.getPhone());
-        return content;
+        return  content.replaceAll("%:%",":")
+                        .replaceAll("<DONOR_NAME>", oneUser.getFirstName() + " " + oneUser.getLastName())
+                        .replaceAll("<PATIENT_NAME>", bloodRequest.getFirstName() + " " + bloodRequest.getLastName())
+                        .replaceAll("<BLOOD_TYPE>", bloodRequest.getBloodGroup())
+                        .replaceAll("<HOSPITAL_ADDRESS>", bloodRequest.getHospitalAddress())
+                        .replaceAll("<CELL_PHONE>", bloodRequest.getPhone());
     }
 }

@@ -7,20 +7,13 @@ import org.bloodtorrent.dto.User;
 
 import java.util.ResourceBundle;
 
-/**
- * Created with IntelliJ IDEA.
- * User: sds
- * Date: 13. 3. 14
- * Time: 오후 3:20
- * To change this template use File | Settings | File Templates.
- */
+@SuppressWarnings("PMD.UnusedPrivateField")
 public class CommonView extends View {
 
     @Getter @Setter
     private User user;
     @Getter @Setter
     private String message;
-
 
     @Getter
     private ResourceBundle printStrings = ResourceBundle.getBundle("properties/bloodtorrentStrings");

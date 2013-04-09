@@ -34,8 +34,7 @@ public class LogOffResource {
     public CommonView forwardMainPage(@CookieParam("JSESSIONID") String sessionID) {
         HttpSession session = getSession(sessionID);
         session.removeAttribute("user");
-        CommonView commonView = mainResource.forwardMainPage(sessionID);
-        return commonView;
+        return mainResource.forwardMainPage(sessionID);
     }
 
     public HttpSession getSession(String sessionID) {

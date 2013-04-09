@@ -10,6 +10,9 @@ import java.util.*;
 import static org.bloodtorrent.BloodTorrentConstants.*;
 
 public class FindingMatchingDonorResource {
+    public static final double DEGREE_180 = 180.0;
+    public static final int MODIFICATION_FACTOR = 60;
+    public static final int DONATE_LIMIT_PERIOD = 90;
     private UsersRepository usersRepository;
 
     protected FindingMatchingDonorResource(UsersRepository usersRepository) {
@@ -37,15 +40,15 @@ public class FindingMatchingDonorResource {
     }
 
     private double distanceToNauticalMiles(double distance) {
-        return distance * 60;
+        return distance * MODIFICATION_FACTOR;
     }
 
     private double degreeToRadian(double degree) {
-        return (degree * Math.PI / 180.0);
+        return (degree * Math.PI / DEGREE_180);
     }
 
     private double radianToDegree(double radian) {
-        return (radian * 180.0 / Math.PI);
+        return (radian * DEGREE_180 / Math.PI);
     }
 
     public List<User> getMatchingDonors(List<User> users, double hospitalLatitude, double hospitalLongitude) {
@@ -96,7 +99,7 @@ public class FindingMatchingDonorResource {
         Calendar calendarCurrent = eraseTime(new Date());
         
         Calendar calendarValidDonate = eraseTime(donor.getLastDonateDate());
-        calendarValidDonate.add(Calendar.DAY_OF_MONTH, 90);
+        calendarValidDonate.add(Calendar.DAY_OF_MONTH, DONATE_LIMIT_PERIOD);
 
         return !calendarCurrent.after(calendarValidDonate);
     }
