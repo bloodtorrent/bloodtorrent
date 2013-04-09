@@ -38,7 +38,7 @@ img.thumbnail {
     float: left;
     margin-right: 5px;
     height: 100px;
-    width: auto;
+    width: 150px;
 }
 
 #summary {
@@ -64,6 +64,11 @@ img.thumbnail {
     margin-top: 12px;
     margin-right: 12px;
     margin-bottom: 12px;
+}
+
+#contentImg img {
+    width:430px;
+    height:auto;
 }
 
 #contentText {

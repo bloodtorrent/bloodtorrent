@@ -14,15 +14,14 @@
                             <div id="contentAll">
                                 <div id="contentImg">
                                 <#if successStory.visualResourcePath?exists>
-                                    <img class="visualResource wsite-image galleryImageBorder" src="/successStory/image/${successStory.visualResourcePath}" width="400" height="300"/><br>
+                                    <img class="visualResource wsite-image galleryImageBorder" src="/successStory/image/${successStory.visualResourcePath}"/><br>
                                 </#if>
                                 </div>
                                 <div id="contentText">
                                 ${successStory.description}<br>
-                                <p align="right"><a href='/'>Home</a></p>
-                                <hr>
                                 </div>
                             </div>
+                            <hr style="clear:both;visibility:hidden;width:100%;"><hr/>
                         </div>
                     </div>
                 </div>
