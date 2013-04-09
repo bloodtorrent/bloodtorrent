@@ -98,30 +98,27 @@ public class RegisterDonor extends BasePage {
 	}
 	
 	public String getErrorMessage() {
-		
 		BrowserCondition condition = new BrowserCondition(browser) {
+			
+			String errorMessage = "";
+			String changedMessage = "";
+			
 			public boolean test() throws ExecutionException {
 				// initial : hide -> show up
 				// change error : compare the messages
-				
-				boolean isChanged = false;
-				String errorMessage = browser.div("message error").getText();
-				if (errorMessage != null || errorMessage.trim().length() > 0) {
-					isChanged = true;
-				} else {
-					String changedMessage = "";					
-					do {
-						changedMessage = browser.div("message error").getText();
-					} while (!changedMessage.equals(errorMessage));
+				errorMessage = browser.div("message error").getText();
+				if (errorMessage == null) {
+					return true;
+				} else if(!changedMessage.equals(errorMessage)){
 					
-					isChanged = true;
+					changedMessage = errorMessage;
+					return false;
+				}else{
+					return true;
 				}
-
-				return isChanged;
 			}
 		};
-		browser.waitFor(condition, DEFAULT_WAIT_MILLISECONDS);		
-		
+		browser.waitFor(condition, DEFAULT_WAIT_MILLISECONDS);
 		return browser.div("message error").getText(); 
 	}
 
