@@ -9,16 +9,20 @@
                     <div id="content">
                         <div id='wsite-content' class='wsite-elements wsite-not-footer'>
                             <div id="title">
-                                <h2>Success Story</h2>
+                               <h2 style="text-align:center">${successStory.title}</h2>
                             </div>
-                                <h1>${successStory.title}</h1>
-                                <hr>
-                            <#if successStory.visualResourcePath?exists>
-                                <img class="visualResource wsite-image galleryImageBorder" src="/successStory/image/${successStory.visualResourcePath}" width="400" height="300"/><br>
-                            </#if>
-                            ${successStory.description}<br>
+                            <div id="contentAll">
+                                <div id="contentImg">
+                                <#if successStory.visualResourcePath?exists>
+                                    <img class="visualResource wsite-image galleryImageBorder" src="/successStory/image/${successStory.visualResourcePath}" width="400" height="300"/><br>
+                                </#if>
+                                </div>
+                                <div id="contentText">
+                                ${successStory.description}<br>
                                 <p align="right"><a href='/'>Home</a></p>
                                 <hr>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

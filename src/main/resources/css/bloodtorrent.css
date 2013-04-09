@@ -51,6 +51,26 @@ img.thumbnail {
     padding-bottom: 20px;
 }
 
+#contentAll {
+    text-align: left;
+    display: block;
+}
+
+#contentImg {
+    position: relative;
+    float: left;
+    z-index: 10;
+    clear: left;
+    margin-top: 12px;
+    margin-right: 12px;
+    margin-bottom: 12px;
+}
+
+#contentText {
+    font-size: 1em;
+    line-height: 1.5;
+}
+
 /* --------- form ---------- */
 .form-container {
     display: block;
